@@ -5,11 +5,7 @@ module.exports = {
 	},
 	extends: ['react-app', 'prettier'],
 	parserOptions: {
-		ecmaFeatures: {
-			jsx: true,
-		},
 		ecmaVersion: 12,
-		sourceType: 'module',
 	},
 	plugins: ['react', 'prettier'],
 	rules: {
@@ -18,11 +14,12 @@ module.exports = {
 			{
 				printWidth: 80,
 				trailingComma: 'es5',
-				semi: false,
+				semi: true,
 				jsxSingleQuote: true,
 				singleQuote: true,
 				useTabs: true,
+				endOfLine: 'auto',
 			},
 		],
 	},
-}
+};
