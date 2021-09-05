@@ -35,7 +35,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
 			ml={{ base: 0, md: 60 }}
 			px={{ base: 4, md: 10 }}
 			height='20'
-			width={{ base: '95vw', md: '87vw' }}
+			width={{ base: '95vw', md: 'calc(100vw - 260px)' }}
 			alignItems='center'
 			borderBottomWidth='1px'
 			justifyContent={{ base: 'space-between', md: 'flex-end' }}
