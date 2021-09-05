@@ -1,11 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Router, Route, Switch, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
+import {
+	BrowserRouter as Router,
+	Route,
+	Switch,
+	Redirect,
+} from 'react-router-dom';
 
 import { history } from './utils';
-import { alertActions } from './redux/actions';
-import { PrivateRoute } from './components/PrivateRoute';
 import { LoginPage } from './components/login/LoginPage';
 import HomePage from './components/homepage/HomePage';
 
@@ -15,8 +16,9 @@ const Main = (props) => {
 	});
 	return (
 		<div>
-			<Router history={history}>
+			<Router>
 				<Switch>
+					{/* <PrivateRoute exact path='/' component={HomePage} /> */}
 					<Route exact path='/' component={HomePage} />
 					<Route path='/login' component={LoginPage} />
 					{/* <Route path='/register' component={RegisterPage} /> */}

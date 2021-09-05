@@ -21,7 +21,7 @@ import {
 	Text,
 	useDisclosure,
 } from '@chakra-ui/react';
-import SidebarContent from '../sidebar/SidebarContent';
+import Sidebar from '../sidebar/SidebarContent';
 import MobileNav from '../sidebar/MobileNav';
 
 const HomePage = (props) => {
@@ -29,7 +29,7 @@ const HomePage = (props) => {
 	return (
 		<Box minH='100vh'>
 			{/* Side Bar for larger displays */}
-			<SidebarContent
+			<Sidebar
 				bg={useColorModeValue('gray.100', 'gray.900')}
 				onClose={() => onClose}
 				display={{ base: 'none', md: 'block' }}
@@ -45,7 +45,7 @@ const HomePage = (props) => {
 				size='full'
 			>
 				<DrawerContent>
-					<SidebarContent onClose={onClose} />
+					<Sidebar onClose={onClose} />
 				</DrawerContent>
 			</Drawer>
 			{/* Header with Nav button for mini displays */}

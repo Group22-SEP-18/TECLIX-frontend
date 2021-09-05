@@ -19,9 +19,9 @@ import {
 	Heading,
 } from '@chakra-ui/react';
 import NavMenuItem from './NavMenuItem';
-import sidebarContent from './sidebarContent';
+import sidebarContent from './sidebar-content';
 
-const SidebarContent = ({ onClose, ...rest }) => {
+const Sidebar = ({ onClose, ...rest }) => {
 	return (
 		<Box
 			transition='3s ease'
@@ -59,4 +59,4 @@ const SidebarContent = ({ onClose, ...rest }) => {
 	);
 };
 
-export default SidebarContent;
+export default Sidebar;
