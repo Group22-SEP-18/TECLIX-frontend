@@ -18,11 +18,11 @@ import {
 	Drawer,
 	DrawerContent,
 	useColorModeValue,
-	Text,
 	useDisclosure,
 } from '@chakra-ui/react';
 import Sidebar from '../sidebar/SidebarContent';
 import MobileNav from '../sidebar/MobileNav';
+import DashBorad from '../dashboard/DashBorad';
 
 const HomePage = (props) => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -50,8 +50,9 @@ const HomePage = (props) => {
 			</Drawer>
 			{/* Header with Nav button for mini displays */}
 			<MobileNav onOpen={onOpen} />
+			{/* Content */}
 			<Box ml={{ base: 0, md: 60 }} p='4'>
-				<Text>afdsfsaf</Text>
+				<DashBorad />
 			</Box>
 		</Box>
 	);
