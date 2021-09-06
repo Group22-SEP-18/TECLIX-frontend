@@ -8,7 +8,7 @@ import {
 const MapContainer = withScriptjs(
 	withGoogleMap((props) => (
 		<GoogleMap defaultZoom={8} defaultCenter={{ lat: -34.397, lng: 150.644 }}>
-			<Marker position={{ lat: -34.397, lng: 150.644 }} />
+			{props.marker}
 		</GoogleMap>
 	))
 );
@@ -19,6 +19,7 @@ const SimpleMap = () => (
 		loadingElement={<div style={{ height: `100%` }} />}
 		containerElement={<div style={{ height: `700px` }} />}
 		mapElement={<div style={{ height: `100%` }} />}
+		marker={<Marker position={{ lat: -34.397, lng: 150.644 }} />}
 	/>
 );
 
