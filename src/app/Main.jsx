@@ -5,7 +5,7 @@ import {
 	Switch,
 	Redirect,
 } from 'react-router-dom';
-
+import { PrivateRoute } from './components/PrivateRoute';
 import { history } from './utils';
 import { LoginPage } from './components/login/LoginPage';
 import HomePage from './components/homepage/HomePage';
@@ -18,8 +18,7 @@ const Main = (props) => {
 		<div>
 			<Router>
 				<Switch>
-					{/* <PrivateRoute exact path='/' component={HomePage} /> */}
-					<Route exact path='/' component={HomePage} />
+					<PrivateRoute exact path='/' component={HomePage} />
 					<Route path='/login' component={LoginPage} />
 					{/* <Route path='/register' component={RegisterPage} /> */}
 					<Redirect from='*' to='/' />
