@@ -32,4 +32,9 @@ export const salespersonSlice = createSlice({
 
 export const { addSalesperson } = salespersonSlice.actions;
 
+export const selectAllSalespersons = (state) => state.salespersons;
+
+export const selectApprovedSalespersons = (state) =>
+	state.salespersons.filter((sp) => sp.is_approved !== false);
+
 export default salespersonSlice.reducer;

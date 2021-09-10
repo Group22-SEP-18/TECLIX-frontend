@@ -9,7 +9,7 @@
  * @since  09.09.2021
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
 	Avatar,
 	Badge,
@@ -20,7 +20,7 @@ import {
 	Text,
 } from '@chakra-ui/react';
 
-const SalesPersonCard = ({ salesperson, key }) => {
+const SalesPersonCard = ({ salesperson, key, onClick }) => {
 	return (
 		<div key={key}>
 			<Box
@@ -32,6 +32,7 @@ const SalesPersonCard = ({ salesperson, key }) => {
 				p={6}
 				textAlign={'center'}
 				_hover={{ cursor: 'pointer', bg: 'lightgrey' }}
+				onClick={() => onClick(salesperson)}
 			>
 				<HStack align={'center'}>
 					<Avatar

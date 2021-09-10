@@ -11,26 +11,59 @@
 
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
 import SearchBar from '../common/SearchBar';
-import { getSalespersonsAsync } from '../../redux/slices/salespersonSlice';
+import {
+	getSalespersonsAsync,
+	selectAllSalespersons,
+} from '../../redux/slices/salespersonSlice';
 import SalesPersonCard from './SalesPersonCard';
 
 const SalesPersonsContainer = (props) => {
 	const dispatch = useDispatch();
-	const salespersons = useSelector((state) => state.salespersons);
+	const salespersons = useSelector(selectAllSalespersons);
 	useEffect(() => {
 		dispatch(getSalespersonsAsync());
 	}, [dispatch]);
+	const [singleSalesPersonView, setSingleSalesPersonView] = useState({
+		view: false,
+		salesperson: null,
+	});
+	const onCardClick = (salesperson) => {
+		setSingleSalesPersonView({
+			view: true,
+			salesperson: salesperson,
+		});
+	};
+	const onCardCloseClick = () => {
+		setSingleSalesPersonView({
+			view: false,
+			salesperson: null,
+		});
+	};
 	return (
 		<div>
-			<SearchBar placeholder={'Search salespersons.........'} />
-			{/* TODO: use chakra transitions for pending approvals */}
-			{salespersons
-				.filter((sp) => sp.is_approved !== false)
-				.map((salesperson, index) => (
-					<SalesPersonCard salesperson={salesperson} key={index} />
-				))}
+			{!singleSalesPersonView.view && (
+				<>
+					<SearchBar placeholder={'Search salespersons.........'} />
+					{/* TODO: use chakra transitions for pending approvals */}
+					{salespersons
+						.filter((sp) => sp.is_approved !== false)
+						.map((salesperson, index) => (
+							<SalesPersonCard
+								salesperson={salesperson}
+								key={index}
+								onClick={onCardClick}
+							/>
+						))}
+				</>
+			)}
+			{singleSalesPersonView.view &&
+				singleSalesPersonView.salesperson !== null && (
+					<SalesPersonCard
+						salesperson={singleSalesPersonView.salesperson}
+						onClick={onCardCloseClick}
+					/>
+				)}
 		</div>
 	);
 };
