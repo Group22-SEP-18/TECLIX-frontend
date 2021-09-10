@@ -31,6 +31,7 @@ const SalesPersonCard = ({ salesperson, key }) => {
 				overflow='hidden'
 				p={6}
 				textAlign={'center'}
+				_hover={{ cursor: 'pointer', bg: 'lightgrey' }}
 			>
 				<HStack align={'center'}>
 					<Avatar
