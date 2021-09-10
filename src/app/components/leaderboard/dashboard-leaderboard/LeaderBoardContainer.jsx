@@ -23,6 +23,7 @@ const LeaderBoardContainer = (props) => {
 	const salespersons = useSelector((state) => {
 		return state.salespersons
 			.slice()
+			.filter((sp) => sp.is_approved !== false)
 			.sort(
 				(a, b) =>
 					parseFloat(a.leaderboard_points[timeConstraint]) -
