@@ -16,17 +16,24 @@ import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const NavMenuItemComponent = (props) => {
-	const { name, onClick, link, children } = props;
+	const { name, link, onClick, children } = props;
 
 	if (!link || typeof link !== 'string') {
 		return (
-			<ListItem button name={name} children={children} onClick={onClick} />
+			<ListItem
+				button
+				key={name}
+				name={name}
+				children={children}
+				onClick={onClick}
+			/>
 		);
 	}
 
 	return (
 		<ListItem
 			button
+			key={name}
 			name={name}
 			children={children}
 			component={NavLink}

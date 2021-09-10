@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
 	Box,
 	Grid,
@@ -14,22 +15,25 @@ import {
 } from '@chakra-ui/react';
 import First3 from './First3';
 import HorPositions from './HorPositions';
-
-const salespersons = [
-	{ name: 'Dan Abrahmov', avatar: 'Dan Abrahmov', points: 12 },
-	{ name: 'Dan Abrahmov', avatar: 'Dan Abrahmov', points: 42 },
-	{ name: 'Dan Abrahmov', avatar: 'Dan Abrahmov', points: 15 },
-	{ name: 'Dan Abrahmov', avatar: 'Dan Abrahmov', points: 30 },
-	{ name: 'Dan Abrahmov', avatar: 'Dan Abrahmov', points: 50 },
-	{ name: 'Dan Abrahmov', avatar: 'Dan Abrahmov', points: 30 },
-	{ name: 'Dan Abrahmov', avatar: 'Dan Abrahmov', points: 50 },
-	{ name: 'Dan Abrahmov', avatar: 'Dan Abrahmov', points: 60 },
-];
-salespersons
-	.sort((a, b) => parseFloat(a.points) - parseFloat(b.points))
-	.reverse();
+import { getSalespersonsAsync } from '../../../redux/slices/salespersonSlice';
 
 const LeaderBoardContainer = (props) => {
+	const dispatch = useDispatch();
+	const [timeConstraint, setTimeConstraint] = useState('today');
+	const salespersons = useSelector((state) => {
+		return state.salespersons
+			.slice()
+			.sort(
+				(a, b) =>
+					parseFloat(a.leaderboard_points[timeConstraint]) -
+					parseFloat(b.leaderboard_points[timeConstraint])
+			)
+			.reverse();
+	});
+	useEffect(() => {
+		dispatch(getSalespersonsAsync());
+	}, [dispatch]);
+
 	return (
 		<Box flex='1'>
 			<VStack>
@@ -39,44 +43,60 @@ const LeaderBoardContainer = (props) => {
 				</Heading>
 				<Tabs align='center' variant='soft-rounded' colorScheme='green'>
 					<TabList>
-						<Tab>Today</Tab>
-						<Tab>Month</Tab>
-						<Tab>AllTime</Tab>
+						<Tab onClick={() => setTimeConstraint('today')}>Today</Tab>
+						<Tab onClick={() => setTimeConstraint('month')}>Month</Tab>
+						<Tab onClick={() => setTimeConstraint('alltime')}>AllTime</Tab>
 					</TabList>
 					<TabPanels>
-						<TabPanel>
-							{/* First three places */}
-							<HStack pb={4}>
-								<Grid
-									templateRows='repeat(1, 1fr)'
-									templateColumns='repeat(3, 1fr)'
-									gap={4}
-								>
-									{/* second position */}
-									<GridItem pt={4}>
-										{salespersons.length >= 2 && (
-											<First3 salesperson={salespersons[1]} position={2} />
-										)}
-									</GridItem>
-									<GridItem>
-										{salespersons.length >= 1 && (
-											<First3 salesperson={salespersons[0]} position={1} />
-										)}
-									</GridItem>
-									<GridItem pt={4}>
-										{salespersons.length >= 3 && (
-											<First3 salesperson={salespersons[2]} position={3} />
-										)}
-									</GridItem>
-								</Grid>
-							</HStack>
-							{/* rest */}
-							{salespersons.slice(3, 7).map((salesperson, index) => (
-								<HorPositions salesperson={salesperson} position={index + 4} />
-							))}
-						</TabPanel>
-						<TabPanel></TabPanel>
-						<TabPanel></TabPanel>
+						{[...Array(3)].map((x, i) => (
+							<TabPanel key={i}>
+								{/* First three places */}
+								<HStack pb={4}>
+									<Grid
+										templateRows='repeat(1, 1fr)'
+										templateColumns='repeat(3, 1fr)'
+										gap={4}
+									>
+										{/* second position */}
+										<GridItem pt={4}>
+											{salespersons.length >= 2 && (
+												<First3
+													salesperson={salespersons[1]}
+													position={2}
+													timeConstraint={timeConstraint}
+												/>
+											)}
+										</GridItem>
+										<GridItem>
+											{salespersons.length >= 1 && (
+												<First3
+													salesperson={salespersons[0]}
+													position={1}
+													timeConstraint={timeConstraint}
+												/>
+											)}
+										</GridItem>
+										<GridItem pt={4}>
+											{salespersons.length >= 3 && (
+												<First3
+													salesperson={salespersons[2]}
+													position={3}
+													timeConstraint={timeConstraint}
+												/>
+											)}
+										</GridItem>
+									</Grid>
+								</HStack>
+								{/* rest */}
+								{salespersons.slice(3, 7).map((salesperson, index) => (
+									<HorPositions
+										salesperson={salesperson}
+										position={index + 4}
+										timeConstraint={timeConstraint}
+									/>
+								))}
+							</TabPanel>
+						))}
 					</TabPanels>
 				</Tabs>
 			</VStack>

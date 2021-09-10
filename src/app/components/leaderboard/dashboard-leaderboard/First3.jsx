@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Avatar, Box, Text, VStack } from '@chakra-ui/react';
 import { FaCrown } from 'react-icons/fa';
 
-const First3 = ({ salesperson, position }) => {
+const First3 = ({ salesperson, position, timeConstraint = 'today' }) => {
 	return (
 		<VStack shadow='lg' borderRadius='lg' p={3}>
 			{position !== 1 && (
@@ -14,13 +14,13 @@ const First3 = ({ salesperson, position }) => {
 				</Box>
 			)}
 			{position === 1 && <FaCrown color='gold' />}
-			<Avatar src={salesperson.avatar} />
+			<Avatar src={salesperson.profile_picture} />
 			<Box>
-				<Text align='center' noOfLines={1} isTruncated='true'>
-					{salesperson.name}
+				<Text align='center' noOfLines={1} fontWeight='bold' isTruncated='true'>
+					{salesperson.first_name} {salesperson.last_name}
 				</Text>
 				<Text fontSize='sm' align='center'>
-					{salesperson.points} points
+					{salesperson.leaderboard_points[timeConstraint]} points
 				</Text>
 			</Box>
 		</VStack>
@@ -30,6 +30,7 @@ const First3 = ({ salesperson, position }) => {
 First3.propTypes = {
 	salesperson: PropTypes.any,
 	position: PropTypes.number,
+	timeConstraint: PropTypes.string,
 };
 
 export default First3;
