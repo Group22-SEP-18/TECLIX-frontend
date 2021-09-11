@@ -9,7 +9,8 @@
  * @since  09.09.2021
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import SearchBar from '../common/SearchBar';
 import {
@@ -18,31 +19,16 @@ import {
 } from '../../redux/slices/salespersonSlice';
 import SalesPersonCard from './SalesPersonCard';
 
-const SalesPersonsContainer = (props) => {
+const SalesPersonsContainer = ({ onCardClick }) => {
 	const dispatch = useDispatch();
 	const salespersons = useSelector(selectAllSalespersons);
 	useEffect(() => {
 		dispatch(getSalespersonsAsync());
 	}, [dispatch]);
-	const [singleSalesPersonView, setSingleSalesPersonView] = useState({
-		view: false,
-		salesperson: null,
-	});
-	const onCardClick = (salesperson) => {
-		setSingleSalesPersonView({
-			view: true,
-			salesperson: salesperson,
-		});
-	};
-	const onCardCloseClick = () => {
-		setSingleSalesPersonView({
-			view: false,
-			salesperson: null,
-		});
-	};
+
 	return (
 		<div>
-			{!singleSalesPersonView.view && (
+			{
 				<>
 					<SearchBar placeholder={'Search salespersons.........'} />
 					{/* TODO: use chakra transitions for pending approvals */}
@@ -56,18 +42,13 @@ const SalesPersonsContainer = (props) => {
 							/>
 						))}
 				</>
-			)}
-			{singleSalesPersonView.view &&
-				singleSalesPersonView.salesperson !== null && (
-					<SalesPersonCard
-						salesperson={singleSalesPersonView.salesperson}
-						onClick={onCardCloseClick}
-					/>
-				)}
+			}
 		</div>
 	);
 };
 
-SalesPersonsContainer.propTypes = {};
+SalesPersonsContainer.propTypes = {
+	onCardClick: PropTypes.func,
+};
 
 export default SalesPersonsContainer;

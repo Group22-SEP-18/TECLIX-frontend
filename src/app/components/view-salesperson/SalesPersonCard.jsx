@@ -9,7 +9,8 @@
  * @since  09.09.2021
  */
 
-import React, { useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import {
 	Avatar,
 	Badge,
@@ -108,6 +109,10 @@ const SalesPersonCard = ({ salesperson, key, onClick }) => {
 	);
 };
 
-SalesPersonCard.propTypes = {};
+SalesPersonCard.propTypes = {
+	salesperson: PropTypes.object,
+	key: PropTypes.number,
+	onClick: PropTypes.func,
+};
 
 export default SalesPersonCard;
