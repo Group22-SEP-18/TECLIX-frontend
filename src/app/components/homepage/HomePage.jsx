@@ -23,6 +23,7 @@ import {
 import Sidebar from '../sidebar/SidebarContent';
 import MobileNav from '../sidebar/MobileNav';
 import DashBorad from '../dashboard/DashBorad';
+import SalesPersonViewMainPage from '../view-salesperson/SalesPersonViewMainPage';
 
 const HomePage = (props) => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -52,7 +53,8 @@ const HomePage = (props) => {
 			<MobileNav onOpen={onOpen} />
 			{/* Content */}
 			<Box ml={{ base: 0, md: 60 }} p='4'>
-				<DashBorad />
+				<SalesPersonViewMainPage />
+				{/* <DashBorad /> */}
 			</Box>
 		</Box>
 	);

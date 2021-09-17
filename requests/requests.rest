@@ -1,0 +1,5 @@
+###
+GET https://random-data-api.com/api/users/random_user?size=5
+
+###
+GET https://run.mocky.io/v3/5e62ad6b-2f4e-4ec8-9073-280b63cb8798

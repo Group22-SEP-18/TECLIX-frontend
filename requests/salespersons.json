@@ -1,0 +1,136 @@
+{
+  "data": [
+    {
+      "emp_id": 4933,
+      "title": "Ms",
+      "first_name": "Angelena",
+      "last_name": "Powlowski",
+      "email": "angelena.powlowski@email.com",
+      "mobile_number": "+20 1-575-638-9515",
+      "profile_picture": "https://robohash.org/ullamcupiditatedeleniti.png?size=300x300\u0026set=set1",
+      "is_approved": "true",
+      "current_location": {
+        "lat": 14.750790631942067,
+        "lng": 116.35806667672335
+      },
+      "leaderboard_points": {
+        "today": 10,
+        "month": 46,
+        "alltime": 322
+      },
+      "assigned_vehicle": null,
+      "travelling_history": [],
+      "so_history": []
+    },
+    {
+      "emp_id": 5089,
+      "title": "Mr",
+      "first_name": "Gavin",
+      "last_name": "Kihn",
+      "email": "gavin.kihn@email.com",
+      "mobile_number": "+20 1-575-638-9515",
+      "profile_picture": "https://robohash.org/omnissitdolor.png?size=300x300\u0026set=set1",
+      "is_approved": true,
+      "current_location": {
+        "lat": 14.750790631942067,
+        "lng": 116.35806667672335
+      },
+      "leaderboard_points": {
+        "today": 20,
+        "month": 36,
+        "alltime": 36
+      },
+      "assigned_vehicle": null,
+      "travelling_history": [],
+      "so_history": []
+    },
+    {
+      "emp_id": 4833,
+      "title": "Mr",
+      "first_name": "Omar",
+      "last_name": "Hagenes",
+      "email": "omar.hagenes@email.com",
+      "mobile_number": "+20 1-575-638-9515",
+      "profile_picture": "https://robohash.org/doloremsuntin.png?size=300x300\u0026set=set1",
+      "is_approved": false,
+      "current_location": {
+        "lat": 14.750790631942067,
+        "lng": 116.35806667672335
+      },
+      "leaderboard_points": {
+        "today": 30,
+        "month": 76,
+        "alltime": 522
+      },
+      "assigned_vehicle": null,
+      "travelling_history": [],
+      "so_history": []
+    },
+    {
+      "emp_id": 6279,
+      "title": "Ms",
+      "first_name": "Neville",
+      "last_name": "Watsica",
+      "email": "neville.watsica@email.com",
+      "mobile_number": "+20 1-575-638-9515",
+      "profile_picture": "https://robohash.org/etautemea.png?size=300x300\u0026set=set1",
+      "is_approved": true,
+      "current_location": {
+        "lat": -13.851712905167673,
+        "lng": -170.40834160300435
+      },
+      "leaderboard_points": {
+        "today": 30,
+        "month": 76,
+        "alltime": 522
+      },
+      "assigned_vehicle": null,
+      "travelling_history": [],
+      "so_history": []
+    },
+    {
+      "emp_id": 1026,
+      "title": "Ms",
+      "first_name": "Dakota",
+      "last_name": "Upton",
+      "email": "dakota.upton@email.com",
+      "mobile_number": "+20 1-575-638-9515",
+      "profile_picture": "https://robohash.org/ullamcupiditatedeleniti.png?size=300x300\u0026set=set1",
+      "is_approved": true,
+      "current_location": {
+        "lat": 8.98907744665091,
+        "lng": 175.41428032937023
+      },
+      "leaderboard_points": {
+        "today": 5,
+        "month": 46,
+        "alltime": 322
+      },
+      "assigned_vehicle": null,
+      "travelling_history": [],
+      "so_history": []
+    },
+    {
+      "emp_id": 9437,
+      "title": "Ms",
+      "first_name": "Isiah",
+      "last_name": "Sporer",
+      "email": "isiah.sporer@email.com",
+      "mobile_number": "+20 1-575-638-9515",
+      "profile_picture": "https://robohash.org/enimliberosed.png?size=300x300\u0026set=set1",
+      "is_approved": true,
+      "current_location": {
+        "lat": 14.750790631942067,
+        "lng": 116.35806667672335
+      },
+      "leaderboard_points": {
+        "today": 0,
+        "month": 0,
+        "alltime": 0
+      },
+      "assigned_vehicle": null,
+      "travelling_history": [],
+      "so_history": []
+    }
+  ]
+}

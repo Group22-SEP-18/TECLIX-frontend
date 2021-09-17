@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Avatar, Box, Text, Flex, HStack, Spacer } from '@chakra-ui/react';
 
-const HorPositions = ({ salesperson, position }) => {
+const HorPositions = ({ salesperson, position, timeConstraint = 'today' }) => {
 	return (
 		<Box>
 			<Flex direction='column'>
@@ -13,13 +13,13 @@ const HorPositions = ({ salesperson, position }) => {
 								{position}
 							</Text>
 						</Box>
-						<Avatar src={salesperson.avatar} />
+						<Avatar src={salesperson.profile_picture} />
 						<Box width='full'>
 							<Text noOfLines={1} fontWeight='bold'>
-								{salesperson.name}
+								{salesperson.first_name} {salesperson.last_name}
 							</Text>
 							<Text fontSize='sm' align='right'>
-								{salesperson.points} points
+								{salesperson.leaderboard_points[timeConstraint]} points
 							</Text>
 						</Box>
 						<Spacer />
@@ -33,6 +33,7 @@ const HorPositions = ({ salesperson, position }) => {
 HorPositions.propTypes = {
 	salesperson: PropTypes.any,
 	position: PropTypes.number,
+	timeConstraint: PropTypes.string,
 };
 
 export default HorPositions;
