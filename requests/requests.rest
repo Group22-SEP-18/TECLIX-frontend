@@ -1,19 +1,4 @@
 ###
-POST http://localhost:5000/users/signup/admin
-Content-Type: application/json
-
-{
-    "firstname": "Saman",
-    "lastname": "Perera",
-    "email": "admin@gmail.com",
-    "password": "123456"
-}
-
-###
-POST http://localhost:5000/users/login
-Content-Type: application/json
-
-###
 GET https://random-data-api.com/api/users/random_user?size=5
 
 ###
