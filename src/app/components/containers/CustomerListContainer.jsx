@@ -11,12 +11,14 @@
 
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { SimpleGrid } from '@chakra-ui/react';
 import { useSelector, useDispatch } from 'react-redux';
 import SearchBar from '../common/SearchBar';
 import {
 	selectAllCustomers,
 	getCustomersAsync,
 } from '../../redux/slices/customerSlice';
+import CustomerCard from '../presentation/customer/CustomerCard';
 
 const CustomerListContainer = (onCardClick) => {
 	const dispatch = useDispatch();
@@ -29,15 +31,15 @@ const CustomerListContainer = (onCardClick) => {
 			{
 				<>
 					<SearchBar placeholder={'Search salespersons.........'} />
-					{customers.map(
-						(customer, index) =>
-							// <SalesPersonCard
-							// 	salesperson={salesperson}
-							// 	key={index}
-							// 	onClick={onCardClick}
-							// />
-							customer.shop_name
-					)}
+					<SimpleGrid columns={{ base: 1, xl: 2 }} spacing={{ base: 1, xl: 2 }}>
+						{customers.map((customer, index) => (
+							<CustomerCard
+								customer={customer}
+								key={index}
+								onClick={onCardClick}
+							/>
+						))}
+					</SimpleGrid>
 				</>
 			}
 		</div>
