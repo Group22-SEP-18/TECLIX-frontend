@@ -6,8 +6,8 @@ import SimpleMap from './SimpleMap';
 
 const MapWithHeader = ({ header, locations }) => {
 	const center = locations[0];
-	const markers = locations.map((loc) => (
-		<Marker position={{ lat: loc.latitude, lng: loc.longitude }} />
+	const markers = locations.map((loc, index) => (
+		<Marker key={index} position={{ lat: loc.latitude, lng: loc.longitude }} />
 	));
 	return (
 		<div>
