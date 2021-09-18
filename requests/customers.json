@@ -1,0 +1,137 @@
+{
+    "data": [
+        {
+            "customer_id": 11,
+            "owner_first_name": "sdf",
+            "owner_last_name" : "sdfser",
+            "email": "sdf@gmail.com",
+            "shop_name": "shop A",
+            "profile_picture": "https://robohash.org/ullamcupiditatedeleniti.png?size=300x300\u0026set=set1",
+            "location" : {
+                "latitude": 6.984306385997563, 
+                "longitude" :79.93313803980053
+            },
+            "address":{
+                "street": "street",
+                "city": "Colombo",
+                "district": "Colombo"
+            },
+            "loyalty_points": 20,
+            "outstanding": 200.00
+        },
+        {
+            "customer_id": 21,
+            "owner_first_name": "sdf",
+            "owner_last_name" : "sdfser",
+            "email": "sdf@gmail.com",
+            "shop_name": "shop B",
+            "profile_picture": "https://robohash.org/ullamcupiditatedeleniti.png?size=300x300\u0026set=set1",
+            "location" : {
+                "latitude": 6.984306385997563, 
+                "longitude" :79.93313803980053
+            },
+            "address":{
+                "street": "street",
+                "city": "Gampaha",
+                "district": "Gampaha"
+            },
+            "loyalty_points": 20,
+            "outstanding": 200.00
+        },
+        {
+            "customer_id": 31,
+            "owner_first_name": "sdf",
+            "owner_last_name" : "sdfser",
+            "email": "sdf@gmail.com",
+            "shop_name": "shop c",
+            "profile_picture": "https://robohash.org/ullamcupiditatedeleniti.png?size=300x300\u0026set=set1",
+            "location" : {
+                "latitude": 6.984306385997563, 
+                "longitude" :79.93313803980053
+            },
+            "address":{
+                "street": "street",
+                "city": "Malabe",
+                "district": "Colombo"
+            },
+            "loyalty_points": 20,
+            "outstanding": 200.00
+        },
+        {
+            "customer_id": 41,
+            "owner_first_name": "sdf",
+            "owner_last_name" : "sdfser",
+            "email": "sdf@gmail.com",
+            "shop_name": "shop D",
+            "profile_picture": "https://robohash.org/ullamcupiditatedeleniti.png?size=300x300\u0026set=set1",
+            "location" : {
+                "latitude": 6.984306385997563, 
+                "longitude" :79.93313803980053
+            },
+            "address":{
+                "street": "street",
+                "city": "Moratuwa",
+                "district": "Colombo"
+            },
+            "loyalty_points": 20,
+            "outstanding": 200.00
+        },
+        {
+            "customer_id": 51,
+            "owner_first_name": "sdf",
+            "owner_last_name" : "sdfser",
+            "email": "sdf@gmail.com",
+            "shop_name": "shop AE",
+            "profile_picture": "https://robohash.org/ullamcupiditatedeleniti.png?size=300x300\u0026set=set1",
+            "location" : {
+                "latitude": 6.984306385997563, 
+                "longitude" :79.93313803980053
+            },
+            "address":{
+                "street": "street",
+                "city": "Kalaniya",
+                "district": "Gampaha"
+            },
+            "loyalty_points": 20,
+            "outstanding": 200.00
+        },
+        {
+            "customer_id": 61,
+            "owner_first_name": "sdf",
+            "owner_last_name" : "sdfser",
+            "email": "sdf@gmail.com",
+            "shop_name": "shop FB",
+            "profile_picture": "https://robohash.org/ullamcupiditatedeleniti.png?size=300x300\u0026set=set1",
+            "location" : {
+                "latitude": 6.984306385997563, 
+                "longitude" :79.93313803980053
+            },
+            "address":{
+                "street": "street",
+                "city": "Borella",
+                "district": "Colombo"
+            },
+            "loyalty_points": 20,
+            "outstanding": 200.00
+        },
+        {
+            "customer_id": 71,
+            "owner_first_name": "sdf",
+            "owner_last_name" : "sdfser",
+            "email": "sdf@gmail.com",
+            "shop_name": "shop A",
+            "profile_picture": "https://robohash.org/ullamcupiditatedeleniti.png?size=300x300\u0026set=set1",
+            "location" : {
+                "latitude": 6.984306385997563, 
+                "longitude" :79.93313803980053
+            },
+            "address":{
+                "street": "street",
+                "city": "Colombo",
+                "district": "Colombo"
+            },
+            "loyalty_points": 20,
+            "outstanding": 200.00
+        }        
+    ]
+}
