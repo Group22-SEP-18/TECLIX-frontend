@@ -17,12 +17,7 @@ export const getSalespersonsAsync = createAsyncThunk(
 export const salespersonSlice = createSlice({
 	name: 'salespersons',
 	initialState: [],
-	reducers: {
-		addSalesperson: (state, action) => {
-			const new_salesperson = {};
-			state.push(new_salesperson);
-		},
-	},
+	reducers: {},
 	extraReducers: {
 		[getSalespersonsAsync.fulfilled]: (state, action) => {
 			return action.payload.salespersons;
@@ -30,7 +25,7 @@ export const salespersonSlice = createSlice({
 	},
 });
 
-export const { addSalesperson } = salespersonSlice.actions;
+export const {} = salespersonSlice.actions;
 
 export const selectAllSalespersons = (state) => state.salespersons;
 
