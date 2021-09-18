@@ -22,7 +22,7 @@ const DashBorad = (props) => {
 						borderRadius='xl'
 						overflow='hidden'
 					>
-						<SimpleMap />
+						{/* <SimpleMap /> */}
 					</Box>
 				</GridItem>
 				<GridItem rowSpan={6} colSpan={4} overflow='hidden'>
