@@ -36,8 +36,8 @@ const Sidebar = ({ onClose, ...rest }) => {
 				</Text>
 				<CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
 			</Flex>
-			{sidebarContent.map((content) => (
-				<>
+			{sidebarContent.map((content, index) => (
+				<div key={index}>
 					<Heading as='h4' size={{ base: 'sm', md: 'md' }} p={4}>
 						{content.header}
 					</Heading>
@@ -53,7 +53,7 @@ const Sidebar = ({ onClose, ...rest }) => {
 							{sub.name}
 						</NavMenuItem>
 					))}
-				</>
+				</div>
 			))}
 		</Box>
 	);

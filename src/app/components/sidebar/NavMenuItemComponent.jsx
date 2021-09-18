@@ -44,7 +44,6 @@ const NavMenuItemComponent = (props) => {
 
 NavMenuItemComponent.propTypes = {
 	name: PropTypes.string,
-	link: PropTypes.string | null,
 	onClick: PropTypes.func,
 };
 

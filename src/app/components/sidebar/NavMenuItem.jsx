@@ -73,7 +73,7 @@ const NavMenuItem = (props) => {
 
 NavMenuItem.propTypes = {
 	name: PropTypes.string,
-	link: PropTypes.string | null,
+	link: PropTypes.string,
 	Icon: PropTypes.any,
 };
 

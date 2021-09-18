@@ -22,9 +22,9 @@ import {
 	VStack,
 } from '@chakra-ui/react';
 
-const CustomerCard = ({ customer, key, onClick }) => {
+const CustomerCard = ({ customer, onClick }) => {
 	return (
-		<div key={key}>
+		<div>
 			<Box
 				borderRadius='lg'
 				boxShadow='lg'
@@ -103,7 +103,6 @@ const CustomerCard = ({ customer, key, onClick }) => {
 
 CustomerCard.propTypes = {
 	customer: PropTypes.object,
-	key: PropTypes.number,
 	onClick: PropTypes.func,
 };
 
