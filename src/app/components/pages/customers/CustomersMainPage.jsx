@@ -10,8 +10,8 @@
  */
 
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import CustomerListContainer from '../../containers/CustomerListContainer';
+import SingleCustomerView from '../../containers/SingleCustomerView';
 
 const CustomersMainPage = (props) => {
 	const [singleCustomerView, setCustomerView] = useState({
@@ -36,12 +36,12 @@ const CustomersMainPage = (props) => {
 				<CustomerListContainer onCardClick={onCardClick} />
 			)}
 
-			{/* {singleCustomerView.view && singleCustomerView.customer !== null && (
-				<SingleSalespersonView
+			{singleCustomerView.view && singleCustomerView.customer !== null && (
+				<SingleCustomerView
 					customer={singleCustomerView.customer}
 					onClick={onCardCloseClick}
 				/>
-			)} */}
+			)}
 		</div>
 	);
 };

@@ -20,7 +20,7 @@ import {
 } from '../../redux/slices/customerSlice';
 import CustomerCard from '../presentation/customer/CustomerCard';
 
-const CustomerListContainer = (onCardClick) => {
+const CustomerListContainer = ({ onCardClick }) => {
 	const dispatch = useDispatch();
 	const customers = useSelector(selectAllCustomers);
 	useEffect(() => {
@@ -30,7 +30,7 @@ const CustomerListContainer = (onCardClick) => {
 		<div>
 			{
 				<>
-					<SearchBar placeholder={'Search salespersons.........'} />
+					<SearchBar placeholder={'Search customers.........'} />
 					<SimpleGrid columns={{ base: 1, xl: 2 }} spacing={{ base: 1, xl: 2 }}>
 						{customers.map((customer, index) => (
 							<CustomerCard

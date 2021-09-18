@@ -22,7 +22,7 @@ import {
 	Badge,
 	useColorModeValue,
 } from '@chakra-ui/react';
-import SimpleMap from '../map/SimpleMap';
+import SimpleMap from '../common/map/SimpleMap';
 
 const SalesPersonVerticalCardView = ({ salesperson }) => {
 	return (

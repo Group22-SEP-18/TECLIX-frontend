@@ -12,7 +12,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
-import SimpleMap from '../map/SimpleMap';
+import SimpleMap from '../common/map/SimpleMap';
 
 const SalesPersonHistoryContainer = ({ salesperson }) => {
 	return (
