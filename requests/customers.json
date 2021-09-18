@@ -8,8 +8,8 @@
             "shop_name": "shop A",
             "profile_picture": "https://robohash.org/ullamcupiditatedeleniti.png?size=300x300\u0026set=set1",
             "location" : {
-                "latitude": 6.984306385997563, 
-                "longitude" :79.93313803980053
+                "latitude": 6.911176265837728, 
+                "longitude": 79.87741651688034
             },
             "address":{
                 "street": "street",
@@ -27,8 +27,8 @@
             "shop_name": "shop B",
             "profile_picture": "https://robohash.org/ullamcupiditatedeleniti.png?size=300x300\u0026set=set1",
             "location" : {
-                "latitude": 6.984306385997563, 
-                "longitude" :79.93313803980053
+                "latitude": 6.911005851744027, 
+                "longitude": 79.88479795580965
             },
             "address":{
                 "street": "street",
@@ -46,8 +46,8 @@
             "shop_name": "shop c",
             "profile_picture": "https://robohash.org/ullamcupiditatedeleniti.png?size=300x300\u0026set=set1",
             "location" : {
-                "latitude": 6.984306385997563, 
-                "longitude" :79.93313803980053
+                "latitude": 6.911687507750232, 
+                "longitude": 79.86600103574554
             },
             "address":{
                 "street": "street",
@@ -65,8 +65,8 @@
             "shop_name": "shop D",
             "profile_picture": "https://robohash.org/ullamcupiditatedeleniti.png?size=300x300\u0026set=set1",
             "location" : {
-                "latitude": 6.984306385997563, 
-                "longitude" :79.93313803980053
+                "latitude": 6.890129660997153, 
+                "longitude": 79.86359777655926
             },
             "address":{
                 "street": "street",
@@ -84,8 +84,8 @@
             "shop_name": "shop AE",
             "profile_picture": "https://robohash.org/ullamcupiditatedeleniti.png?size=300x300\u0026set=set1",
             "location" : {
-                "latitude": 6.984306385997563, 
-                "longitude" :79.93313803980053
+                "latitude": 6.8987285559619504, 
+                "longitude": 79.86066834583215
             },
             "address":{
                 "street": "street",
@@ -103,8 +103,8 @@
             "shop_name": "shop FB",
             "profile_picture": "https://robohash.org/ullamcupiditatedeleniti.png?size=300x300\u0026set=set1",
             "location" : {
-                "latitude": 6.984306385997563, 
-                "longitude" :79.93313803980053
+                "latitude": 6.8791726289899415, 
+                "longitude": 79.87282769044438
             },
             "address":{
                 "street": "street",
@@ -122,8 +122,8 @@
             "shop_name": "shop A",
             "profile_picture": "https://robohash.org/ullamcupiditatedeleniti.png?size=300x300\u0026set=set1",
             "location" : {
-                "latitude": 6.984306385997563, 
-                "longitude" :79.93313803980053
+                "latitude": 6.8791726289899415, 
+                "longitude": 79.87282769044438
             },
             "address":{
                 "street": "street",

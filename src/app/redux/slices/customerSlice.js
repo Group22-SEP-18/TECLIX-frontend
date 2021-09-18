@@ -4,7 +4,7 @@ export const getCustomersAsync = createAsyncThunk(
 	'customers/getCustomersAsync',
 	async () => {
 		const resp = await fetch(
-			'https://run.mocky.io/v3/bf261a90-7c25-4745-a354-48593dceb261'
+			'https://run.mocky.io/v3/cceb5d98-753b-4c91-932c-05405068228e'
 		);
 		if (resp.ok) {
 			const response = await resp.json();
