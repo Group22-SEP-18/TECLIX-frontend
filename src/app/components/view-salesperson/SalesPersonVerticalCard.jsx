@@ -22,7 +22,7 @@ import {
 	Badge,
 	useColorModeValue,
 } from '@chakra-ui/react';
-import SimpleMap from '../common/map/SimpleMap';
+import MapWithHeader from '../common/map/MapWithHeader';
 
 const SalesPersonVerticalCardView = ({ salesperson }) => {
 	return (
@@ -88,24 +88,10 @@ const SalesPersonVerticalCardView = ({ salesperson }) => {
 					</Badge>
 				</Stack>
 
-				<Text
-					fontWeight={500}
-					color={'gray.500'}
-					my={4}
-					textAlign='start'
-					pl='4'
-				>
-					Current Location
-				</Text>
-				<Box
-					maxW='100%'
-					maxH='100%'
-					borderWidth='1px'
-					borderRadius='xl'
-					overflow='hidden'
-				>
-					<SimpleMap />
-				</Box>
+				<MapWithHeader
+					header='Last Location'
+					locations={[salesperson.location]}
+				/>
 			</Box>
 		</Center>
 	);
