@@ -13,10 +13,11 @@
  */
 
 import React, { useState } from 'react';
-import { Grid, GridItem } from '@chakra-ui/react';
+import { Box, Grid, GridItem } from '@chakra-ui/react';
 import LeaderBoardContainer from '../leaderboard/dashboard-leaderboard/LeaderBoardContainer';
 import SalesPersonsContainer from './SalesPersonsContainer';
 import SingleSalespersonView from './SingleSalespersonView';
+import SideBar from '../sidebar/SideBar';
 
 const SalesPersonViewMainPage = (props) => {
 	const [singleSalesPersonView, setSingleSalesPersonView] = useState({
@@ -36,31 +37,39 @@ const SalesPersonViewMainPage = (props) => {
 		});
 	};
 	return (
-		<div>
-			{!singleSalesPersonView.view && (
-				<>
-					<Grid
-						templateColumns={{ base: 'repeat(1, 1fr)', lg: 'repeat(5, 1fr)' }}
-						gap={4}
-					>
-						<GridItem colSpan={{ base: 1, lg: 3 }}>
-							<SalesPersonsContainer onCardClick={onCardClick} />
-						</GridItem>
-						<GridItem colSpan={{ base: 1, lg: 2 }}>
-							<LeaderBoardContainer />
-						</GridItem>
-					</Grid>
-				</>
-			)}
+		<Box minH='100vh'>
+			<SideBar />
+			<Box ml={{ base: 0, md: 60 }} p='4'>
+				<div>
+					{!singleSalesPersonView.view && (
+						<>
+							<Grid
+								templateColumns={{
+									base: 'repeat(1, 1fr)',
+									lg: 'repeat(5, 1fr)',
+								}}
+								gap={4}
+							>
+								<GridItem colSpan={{ base: 1, lg: 3 }}>
+									<SalesPersonsContainer onCardClick={onCardClick} />
+								</GridItem>
+								<GridItem colSpan={{ base: 1, lg: 2 }}>
+									<LeaderBoardContainer />
+								</GridItem>
+							</Grid>
+						</>
+					)}
 
-			{singleSalesPersonView.view &&
-				singleSalesPersonView.salesperson !== null && (
-					<SingleSalespersonView
-						salesperson={singleSalesPersonView.salesperson}
-						onClick={onCardCloseClick}
-					/>
-				)}
-		</div>
+					{singleSalesPersonView.view &&
+						singleSalesPersonView.salesperson !== null && (
+							<SingleSalespersonView
+								salesperson={singleSalesPersonView.salesperson}
+								onClick={onCardCloseClick}
+							/>
+						)}
+				</div>
+			</Box>
+		</Box>
 	);
 };
 

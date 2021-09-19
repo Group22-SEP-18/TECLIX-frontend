@@ -51,61 +51,31 @@ const sidebarContent = [
 				name: 'SalesPersons',
 				icon: FiUsers,
 				link: '/salespersons',
-				items: [
-					{
-						name: 'View',
-						link: '/salespersons',
-					},
-					{
-						name: 'Another one',
-						link: '/salespersons',
-					},
-				],
+				// items: [
+				// 	{
+				// 		name: 'View',
+				// 		link: '/salespersons',
+				// 	},
+				// 	{
+				// 		name: 'Another one',
+				// 		link: '/salespersons',
+				// 	},
+				// ],
 			},
 			{
 				name: 'Customer',
 				icon: FiUserCheck,
 				link: '/customers',
-				items: [
-					{
-						name: 'View',
-						link: '/customers',
-					},
-					{
-						name: 'Another one',
-						link: '/customers',
-					},
-				],
 			},
 			{
 				name: 'Products',
 				icon: FiShoppingCart,
 				link: '/products',
-				items: [
-					{
-						name: 'View',
-						link: '/products',
-					},
-					{
-						name: 'Another one',
-						link: '/products',
-					},
-				],
 			},
 			{
 				name: 'Vehicles',
 				icon: FaShuttleVan,
 				link: '/vehicles',
-				items: [
-					{
-						name: 'View',
-						link: '/vehicles',
-					},
-					{
-						name: 'Another one',
-						link: '/vehicles',
-					},
-				],
 			},
 		],
 	},

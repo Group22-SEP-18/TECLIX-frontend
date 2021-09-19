@@ -8,7 +8,7 @@ import {
 import { PrivateRoute } from './components/PrivateRoute';
 import { history } from './utils';
 import { LoginPage } from './components/login/LoginPage';
-import HomePage from './components/homepage/HomePage';
+import { privateRoutes } from './privateRoutes';
 
 const Main = (props) => {
 	history.listen((location, action) => {
@@ -18,7 +18,9 @@ const Main = (props) => {
 		<div>
 			<Router>
 				<Switch>
-					<PrivateRoute exact path='/' component={HomePage} />
+					{privateRoutes.map((pr) => (
+						<PrivateRoute path={pr.path} component={pr.component} />
+					))}
 					<Route path='/login' component={LoginPage} />
 					{/* <Route path='/register' component={RegisterPage} /> */}
 					<Redirect from='*' to='/' />

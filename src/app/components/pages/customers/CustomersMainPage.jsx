@@ -10,8 +10,10 @@
  */
 
 import React, { useState } from 'react';
+import { Box } from '@chakra-ui/react';
 import CustomerListContainer from '../../containers/CustomerListContainer';
 import SingleCustomerView from '../../containers/SingleCustomerView';
+import SideBar from '../../sidebar/SideBar';
 
 const CustomersMainPage = (props) => {
 	const [singleCustomerView, setCustomerView] = useState({
@@ -31,18 +33,23 @@ const CustomersMainPage = (props) => {
 		});
 	};
 	return (
-		<div>
-			{!singleCustomerView.view && (
-				<CustomerListContainer onCardClick={onCardClick} />
-			)}
+		<Box minH='100vh'>
+			<SideBar />
+			<Box ml={{ base: 0, md: 60 }} p='4'>
+				<div>
+					{!singleCustomerView.view && (
+						<CustomerListContainer onCardClick={onCardClick} />
+					)}
 
-			{singleCustomerView.view && singleCustomerView.customer !== null && (
-				<SingleCustomerView
-					customer={singleCustomerView.customer}
-					onClick={onCardCloseClick}
-				/>
-			)}
-		</div>
+					{singleCustomerView.view && singleCustomerView.customer !== null && (
+						<SingleCustomerView
+							customer={singleCustomerView.customer}
+							onClick={onCardCloseClick}
+						/>
+					)}
+				</div>
+			</Box>
+		</Box>
 	);
 };
 
