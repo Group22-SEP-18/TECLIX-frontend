@@ -14,7 +14,7 @@ import PropTypes from 'prop-types';
 import { Box, Grid, GridItem, Text } from '@chakra-ui/react';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import CustomerSOHistoryContainer from './CustomerSOHistoryContainer';
-import CustomerVerticalCardView from '../presentation/customer/CustomerVerticalCardView';
+import CustomerVerticalCardView from '../../presentation/customer/CustomerVerticalCardView';
 
 const SingleCustomerView = ({ customer, onClick }) => {
 	return (

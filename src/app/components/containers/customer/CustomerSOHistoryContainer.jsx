@@ -16,9 +16,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
 	selectAllServiceOrders,
 	getServiceOrdersAsync,
-} from '../../redux/slices/serviceOrderSlice';
-import ServiceOrderCard from '../presentation/serviceOrders/ServiceOrderCard';
-import AddFilter from './AddFilter';
+} from '../../../redux/slices/serviceOrderSlice';
+import ServiceOrderCard from '../../presentation/serviceOrders/ServiceOrderCard';
+import AddFilter from '../AddFilter';
 
 const CustomerSOHistoryContainer = ({ customer }) => {
 	const dispatch = useDispatch();

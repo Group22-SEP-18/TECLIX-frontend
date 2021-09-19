@@ -10,15 +10,14 @@
  */
 
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { SimpleGrid } from '@chakra-ui/react';
 import { useSelector, useDispatch } from 'react-redux';
-import SearchBar from '../common/SearchBar';
+import SearchBar from '../../common/SearchBar';
 import {
 	selectAllCustomers,
 	getCustomersAsync,
-} from '../../redux/slices/customerSlice';
-import CustomerCard from '../presentation/customer/CustomerCard';
+} from '../../../redux/slices/customerSlice';
+import CustomerCard from '../../presentation/customer/CustomerCard';
 
 const CustomerListContainer = ({ onCardClick }) => {
 	const dispatch = useDispatch();

@@ -11,8 +11,8 @@
 
 import React, { useState } from 'react';
 import { Box } from '@chakra-ui/react';
-import CustomerListContainer from '../../containers/CustomerListContainer';
-import SingleCustomerView from '../../containers/SingleCustomerView';
+import CustomerListContainer from '../../containers/customer/CustomerListContainer';
+import SingleCustomerView from '../../containers/customer/SingleCustomerView';
 import SideBar from '../../sidebar/SideBar';
 
 const CustomersMainPage = (props) => {
