@@ -39,7 +39,6 @@ const ServiceOrderCard = ({ serviceOrder, customer }) => {
 	const salesperson = useSelector(selectAllSalespersons)
 		.slice()
 		.find((s) => s.emp_id === serviceOrder.salesperson_id);
-	console.log(salesperson);
 	useEffect(() => {
 		dispatch(getSalespersonsAsync());
 	}, [dispatch]);
@@ -67,7 +66,7 @@ const ServiceOrderCard = ({ serviceOrder, customer }) => {
 									textAlign='start'
 									pl='4'
 								>
-									{/* SalesPerson: {salesperson.first_name} {salesperson.last_name} */}
+									SalesPerson: {salesperson.first_name} {salesperson.last_name}
 								</Text>
 								<Text
 									fontWeight={500}

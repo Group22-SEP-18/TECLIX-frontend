@@ -18,8 +18,8 @@ const Main = (props) => {
 		<div>
 			<Router>
 				<Switch>
-					{privateRoutes.map((pr) => (
-						<PrivateRoute path={pr.path} component={pr.component} />
+					{privateRoutes.map((pr, i) => (
+						<PrivateRoute key={i} path={pr.path} component={pr.component} />
 					))}
 					<Route path='/login' component={LoginPage} />
 					{/* <Route path='/register' component={RegisterPage} /> */}

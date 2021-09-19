@@ -18,28 +18,16 @@ import {
 	Input,
 	InputGroup,
 	InputLeftAddon,
-	InputRightElement,
-	Select,
 	Stack,
-	Text,
 	Tag,
 	TagLabel,
 	TagCloseButton,
 } from '@chakra-ui/react';
 import { AddIcon, CheckIcon } from '@chakra-ui/icons';
-import { sentenceFromCamelCase } from '../../utils';
 
 const AddFilter = (props) => {
 	const [showingFilters, setShowFilters] = useState(false);
-	const [changes, setchanges] = useState({
-		from: null,
-		to: null,
-		minimumPrice: null,
-		maximumPrice: null,
-		salesperson: null,
-		shopName: null,
-		shopLocation: null,
-	});
+	const [changes, setchanges] = useState({});
 	const [filters, setFilters] = useState({
 		from: null,
 		to: null,
@@ -47,17 +35,18 @@ const AddFilter = (props) => {
 		maximumPrice: null,
 		salesperson: null,
 		shopName: null,
-		shopLocation: null,
+		shopLocation: 'null',
 	});
 	const onChanges = (value) => {
-		setchanges(...changes, ...value);
+		setchanges({ ...changes, ...value });
 	};
 	const ApplyFilters = () => {
-		setFilters({ ...filters, ...changes });
 		setShowFilters(false);
+		setFilters({ ...filters, ...changes });
 	};
 	const onClickClose = (filterName) => {
 		setFilters({ ...filters, [filterName]: null });
+		setchanges({ ...changes, [filterName]: null });
 	};
 	return (
 		<Box m={4}>
@@ -68,7 +57,9 @@ const AddFilter = (props) => {
 						<Input
 							type='text'
 							placeholder='Enter key for the salesperson you are looking for'
-							onChange={() => setFilters({ ...filters, salesperson: null })}
+							onChange={(event) =>
+								onChanges({ salesperson: event.target.value })
+							}
 						/>
 					</InputGroup>
 					<InputGroup>
@@ -76,6 +67,7 @@ const AddFilter = (props) => {
 						<Input
 							type='text'
 							placeholder='Enter key for the customer you are looking for'
+							onChange={(event) => onChanges({ shopName: event.target.value })}
 						/>
 					</InputGroup>
 					<InputGroup>
@@ -83,31 +75,54 @@ const AddFilter = (props) => {
 						<Input
 							type='text'
 							placeholder='Enter key for the town you are looking for'
+							onChange={(event) =>
+								onChanges({ shopLocation: event.target.value })
+							}
 						/>
 					</InputGroup>
 					<Stack direction='row' spacing={4}>
 						<InputGroup>
 							<InputLeftAddon children={'From'} />
-							<Input type='date' placeholder='Select Date' />
+							<Input
+								type='date'
+								placeholder='Select Date'
+								onChange={(event) => onChanges({ from: event.target.value })}
+							/>
 						</InputGroup>
 						<InputGroup>
 							<InputLeftAddon children={'To'} />
-							<Input type='date' placeholder='Select Date' />
+							<Input
+								type='date'
+								placeholder='Select Date'
+								onChange={(event) => onChanges({ to: event.target.value })}
+							/>
 						</InputGroup>
 					</Stack>
 					<Stack direction='row' spacing={4}>
 						<InputGroup>
 							<InputLeftAddon children='Minimum Total Rs.' />
-							<Input type='number' placeholder='Enter amount' />
+							<Input
+								type='number'
+								placeholder='Enter amount'
+								onChange={(event) =>
+									onChanges({ minimumPrice: event.target.value })
+								}
+							/>
 						</InputGroup>
 						<InputGroup>
 							<InputLeftAddon children='Maximum Total Rs.' />
-							<Input type='number' placeholder='Enter amount' />
+							<Input
+								type='number'
+								placeholder='Enter amount'
+								onChange={(event) =>
+									onChanges({ maximumPrice: event.target.value })
+								}
+							/>
 						</InputGroup>
 					</Stack>
 				</Stack>
 			)}
-			<Stack direction='row' spacing={4} justify='end' mt={4}>
+			<Stack direction='row' spacing={4} justify='end' my={4}>
 				<Button
 					leftIcon={showingFilters ? null : <AddIcon />}
 					colorScheme='green'
@@ -117,7 +132,7 @@ const AddFilter = (props) => {
 					}
 					rightIcon={showingFilters ? <CheckIcon /> : null}
 				>
-					{showingFilters ? 'Done' : 'Add Filter'}
+					{showingFilters ? 'Apply Filters' : 'Add Filters'}
 				</Button>
 			</Stack>
 			<HStack spacing={4}>
@@ -130,6 +145,7 @@ const AddFilter = (props) => {
 							pb={1}
 							variant='solid'
 							colorScheme='green'
+							minW='150'
 						>
 							<TagLabel>
 								{key} : {filters[key]}
