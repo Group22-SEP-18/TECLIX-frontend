@@ -18,7 +18,7 @@ import {
 	getServiceOrdersAsync,
 } from '../../redux/slices/serviceOrderSlice';
 import ServiceOrderCard from '../presentation/serviceOrders/ServiceOrderCard';
-// import AddFilter from './AddFilter';
+import AddFilter from './AddFilter';
 
 const CustomerSOHistoryContainer = ({ customer }) => {
 	const dispatch = useDispatch();
@@ -30,7 +30,7 @@ const CustomerSOHistoryContainer = ({ customer }) => {
 	}, [dispatch]);
 	return (
 		<div>
-			{/* <AddFilter /> */}
+			<AddFilter />
 			<Accordion allowToggle>
 				{serviceOrders.map((so) => (
 					<ServiceOrderCard key={so.order_id} serviceOrder={so} />
