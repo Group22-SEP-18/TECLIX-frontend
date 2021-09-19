@@ -22,7 +22,7 @@ import {
 	Badge,
 	useColorModeValue,
 } from '@chakra-ui/react';
-import MapWithHeader from '../common/map/MapWithHeader';
+import MapWithHeader from '../../common/map/MapWithHeader';
 
 const SalesPersonVerticalCardView = ({ salesperson }) => {
 	return (

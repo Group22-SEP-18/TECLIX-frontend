@@ -12,12 +12,12 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import SearchBar from '../common/SearchBar';
+import SearchBar from '../../common/SearchBar';
 import {
 	getSalespersonsAsync,
 	selectAllSalespersons,
-} from '../../redux/slices/salespersonSlice';
-import SalesPersonCard from './SalesPersonCard';
+} from '../../../redux/slices/salespersonSlice';
+import SalesPersonCard from '../../presentation/salesperson/SalesPersonCard';
 
 const SalesPersonsContainer = ({ onCardClick }) => {
 	const dispatch = useDispatch();
@@ -36,8 +36,8 @@ const SalesPersonsContainer = ({ onCardClick }) => {
 						.filter((sp) => sp.is_approved !== false)
 						.map((salesperson, index) => (
 							<SalesPersonCard
-								salesperson={salesperson}
 								key={index}
+								salesperson={salesperson}
 								onClick={onCardClick}
 							/>
 						))}

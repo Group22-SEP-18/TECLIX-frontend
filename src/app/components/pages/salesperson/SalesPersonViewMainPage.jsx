@@ -14,10 +14,10 @@
 
 import React, { useState } from 'react';
 import { Box, Grid, GridItem } from '@chakra-ui/react';
-import LeaderBoardContainer from '../leaderboard/dashboard-leaderboard/LeaderBoardContainer';
-import SalesPersonsContainer from './SalesPersonsContainer';
-import SingleSalespersonView from './SingleSalespersonView';
-import SideBar from '../sidebar/SideBar';
+import LeaderBoardContainer from '../../leaderboard/dashboard-leaderboard/LeaderBoardContainer';
+import SalesPersonsContainer from '../../containers/salesperson/SalesPersonsContainer';
+import SingleSalespersonView from '../../containers/salesperson/SingleSalespersonView';
+import SideBar from '../../sidebar/SideBar';
 
 const SalesPersonViewMainPage = (props) => {
 	const [singleSalesPersonView, setSingleSalesPersonView] = useState({

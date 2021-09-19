@@ -13,7 +13,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, Grid, GridItem, Text } from '@chakra-ui/react';
 import { ArrowBackIcon } from '@chakra-ui/icons';
-import SalesPersonVerticalCardView from './SalesPersonVerticalCard';
+import SalesPersonVerticalCardView from '../../presentation/salesperson/SalesPersonVerticalCard';
 import SalesPersonHistoryContainer from './SalesPersonHistoryContainer';
 
 const SingleSalespersonView = ({ salesperson, onClick }) => {

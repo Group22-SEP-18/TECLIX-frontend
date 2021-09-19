@@ -21,9 +21,9 @@ import {
 	Text,
 } from '@chakra-ui/react';
 
-const SalesPersonCard = ({ salesperson, key, onClick }) => {
+const SalesPersonCard = ({ salesperson, onClick }) => {
 	return (
-		<div key={key}>
+		<div>
 			<Box
 				borderRadius='lg'
 				boxShadow='lg'
@@ -111,7 +111,6 @@ const SalesPersonCard = ({ salesperson, key, onClick }) => {
 
 SalesPersonCard.propTypes = {
 	salesperson: PropTypes.object,
-	key: PropTypes.number,
 	onClick: PropTypes.func,
 };
 
