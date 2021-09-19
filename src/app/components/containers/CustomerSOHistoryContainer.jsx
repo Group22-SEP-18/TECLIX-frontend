@@ -9,13 +9,37 @@
  * @since  17.09.2021
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Accordion } from '@chakra-ui/react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+	selectAllServiceOrders,
+	getServiceOrdersAsync,
+} from '../../redux/slices/serviceOrderSlice';
+import ServiceOrderCard from '../presentation/serviceOrders/ServiceOrderCard';
+// import AddFilter from './AddFilter';
 
-const CustomerSOHistoryContainer = (props) => {
-	return <div></div>;
+const CustomerSOHistoryContainer = ({ customer }) => {
+	const dispatch = useDispatch();
+	const serviceOrders = useSelector(selectAllServiceOrders)
+		.slice()
+		.filter((so) => so.customer_id === customer.customer_id);
+	useEffect(() => {
+		dispatch(getServiceOrdersAsync());
+	}, [dispatch]);
+	return (
+		<div>
+			{/* <AddFilter /> */}
+			<Accordion allowToggle>
+				{serviceOrders.map((so) => (
+					<ServiceOrderCard key={so.order_id} serviceOrder={so} />
+				))}
+			</Accordion>
+		</div>
+	);
 };
 
-CustomerSOHistoryContainer.propTypes = {};
+CustomerSOHistoryContainer.propTypes = { customer: PropTypes.object };
 
 export default CustomerSOHistoryContainer;

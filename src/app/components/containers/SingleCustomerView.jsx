@@ -37,18 +37,6 @@ const SingleCustomerView = ({ customer, onClick }) => {
 				templateColumns={{ base: 'repeat(8, 1fr)', xl: 'repeat(12, 1fr)' }}
 				gap={4}
 			>
-				<GridItem rowSpan={6} colSpan={8}>
-					<Box
-						maxW='100%'
-						maxH='100%'
-						minH='100%'
-						borderWidth='1px'
-						borderRadius='xl'
-						overflow='hidden'
-					>
-						<CustomerSOHistoryContainer customer={customer} />
-					</Box>
-				</GridItem>
 				<GridItem rowSpan={6} colSpan={4} overflow='hidden'>
 					<Box
 						maxW='100%'
@@ -58,6 +46,18 @@ const SingleCustomerView = ({ customer, onClick }) => {
 						overflow='hidden'
 					>
 						<CustomerVerticalCardView customer={customer} />
+					</Box>
+				</GridItem>
+				<GridItem rowSpan={6} colSpan={8}>
+					<Box
+						maxW='100%'
+						maxH='100%'
+						minH='100%'
+						borderWidth='1px'
+						borderRadius='xl'
+						overflowY='scroll'
+					>
+						<CustomerSOHistoryContainer customer={customer} />
 					</Box>
 				</GridItem>
 			</Grid>

@@ -67,7 +67,7 @@ const ServiceOrderCard = ({ serviceOrder, customer }) => {
 									textAlign='start'
 									pl='4'
 								>
-									SalesPerson: {salesperson.first_name} {salesperson.last_name}
+									{/* SalesPerson: {salesperson.first_name} {salesperson.last_name} */}
 								</Text>
 								<Text
 									fontWeight={500}
