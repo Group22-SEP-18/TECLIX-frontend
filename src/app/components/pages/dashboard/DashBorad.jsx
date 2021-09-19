@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, GridItem, Box } from '@chakra-ui/react';
-import StatCard from '../../stats/StatCard';
+import StatCard from '../../common/stats/StatCard';
 import LeaderBoardContainer from '../../containers/leaderboard/LeaderBoardContainer';
 import SalesChart from '../../common/charts/DashBoardSales';
 import SideBar from '../../common/sidebar/SideBar';

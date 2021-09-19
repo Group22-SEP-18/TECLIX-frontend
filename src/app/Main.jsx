@@ -5,7 +5,7 @@ import {
 	Switch,
 	Redirect,
 } from 'react-router-dom';
-import { PrivateRoute } from './components/PrivateRoute';
+import { PrivateRoute } from './components/common/PrivateRoute';
 import { history } from './utils';
 import { LoginPage } from './components/pages/login/LoginPage';
 import { privateRoutes } from './privateRoutes';
