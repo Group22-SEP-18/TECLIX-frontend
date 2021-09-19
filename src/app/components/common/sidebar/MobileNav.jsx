@@ -27,7 +27,7 @@ import {
 	MenuList,
 } from '@chakra-ui/react';
 import { FiMenu, FiBell, FiChevronDown } from 'react-icons/fi';
-import ThemeSelector from '../ThemeSelector';
+import ThemeSelector from '../themeselector/ThemeSelector';
 
 const MobileNav = ({ onOpen, ...rest }) => {
 	return (

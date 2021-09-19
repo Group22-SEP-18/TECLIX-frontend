@@ -1,4 +1,4 @@
-import DashBorad from './components/dashboard/DashBorad';
+import DashBorad from './components/pages/dashboard/DashBorad';
 import SalesPersonViewMainPage from './components/pages/salesperson/SalesPersonViewMainPage';
 import CustomersMainPage from './components/pages/customers/CustomersMainPage';
 

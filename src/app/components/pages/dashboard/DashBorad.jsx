@@ -1,9 +1,9 @@
 import React from 'react';
 import { Grid, GridItem, Box } from '@chakra-ui/react';
-import StatCard from '../stats/StatCard';
-import LeaderBoardContainer from '../leaderboard/dashboard-leaderboard/LeaderBoardContainer';
-import SalesChart from '../charts/DashBoardSales';
-import SideBar from '../sidebar/SideBar';
+import StatCard from '../../stats/StatCard';
+import LeaderBoardContainer from '../../containers/leaderboard/LeaderBoardContainer';
+import SalesChart from '../../common/charts/DashBoardSales';
+import SideBar from '../../common/sidebar/SideBar';
 
 const DashBorad = (props) => {
 	return (

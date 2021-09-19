@@ -13,7 +13,7 @@ import React, { useState } from 'react';
 import { Box } from '@chakra-ui/react';
 import CustomerListContainer from '../../containers/customer/CustomerListContainer';
 import SingleCustomerView from '../../containers/customer/SingleCustomerView';
-import SideBar from '../../sidebar/SideBar';
+import SideBar from '../../common/sidebar/SideBar';
 
 const CustomersMainPage = (props) => {
 	const [singleCustomerView, setCustomerView] = useState({

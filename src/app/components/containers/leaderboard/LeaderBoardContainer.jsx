@@ -13,8 +13,8 @@ import {
 	TabPanel,
 	VStack,
 } from '@chakra-ui/react';
-import First3 from './First3';
-import HorPositions from './HorPositions';
+import First3 from '../../presentation/leaderboard/First3';
+import HorPositions from '../../presentation/leaderboard/HorPositions';
 import { getSalespersonsAsync } from '../../../redux/slices/salespersonSlice';
 
 const LeaderBoardContainer = (props) => {
@@ -62,24 +62,29 @@ const LeaderBoardContainer = (props) => {
 										<GridItem pt={4}>
 											{salespersons.length >= 2 && (
 												<First3
+													key={2}
 													salesperson={salespersons[1]}
 													position={2}
 													timeConstraint={timeConstraint}
 												/>
 											)}
 										</GridItem>
+										{/* first position */}
 										<GridItem>
 											{salespersons.length >= 1 && (
 												<First3
+													key={1}
 													salesperson={salespersons[0]}
 													position={1}
 													timeConstraint={timeConstraint}
 												/>
 											)}
 										</GridItem>
+										{/* third position */}
 										<GridItem pt={4}>
 											{salespersons.length >= 3 && (
 												<First3
+													key={3}
 													salesperson={salespersons[2]}
 													position={3}
 													timeConstraint={timeConstraint}
@@ -91,6 +96,7 @@ const LeaderBoardContainer = (props) => {
 								{/* rest */}
 								{salespersons.slice(3, 7).map((salesperson, index) => (
 									<HorPositions
+										key={index}
 										salesperson={salesperson}
 										position={index + 4}
 										timeConstraint={timeConstraint}
