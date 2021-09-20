@@ -19,14 +19,13 @@ import {
 
 const LoginPage = (props) => {
 	const { loggingIn } = props;
-	const { state, changeState } = useState({
+	const [state, changeState] = useState({
 		email: '',
 		password: '',
 		submitted: false,
 	});
-	const handleChange = (e) => {
-		const { name, value } = e.target;
-		changeState(...state, { [name]: value });
+	const handleChange = (value) => {
+		changeState({ ...state, ...value });
 	};
 
 	const handleSubmit = (e) => {
@@ -57,7 +56,11 @@ const LoginPage = (props) => {
 					<Stack spacing={4}>
 						<FormControl id='email'>
 							<FormLabel>Email address</FormLabel>
-							<Input type='email' value={state.email} onChange={handleChange} />
+							<Input
+								type='email'
+								value={state.email}
+								onChange={(e) => handleChange({ email: e.target.value })}
+							/>
 							{state.submitted && !state.email && (
 								<FormHelperText>Username is required</FormHelperText>
 							)}
@@ -67,7 +70,7 @@ const LoginPage = (props) => {
 							<Input
 								type='password'
 								value={state.password}
-								onChange={handleChange}
+								onChange={(e) => handleChange({ password: e.target.value })}
 							/>
 							{state.submitted && !state.password && (
 								<FormHelperText>Password is required</FormHelperText>
@@ -101,15 +104,17 @@ const LoginPage = (props) => {
 	);
 };
 
-function mapState(state) {
-	const { loggingIn } = state.authentication;
-	return { loggingIn };
-}
+// function mapState(state) {
+// 	const { loggingIn } = state.authentication;
+// 	return { loggingIn };
+// }
 
-const actionCreators = {
-	// login: userActions.login,
-	// logout: userActions.logout,
-};
+// const actionCreators = {
+// 	login: userActions.login,
+// 	logout: userActions.logout,
+// };
 
-const connectedLoginPage = connect(mapState, actionCreators)(LoginPage);
-export { connectedLoginPage as LoginPage };
+// const connectedLoginPage = connect(mapState, actionCreators)(LoginPage);
+// export { connectedLoginPage as LoginPage };
+
+export default LoginPage;
