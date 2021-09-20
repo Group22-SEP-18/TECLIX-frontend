@@ -5,10 +5,10 @@ import {
 	Switch,
 	Redirect,
 } from 'react-router-dom';
-import { PrivateRoute } from './components/PrivateRoute';
+import { PrivateRoute } from './components/common/PrivateRoute';
 import { history } from './utils';
-import { LoginPage } from './components/login/LoginPage';
-import HomePage from './components/homepage/HomePage';
+import { LoginPage } from './components/pages/login/LoginPage';
+import { privateRoutes } from './privateRoutes';
 import ProductPage from './components/productpage/ProductPage';
 import VehiclePage from './components/vehiclepage/VehiclePage';
 
@@ -20,10 +20,12 @@ const Main = (props) => {
 		<div>
 			<Router>
 				<Switch>
-					<PrivateRoute exact path='/' component={HomePage} />
-					<PrivateRoute exact path='/products' component={ProductPage} />
-					<PrivateRoute exact path='/vehicles' component={VehiclePage} />
-					<Route path='/login' component={HomePage} />
+					{privateRoutes.map((pr, i) => (
+						<PrivateRoute key={i} path={pr.path} component={pr.component} />
+					))}
+					<Route path='/login' component={LoginPage} />
+					<PrivateRoute path='/products' component={ProductPage} />
+					<PrivateRoute path='/vehicles' component={VehiclePage} />
 					{/* <Route path='/register' component={RegisterPage} /> */}
 					<Redirect from='*' to='/' />
 				</Switch>

@@ -1,0 +1,132 @@
+{
+    "data": [
+        {
+            "salesperson_id": 4933,
+            "date": "2021-05-24T13:05:20Z",
+            "location": {
+                "latitude": 6.984306385997563, 
+                "longitude": 79.93313803980053
+            }
+        },
+        {
+            "salesperson_id": 4933,
+            "date": "2021-06-22T17:33:34Z",
+            "location": {
+                "latitude": 6.8791726289899415, 
+                "longitude": 79.87282769044438
+            }
+        },
+        {
+            "salesperson_id": 4933,
+            "date": "2021-03-23T20:26:57Z",
+            "location": {
+                "latitude": 6.911176265837728, 
+                "longitude": 79.87741651688034
+            }
+        },
+        {
+            "salesperson_id": 4933,
+            "date": "2021-02-19T12:58:05Z",
+            "location": {
+                "latitude": 6.8791726289899415, 
+                "longitude": 79.87282769044438
+            }
+        },
+        {
+            "salesperson_id": 4933,
+            "date": "2021-03-30T22:40:53Z",
+            "location": {
+                "latitude": 6.8987285559619504, 
+                "longitude": 79.86066834583215
+            }
+        },
+        {
+            "salesperson_id": 4933,
+            "date": "2021-01-24T23:07:46Z",
+            "location": {
+                "latitude": 6.923956922948467, 
+                "longitude": 79.97837080182109
+            }
+        },
+        {
+            "salesperson_id": 5089,
+            "date": "2021-09-06T20:51:45Z",
+            "location": {
+                "latitude": 6.911005851744027, 
+                "longitude": 79.88479795580965
+            }
+        },
+        {
+            "salesperson_id": 5089,
+            "date": "2021-06-22T17:33:34Z",
+            "location": {
+                "latitude": 6.911687507750232, 
+                "longitude": 79.86600103574554
+            }
+        },
+        {
+            "salesperson_id": 5089,
+            "date": "2021-01-13T14:47:59Z",
+            "location": {
+                "latitude": 6.8791726289899415, 
+                "longitude": 79.87282769044438
+            }
+        },
+        {
+            "salesperson_id": 5089,
+            "date": "2021-07-11T23:20:13Z",
+            "location": {
+                "latitude": 6.890129660997153, 
+                "longitude": 79.86359777655926
+            }
+        },
+        {
+            "salesperson_id": 5089,
+            "date": "2021-01-19T02:13:13Z",
+            "location": {
+                "latitude": 6.8791726289899415, 
+                "longitude": 79.87282769044438
+            }
+        },
+        {
+            "salesperson_id": 4933,
+            "date": "2021-09-18T16:54:41Z",
+            "location": {
+                "latitude": 6.984306385997563, 
+                "longitude": 79.93313803980053
+            }
+        },
+        {
+            "salesperson_id": 5089,
+            "date": "2021-09-18T16:54:41Z",
+            "location": {
+                "latitude": 6.923956922948467, 
+                "longitude": 79.97837080182109
+            }
+        },
+        {
+            "salesperson_id": 4833,
+            "date": "2021-09-18T16:54:41Z",
+            "location": {
+                "latitude": 6.853579705951666, 
+                "longitude": 79.88401428748764
+            }
+        },
+        {
+            "salesperson_id": 6279,
+            "date": "2021-09-18T16:54:41Z",
+            "location": {
+                "latitude": 6.8696358044539165, 
+                "longitude": 79.88899961877866
+            }
+        },
+        {
+            "salesperson_id": 1026,
+            "date": "2021-09-18T16:54:41Z",
+            "location": {
+                "latitude": 6.8791726289899415, 
+                "longitude": 79.87282769044438
+            }
+        }
+    ]
+}
