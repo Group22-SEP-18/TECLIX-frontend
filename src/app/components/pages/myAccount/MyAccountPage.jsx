@@ -9,13 +9,12 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import {
 	Avatar,
 	Box,
-	Button,
-	useColorModeValue,
+	// Button,
+	// useColorModeValue,
 	Flex,
 	Grid,
 	GridItem,

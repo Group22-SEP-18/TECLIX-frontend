@@ -25,7 +25,7 @@ export const locationSlice = createSlice({
 	},
 });
 
-export const {} = locationSlice.actions;
+// export const {} = locationSlice.actions;
 
 export const selectAllLocations = (state) => state.locations;
 

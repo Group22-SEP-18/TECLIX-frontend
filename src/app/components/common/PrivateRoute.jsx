@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+// import { useSelector, useDispatch } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 
 export const PrivateRoute = ({
@@ -7,7 +7,7 @@ export const PrivateRoute = ({
 	acceptable_user_roles,
 	...rest
 }) => {
-	const user_role = useSelector((state) => state.user.user.user_role);
+	// const user_role = useSelector((state) => state.user.user.user_role);
 	return (
 		<Route
 			{...rest}

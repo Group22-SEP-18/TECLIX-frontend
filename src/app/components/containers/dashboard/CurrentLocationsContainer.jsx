@@ -9,9 +9,7 @@
  * @since  20.09.2021
  */
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Center } from '@chakra-ui/react';
 import { fetchCurrentLocationData } from '../../../redux/actions/currentLocationsActions';
 import MapWithHeader from '../../common/map/MapWithHeader';
 

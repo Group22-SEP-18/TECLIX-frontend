@@ -25,7 +25,7 @@ export const salespersonSlice = createSlice({
 	},
 });
 
-export const {} = salespersonSlice.actions;
+// export const {} = salespersonSlice.actions;
 
 export const selectAllSalespersons = (state) => state.salespersons;
 
