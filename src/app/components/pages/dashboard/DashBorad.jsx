@@ -4,6 +4,7 @@ import StatCard from '../../common/stats/StatCard';
 import LeaderBoardContainer from '../../containers/leaderboard/LeaderBoardContainer';
 import SalesChart from '../../common/charts/DashBoardSales';
 import SideBar from '../../common/sidebar/SideBar';
+import CurrentLocationsContainer from '../../containers/dashboard/CurrentLocationsContainer';
 
 const DashBorad = (props) => {
 	return (
@@ -24,7 +25,7 @@ const DashBorad = (props) => {
 							borderRadius='xl'
 							overflow='hidden'
 						>
-							{/* <SimpleMap /> */}
+							<CurrentLocationsContainer />
 						</Box>
 					</GridItem>
 					<GridItem rowSpan={6} colSpan={4} overflow='hidden'>
