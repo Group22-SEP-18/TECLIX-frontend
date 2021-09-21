@@ -13,6 +13,7 @@
  */
 
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
 	Drawer,
 	DrawerContent,
@@ -24,6 +25,7 @@ import MobileNav from './MobileNav';
 
 const SideBar = (props) => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const user = useSelector((state) => state.user.user);
 	return (
 		<>
 			{/* Side Bar for larger displays */}
@@ -31,6 +33,7 @@ const SideBar = (props) => {
 				bg={useColorModeValue('gray.100', 'gray.900')}
 				onClose={() => onClose}
 				display={{ base: 'none', md: 'block' }}
+				user={user}
 			/>
 			{/*Drawer for mini displays  */}
 			<Drawer
@@ -43,11 +46,11 @@ const SideBar = (props) => {
 				size='full'
 			>
 				<DrawerContent>
-					<Sidebar onClose={onClose} />
+					<Sidebar onClose={onClose} user={user} />
 				</DrawerContent>
 			</Drawer>
 			{/* Header with Nav button for mini displays */}
-			<MobileNav onOpen={onOpen} />
+			<MobileNav onOpen={onOpen} user={user} />
 		</>
 	);
 };

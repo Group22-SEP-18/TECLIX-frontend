@@ -3,7 +3,7 @@ import axios from 'axios';
 const rootUrl = 'http://localhost:8000/staff-api/';
 const loginUrl = rootUrl + 'login/web';
 const userProfileUrl = rootUrl + 'user';
-const logoutUrl = rootUrl + 'user/logout';
+const logoutUrl = rootUrl + 'logout/';
 const newAccessJWT = rootUrl + 'tokens';
 const userVerificationUrl = userProfileUrl + '/verify';
 
@@ -111,7 +111,7 @@ export const userLogout = async () => {
 	try {
 		await axios.delete(logoutUrl, {
 			headers: {
-				Authorization: sessionStorage.getItem('accessJWT'),
+				Authorization: localStorage.getItem('token'),
 			},
 		});
 	} catch (error) {

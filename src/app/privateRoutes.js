@@ -26,6 +26,26 @@ export const privateRoutes = [
 		acceptable_user_roles: ['Distribution Officer', 'Operation Manager'],
 	},
 	{
+		path: '/myaccount',
+		component: VehiclePage,
+		acceptable_user_roles: ['Distribution Officer', 'Operation Manager'],
+	},
+	{
+		path: '/reports/sales',
+		component: VehiclePage,
+		acceptable_user_roles: ['Operation Manager'],
+	},
+	{
+		path: '/reports/salesperson',
+		component: VehiclePage,
+		acceptable_user_roles: ['Operation Manager'],
+	},
+	{
+		path: '/reports/products',
+		component: VehiclePage,
+		acceptable_user_roles: ['Operation Manager'],
+	},
+	{
 		path: '/',
 		component: DashBorad,
 		acceptable_user_roles: ['Distribution Officer', 'Operation Manager'],
