@@ -22,6 +22,7 @@ const loginSlice = createSlice({
 				employee_no: payload.employee_no,
 				first_name: payload.first_name,
 				last_name: payload.last_name,
+				mobile_number: payload.mobile_number,
 				user_role: payload.user_role || 'Distribution Officer', // 'Operation Manager'
 				profile_picture:
 					payload.profile_picture ||

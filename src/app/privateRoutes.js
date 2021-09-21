@@ -3,6 +3,7 @@ import SalesPersonViewMainPage from './components/pages/salesperson/SalesPersonV
 import CustomersMainPage from './components/pages/customers/CustomersMainPage';
 import ProductPage from './components/productpage/ProductPage';
 import VehiclePage from './components/vehiclepage/VehiclePage';
+import MyAccountPage from './components/pages/myAccount/MyAccountPage';
 
 export const privateRoutes = [
 	{
@@ -27,7 +28,7 @@ export const privateRoutes = [
 	},
 	{
 		path: '/myaccount',
-		component: VehiclePage,
+		component: MyAccountPage,
 		acceptable_user_roles: ['Distribution Officer', 'Operation Manager'],
 	},
 	{
