@@ -14,7 +14,7 @@ import VehiclePage from './components/vehiclepage/VehiclePage';
 
 const Main = (props) => {
 	history.listen((location, action) => {
-		this.props.clearAlerts();
+		props.clearAlerts();
 	});
 	return (
 		<div>

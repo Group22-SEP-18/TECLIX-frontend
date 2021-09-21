@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const rootUrl = 'http://localhost:8000/staff-api/';
-const loginUrl = rootUrl + 'login/';
+const loginUrl = rootUrl + 'login/web';
 const userProfileUrl = rootUrl + 'user';
 const logoutUrl = rootUrl + 'user/logout';
 const newAccessJWT = rootUrl + 'tokens';
@@ -39,19 +39,14 @@ export const userRegistrationVerification = (frmData) => {
 
 export const userLogin = (frmData) => {
 	return new Promise(async (resolve, reject) => {
-		console.log(frmData);
 		try {
 			const res = await axios.post(loginUrl, frmData);
-			console.log(res);
+			console.log(res.data);
 			resolve(res.data);
 
-			if (res.data.status === 'success') {
-				sessionStorage.setItem('token', res.data.accessJWT);
-				localStorage.setItem(
-					'token',
-					// JSON.stringify({ refreshJWT: res.data.refreshJWT })
-					res.data.token
-				);
+			if (res.data.token) {
+				localStorage.setItem('token', res.data.token);
+				// JSON.stringify({ refreshJWT: res.data.token })
 			}
 		} catch (error) {
 			reject(error);

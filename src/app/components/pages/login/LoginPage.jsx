@@ -76,7 +76,7 @@ const LoginPage = (props) => {
 									return dispatch(loginFail(isAuth.message));
 								}
 
-								dispatch(loginSuccess());
+								dispatch(loginSuccess(isAuth));
 								dispatch(getUserProfile());
 								history.push('/');
 							} catch (error) {
