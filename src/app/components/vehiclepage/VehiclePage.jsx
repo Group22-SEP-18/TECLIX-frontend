@@ -21,8 +21,8 @@ import {
 	Grid,
 	GridItem,
 } from '@chakra-ui/react';
-import Sidebar from '../sidebar/SidebarContent';
-import MobileNav from '../sidebar/MobileNav';
+import Sidebar from '../../components/common/sidebar/SidebarContent';
+import MobileNav from '../../components/common/sidebar/MobileNav';
 import VehicleCard from '../vehiclecard/VehicleCard';
 
 const VehiclePage = () => {
