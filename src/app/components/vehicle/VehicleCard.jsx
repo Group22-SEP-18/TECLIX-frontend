@@ -5,17 +5,27 @@ import {
 	useColorModeValue,
 	Button,
 	Divider,
+	Modal,
+	useDisclosure,
+	ModalBody,
+	ModalContent,
+	ModalOverlay,
+	ModalCloseButton,
+	ModalHeader,
 	Stack,
 } from '@chakra-ui/react';
 import { MdBuild, MdDelete } from 'react-icons/md';
-import { Wrap, WrapItem } from '@chakra-ui/react';
+import { VStack, StackDivider } from '@chakra-ui/react';
+import { Wrap } from '@chakra-ui/react';
 import { Stat, StatLabel, StatNumber, StatHelpText } from '@chakra-ui/react';
-import { Avatar } from '@chakra-ui/react';
-import { Tag, TagLabel } from '@chakra-ui/react';
-import { StackDivider, VStack } from '@chakra-ui/react';
+import VehicleProducts from './VehicleProducts';
+import VehicleSalesperson from './VehicleSalesperson';
+import VehicleAssignForm from './VehicleAssignForm';
 //import Axios from 'axios';
 
 function ProductCard(props) {
+	const { isOpen, onOpen, onClose } = useDisclosure();
+
 	//const toast = useToast();
 
 	const updateDetails = (ProductDetails) => {
@@ -106,111 +116,61 @@ function ProductCard(props) {
 				>
 					<Box>
 						<Wrap pt='3' pl='1'>
-							<WrapItem>
-								<Tag size='lg' colorScheme='whatsapp' borderRadius='full'>
-									<TagLabel pr='2' color='blue.700'>
-										12x
-									</TagLabel>
-									<Avatar
-										src='/1234.jpg'
-										size='xs'
-										name='Segun Adebayo'
-										ml={-1}
-										mr={2}
-									/>
-									<TagLabel>Tikiri Marie Large</TagLabel>
-								</Tag>
-							</WrapItem>
-							<WrapItem>
-								<Tag size='lg' colorScheme='whatsapp' borderRadius='full'>
-									<TagLabel pr='2' color='blue.700'>
-										4x
-									</TagLabel>
-									<Avatar
-										src='/1234.jpg'
-										size='xs'
-										name='Segun Adebayo'
-										ml={-1}
-										mr={2}
-									/>
-									<TagLabel>Chips</TagLabel>
-								</Tag>
-							</WrapItem>
-							<WrapItem>
-								<Tag size='lg' colorScheme='whatsapp' borderRadius='full'>
-									<TagLabel pr='2' color='blue.700'>
-										3x
-									</TagLabel>
-									<Avatar
-										src='/1234.jpg'
-										size='xs'
-										name='Segun Adebayo'
-										ml={-1}
-										mr={2}
-									/>
-									<TagLabel>Cracker</TagLabel>
-								</Tag>
-							</WrapItem>
-							<WrapItem>
-								<Tag size='lg' colorScheme='whatsapp' borderRadius='full'>
-									<TagLabel pr='2' color='blue.700'>
-										1x
-									</TagLabel>
-									<Avatar
-										src='/1234.jpg'
-										size='xs'
-										name='Segun Adebayo'
-										ml={-1}
-										mr={2}
-									/>
-									<TagLabel>Chocolate Biscuit</TagLabel>
-								</Tag>
-							</WrapItem>
-							<WrapItem>
-								<Tag size='lg' colorScheme='whatsapp' borderRadius='full'>
-									<TagLabel pr='2' color='blue.700'>
-										8x
-									</TagLabel>
-									<Avatar
-										src='/1234.jpg'
-										size='xs'
-										name='Segun Adebayo'
-										ml={-1}
-										mr={2}
-									/>
-									<TagLabel>Hawain Cookies</TagLabel>
-								</Tag>
-							</WrapItem>
+							{props.assigned_products.map((product, index) => (
+								<VehicleProducts
+									key={index}
+									product_imageURL={product.product_imageURL}
+									product_shortname={product.product_shortname}
+									product_quantity={product.product_quantity}
+								/>
+							))}
 						</Wrap>
 					</Box>
 					<Box pb='3' pl='1'>
 						<Wrap>
-							<WrapItem>
-								<Tag size='lg' colorScheme='red' borderRadius='full'>
-									<Avatar
-										src='https://bit.ly/sage-adebayo'
-										size='xs'
-										name='Segun Adebayo'
-										ml={-1}
-										mr={2}
-									/>
-									<TagLabel>Peter Paul</TagLabel>
-								</Tag>
-							</WrapItem>
+							{props.assigned_salesperson.map((salesperson, index) => (
+								<VehicleSalesperson
+									key={index}
+									image_url={salesperson.image_url}
+									first_name={salesperson.first_name}
+								/>
+							))}
 						</Wrap>
 					</Box>
 				</VStack>
 				<Divider size='30' />
 				<Stack direction='row' spacing={4} p='2'>
-					<Button
-						leftIcon={<MdBuild />}
-						colorScheme='pink'
-						variant='solid'
-						minWidth='100'
-						left='1'
-					>
-						Assignments
-					</Button>
+					<Box>
+						<Button
+							leftIcon={<MdBuild />}
+							onClick={onOpen}
+							colorScheme='pink'
+							variant='solid'
+							minWidth='100'
+							left='1'
+						>
+							Assignments
+						</Button>
+						<Modal
+							closeOnOverlayClick={false}
+							onClose={onClose}
+							isOpen={isOpen}
+							motionPreset='scale'
+							isCentered
+						>
+							<ModalOverlay />
+							<ModalContent>
+								<ModalHeader>Assign Products To The Vehicle</ModalHeader>
+								<ModalCloseButton />
+								<ModalBody pb='5'>
+									<VehicleAssignForm
+										updateDetails={updateDetails}
+										trigger={onClose}
+									/>
+								</ModalBody>
+							</ModalContent>
+						</Modal>
+					</Box>
 					<Button
 						rightIcon={<MdDelete />}
 						colorScheme='blue'

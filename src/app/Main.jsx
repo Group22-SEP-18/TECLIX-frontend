@@ -9,8 +9,8 @@ import { PrivateRoute } from './components/PrivateRoute';
 import { history } from './utils';
 import { LoginPage } from './components/login/LoginPage';
 import HomePage from './components/homepage/HomePage';
-import ProductPage from './components/productpage/ProductPage';
-import VehiclePage from './components/vehiclepage/VehiclePage';
+import ProductPage from './components/product/ProductPage';
+import VehiclePage from './components/vehicle/VehiclePage';
 
 const Main = (props) => {
 	history.listen((location, action) => {

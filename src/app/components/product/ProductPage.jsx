@@ -11,8 +11,6 @@
  * @author Shehan Perera.
  * @since  08.09.2021
  */
-
-import React from 'react';
 import {
 	Box,
 	Drawer,
@@ -22,11 +20,22 @@ import {
 	GridItem,
 } from '@chakra-ui/react';
 import Sidebar from '../sidebar/SidebarContent';
+import {
+	getProductsAsync,
+	selectAllProducts,
+} from '../../redux/slices/productSlice';
+import React, { useEffect } from 'react';
 import MobileNav from '../sidebar/MobileNav';
-import ProductCard from '../productCard/ProductCard';
+import { useSelector, useDispatch } from 'react-redux';
+import ProductCard from './ProductCard';
 
 const ProductPage = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const dispatch = useDispatch();
+	const products = useSelector(selectAllProducts);
+	useEffect(() => {
+		dispatch(getProductsAsync());
+	}, [dispatch]);
 
 	const categoryList = ['Biscuit', 'Chocolate', 'Spices', 'Drinks'];
 
@@ -123,11 +132,7 @@ const ProductPage = () => {
 							<ProductCard
 								key={index}
 								categoryList={categoryList}
-								productId={product.productId}
-								name={product.name}
-								category={product.category}
-								price={product.price}
-								imageURL={product.imageURL}
+								product={product}
 							/>
 						</GridItem>
 					))}
