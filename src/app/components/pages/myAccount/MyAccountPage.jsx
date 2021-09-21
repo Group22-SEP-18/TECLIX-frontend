@@ -24,6 +24,7 @@ import {
 	Text,
 } from '@chakra-ui/react';
 import SideBar from '../../common/sidebar/SideBar';
+import ResetPassword from '../../containers/myAccount/ResetPassword';
 
 const MyAccountPage = (props) => {
 	const user = useSelector((state) => state.user.user);
@@ -83,7 +84,7 @@ const MyAccountPage = (props) => {
 					<Box>
 						<Flex>
 							<Spacer />
-							<Button
+							{/* <Button
 								bg={useColorModeValue('green.100', 'green.900')}
 								size='lg'
 								_hover={{ bg: 'trasparent' }}
@@ -91,16 +92,8 @@ const MyAccountPage = (props) => {
 								mx={4}
 							>
 								<Text mx={2}>Edit Profile</Text>
-							</Button>
-							<Button
-								bg={useColorModeValue('green.100', 'green.900')}
-								size='lg'
-								_hover={{ bg: 'trasparent' }}
-								mx={4}
-								onClick={() => {}}
-							>
-								<Text mx={2}>Change Password</Text>
-							</Button>
+							</Button> */}
+							<ResetPassword />
 						</Flex>
 					</Box>
 				</GridItem>
