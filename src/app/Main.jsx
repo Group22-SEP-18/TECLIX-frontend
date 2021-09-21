@@ -9,6 +9,7 @@ import {
 import { PrivateRoute } from './components/common/PrivateRoute';
 import { history } from './utils';
 import LoginPage from './components/pages/login/LoginPage';
+import RegisterPage from './components/pages/register/RegisterPage';
 import { privateRoutes } from './privateRoutes';
 import { getUserProfile } from '../app/redux/actions/userActions';
 
@@ -31,7 +32,7 @@ const Main = (props) => {
 						/>
 					))}
 					<Route path='/login' component={LoginPage} />
-					{/* <Route path='/register' component={RegisterPage} /> */}
+					<Route path='/register' component={RegisterPage} />
 					<Redirect from='*' to='/' />
 				</Switch>
 			</Router>

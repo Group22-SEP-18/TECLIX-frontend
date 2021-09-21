@@ -17,7 +17,20 @@ export const getCustomersAsync = createAsyncThunk(
 export const customerSlice = createSlice({
 	name: 'customers',
 	initialState: [],
-	reducers: {},
+	reducers: {
+		customersPending: (state, action) => {
+			state.isLoading = true;
+		},
+		customersSuccess: (state, { payload }) => {
+			state.isLoading = false;
+			state.currentLocations = payload;
+			state.error = '';
+		},
+		customersFail: (state, { payload }) => {
+			state.isLoading = false;
+			state.error = payload;
+		},
+	},
 	extraReducers: {
 		[getCustomersAsync.fulfilled]: (state, action) => {
 			return action.payload.customers;
@@ -25,7 +38,8 @@ export const customerSlice = createSlice({
 	},
 });
 
-export const {} = customerSlice.actions;
+export const { customersPending, customersFail, customersSuccess } =
+	customerSlice.actions;
 
 export const selectAllCustomers = (state) => state.customers;
 

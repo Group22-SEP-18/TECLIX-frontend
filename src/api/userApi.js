@@ -4,18 +4,19 @@ const rootUrl = 'http://localhost:8000/staff-api/';
 const loginUrl = rootUrl + 'login/web';
 const userProfileUrl = rootUrl + 'logged-in-user/';
 const logoutUrl = rootUrl + 'logout/';
+const userRegisterUrl = rootUrl + 'register/';
 const newAccessJWT = rootUrl + 'tokens';
 const userVerificationUrl = userProfileUrl + '/verify';
 
 export const userRegistration = (frmData) => {
 	return new Promise(async (resolve, reject) => {
 		try {
-			const res = await axios.post(userProfileUrl, frmData);
+			const res = await axios.post(userRegisterUrl, frmData);
 
 			resolve(res.data);
 
-			if (res.data.status === 'success') {
-				resolve(res.data);
+			if (res.data.email !== frmData.email) {
+				reject('Error while user registration');
 			}
 		} catch (error) {
 			reject(error);
