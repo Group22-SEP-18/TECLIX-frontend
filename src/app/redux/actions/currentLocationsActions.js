@@ -5,16 +5,14 @@ import {
 } from '../slices/currentLocationsSlice';
 import { fetchCurrentLocations } from '../../../api/salespersonApi';
 
-export const getUserProfile = () => async (dispatch) => {
+export const fetchCurrentLocationData = () => async (dispatch) => {
 	try {
 		dispatch(currentLocationsPending());
 
 		const result = await fetchCurrentLocations();
+		if (result.length) return dispatch(currentLocationsSuccess(result));
 
-		if (result.user && result.user._id)
-			return dispatch(currentLocationsSuccess(result.user));
-
-		dispatch(currentLocationsFail('User is not found'));
+		dispatch(currentLocationsFail('No current location data'));
 	} catch (error) {
 		dispatch(currentLocationsFail(error));
 	}

@@ -12,8 +12,9 @@ export const PrivateRoute = ({
 		<Route
 			{...rest}
 			render={(props) =>
-				localStorage.getItem('token') &&
-				acceptable_user_roles.includes(user_role) ? (
+				localStorage.getItem('token') ? (
+					// &&
+					// acceptable_user_roles.includes(user_role) ?
 					<Component {...props} />
 				) : (
 					<Redirect to='/login' />

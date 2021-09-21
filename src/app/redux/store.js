@@ -6,6 +6,7 @@ import locationReducer from './slices/locationsSlice';
 import notificationReducer from './slices/notificationSlice';
 import loginReducer from './slices/loginSlice';
 import userReducer from './slices/userSlice';
+import currentLocationsReducer from './slices/currentLocationsSlice';
 
 export default configureStore({
 	reducer: {
@@ -16,5 +17,6 @@ export default configureStore({
 		notification: notificationReducer,
 		login: loginReducer,
 		user: userReducer,
+		currentLocations: currentLocationsReducer,
 	},
 });

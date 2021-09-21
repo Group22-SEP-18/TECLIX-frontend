@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import {
 	BrowserRouter as Router,
 	Route,
@@ -9,8 +10,13 @@ import { PrivateRoute } from './components/common/PrivateRoute';
 import { history } from './utils';
 import LoginPage from './components/pages/login/LoginPage';
 import { privateRoutes } from './privateRoutes';
+import { getUserProfile } from '../app/redux/actions/userActions';
 
 const Main = (props) => {
+	const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch(getUserProfile());
+	}, [dispatch]);
 	return (
 		<div>
 			<Router history={history}>

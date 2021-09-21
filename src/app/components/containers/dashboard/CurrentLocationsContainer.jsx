@@ -8,11 +8,29 @@
  * @author Hirumal Priyashan.
  * @since  20.09.2021
  */
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { Box, Center } from '@chakra-ui/react';
+import { fetchCurrentLocationData } from '../../../redux/actions/currentLocationsActions';
+import MapWithHeader from '../../common/map/MapWithHeader';
 
 const CurrentLocationsContainer = (props) => {
-	return <div>asdf</div>;
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(fetchCurrentLocationData());
+	}, [dispatch]);
+	const { currentLocations, isLoading, error } = useSelector(
+		(state) => state.currentLocations
+	);
+	if (isLoading) return <h3>Loading ...</h3>;
+	if (error) return <h3>{error}</h3>;
+	const locations = currentLocations.map((l) => ({
+		latitude: parseFloat(l.customer.latitude),
+		longitude: parseFloat(l.customer.longitude),
+	}));
+	return <MapWithHeader header='' locations={locations} />;
 };
 
 CurrentLocationsContainer.propTypes = {};

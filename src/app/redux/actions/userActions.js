@@ -11,8 +11,9 @@ export const getUserProfile = () => async (dispatch) => {
 
 		const result = await fetchUser();
 
-		if (result.user && result.user._id)
-			return dispatch(getUserSuccess(result.user));
+		if (result.email && result.token) {
+			return dispatch(getUserSuccess(result));
+		}
 
 		dispatch(getUserFail('User is not found'));
 	} catch (error) {
