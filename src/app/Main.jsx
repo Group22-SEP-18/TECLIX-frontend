@@ -9,13 +9,8 @@ import { PrivateRoute } from './components/common/PrivateRoute';
 import { history } from './utils';
 import LoginPage from './components/pages/login/LoginPage';
 import { privateRoutes } from './privateRoutes';
-import ProductPage from './components/productpage/ProductPage';
-import VehiclePage from './components/vehiclepage/VehiclePage';
 
 const Main = (props) => {
-	history.listen((location, action) => {
-		props.clearAlerts();
-	});
 	return (
 		<div>
 			<Router history={history}>
@@ -26,11 +21,10 @@ const Main = (props) => {
 							exact
 							path={pr.path}
 							component={pr.component}
+							acceptable_user_roles={pr.acceptable_user_roles}
 						/>
 					))}
 					<Route path='/login' component={LoginPage} />
-					{/* <PrivateRoute path='/products' component={ProductPage} />
-					<PrivateRoute path='/vehicles' component={VehiclePage} /> */}
 					{/* <Route path='/register' component={RegisterPage} /> */}
 					<Redirect from='*' to='/' />
 				</Switch>

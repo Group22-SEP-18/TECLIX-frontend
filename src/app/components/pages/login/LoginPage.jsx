@@ -27,7 +27,7 @@ import {
 	loginSuccess,
 	loginFail,
 } from '../../../redux/slices/loginSlice';
-import { getUserProfile } from '../../../redux/actions/userActions';
+import { setUser } from '../../../redux/slices/userSlice';
 import { userLogin } from '../../../../api/userApi';
 
 const LoginPage = (props) => {
@@ -77,10 +77,14 @@ const LoginPage = (props) => {
 								}
 
 								dispatch(loginSuccess(isAuth));
-								dispatch(getUserProfile());
+								dispatch(setUser(isAuth));
 								history.push('/');
 							} catch (error) {
-								dispatch(loginFail(error.message));
+								const errmsg =
+									error.message === 'Request failed with status code 401'
+										? 'Invalid Email Or Password'
+										: 'Internal Server Error';
+								dispatch(loginFail(errmsg));
 							}
 						}}
 					>
