@@ -52,3 +52,11 @@ export const reportSlice = createSlice({
 		},
 	},
 });
+
+export const {
+	salesPerProductPending,
+	salesPerProductFail,
+	salesPerProductSuccss,
+} = reportSlice.actions;
+
+export default reportSlice.reducer;
