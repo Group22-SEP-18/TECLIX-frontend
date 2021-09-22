@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Box } from '@chakra-ui/react';
 import SideBar from '../../common/sidebar/SideBar';
 
