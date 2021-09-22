@@ -1,8 +1,8 @@
 import DashBorad from './components/pages/dashboard/DashBorad';
 import SalesPersonViewMainPage from './components/pages/salesperson/SalesPersonViewMainPage';
 import CustomersMainPage from './components/pages/customers/CustomersMainPage';
-import ProductPage from './components/productpage/ProductPage';
-import VehiclePage from './components/vehiclepage/VehiclePage';
+import ProductPage from './components/pages/product/ProductPage';
+import VehiclePage from './components/pages/vehicle/VehiclePage';
 import MyAccountPage from './components/pages/myAccount/MyAccountPage';
 
 export const privateRoutes = [
