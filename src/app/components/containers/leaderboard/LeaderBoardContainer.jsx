@@ -15,24 +15,27 @@ import {
 } from '@chakra-ui/react';
 import First3 from '../../presentation/leaderboard/First3';
 import HorPositions from '../../presentation/leaderboard/HorPositions';
-import { getSalespersonsAsync } from '../../../redux/slices/salespersonSlice';
+import { getLeaderboardPoints } from '../../../redux/actions/salespersonActions';
 
 const LeaderBoardContainer = (props) => {
 	const dispatch = useDispatch();
 	const [timeConstraint, setTimeConstraint] = useState('today');
-	const salespersons = useSelector((state) => {
-		return state.salespersons
-			.slice()
-			.filter((sp) => sp.is_approved !== false)
-			.sort(
-				(a, b) =>
-					parseFloat(a.leaderboard_points[timeConstraint]) -
-					parseFloat(b.leaderboard_points[timeConstraint])
-			)
-			.reverse();
-	});
+	const {
+		isLoading,
+		leaderborad,
+		todayLeaderboard,
+		monthLeaderboard,
+		alltimeLeaderboard,
+		error,
+	} = useSelector((state) => state.leaderboard);
+	const salespersons =
+		timeConstraint === 'today'
+			? todayLeaderboard
+			: timeConstraint === 'month'
+			? monthLeaderboard
+			: alltimeLeaderboard;
 	useEffect(() => {
-		dispatch(getSalespersonsAsync());
+		dispatch(getLeaderboardPoints());
 	}, [dispatch]);
 
 	return (
@@ -63,7 +66,7 @@ const LeaderBoardContainer = (props) => {
 											{salespersons.length >= 2 && (
 												<First3
 													key={2}
-													salesperson={salespersons[1]}
+													row={salespersons[1]}
 													position={2}
 													timeConstraint={timeConstraint}
 												/>
@@ -74,7 +77,7 @@ const LeaderBoardContainer = (props) => {
 											{salespersons.length >= 1 && (
 												<First3
 													key={1}
-													salesperson={salespersons[0]}
+													row={salespersons[0]}
 													position={1}
 													timeConstraint={timeConstraint}
 												/>
@@ -85,7 +88,7 @@ const LeaderBoardContainer = (props) => {
 											{salespersons.length >= 3 && (
 												<First3
 													key={3}
-													salesperson={salespersons[2]}
+													row={salespersons[2]}
 													position={3}
 													timeConstraint={timeConstraint}
 												/>
@@ -97,7 +100,7 @@ const LeaderBoardContainer = (props) => {
 								{salespersons.slice(3, 7).map((salesperson, index) => (
 									<HorPositions
 										key={index}
-										salesperson={salesperson}
+										row={salesperson}
 										position={index + 4}
 										timeConstraint={timeConstraint}
 									/>

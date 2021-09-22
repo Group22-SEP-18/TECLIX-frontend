@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const rootUrl = 'http://localhost:8000/customer-api/';
+const rootUrl = 'https://teclix.herokuapp.com/customer-api/';
 
 export const fetchCustomers = () => {
 	return new Promise(async (resolve, reject) => {

@@ -1,8 +1,14 @@
-import { fetchSalespersons } from '../../../api/salespersonApi';
+import {
+	fetchSalespersons,
+	fetchLeaderboard,
+} from '../../../api/salespersonApi';
 import {
 	leaderboradFail,
 	leaderboradPending,
 	leaderboradSuccess,
+	getTodayLeaderboard,
+	getMonthlyLeaderboard,
+	getAllTimeLeaderboard,
 } from '../slices/leaderboardSlice';
 import {
 	salespersonFail,
@@ -30,10 +36,14 @@ export const getLeaderboardPoints = () => async (dispatch) => {
 	try {
 		dispatch(leaderboradPending());
 
-		const result = await fetchSalespersons();
+		const result = await fetchLeaderboard();
 
 		if (Array.isArray(result)) {
-			return dispatch(leaderboradSuccess(result));
+			dispatch(leaderboradSuccess(result));
+			dispatch(getTodayLeaderboard());
+			dispatch(getMonthlyLeaderboard());
+			dispatch(getAllTimeLeaderboard());
+			return;
 		}
 
 		dispatch(leaderboradFail());

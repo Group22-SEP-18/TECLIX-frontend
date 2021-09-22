@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const rootUrl = 'http://localhost:8000/salesperson-api/';
+const rootUrl = 'https://teclix.herokuapp.com/salesperson-api/';
 const locationUrl = rootUrl + 'locations';
 const currentLocationsUrl = rootUrl + 'locations/current';
-const leaderboardUrl = rootUrl + 'leaderboard';
+const leaderboardUrl = rootUrl + 'leaderboard/';
 const leaderboardSchemaUrl = rootUrl + 'leaderboard-point-schema';
 
 export const fetchCurrentLocations = () => {

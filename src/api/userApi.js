@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const rootUrl = 'http://localhost:8000/staff-api/';
+const rootUrl = 'https://teclix.herokuapp.com/staff-api/';
 const loginUrl = rootUrl + 'login/web';
 const userProfileUrl = rootUrl + 'logged-in-user/';
 const logoutUrl = rootUrl + 'logout/';

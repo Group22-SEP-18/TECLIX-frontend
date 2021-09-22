@@ -18,12 +18,16 @@ import {
 	selectAllSalespersons,
 } from '../../../redux/slices/salespersonSlice';
 import SalesPersonCard from '../../presentation/salesperson/SalesPersonCard';
+import { getSalespersons } from '../../../redux/actions/salespersonActions';
 
 const SalesPersonsContainer = ({ onCardClick }) => {
 	const dispatch = useDispatch();
-	const salespersons = useSelector(selectAllSalespersons);
+	const { isLoading, salespersons, error } = useSelector(
+		(state) => state.salespersons
+	);
+	console.log(salespersons);
 	useEffect(() => {
-		dispatch(getSalespersonsAsync());
+		dispatch(getSalespersons());
 	}, [dispatch]);
 
 	return (

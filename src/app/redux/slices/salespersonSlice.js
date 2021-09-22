@@ -22,7 +22,7 @@ export const getSalespersonsAsync = createAsyncThunk(
 
 export const salespersonSlice = createSlice({
 	name: 'salespersons',
-	initialState: [],
+	initialState: initialState,
 	reducers: {
 		salespersonPending: (state) => {
 			state.isLoading = true;
