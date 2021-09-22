@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 const rootUrl = 'http://localhost:8000/salesperson-api/';
-const locationUrl = rootUrl + 'locations/';
-const currentLocationsUrl = locationUrl + 'current/';
-const leaderboardUrl = rootUrl + 'leaderboard/';
-const leaderboardSchemaUrl = rootUrl + 'leaderboard-point-schema/';
+const locationUrl = rootUrl + 'locations';
+const currentLocationsUrl = rootUrl + 'locations/current';
+const leaderboardUrl = rootUrl + 'leaderboard';
+const leaderboardSchemaUrl = rootUrl + 'leaderboard-point-schema';
 
 export const fetchCurrentLocations = () => {
 	return new Promise(async (resolve, reject) => {
