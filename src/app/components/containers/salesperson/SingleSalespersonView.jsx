@@ -46,7 +46,7 @@ const SingleSalespersonView = ({ salesperson, onClick }) => {
 						borderRadius='xl'
 						overflow='hidden'
 					>
-						<SalesPersonHistoryContainer salesperson={salesperson} />
+						{/* <SalesPersonHistoryContainer salesperson={salesperson} /> */}
 					</Box>
 				</GridItem>
 				<GridItem rowSpan={6} colSpan={4} overflow='hidden'>

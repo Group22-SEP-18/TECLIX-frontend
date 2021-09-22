@@ -5,6 +5,8 @@ const locationUrl = rootUrl + 'locations';
 const currentLocationsUrl = rootUrl + 'locations/current';
 const leaderboardUrl = rootUrl + 'leaderboard/';
 const leaderboardSchemaUrl = rootUrl + 'leaderboard-point-schema';
+const approveUrl =
+	'https://teclix.herokuapp.com/staff-api/approve/salesperson/';
 
 export const fetchCurrentLocations = () => {
 	return new Promise(async (resolve, reject) => {
@@ -23,7 +25,6 @@ export const fetchCurrentLocations = () => {
 
 			resolve(res.data);
 		} catch (error) {
-			console.log(error);
 			reject(error.message);
 		}
 	});
@@ -46,7 +47,6 @@ export const fetchSalespersons = () => {
 
 			resolve(res.data);
 		} catch (error) {
-			console.log(error);
 			reject(error.message);
 		}
 	});
@@ -69,7 +69,6 @@ export const fetchLocations = () => {
 
 			resolve(res.data);
 		} catch (error) {
-			console.log(error);
 			reject(error.message);
 		}
 	});
@@ -92,7 +91,6 @@ export const fetchLeaderboard = () => {
 
 			resolve(res.data);
 		} catch (error) {
-			console.log(error);
 			reject(error.message);
 		}
 	});
@@ -115,7 +113,32 @@ export const fetchLeaderboardPointSchema = () => {
 
 			resolve(res.data);
 		} catch (error) {
-			console.log(error);
+			reject(error.message);
+		}
+	});
+};
+
+export const approveSalespersonAccount = (id) => {
+	return new Promise(async (resolve, reject) => {
+		try {
+			const accessJWT = localStorage.getItem('token');
+
+			if (!accessJWT) {
+				reject('Token not found!');
+			}
+
+			const res = await axios.post(
+				`${approveUrl}${id}`,
+				{ is_approved: true },
+				{
+					headers: {
+						Authorization: accessJWT,
+					},
+				}
+			);
+
+			resolve(res.data);
+		} catch (error) {
 			reject(error.message);
 		}
 	});

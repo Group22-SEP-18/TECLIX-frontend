@@ -19,7 +19,6 @@ export const fetchCustomers = () => {
 
 			resolve(res.data);
 		} catch (error) {
-			console.log(error);
 			reject(error.message);
 		}
 	});

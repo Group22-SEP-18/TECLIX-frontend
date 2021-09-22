@@ -11,17 +11,31 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { approveAccountById } from '../../../redux/actions/salespersonActions';
 import {
 	Avatar,
 	Badge,
 	Box,
+	Button,
 	Heading,
 	HStack,
+	Spacer,
 	Stack,
 	Text,
+	VStack,
 } from '@chakra-ui/react';
+import { CheckIcon } from '@chakra-ui/icons';
 
 const SalesPersonCard = ({ salesperson, onClick }) => {
+	const dispatch = useDispatch();
+	const { isLoading, success, error, id } = useSelector(
+		(state) => state.salespersons.approve
+	);
+	const approveAccount = () => {
+		console.log(salesperson.id);
+		dispatch(approveAccountById(salesperson.id));
+	};
 	return (
 		<div>
 			<Box
@@ -32,8 +46,10 @@ const SalesPersonCard = ({ salesperson, onClick }) => {
 				overflow='hidden'
 				p={6}
 				textAlign={'center'}
-				_hover={{ cursor: 'pointer', bg: 'lightgrey' }}
-				onClick={() => onClick(salesperson)}
+				_hover={
+					salesperson.is_approved ? { cursor: 'pointer', bg: 'lightgrey' } : {}
+				}
+				onClick={() => (salesperson.is_approved ? onClick(salesperson) : {})}
 			>
 				<HStack align={'center'}>
 					<Avatar
@@ -58,9 +74,18 @@ const SalesPersonCard = ({ salesperson, onClick }) => {
 								colorScheme='green'
 								fontWeight={'400'}
 							>
-								#Emplooyee Id {salesperson.emp_id}
+								#Emplooyee Id {salesperson.employee_no}
 							</Badge>
 						</Heading>
+						<Text
+							fontWeight={500}
+							color={'gray.500'}
+							mt={4}
+							textAlign='start'
+							pl='4'
+						>
+							Email: {salesperson.email}
+						</Text>
 						<Text
 							fontWeight={500}
 							color={'gray.500'}
@@ -68,41 +93,74 @@ const SalesPersonCard = ({ salesperson, onClick }) => {
 							textAlign='start'
 							pl='4'
 						>
-							{salesperson.email}
+							Contact No: {salesperson.contact_no}
 						</Text>
-						<Text mt={6} pl='4' textAlign='start'>
-							Leaderboard Points
-						</Text>
-						<Stack align={'center'} justify={'start'} direction={'row'} pl='4'>
-							<Badge
-								px={2}
-								py={1}
-								variant='outline'
-								colorScheme='green'
-								fontWeight={'400'}
-							>
-								#Today: {salesperson.leaderboard_points.today} points
-							</Badge>
-							<Badge
-								px={2}
-								py={1}
-								variant='outline'
-								colorScheme='green'
-								fontWeight={'400'}
-							>
-								#Month: {salesperson.leaderboard_points.month} points
-							</Badge>
-							<Badge
-								px={2}
-								py={1}
-								variant='outline'
-								colorScheme='green'
-								fontWeight={'400'}
-							>
-								#All Time: {salesperson.leaderboard_points.alltime} points
-							</Badge>
-						</Stack>
+						{salesperson.is_approved && (
+							<>
+								<Text mt={6} pl='4' textAlign='start'>
+									Leaderboard Points
+								</Text>
+								<Stack
+									align={'center'}
+									justify={'start'}
+									direction={'row'}
+									pl='4'
+								>
+									<Badge
+										px={2}
+										py={1}
+										variant='outline'
+										colorScheme='green'
+										fontWeight={'400'}
+									>
+										#Today: points
+									</Badge>
+									<Badge
+										px={2}
+										py={1}
+										variant='outline'
+										colorScheme='green'
+										fontWeight={'400'}
+									>
+										#Month: points
+									</Badge>
+									<Badge
+										px={2}
+										py={1}
+										variant='outline'
+										colorScheme='green'
+										fontWeight={'400'}
+									>
+										#All Time: points
+									</Badge>
+								</Stack>
+							</>
+						)}
 					</Box>
+					<Spacer />
+					{!salesperson.is_approved && (
+						<Box>
+							<VStack>
+								<Spacer />
+								<Button
+									leftIcon={<CheckIcon />}
+									colorScheme='whatsapp'
+									variant='solid'
+									isLoading={isLoading && id === salesperson.id}
+									onClick={approveAccount}
+								>
+									Approve
+								</Button>
+								{/* <Button
+									rightIcon={<ArrowForwardIcon />}
+									colorScheme='teal'
+									variant='outline'
+								>
+									Reject
+								</Button> */}
+							</VStack>
+						</Box>
+					)}
 				</HStack>
 			</Box>
 		</div>

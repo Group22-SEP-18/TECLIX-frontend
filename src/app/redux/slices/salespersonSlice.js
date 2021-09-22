@@ -4,6 +4,12 @@ const initialState = {
 	isLoading: false,
 	salespersons: [],
 	error: '',
+	approve: {
+		isLoading: false,
+		success: null,
+		error: null,
+		id: '',
+	},
 };
 
 export const getSalespersonsAsync = createAsyncThunk(
@@ -36,6 +42,24 @@ export const salespersonSlice = createSlice({
 			state.isLoading = false;
 			state.error = 'Error while accessing salesperson informations';
 		},
+		approvePending: (state, { payload }) => {
+			console.log('pend');
+			state.approve.isLoading = true;
+			state.approve.id = payload.id;
+		},
+		approveSuccess: (state) => {
+			state.approve.isLoading = false;
+			state.approve.error = null;
+			state.approve.success = 'Successfully approved the account';
+			state.salespersons = state.salespersons.map((sp) =>
+				sp.id === state.approve.id ? { ...sp, ...{ is_approved: true } } : sp
+			);
+		},
+		approveFail: (state) => {
+			state.approve.isLoading = false;
+			state.approve.success = null;
+			state.approve.error = 'Account activation failed';
+		},
 	},
 	extraReducers: {
 		[getSalespersonsAsync.fulfilled]: (state, action) => {
@@ -44,8 +68,14 @@ export const salespersonSlice = createSlice({
 	},
 });
 
-export const { salespersonPending, salespersonFail, salespersonSuccess } =
-	salespersonSlice.actions;
+export const {
+	salespersonPending,
+	salespersonFail,
+	salespersonSuccess,
+	approvePending,
+	approveFail,
+	approveSuccess,
+} = salespersonSlice.actions;
 
 export const selectAllSalespersons = (state) => state.salespersons;
 

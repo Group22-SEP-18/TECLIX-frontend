@@ -34,7 +34,7 @@ const AddFilter = (props) => {
 		maximumPrice: null,
 		salesperson: null,
 		shopName: null,
-		shopLocation: 'null',
+		shopLocation: null,
 	});
 	const onChanges = (value) => {
 		setchanges({ ...changes, ...value });
