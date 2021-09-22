@@ -1,5 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
+const initialState = {
+	isLoading: false,
+	locations: [],
+	filteredlocations: [],
+	error: '',
+};
+
 export const getLocationsAsync = createAsyncThunk(
 	'locations/getLocationsAsync',
 	async () => {
@@ -16,8 +23,33 @@ export const getLocationsAsync = createAsyncThunk(
 
 export const locationSlice = createSlice({
 	name: 'locations',
-	initialState: [],
-	reducers: {},
+	initialState,
+	reducers: {
+		locationsPending: (state) => {
+			state.isLoading = true;
+		},
+		locationsSuccess: (state, { payload }) => {
+			state.isLoading = false;
+			state.error = '';
+			state.locations = payload;
+		},
+		locationsFail: (state) => {
+			state.isLoading = false;
+			state.error = 'Error while accessing salesperson leaderboard';
+		},
+		filterLocations: (state, { payload }) => {
+			const ed = payload.from
+				? new Date(`${payload.from}T00:00:00.000Z`).getTime()
+				: new Date('0001-01-01T00:00:00Z').getTime();
+			const sd = payload.to
+				? new Date(`${payload.to}T00:00:00.000Z`).getTime()
+				: new Date().getTime();
+			state.filteredlocations = state.locations.filter((row) => {
+				var time = new Date(row.date).getTime();
+				return sd < time && time < ed;
+			});
+		},
+	},
 	extraReducers: {
 		[getLocationsAsync.fulfilled]: (state, action) => {
 			return action.payload.locations;
@@ -25,7 +57,8 @@ export const locationSlice = createSlice({
 	},
 });
 
-// export const {} = locationSlice.actions;
+export const { locationsPending, locationsSuccess, locationsFail } =
+	locationSlice.actions;
 
 export const selectAllLocations = (state) => state.locations;
 

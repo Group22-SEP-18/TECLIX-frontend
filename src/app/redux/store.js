@@ -1,24 +1,26 @@
 import { configureStore } from '@reduxjs/toolkit';
-import salespersonReducer from './slices/salespersonSlice';
-import customerReducer from './slices/customerSlice';
-import serviceOrderReducer from './slices/serviceOrderSlice';
-import locationReducer from './slices/locationsSlice';
-import notificationReducer from './slices/notificationSlice';
-import loginReducer from './slices/loginSlice';
-import userReducer from './slices/userSlice';
 import currentLocationsReducer from './slices/currentLocationsSlice';
+import customerReducer from './slices/customerSlice';
+import leaderboardReducer from './slices/leaderboardSlice';
+import locationReducer from './slices/locationsSlice';
+import loginReducer from './slices/loginSlice';
+import notificationReducer from './slices/notificationSlice';
 import registrationReducer from './slices/registrationSlice';
+import salespersonReducer from './slices/salespersonSlice';
+import serviceOrderReducer from './slices/serviceOrderSlice';
+import userReducer from './slices/userSlice';
 
 export default configureStore({
 	reducer: {
-		salespersons: salespersonReducer,
-		customers: customerReducer,
-		serviceOrders: serviceOrderReducer,
-		locations: locationReducer,
-		notification: notificationReducer,
-		login: loginReducer,
-		user: userReducer,
 		currentLocations: currentLocationsReducer,
+		customers: customerReducer,
+		leaderboard: leaderboardReducer,
+		locations: locationReducer,
+		login: loginReducer,
+		notification: notificationReducer,
 		registration: registrationReducer,
+		salespersons: salespersonReducer,
+		serviceOrders: serviceOrderReducer,
+		user: userReducer,
 	},
 });

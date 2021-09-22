@@ -1,5 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
+const initialState = {
+	isLoading: false,
+	salespersons: [],
+	error: '',
+};
+
 export const getSalespersonsAsync = createAsyncThunk(
 	'salespersons/getSalespersonsAsync',
 	async () => {
@@ -17,7 +23,20 @@ export const getSalespersonsAsync = createAsyncThunk(
 export const salespersonSlice = createSlice({
 	name: 'salespersons',
 	initialState: [],
-	reducers: {},
+	reducers: {
+		salespersonPending: (state) => {
+			state.isLoading = true;
+		},
+		salespersonSuccess: (state, { payload }) => {
+			state.isLoading = false;
+			state.error = '';
+			state.salespersons = payload;
+		},
+		salespersonFail: (state) => {
+			state.isLoading = false;
+			state.error = 'Error while accessing salesperson informations';
+		},
+	},
 	extraReducers: {
 		[getSalespersonsAsync.fulfilled]: (state, action) => {
 			return action.payload.salespersons;
@@ -25,7 +44,8 @@ export const salespersonSlice = createSlice({
 	},
 });
 
-// export const {} = salespersonSlice.actions;
+export const { salespersonPending, salespersonFail, salespersonSuccess } =
+	salespersonSlice.actions;
 
 export const selectAllSalespersons = (state) => state.salespersons;
 
