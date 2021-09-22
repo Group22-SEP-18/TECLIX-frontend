@@ -62,7 +62,6 @@ const ProductEditForm = ({ categoryList, updateDetails, trigger }) => {
 				<Input
 					type='number'
 					placeholder='Price'
-					value={price}
 					onChange={(e) => setPrice(e.target.value)}
 				/>
 			</FormControl>

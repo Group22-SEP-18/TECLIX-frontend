@@ -11,22 +11,18 @@
  * @author Shehan Perera.
  * @since  08.09.2021
  */
-
-import React from 'react';
-import {
-	Box,
-	Drawer,
-	DrawerContent,
-	useDisclosure,
-	Grid,
-	GridItem,
-} from '@chakra-ui/react';
-import Sidebar from '../../components/common/sidebar/SidebarContent';
-import MobileNav from '../../components/common/sidebar/MobileNav';
-import ProductCard from '../productCard/ProductCard';
+import { Box, useDisclosure, Grid, GridItem } from '@chakra-ui/react';
+import SideBar from '../../common/sidebar/SideBar';
+import React, { useEffect } from 'react';
+import ProductCard from '../../presentation/product/ProductCard';
 
 const ProductPage = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	// const dispatch = useDispatch();
+	// const products = useSelector(selectAllProducts);
+	// useEffect(() => {
+	// 	dispatch(getProductsAsync());
+	// }, [dispatch]);
 
 	const categoryList = ['Biscuit', 'Chocolate', 'Spices', 'Drinks'];
 
@@ -91,28 +87,7 @@ const ProductPage = () => {
 
 	return (
 		<Box minH='100vh'>
-			{/* Side Bar for larger displays */}
-			<Sidebar
-				onClose={() => onClose}
-				display={{ base: 'none', md: 'block' }}
-			/>
-			{/*Drawer for mini displays  */}
-			<Drawer
-				autoFocus={false}
-				isOpen={isOpen}
-				placement='left'
-				onClose={onClose}
-				returnFocusOnClose={false}
-				onOverlayClick={onClose}
-				size='full'
-			>
-				<DrawerContent>
-					<Sidebar onClose={onClose} />
-				</DrawerContent>
-			</Drawer>
-			{/* Header with Nav button for mini displays */}
-			<MobileNav onOpen={onOpen} />
-			{/* Content */}
+			<SideBar />
 			<Box ml={{ base: 0, md: 60 }} p='4'>
 				<Grid
 					templateColumns={{ base: 'repeat(2, 1fr)', xl: 'repeat(4, 1fr)' }}
@@ -123,11 +98,7 @@ const ProductPage = () => {
 							<ProductCard
 								key={index}
 								categoryList={categoryList}
-								productId={product.productId}
-								name={product.name}
-								category={product.category}
-								price={product.price}
-								imageURL={product.imageURL}
+								product={product}
 							/>
 						</GridItem>
 					))}
