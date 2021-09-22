@@ -1,21 +1,22 @@
 import axios from 'axios';
 
 const rootUrl = 'http://localhost:8000/staff-api/';
-const loginUrl = rootUrl + 'login/';
-const userProfileUrl = rootUrl + 'user';
-const logoutUrl = rootUrl + 'user/logout';
+const loginUrl = rootUrl + 'login/web';
+const userProfileUrl = rootUrl + 'logged-in-user/';
+const logoutUrl = rootUrl + 'logout/';
+const userRegisterUrl = rootUrl + 'register/';
 const newAccessJWT = rootUrl + 'tokens';
 const userVerificationUrl = userProfileUrl + '/verify';
 
 export const userRegistration = (frmData) => {
 	return new Promise(async (resolve, reject) => {
 		try {
-			const res = await axios.post(userProfileUrl, frmData);
+			const res = await axios.post(userRegisterUrl, frmData);
 
 			resolve(res.data);
 
-			if (res.data.status === 'success') {
-				resolve(res.data);
+			if (res.data.email !== frmData.email) {
+				reject('Error while user registration');
 			}
 		} catch (error) {
 			reject(error);
@@ -39,19 +40,13 @@ export const userRegistrationVerification = (frmData) => {
 
 export const userLogin = (frmData) => {
 	return new Promise(async (resolve, reject) => {
-		console.log(frmData);
 		try {
 			const res = await axios.post(loginUrl, frmData);
-			console.log(res);
 			resolve(res.data);
 
-			if (res.data.status === 'success') {
-				sessionStorage.setItem('token', res.data.accessJWT);
-				localStorage.setItem(
-					'token',
-					// JSON.stringify({ refreshJWT: res.data.refreshJWT })
-					res.data.token
-				);
+			if (res.data.token) {
+				localStorage.setItem('token', res.data.token);
+				// JSON.stringify({ refreshJWT: res.data.token })
 			}
 		} catch (error) {
 			reject(error);
@@ -62,7 +57,7 @@ export const userLogin = (frmData) => {
 export const fetchUser = () => {
 	return new Promise(async (resolve, reject) => {
 		try {
-			const accessJWT = sessionStorage.getItem('accessJWT');
+			const accessJWT = localStorage.getItem('token');
 
 			if (!accessJWT) {
 				reject('Token not found!');
@@ -70,11 +65,15 @@ export const fetchUser = () => {
 
 			const res = await axios.get(userProfileUrl, {
 				headers: {
-					Authorization: accessJWT,
+					Authorization: `Token ${accessJWT}`,
 				},
 			});
 
 			resolve(res.data);
+			if (res.data.token) {
+				localStorage.setItem('token', res.data.token);
+				// JSON.stringify({ refreshJWT: res.data.token })
+			}
 		} catch (error) {
 			console.log(error);
 			reject(error.message);
@@ -116,7 +115,7 @@ export const userLogout = async () => {
 	try {
 		await axios.delete(logoutUrl, {
 			headers: {
-				Authorization: sessionStorage.getItem('accessJWT'),
+				Authorization: localStorage.getItem('token'),
 			},
 		});
 	} catch (error) {

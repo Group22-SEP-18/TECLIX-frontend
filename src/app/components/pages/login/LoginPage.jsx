@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -27,7 +26,7 @@ import {
 	loginSuccess,
 	loginFail,
 } from '../../../redux/slices/loginSlice';
-import { getUserProfile } from '../../../redux/actions/userActions';
+import { setUser } from '../../../redux/slices/userSlice';
 import { userLogin } from '../../../../api/userApi';
 
 const LoginPage = (props) => {
@@ -76,11 +75,15 @@ const LoginPage = (props) => {
 									return dispatch(loginFail(isAuth.message));
 								}
 
-								dispatch(loginSuccess());
-								dispatch(getUserProfile());
+								dispatch(loginSuccess(isAuth));
+								dispatch(setUser(isAuth));
 								history.push('/');
 							} catch (error) {
-								dispatch(loginFail(error.message));
+								const errmsg =
+									error.message === 'Request failed with status code 401'
+										? 'Invalid Email Or Password'
+										: 'Internal Server Error';
+								dispatch(loginFail(errmsg));
 							}
 						}}
 					>

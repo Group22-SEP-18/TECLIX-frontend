@@ -1,20 +1,26 @@
 import { configureStore } from '@reduxjs/toolkit';
-import salespersonReducer from './slices/salespersonSlice';
+import currentLocationsReducer from './slices/currentLocationsSlice';
 import customerReducer from './slices/customerSlice';
-import serviceOrderReducer from './slices/serviceOrderSlice';
+import leaderboardReducer from './slices/leaderboardSlice';
 import locationReducer from './slices/locationsSlice';
-import notificationReducer from './slices/notificationSlice';
 import loginReducer from './slices/loginSlice';
+import notificationReducer from './slices/notificationSlice';
+import registrationReducer from './slices/registrationSlice';
+import salespersonReducer from './slices/salespersonSlice';
+import serviceOrderReducer from './slices/serviceOrderSlice';
 import userReducer from './slices/userSlice';
 
 export default configureStore({
 	reducer: {
-		salespersons: salespersonReducer,
+		currentLocations: currentLocationsReducer,
 		customers: customerReducer,
-		serviceOrders: serviceOrderReducer,
+		leaderboard: leaderboardReducer,
 		locations: locationReducer,
-		notification: notificationReducer,
 		login: loginReducer,
+		notification: notificationReducer,
+		registration: registrationReducer,
+		salespersons: salespersonReducer,
+		serviceOrders: serviceOrderReducer,
 		user: userReducer,
 	},
 });

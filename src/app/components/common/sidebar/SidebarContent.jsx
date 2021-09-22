@@ -21,7 +21,7 @@ import {
 import NavMenuItem from './NavMenuItem';
 import sidebarContent from './sidebar-content';
 
-const Sidebar = ({ onClose, ...rest }) => {
+const Sidebar = ({ onClose, user, ...rest }) => {
 	return (
 		<Box
 			transition='3s ease'
@@ -32,29 +32,35 @@ const Sidebar = ({ onClose, ...rest }) => {
 		>
 			<Flex h='20' alignItems='center' mx='8' justifyContent='space-between'>
 				<Text fontSize='2xl' fontFamily='monospace' fontWeight='bold'>
-					Logo
+					TECLIX
 				</Text>
 				<CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
 			</Flex>
-			{sidebarContent.map((content, index) => (
-				<div key={index}>
-					<Heading as='h4' size={{ base: 'sm', md: 'md' }} p={4}>
-						{content.header}
-					</Heading>
-					<Divider colorScheme='whatsapp' />
-					{content.subHeaders.map((sub) => (
-						<NavMenuItem
-							key={content.header + sub.name}
-							name={sub.name}
-							Icon={sub.icon}
-							link={sub.link}
-							items={sub.items}
-						>
-							{sub.name}
-						</NavMenuItem>
-					))}
-				</div>
-			))}
+			{sidebarContent.map(
+				(content, index) =>
+					content.acceptable_user_roles.includes(user.user_role) && (
+						<div key={index}>
+							<Heading as='h4' size={{ base: 'sm', md: 'md' }} p={4}>
+								{content.header}
+							</Heading>
+							<Divider colorScheme='whatsapp' />
+							{content.subHeaders.map(
+								(sub) =>
+									sub.acceptable_user_roles.includes(user.user_role) && (
+										<NavMenuItem
+											key={content.header + sub.name}
+											name={sub.name}
+											Icon={sub.icon}
+											link={sub.link}
+											items={sub.items}
+										>
+											{sub.name}
+										</NavMenuItem>
+									)
+							)}
+						</div>
+					)
+			)}
 		</Box>
 	);
 };

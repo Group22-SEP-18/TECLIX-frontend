@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import ReactEcharts from 'echarts-for-react';
 import { Heading } from '@chakra-ui/react';
 
