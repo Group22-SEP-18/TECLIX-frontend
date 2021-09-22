@@ -5,7 +5,7 @@ import {
 	salesPerProductSuccss,
 } from '../slices/reportSlice';
 
-export const fetchCurrentLocationData = () => async (dispatch) => {
+export const fetchSalesPerProductData = () => async (dispatch) => {
 	try {
 		dispatch(salesPerProductPending());
 
