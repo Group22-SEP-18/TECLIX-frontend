@@ -1,7 +1,4 @@
-import axios from 'axios';
 import { fetchWithAuthorization } from './baseApi';
-
-const rootUrl = 'https://teclix.herokuapp.com/report-api/';
 
 // salesperson report
 export const fetchSalesPerSalespersonForCurrentMonth = () => {
