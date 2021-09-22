@@ -1,6 +1,8 @@
 import React from 'react';
 import { Box, Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
 import SideBar from '../../common/sidebar/SideBar';
+import TotalSalesContainer from '../../containers/reports/sales/TotalSalesContainer';
+import PayAndLaterContainer from '../../containers/reports/sales/PayAndLaterContainer';
 
 const SalesReportPage = (props) => {
 	return (
@@ -14,10 +16,10 @@ const SalesReportPage = (props) => {
 					</TabList>
 					<TabPanels>
 						<TabPanel>
-							<p>one!</p>
+							<TotalSalesContainer />
 						</TabPanel>
 						<TabPanel>
-							<p>two!</p>
+							<PayAndLaterContainer />
 						</TabPanel>
 					</TabPanels>
 				</Tabs>
