@@ -4,7 +4,13 @@ import ReactEcharts from 'echarts-for-react';
 import { Heading } from '@chakra-ui/react';
 import colors from '../colors';
 
-const SimpleChart = ({ type, header, xAxisValues, dataToPlot }) => {
+const SimpleChart = ({
+	type,
+	header,
+	xAxisValues,
+	dataToPlot,
+	formatter = 'Rs. {value}',
+}) => {
 	return (
 		<div>
 			<Heading as='h2' size='md' p={3}>
@@ -27,7 +33,7 @@ const SimpleChart = ({ type, header, xAxisValues, dataToPlot }) => {
 					yAxis: {
 						type: 'value',
 						axisLabel: {
-							formatter: 'Rs. {value}',
+							formatter: formatter,
 						},
 					},
 					series: dataToPlot.map((d, index) => ({
