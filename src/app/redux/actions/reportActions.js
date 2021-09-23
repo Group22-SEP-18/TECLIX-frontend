@@ -18,6 +18,9 @@ import {
 	salesBySalespersonPending,
 	salesBySalespersonFail,
 	salesBySalespersonSuccss,
+	progressBySalespersonPending,
+	progressBySalespersonFail,
+	progressBySalespersonSuccss,
 } from '../slices/reportSlice';
 
 export const fetchSalesPerProductData = () => async (dispatch) => {
@@ -71,5 +74,20 @@ export const fetchSalesBySalepersonData = () => async (dispatch) => {
 		dispatch(salesBySalespersonFail({ error: 'No sales data' }));
 	} catch (error) {
 		dispatch(salesBySalespersonFail({ error: 'Error while accessing data' }));
+	}
+};
+
+export const fetchProgressBySalepersonData = () => async (dispatch) => {
+	try {
+		dispatch(progressBySalespersonPending());
+
+		const result = await fetchSalesInLastTwoMonths();
+		if (result.data) return dispatch(progressBySalespersonSuccss(result.data));
+
+		dispatch(progressBySalespersonFail({ error: 'No sales data' }));
+	} catch (error) {
+		dispatch(
+			progressBySalespersonFail({ error: 'Error while accessing data' })
+		);
 	}
 };

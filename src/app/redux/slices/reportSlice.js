@@ -39,6 +39,11 @@ const initialState = {
 		chartValues: [],
 		error: '',
 	},
+	progressBySalesperson: {
+		isLoading: false,
+		chartValues: [],
+		error: '',
+	},
 };
 
 export const reportSlice = createSlice({
@@ -105,6 +110,18 @@ export const reportSlice = createSlice({
 			state.salesBySalesperson.isLoading = false;
 			state.salesBySalesperson.error = payload.error;
 		},
+		progressBySalespersonPending: (state) => {
+			state.progressBySalesperson.isLoading = true;
+		},
+		progressBySalespersonSuccss: (state, { payload }) => {
+			state.progressBySalesperson.isLoading = false;
+			state.progressBySalesperson.error = '';
+			state.progressBySalesperson.chartValues = payload;
+		},
+		progressBySalespersonFail: (state, { payload }) => {
+			state.progressBySalesperson.isLoading = false;
+			state.progressBySalesperson.error = payload.error;
+		},
 	},
 });
 
@@ -121,6 +138,9 @@ export const {
 	salesBySalespersonPending,
 	salesBySalespersonFail,
 	salesBySalespersonSuccss,
+	progressBySalespersonPending,
+	progressBySalespersonFail,
+	progressBySalespersonSuccss,
 } = reportSlice.actions;
 
 export default reportSlice.reducer;
