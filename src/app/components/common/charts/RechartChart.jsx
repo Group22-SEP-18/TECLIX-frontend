@@ -21,8 +21,8 @@ const RechartChart = ({ data, XAxisDataKey, barDataKeys }) => {
 	return (
 		<ResponsiveContainer width='100%' height='100%'>
 			<BarChart
-				width={500}
-				height={300}
+				minwidth={500}
+				minheight={300}
 				data={data}
 				margin={{
 					top: 5,

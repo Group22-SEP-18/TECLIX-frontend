@@ -2,7 +2,9 @@ import { fetchWithAuthorization } from './baseApi';
 
 // salesperson report
 export const fetchSalesPerSalespersonForCurrentMonth = () => {
-	return fetchWithAuthorization('');
+	return fetchWithAuthorization(
+		'https://run.mocky.io/v3/b37460a4-4650-415f-93a2-bbf36f97f2dd'
+	);
 };
 
 export const fetchSalesInLastTwoMonths = () => {

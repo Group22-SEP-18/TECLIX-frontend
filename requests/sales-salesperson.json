@@ -1,0 +1,32 @@
+{
+    "data":[
+        {
+            "salesperson":"Person A",
+            "sales": 20000.00
+        },
+        {
+            "salesperson":"Person A",
+            "sales": 10000.00
+        },
+        {
+            "salesperson":"Person A",
+            "sales": 15000.00
+        },
+        {
+            "salesperson":"Person A",
+            "sales": 8000.00
+        },
+        {
+            "salesperson":"Person A",
+            "sales": 19000.00
+        },
+        {
+            "salesperson":"Person A",
+            "sales": 11000.00
+        },
+        {
+            "salesperson":"Person A",
+            "sales": 2000.00
+        }
+    ]
+}
