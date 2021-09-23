@@ -23,8 +23,8 @@ const initialState = {
 	},
 	salesPerMonth: {
 		isLoading: false,
-		chartValues: [],
 		chartColumns: monthList,
+		chartValues: [],
 		error: '',
 	},
 };
