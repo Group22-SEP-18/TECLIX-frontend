@@ -4,6 +4,9 @@ import CustomersMainPage from './components/pages/customers/CustomersMainPage';
 import ProductPage from './components/pages/product/ProductPage';
 import VehiclePage from './components/pages/vehicle/VehiclePage';
 import MyAccountPage from './components/pages/myAccount/MyAccountPage';
+import SalesReportPage from './components/pages/reports/SalesReportPage';
+import SalespersonReportPage from './components/pages/reports/SalespersonReportPage';
+import ProductReportPage from './components/pages/reports/ProductReportPage';
 
 export const privateRoutes = [
 	{
@@ -33,17 +36,17 @@ export const privateRoutes = [
 	},
 	{
 		path: '/reports/sales',
-		component: VehiclePage,
+		component: SalesReportPage,
 		acceptable_user_roles: ['Operation Manager'],
 	},
 	{
-		path: '/reports/salesperson',
-		component: VehiclePage,
+		path: '/reports/salespersons',
+		component: SalespersonReportPage,
 		acceptable_user_roles: ['Operation Manager'],
 	},
 	{
 		path: '/reports/products',
-		component: VehiclePage,
+		component: ProductReportPage,
 		acceptable_user_roles: ['Operation Manager'],
 	},
 	{

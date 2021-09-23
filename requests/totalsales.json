@@ -1,0 +1,52 @@
+{
+    "data":[
+        {
+            "month": "January",
+            "sales": "21000.00"
+        },
+        {
+            "month": "Feb",
+            "sales": "14000.00"
+        },
+        {
+            "month": "March",
+            "sales": "5000.00"
+        },
+        {
+            "month": "April",
+            "sales": "8000.00"
+        },
+        {
+            "month": "May",
+            "sales": "14000.00"
+        },
+        {
+            "month": "June",
+            "sales": "5000.00"
+        },
+        {
+            "month": "July",
+            "sales": "6000.00"
+        },
+        {
+            "month": "August",
+            "sales": "8000.00"
+        },
+        {
+            "month": "Sep",
+            "sales": "11000.00"
+        },
+        {
+            "month": "Oct",
+            "sales": "20000.00"
+        },
+        {
+            "month": "Nove",
+            "sales": "15000.00"
+        },
+        {
+            "month": "Dc",
+            "sales": "10000.00"
+        }
+    ]
+}

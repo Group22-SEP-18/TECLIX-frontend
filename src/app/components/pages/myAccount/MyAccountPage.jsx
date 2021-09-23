@@ -74,7 +74,7 @@ const MyAccountPage = (props) => {
 							Email: {user.email}
 						</Text>
 						<Text fontWeight={500} textAlign='start' pl='4'>
-							Mobile: {user.mobile_number}
+							Mobile: {user.mobile_number | '1234567890'}
 						</Text>
 					</GridItem>
 				</Grid>

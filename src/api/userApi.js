@@ -1,12 +1,13 @@
 import axios from 'axios';
 
-const rootUrl = 'http://localhost:8000/staff-api/';
+const rootUrl = 'https://teclix.herokuapp.com/staff-api/';
 const loginUrl = rootUrl + 'login/web';
 const userProfileUrl = rootUrl + 'logged-in-user/';
 const logoutUrl = rootUrl + 'logout/';
 const userRegisterUrl = rootUrl + 'register/';
 const newAccessJWT = rootUrl + 'tokens';
 const userVerificationUrl = userProfileUrl + '/verify';
+const approveUrl = rootUrl + 'approve/distribution-officer/';
 
 export const userRegistration = (frmData) => {
 	return new Promise(async (resolve, reject) => {
@@ -75,7 +76,6 @@ export const fetchUser = () => {
 				// JSON.stringify({ refreshJWT: res.data.token })
 			}
 		} catch (error) {
-			console.log(error);
 			reject(error.message);
 		}
 	});
@@ -118,7 +118,27 @@ export const userLogout = async () => {
 				Authorization: localStorage.getItem('token'),
 			},
 		});
-	} catch (error) {
-		console.log(error);
-	}
+	} catch (error) {}
+};
+
+export const approveUserAccount = (id) => {
+	return new Promise(async (resolve, reject) => {
+		try {
+			const accessJWT = localStorage.getItem('token');
+
+			if (!accessJWT) {
+				reject('Token not found!');
+			}
+
+			const res = await axios.get(approveUrl + id, {
+				headers: {
+					Authorization: accessJWT,
+				},
+			});
+
+			resolve(res.data);
+		} catch (error) {
+			reject(error.message);
+		}
+	});
 };

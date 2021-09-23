@@ -68,7 +68,7 @@ const SalesPersonVerticalCardView = ({ salesperson }) => {
 						bg={useColorModeValue('gray.50', 'gray.800')}
 						fontWeight={'400'}
 					>
-						#Today: {salesperson.leaderboard_points.today} points
+						#Today: points
 					</Badge>
 					<Badge
 						px={2}
@@ -76,7 +76,7 @@ const SalesPersonVerticalCardView = ({ salesperson }) => {
 						bg={useColorModeValue('gray.50', 'gray.800')}
 						fontWeight={'400'}
 					>
-						#Month: {salesperson.leaderboard_points.month} points
+						#Month: points
 					</Badge>
 					<Badge
 						px={2}
@@ -84,14 +84,14 @@ const SalesPersonVerticalCardView = ({ salesperson }) => {
 						bg={useColorModeValue('gray.50', 'gray.800')}
 						fontWeight={'400'}
 					>
-						#All Time: {salesperson.leaderboard_points.alltime} points
+						#All Time: points
 					</Badge>
 				</Stack>
 
-				<MapWithHeader
+				{/* <MapWithHeader
 					header='Last Location'
 					locations={[salesperson.location]}
-				/>
+				/> */}
 			</Box>
 		</Center>
 	);

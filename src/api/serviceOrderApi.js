@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const rootUrl = 'http://localhost:8000/customer-api/service-orders/';
+const rootUrl = 'https://teclix.herokuapp.com/customer-api/service-orders/';
 
 export const fetchServiceOrders = () => {
 	return new Promise(async (resolve, reject) => {
@@ -19,7 +19,6 @@ export const fetchServiceOrders = () => {
 
 			resolve(res.data);
 		} catch (error) {
-			console.log(error);
 			reject(error.message);
 		}
 	});

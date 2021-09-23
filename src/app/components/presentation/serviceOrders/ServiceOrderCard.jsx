@@ -36,9 +36,9 @@ import { getDateTime, formatPrice } from '../../../utils';
 
 const ServiceOrderCard = ({ serviceOrder, customer }) => {
 	const dispatch = useDispatch();
-	const salesperson = useSelector(selectAllSalespersons)
+	const salesperson = useSelector((state) => state.salesperson.salespersons)
 		.slice()
-		.find((s) => s.emp_id === serviceOrder.salesperson_id);
+		.find((s) => s.employee_no === serviceOrder.salesperson_id);
 	useEffect(() => {
 		dispatch(getSalespersonsAsync());
 	}, [dispatch]);
