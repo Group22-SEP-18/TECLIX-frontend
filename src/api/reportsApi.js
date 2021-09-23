@@ -20,5 +20,7 @@ export const fetchSalesByPayAndLater = () => {
 
 //product report
 export const fetchSalesPerProduct = () => {
-	return fetchWithAuthorization('');
+	return fetchWithAuthorization(
+		'https://run.mocky.io/v3/46d2e675-781c-471d-b0ba-0e0a01b67c41'
+	);
 };

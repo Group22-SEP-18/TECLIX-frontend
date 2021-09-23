@@ -37,18 +37,18 @@ export const reportSlice = createSlice({
 					product_id: row.product_id,
 					product_short_name: row.product_short_name,
 					product_long_name: row.product_long_name,
-					sales: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+					data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 				};
-				d[row.product_id]['sales'][new Date(row.date).getMonth()] += row.total;
+				d[row.product_id]['data'][new Date(row.date).getMonth()] += row.total;
 				return d;
 			}, {});
 			state.salesPerProduct.chartValues = Object.keys(result).map(
 				(key) => result[key]
 			);
 		},
-		salesPerProductFail: (state) => {
+		salesPerProductFail: (state, { payload }) => {
 			state.salesPerProduct.isLoading = false;
-			state.salesPerProduct.error = 'Error while accessing data';
+			state.salesPerProduct.error = payload.error;
 		},
 	},
 });

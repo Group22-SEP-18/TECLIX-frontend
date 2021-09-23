@@ -10,10 +10,10 @@ export const fetchSalesPerProductData = () => async (dispatch) => {
 		dispatch(salesPerProductPending());
 
 		const result = await fetchSalesPerProduct();
-		if (result.length) return dispatch(salesPerProductSuccss(result));
+		if (result.data) return dispatch(salesPerProductSuccss(result.data));
 
-		dispatch(salesPerProductFail('No sales data'));
+		dispatch(salesPerProductFail({ error: 'No sales data' }));
 	} catch (error) {
-		dispatch(salesPerProductFail(error));
+		dispatch(salesPerProductFail({ error: 'Error while accessing data' }));
 	}
 };

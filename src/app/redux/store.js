@@ -6,6 +6,7 @@ import locationReducer from './slices/locationsSlice';
 import loginReducer from './slices/loginSlice';
 import notificationReducer from './slices/notificationSlice';
 import registrationReducer from './slices/registrationSlice';
+import reportsReducer from './slices/reportSlice';
 import salespersonReducer from './slices/salespersonSlice';
 import serviceOrderReducer from './slices/serviceOrderSlice';
 import userReducer from './slices/userSlice';
@@ -19,6 +20,7 @@ export default configureStore({
 		login: loginReducer,
 		notification: notificationReducer,
 		registration: registrationReducer,
+		report: reportsReducer,
 		salespersons: salespersonReducer,
 		serviceOrders: serviceOrderReducer,
 		user: userReducer,
