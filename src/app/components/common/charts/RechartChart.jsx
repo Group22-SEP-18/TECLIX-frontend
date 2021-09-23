@@ -3,18 +3,21 @@ import PropTypes from 'prop-types';
 import {
 	BarChart,
 	Bar,
-	Cell,
 	XAxis,
 	YAxis,
 	CartesianGrid,
 	Tooltip,
 	Legend,
-	ReferenceLine,
 	ResponsiveContainer,
 } from 'recharts';
 import colors from '../colors';
 
 const RechartChart = ({ data, XAxisDataKey, barDataKeys }) => {
+	var maxi = 0;
+	for (let index = 0; index < barDataKeys.length; index++) {
+		maxi = Math.max(...data.map((d) => d[barDataKeys[index]]), maxi);
+	}
+	console.log(maxi);
 	return (
 		<ResponsiveContainer width='100%' height='100%'>
 			<BarChart
@@ -31,7 +34,7 @@ const RechartChart = ({ data, XAxisDataKey, barDataKeys }) => {
 				<CartesianGrid strokeDasharray='3 3' />
 				<XAxis dataKey={XAxisDataKey} />
 				<YAxis
-					domain={[0, 50000]}
+					domain={[0, parseInt(maxi * 1.2)]}
 					tickFormatter={(tick) => {
 						return `Rs. ${tick}`;
 					}}
