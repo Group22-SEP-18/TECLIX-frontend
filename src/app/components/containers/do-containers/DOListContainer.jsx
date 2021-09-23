@@ -21,6 +21,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import SearchBar from '../../common/SearchBar';
 import { getDistributionOfficers } from '../../../redux/actions/doActions';
+import DOCard from '../../presentation/distribution-officer/DOCard';
 
 const DOListContainer = (props) => {
 	const dispatch = useDispatch();
@@ -57,7 +58,7 @@ const DOListContainer = (props) => {
 								<Collapse in={isOpen} animateOpacity>
 									{distributionOfficers
 										.filter((sp) => sp.is_approved === false)
-										.map((salesperson, index) => (
+										.map((dOfficer, index) => (
 											<DOCard key={index} dOfficer={dOfficer} />
 										))}
 								</Collapse>
