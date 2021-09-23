@@ -9,12 +9,26 @@
  * @since  10.09.2021
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Box, Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
 import SimpleMap from '../../common/map/SimpleMap';
+import { getLocations } from '../../../redux/actions/locationsAction';
+import { fetchServiceOrderData } from '../../../redux/actions/serviceOrderActions';
 
 const SalesPersonHistoryContainer = ({ salesperson }) => {
+	const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch(getLocations());
+		dispatch(fetchServiceOrderData);
+	}, [dispatch]);
+	const { isLoading, serviceOrders, error } = useSelector(
+		(state) => state.serviceOrder
+	);
+	const { _, locations, filteredlocations, __ } = useSelector(
+		(state) => state.locations
+	);
 	return (
 		<Box pt='4'>
 			<Tabs variant='soft-rounded' colorScheme='green'>

@@ -5,7 +5,7 @@ import {
 	serviceOrdersSuccess,
 } from '../slices/serviceOrderSlice';
 
-export const fetchCurrentLocationData = () => async (dispatch) => {
+export const fetchServiceOrderData = () => async (dispatch) => {
 	try {
 		dispatch(serviceOrdersPending());
 

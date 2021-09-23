@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { fetchWithAuthorization } from './baseApi';
 
 const rootUrl = 'https://teclix.herokuapp.com/salesperson-api/';
-const locationUrl = rootUrl + 'locations';
+const locationUrl = rootUrl + 'locations/';
 const currentLocationsUrl = rootUrl + 'locations/current';
 const leaderboardUrl = rootUrl + 'leaderboard/';
 const leaderboardSchemaUrl = rootUrl + 'leaderboard-point-schema';
@@ -53,25 +54,7 @@ export const fetchSalespersons = () => {
 };
 
 export const fetchLocations = () => {
-	return new Promise(async (resolve, reject) => {
-		try {
-			const accessJWT = localStorage.getItem('token');
-
-			if (!accessJWT) {
-				reject('Token not found!');
-			}
-
-			const res = await axios.get(locationUrl, {
-				headers: {
-					Authorization: accessJWT,
-				},
-			});
-
-			resolve(res.data);
-		} catch (error) {
-			reject(error.message);
-		}
-	});
+	return fetchWithAuthorization(locationUrl);
 };
 
 export const fetchLeaderboard = () => {

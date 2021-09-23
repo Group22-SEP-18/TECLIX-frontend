@@ -35,7 +35,7 @@ export const locationSlice = createSlice({
 		},
 		locationsFail: (state) => {
 			state.isLoading = false;
-			state.error = 'Error while accessing salesperson leaderboard';
+			state.error = 'Error while accessing salesperson locations';
 		},
 		filterLocations: (state, { payload }) => {
 			const ed = payload.from
