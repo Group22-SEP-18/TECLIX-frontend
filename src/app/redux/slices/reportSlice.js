@@ -1,23 +1,30 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const monthList = [
+	'Jan',
+	'Feb',
+	'Mar',
+	'Apr',
+	'May',
+	'Jun',
+	'Jul',
+	'Aug',
+	'Sept',
+	'Oct',
+	'Nov',
+	'Dec',
+];
 const initialState = {
 	salesPerProduct: {
 		isLoading: false,
-		chartColumns: [
-			'Jan',
-			'Feb',
-			'Mar',
-			'Apr',
-			'May',
-			'Jun',
-			'Jul',
-			'Aug',
-			'Sept',
-			'Oct',
-			'Nov',
-			'Dec',
-		],
+		chartColumns: monthList,
 		chartValues: [],
+		error: '',
+	},
+	salesPerMonth: {
+		isLoading: false,
+		chartValues: [],
+		chartColumns: monthList,
 		error: '',
 	},
 };
@@ -50,6 +57,18 @@ export const reportSlice = createSlice({
 			state.salesPerProduct.isLoading = false;
 			state.salesPerProduct.error = payload.error;
 		},
+		salesPerMonthPending: (state) => {
+			state.salesPerMonth.isLoading = true;
+		},
+		salesPerMonthSuccss: (state, { payload }) => {
+			state.salesPerMonth.isLoading = false;
+			state.salesPerMonth.error = '';
+			state.salesPerMonth.chartValues = payload;
+		},
+		salesPerMonthFail: (state, { payload }) => {
+			state.salesPerMonth.isLoading = false;
+			state.salesPerMonth.error = payload.error;
+		},
 	},
 });
 
@@ -57,6 +76,9 @@ export const {
 	salesPerProductPending,
 	salesPerProductFail,
 	salesPerProductSuccss,
+	salesPerMonthPending,
+	salesPerMonthFail,
+	salesPerMonthSuccss,
 } = reportSlice.actions;
 
 export default reportSlice.reducer;

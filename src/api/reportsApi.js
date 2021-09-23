@@ -11,7 +11,9 @@ export const fetchSalesInLastTwoMonths = () => {
 
 //sales report
 export const fetchSalesPerMonth = () => {
-	return fetchWithAuthorization('');
+	return fetchWithAuthorization(
+		'https://run.mocky.io/v3/7686c5f2-9912-4665-be95-18f54fadd8d7'
+	);
 };
 
 export const fetchSalesByPayAndLater = () => {
