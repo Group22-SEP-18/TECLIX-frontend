@@ -9,7 +9,7 @@ import {
 import {
 	fetchDistributionOfficers,
 	approveDOAccount,
-} from '../../../api/salespersonApi';
+} from '../../../api/staffApi';
 
 export const getDistributionOfficers = () => async (dispatch) => {
 	try {

@@ -11,7 +11,7 @@
 
 import React from 'react';
 import { Box } from '@chakra-ui/react';
-import CustomerListContainer from '../../containers/customer/CustomerListContainer';
+import DOListContainer from '../../containers/do-containers/DOListContainer';
 import SideBar from '../../common/sidebar/SideBar';
 
 const OfficersPage = (props) => {
@@ -19,7 +19,7 @@ const OfficersPage = (props) => {
 		<Box minH='100vh'>
 			<SideBar />
 			<Box ml={{ base: 0, md: 60 }} p='4'>
-				<CustomerListContainer />
+				<DOListContainer />
 			</Box>
 		</Box>
 	);
