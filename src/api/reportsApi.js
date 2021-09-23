@@ -17,7 +17,9 @@ export const fetchSalesPerMonth = () => {
 };
 
 export const fetchSalesByPayAndLater = () => {
-	return fetchWithAuthorization('');
+	return fetchWithAuthorization(
+		'https://run.mocky.io/v3/0a6f5008-15e1-4bf7-92a0-0347072881d0'
+	);
 };
 
 //product report

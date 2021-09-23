@@ -1,0 +1,156 @@
+{
+    "data":[
+        {
+            "day": "01",
+            "paid_amount": "400.00",
+            "pay_later_amount": "200.00"
+        },
+        {
+            "day": "02",
+            "paid_amount": "500.00",
+            "pay_later_amount": "200.00"
+        },
+        {
+            "day": "03",
+            "paid_amount": "400.00",
+            "pay_later_amount": "000.00"
+        },
+        {
+            "day": "04",
+            "paid_amount": "1000.00",
+            "pay_later_amount": "200.00"
+        },
+        {
+            "day": "05",
+            "paid_amount": "400.00",
+            "pay_later_amount": "200.00"
+        },
+        {
+            "day": "06",
+            "paid_amount": "400.00",
+            "pay_later_amount": "200.00"
+        },
+        {
+            "day": "07",
+            "paid_amount": "400.00",
+            "pay_later_amount": "200.00"
+        },
+        {
+            "day": "08",
+            "paid_amount": "400.00",
+            "pay_later_amount": "200.00"
+        },
+        {
+            "day": "09",
+            "paid_amount": "400.00",
+            "pay_later_amount": "200.00"
+        },
+        {
+            "day": "10",
+            "paid_amount": "400.00",
+            "pay_later_amount": "200.00"
+        },
+        {
+            "day": "11",
+            "paid_amount": "400.00",
+            "pay_later_amount": "200.00"
+        },
+        {
+            "day": "12",
+            "paid_amount": "400.00",
+            "pay_later_amount": "200.00"
+        },
+        {
+            "day": "13",
+            "paid_amount": "400.00",
+            "pay_later_amount": "200.00"
+        },
+        {
+            "day": "14",
+            "paid_amount": "400.00",
+            "pay_later_amount": "200.00"
+        },
+        {
+            "day": "15",
+            "paid_amount": "400.00",
+            "pay_later_amount": "200.00"
+        },
+        {
+            "day": "16",
+            "paid_amount": "400.00",
+            "pay_later_amount": "200.00"
+        },
+
+        {
+            "day": "17",
+            "paid_amount": "400.00",
+            "pay_later_amount": "200.00"
+        },
+        {
+            "day": "18",
+            "paid_amount": "400.00",
+            "pay_later_amount": "200.00"
+        },
+        {
+            "day": "18",
+            "paid_amount": "400.00",
+            "pay_later_amount": "200.00"
+        },
+        {
+            "day": "19",
+            "paid_amount": "400.00",
+            "pay_later_amount": "200.00"
+        },
+        {
+            "day": "20",
+            "paid_amount": "400.00",
+            "pay_later_amount": "200.00"
+        },
+
+        {
+            "day": "21",
+            "paid_amount": "400.00",
+            "pay_later_amount": "200.00"
+        },
+        {
+            "day": "22",
+            "paid_amount": "400.00",
+            "pay_later_amount": "200.00"
+        },
+        {
+            "day": "23",
+            "paid_amount": "400.00",
+            "pay_later_amount": "200.00"
+        },
+        {
+            "day": "23",
+            "paid_amount": "400.00",
+            "pay_later_amount": "200.00"
+        },
+        {
+            "day": "24",
+            "paid_amount": "400.00",
+            "pay_later_amount": "200.00"
+        },
+        {
+            "day": "25",
+            "paid_amount": "400.00",
+            "pay_later_amount": "200.00"
+        },
+        {
+            "day": "26",
+            "paid_amount": "400.00",
+            "pay_later_amount": "200.00"
+        },
+        {
+            "day": "27",
+            "paid_amount": "400.00",
+            "pay_later_amount": "200.00"
+        },
+        {
+            "day": "28",
+            "paid_amount": "400.00",
+            "pay_later_amount": "200.00"
+        }
+    ]
+}

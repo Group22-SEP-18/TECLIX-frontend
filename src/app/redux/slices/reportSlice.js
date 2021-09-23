@@ -27,6 +27,12 @@ const initialState = {
 		chartValues: [],
 		error: '',
 	},
+	payOrLater: {
+		isLoading: false,
+		chartColumns: monthList,
+		chartValues: [],
+		error: '',
+	},
 };
 
 export const reportSlice = createSlice({
@@ -69,6 +75,18 @@ export const reportSlice = createSlice({
 			state.salesPerMonth.isLoading = false;
 			state.salesPerMonth.error = payload.error;
 		},
+		payOrLaterPending: (state) => {
+			state.payOrLater.isLoading = true;
+		},
+		payOrLaterSuccss: (state, { payload }) => {
+			state.payOrLater.isLoading = false;
+			state.payOrLater.error = '';
+			state.payOrLater.chartValues = payload;
+		},
+		payOrLaterFail: (state, { payload }) => {
+			state.payOrLater.isLoading = false;
+			state.payOrLater.error = payload.error;
+		},
 	},
 });
 
@@ -79,6 +97,9 @@ export const {
 	salesPerMonthPending,
 	salesPerMonthFail,
 	salesPerMonthSuccss,
+	payOrLaterPending,
+	payOrLaterFail,
+	payOrLaterSuccss,
 } = reportSlice.actions;
 
 export default reportSlice.reducer;

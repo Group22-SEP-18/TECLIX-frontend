@@ -1,6 +1,7 @@
 import {
 	fetchSalesPerProduct,
 	fetchSalesPerMonth,
+	fetchSalesByPayAndLater,
 } from '../../../api/reportsApi';
 import {
 	salesPerProductFail,
@@ -9,6 +10,9 @@ import {
 	salesPerMonthPending,
 	salesPerMonthFail,
 	salesPerMonthSuccss,
+	payOrLaterPending,
+	payOrLaterFail,
+	payOrLaterSuccss,
 } from '../slices/reportSlice';
 
 export const fetchSalesPerProductData = () => async (dispatch) => {
@@ -36,5 +40,19 @@ export const fetchSalesPerMonthData = () => async (dispatch) => {
 		dispatch(salesPerMonthFail({ error: 'No sales data' }));
 	} catch (error) {
 		dispatch(salesPerMonthFail({ error: 'Error while accessing data' }));
+	}
+};
+
+export const fetchPayOrLaterData = () => async (dispatch) => {
+	try {
+		console.log(123);
+		dispatch(payOrLaterPending());
+
+		const result = await fetchSalesByPayAndLater();
+		if (result.data) return dispatch(payOrLaterSuccss(result.data));
+
+		dispatch(payOrLaterFail({ error: 'No sales data' }));
+	} catch (error) {
+		dispatch(payOrLaterFail({ error: 'Error while accessing data' }));
 	}
 };
