@@ -63,7 +63,7 @@ const SalesPerProductContainer = (props) => {
 					value={selected}
 					onChange={(e) => setSelected(e.target.value)}
 				>
-					{available.map((item, i) => (
+					{chartValues.map((item, i) => (
 						<option key={i} value={item.product_long_name}>
 							{item.product_long_name}
 						</option>

@@ -26,9 +26,11 @@ const SimpleChart = ({ type, header, xAxisValues, dataToPlot }) => {
 					},
 					yAxis: {
 						type: 'value',
+						axisLabel: {
+							formatter: 'Rs. {value}',
+						},
 					},
 					series: dataToPlot.map((d, index) => ({
-						// name: d.short_product_name,
 						data: d.data,
 						type: type,
 						lineStyle: {
@@ -39,15 +41,19 @@ const SimpleChart = ({ type, header, xAxisValues, dataToPlot }) => {
 							borderWidth: 2,
 							borderColor: d.color,
 						},
+						label: { show: true },
 					})),
-					// legend: {
-					// 	//
-					// 	data: dataToPlot.map((d) => d.short_product_name),
-					// 	bottom: 0,
-					// 	backgroundColor: 'transparent',
-					// 	itemWidth: 12,
-					// 	itemHeight: 9,
-					// },
+					legend: {
+						type: 'plain',
+						padding: [5, 10],
+						// data: dataToPlot.map((d) => d.short_product_name),
+					},
+					grid: {
+						left: '3%',
+						right: '4%',
+						bottom: '3%',
+						containLabel: true,
+					},
 				}}
 			/>
 		</div>
