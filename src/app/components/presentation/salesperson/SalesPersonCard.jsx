@@ -33,7 +33,6 @@ const SalesPersonCard = ({ salesperson, onClick }) => {
 		(state) => state.salespersons.approve
 	);
 	const approveAccount = () => {
-		console.log(salesperson.id);
 		dispatch(approveAccountById(salesperson.id));
 	};
 	return (

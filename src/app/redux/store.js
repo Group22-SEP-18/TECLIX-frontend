@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import currentLocationsReducer from './slices/currentLocationsSlice';
 import customerReducer from './slices/customerSlice';
+import distributionOfficerReducer from './slices/distributionOfficersSlice';
 import leaderboardReducer from './slices/leaderboardSlice';
 import locationReducer from './slices/locationsSlice';
 import loginReducer from './slices/loginSlice';
@@ -15,6 +16,7 @@ export default configureStore({
 	reducer: {
 		currentLocations: currentLocationsReducer,
 		customers: customerReducer,
+		distributionOfficers: distributionOfficerReducer,
 		leaderboard: leaderboardReducer,
 		locations: locationReducer,
 		login: loginReducer,

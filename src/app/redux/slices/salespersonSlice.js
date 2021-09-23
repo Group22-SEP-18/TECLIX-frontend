@@ -43,7 +43,6 @@ export const salespersonSlice = createSlice({
 			state.error = 'Error while accessing salesperson informations';
 		},
 		approvePending: (state, { payload }) => {
-			console.log('pend');
 			state.approve.isLoading = true;
 			state.approve.id = payload.id;
 		},
