@@ -22,7 +22,7 @@ const initialState = {
 
 export const customerSlice = createSlice({
 	name: 'customers',
-	initialState: [],
+	initialState,
 	reducers: {
 		customersPending: (state, action) => {
 			state.isLoading = true;

@@ -1,4 +1,8 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import {
+	createAsyncThunk,
+	createSlice,
+	createSelector,
+} from '@reduxjs/toolkit';
 
 const initialState = {
 	isLoading: false,
@@ -32,6 +36,7 @@ export const locationSlice = createSlice({
 			state.isLoading = false;
 			state.error = '';
 			state.locations = payload;
+			state.filteredlocations = payload;
 		},
 		locationsFail: (state) => {
 			state.isLoading = false;
@@ -57,9 +62,29 @@ export const locationSlice = createSlice({
 	},
 });
 
-export const { locationsPending, locationsSuccess, locationsFail } =
-	locationSlice.actions;
+export const {
+	locationsPending,
+	locationsSuccess,
+	locationsFail,
+	filterLocations,
+} = locationSlice.actions;
 
 export const selectAllLocations = (state) => state.locations;
+
+export const selectFilteredLocations = createSelector(
+	[(state) => state.locations, (state, mapFilters) => mapFilters],
+	(locations, mapFilters) => {
+		const ed = mapFilters.from
+			? new Date(`${mapFilters.from}T00:00:00.000Z`).getTime()
+			: new Date('0001-01-01T00:00:00Z').getTime();
+		const sd = mapFilters.to
+			? new Date(`${mapFilters.to}T00:00:00.000Z`).getTime()
+			: new Date().getTime();
+		return locations.filter((row) => {
+			var time = new Date(row.date).getTime();
+			return sd < time && time < ed;
+		});
+	}
+);
 
 export default locationSlice.reducer;

@@ -29,15 +29,10 @@ const SalesPerProductContainer = (props) => {
 		const found = added.find((a) => a.product_long_name === id);
 		const newAdded = added.filter((a) => a.product_long_name !== id);
 		setAdded(newAdded);
-		console.log(newAdded);
 		const newAvailable = available.slice();
 		newAvailable.push(found);
 		console.log(newAvailable);
 		setAvailable(newAvailable);
-		console.log('added');
-		console.log(added);
-		console.log('available');
-		console.log(available);
 	};
 	const addToChart = () => {
 		const found = available.find((a) => a.product_long_name === selected);
@@ -49,10 +44,6 @@ const SalesPerProductContainer = (props) => {
 		newAdded.push(found);
 		setAvailable(newAdded);
 		setSelected('');
-		console.log('added');
-		console.log(added);
-		console.log('available');
-		console.log(available);
 	};
 	return (
 		<div>
@@ -77,7 +68,7 @@ const SalesPerProductContainer = (props) => {
 			</Flex>
 
 			<HStack spacing={4}>
-				{added.map((item) => (
+				{chartValues.map((item) => (
 					<Tag
 						size={'lg'}
 						key={item.product_id}
@@ -99,7 +90,7 @@ const SalesPerProductContainer = (props) => {
 				type='line'
 				header=''
 				xAxisValues={chartColumns}
-				dataToPlot={added}
+				dataToPlot={chartValues}
 			/>
 		</div>
 	);

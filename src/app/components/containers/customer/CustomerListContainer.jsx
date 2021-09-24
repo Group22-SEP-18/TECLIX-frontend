@@ -13,17 +13,15 @@ import React, { useEffect } from 'react';
 import { SimpleGrid } from '@chakra-ui/react';
 import { useSelector, useDispatch } from 'react-redux';
 import SearchBar from '../../common/SearchBar';
-import {
-	selectAllCustomers,
-	getCustomersAsync,
-} from '../../../redux/slices/customerSlice';
+import { selectAllCustomers } from '../../../redux/slices/customerSlice';
+import { getCustomers } from '../../../redux/actions/customerActions';
 import CustomerCard from '../../presentation/customer/CustomerCard';
 
 const CustomerListContainer = ({ onCardClick }) => {
 	const dispatch = useDispatch();
-	const customers = useSelector(selectAllCustomers);
+	const { customers } = useSelector((state) => state.customers);
 	useEffect(() => {
-		dispatch(getCustomersAsync());
+		dispatch(getCustomers());
 	}, [dispatch]);
 	return (
 		<div>
@@ -31,13 +29,14 @@ const CustomerListContainer = ({ onCardClick }) => {
 				<>
 					<SearchBar placeholder={'Search customers.........'} />
 					<SimpleGrid columns={{ base: 1, xl: 2 }} spacing={{ base: 1, xl: 2 }}>
-						{customers.map((customer, index) => (
-							<CustomerCard
-								customer={customer}
-								key={index}
-								onClick={onCardClick}
-							/>
-						))}
+						{customers &&
+							customers.map((customer, index) => (
+								<CustomerCard
+									customer={customer}
+									key={index}
+									onClick={onCardClick}
+								/>
+							))}
 					</SimpleGrid>
 				</>
 			}

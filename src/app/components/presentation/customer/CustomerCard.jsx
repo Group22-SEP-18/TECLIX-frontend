@@ -75,11 +75,10 @@ const CustomerCard = ({ customer, onClick }) => {
 							Email: {customer.email}
 						</Text>
 						<Text fontWeight={500} textAlign='start' pl='4'>
-							Mobile: {customer.email}
+							Mobile: {customer.contact_no}
 						</Text>
 						<Text fontWeight={500} mb={4} textAlign='start' pl='4'>
-							Address: {customer.address.street}, {customer.address.city},{' '}
-							{customer.address.district}
+							Address: {customer.street}, {customer.city}, {customer.district}
 						</Text>
 					</Box>
 					<Spacer />
