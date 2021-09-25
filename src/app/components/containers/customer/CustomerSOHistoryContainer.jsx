@@ -24,7 +24,7 @@ const CustomerSOHistoryContainer = ({ customer }) => {
 	const dispatch = useDispatch();
 	const serviceOrders = useSelector(selectAllServiceOrders)
 		.slice()
-		.filter((so) => so.customer_id === customer.customer_id);
+		.filter((so) => so.customer_id === customer.id);
 	useEffect(() => {
 		dispatch(getServiceOrdersAsync());
 	}, [dispatch]);

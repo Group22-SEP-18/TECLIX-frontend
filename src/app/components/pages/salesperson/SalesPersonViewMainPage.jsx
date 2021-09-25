@@ -54,7 +54,7 @@ const SalesPersonViewMainPage = (props) => {
 									<SalesPersonsContainer onCardClick={onCardClick} />
 								</GridItem>
 								<GridItem colSpan={{ base: 1, lg: 2 }}>
-									<LeaderBoardContainer />
+									<LeaderBoardContainer withSchema={true} />
 								</GridItem>
 							</Grid>
 						</>

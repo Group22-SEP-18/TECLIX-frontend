@@ -12,7 +12,7 @@ export const PrivateRoute = ({
 		<Route
 			{...rest}
 			render={(props) =>
-				localStorage.getItem('token') ? (
+				!localStorage.getItem('token') ? (
 					// &&
 					// acceptable_user_roles.includes(user_role) ?
 					<Component {...props} />

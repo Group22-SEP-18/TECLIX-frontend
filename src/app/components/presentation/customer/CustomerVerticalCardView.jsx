@@ -46,7 +46,7 @@ const CustomerVerticalCardView = ({ customer }) => {
 					pos={'relative'}
 				/>
 				<Text ml='4' px={4} py={1} fontWeight={'400'}>
-					#Customer Id {customer.customer_id}
+					#Customer Id {customer.id}
 				</Text>
 				<Heading fontSize={'xl'} fontFamily={'body'} textAlign='center' pl='4'>
 					{customer.shop_name}

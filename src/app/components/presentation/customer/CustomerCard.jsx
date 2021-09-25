@@ -59,7 +59,7 @@ const CustomerCard = ({ customer, onClick }) => {
 								colorScheme='green'
 								fontWeight={'400'}
 							>
-								#Customer Id {customer.customer_id}
+								#Customer Id {customer.id}
 							</Badge>
 						</Heading>
 						<Text
