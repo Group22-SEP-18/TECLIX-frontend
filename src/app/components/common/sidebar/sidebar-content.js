@@ -38,7 +38,7 @@ const sidebarContent = [
 				acceptable_user_roles: ['Operation Manager'],
 			},
 			{
-				name: 'SalesPersons',
+				name: 'Salespersons',
 				icon: FiUsers,
 				link: '/reports/salespersons',
 				acceptable_user_roles: ['Operation Manager'],

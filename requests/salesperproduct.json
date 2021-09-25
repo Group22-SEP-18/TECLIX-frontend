@@ -1,0 +1,294 @@
+{
+    "data": [
+        {
+            "product_id": 1,
+            "product_short_name": "Biscuit Cut",
+            "product_long_name": "Wayfarer Classic Biscuit Cut",
+            "total": 300,
+            "date": "2021-01-22T17:33:34Z"
+        },
+        {
+            "product_id": 1,
+            "product_short_name": "Biscuit Cut",
+            "product_long_name": "Wayfarer Classic Biscuit Cut",
+            "total": 500,
+            "date": "2021-01-02T17:33:34Z"
+        },
+        {
+            "product_id": 1,
+            "product_short_name": "Biscuit Cut",
+            "product_long_name": "Wayfarer Classic Biscuit Cut",
+            "total": 400,
+            "date": "2021-01-12T17:33:34Z"
+        },
+
+        {
+            "product_id": 1,
+            "product_short_name": "Biscuit Cut",
+            "product_long_name": "Wayfarer Classic Biscuit Cut",
+            "total": 1300,
+            "date": "2021-01-22T17:33:34Z"
+        },
+        {
+            "product_id": 1,
+            "product_short_name": "Biscuit Cut",
+            "product_long_name": "Wayfarer Classic Biscuit Cut",
+            "total": 300,
+            "date": "2021-02-22T17:33:34Z"
+        },
+        {
+            "product_id": 1,
+            "product_short_name": "Biscuit Cut",
+            "product_long_name": "Wayfarer Classic Biscuit Cut",
+            "total": 300,
+            "date": "2021-02-22T17:33:34Z"
+        },
+        {
+            "product_id": 1,
+            "product_short_name": "Biscuit Cut",
+            "product_long_name": "Wayfarer Classic Biscuit Cut",
+            "total": 300,
+            "date": "2021-03-22T17:33:34Z"
+        },
+        {
+            "product_id": 1,
+            "product_short_name": "Biscuit Cut",
+            "product_long_name": "Wayfarer Classic Biscuit Cut",
+            "total": 300,
+            "date": "2021-05-22T17:33:34Z"
+        },
+        {
+            "product_id": 1,
+            "product_short_name": "Biscuit Cut",
+            "product_long_name": "Wayfarer Classic Biscuit Cut",
+            "total": 2300,
+            "date": "2021-08-22T17:33:34Z"
+        },
+        {
+            "product_id": 1,
+            "product_short_name": "Biscuit Cut",
+            "product_long_name": "Wayfarer Classic Biscuit Cut",
+            "total": 200,
+            "date": "2021-11-22T17:33:34Z"
+        },
+        {
+            "product_id": 1,
+            "product_short_name": "Biscuit Cut",
+            "product_long_name": "Wayfarer Classic Biscuit Cut",
+            "total": 2300,
+            "date": "2021-08-22T17:33:34Z"
+        },
+        {
+            "product_id": 1,
+            "product_short_name": "Biscuit Cut",
+            "product_long_name": "Wayfarer Classic Biscuit Cut",
+            "total": 2350,
+            "date": "2021-12-22T17:33:34Z"
+        },
+        {
+            "product_id": 1,
+            "product_short_name": "Biscuit Cut",
+            "product_long_name": "Wayfarer Classic Biscuit Cut",
+            "total": 2350,
+            "date": "2021-12-22T17:33:34Z"
+        },
+        {
+            "product_id": 1,
+            "product_short_name": "Biscuit Cut",
+            "product_long_name": "Wayfarer Classic Biscuit Cut",
+            "total": 2350,
+            "date": "2021-12-22T17:33:34Z"
+        },
+        {
+            "product_id": 2,
+            "product_short_name": "Tikiri Mari",
+            "product_long_name": "Maliban Tikiri Mari",
+            "total": 3100,
+            "date": "2021-01-22T17:33:34Z"
+        },
+        {
+            "product_id": 2,
+            "product_short_name": "Tikiri Mari",
+            "product_long_name": "Maliban Tikiri Mari",
+            "total": 400,
+            "date": "2021-01-02T17:33:34Z"
+        },
+        {
+            "product_id": 2,
+            "product_short_name": "Tikiri Mari",
+            "product_long_name": "Maliban Tikiri Mari",
+            "total": 400,
+            "date": "2021-02-12T17:33:34Z"
+        },
+
+        {
+            "product_id": 2,
+            "product_short_name": "Tikiri Mari",
+            "product_long_name": "Maliban Tikiri Mari",
+            "total": 1300,
+            "date": "2021-02-22T17:33:34Z"
+        },
+        {
+            "product_id": 2,
+            "product_short_name": "Tikiri Mari",
+            "product_long_name": "Maliban Tikiri Mari",
+            "total": 300,
+            "date": "2021-03-22T17:33:34Z"
+        },
+        {
+            "product_id": 2,
+            "product_short_name": "Tikiri Mari",
+            "product_long_name": "Maliban Tikiri Mari",
+            "total": 300,
+            "date": "2021-03-22T17:33:34Z"
+        },
+        {
+            "product_id": 2,
+            "product_short_name": "Tikiri Mari",
+            "product_long_name": "Maliban Tikiri Mari",
+            "total": 300,
+            "date": "2021-03-22T17:33:34Z"
+        },
+        {
+            "product_id": 2,
+            "product_short_name": "Tikiri Mari",
+            "product_long_name": "Maliban Tikiri Mari",
+            "total": 300,
+            "date": "2021-06-22T17:33:34Z"
+        },
+        {
+            "product_id": 2,
+            "product_short_name": "Tikiri Mari",
+            "product_long_name": "Maliban Tikiri Mari",
+            "total": 2300,
+            "date": "2021-08-22T17:33:34Z"
+        },
+        {
+            "product_id": 2,
+            "product_short_name": "Tikiri Mari",
+            "product_long_name": "Maliban Tikiri Mari",
+            "total": 2100,
+            "date": "2021-11-22T17:33:34Z"
+        },
+        {
+            "product_id": 2,
+            "product_short_name": "Tikiri Mari",
+            "product_long_name": "Maliban Tikiri Mari",
+            "total": 50,
+            "date": "2021-12-22T17:33:34Z"
+        },
+        {
+            "product_id": 2,
+            "product_short_name": "Tikiri Mari",
+            "product_long_name": "Maliban Tikiri Mari",
+            "total": 350,
+            "date": "2021-12-22T17:33:34Z"
+        },
+        {
+            "product_id": 2,
+            "product_short_name": "Tikiri Mari",
+            "product_long_name": "Maliban Tikiri Mari",
+            "total": 750,
+            "date": "2021-12-22T17:33:34Z"
+        },
+        {
+            "product_id": 3,
+            "product_short_name": "Tikiri Mari",
+            "product_long_name": "Manchee Tikiri Mari",
+            "total": 300,
+            "date": "2021-01-22T17:33:34Z"
+        },
+        {
+            "product_id": 3,
+            "product_short_name": "Tikiri Mari",
+            "product_long_name": "Manchee Tikiri Mari",
+            "total": 700,
+            "date": "2021-01-02T17:33:34Z"
+        },
+        {
+            "product_id": 3,
+            "product_short_name": "Tikiri Mari",
+            "product_long_name": "Manchee Tikiri Mari",
+            "total": 400,
+            "date": "2021-01-12T17:33:34Z"
+        },
+
+        {
+            "product_id": 3,
+            "product_short_name": "Tikiri Mari",
+            "product_long_name": "Manchee Tikiri Mari",
+            "total": 1300,
+            "date": "2021-01-22T17:33:34Z"
+        },
+        {
+            "product_id": 3,
+            "product_short_name": "Tikiri Mari",
+            "product_long_name": "Manchee Tikiri Mari",
+            "total": 300,
+            "date": "2021-02-22T17:33:34Z"
+        },
+        {
+            "product_id": 3,
+            "product_short_name": "Tikiri Mari",
+            "product_long_name": "Manchee Tikiri Mari",
+            "total": 500,
+            "date": "2021-02-22T17:33:34Z"
+        },
+        {
+            "product_id": 3,
+            "product_short_name": "Tikiri Mari",
+            "product_long_name": "Manchee Tikiri Mari",
+            "total": 3500,
+            "date": "2021-03-22T17:33:34Z"
+        },
+        {
+            "product_id": 3,
+            "product_short_name": "Tikiri Mari",
+            "product_long_name": "Manchee Tikiri Mari",
+            "total": 300,
+            "date": "2021-07-22T17:33:34Z"
+        },
+        {
+            "product_id": 3,
+            "product_short_name": "Tikiri Mari",
+            "product_long_name": "Manchee Tikiri Mari",
+            "total": 1000,
+            "date": "2021-08-22T17:33:34Z"
+        },
+        {
+            "product_id": 3,
+            "product_short_name": "Tikiri Mari",
+            "product_long_name": "Manchee Tikiri Mari",
+            "total": 200,
+            "date": "2021-08-22T17:33:34Z"
+        },
+        {
+            "product_id": 3,
+            "product_short_name": "Tikiri Mari",
+            "product_long_name": "Manchee Tikiri Mari",
+            "total": 2300,
+            "date": "2021-11-22T17:33:34Z"
+        },
+        {
+            "product_id": 3,
+            "product_short_name": "Tikiri Mari",
+            "product_long_name": "Manchee Tikiri Mari",
+            "total": 230,
+            "date": "2021-12-22T17:33:34Z"
+        },
+        {
+            "product_id": 3,
+            "product_short_name": "Tikiri Mari",
+            "product_long_name": "Manchee Tikiri Mari",
+            "total": 2340,
+            "date": "2021-12-22T17:33:34Z"
+        },
+        {
+            "product_id": 3,
+            "product_short_name": "Tikiri Mari",
+            "product_long_name": "Manchee Tikiri Mari",
+            "total": 50,
+            "date": "2021-12-22T17:33:34Z"
+        }
+    ]
+}

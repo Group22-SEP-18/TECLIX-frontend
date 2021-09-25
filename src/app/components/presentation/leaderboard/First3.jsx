@@ -3,7 +3,15 @@ import PropTypes from 'prop-types';
 import { Avatar, Box, Text, VStack } from '@chakra-ui/react';
 import { FaCrown } from 'react-icons/fa';
 
-const First3 = ({ salesperson, position, timeConstraint = 'today' }) => {
+const First3 = ({ row, position, timeConstraint = 'today' }) => {
+	const { salesperson, points_today, points_current_month, points_all_time } =
+		row;
+	const points =
+		timeConstraint === 'today'
+			? points_today
+			: timeConstraint === 'month'
+			? points_current_month
+			: points_all_time;
 	return (
 		<VStack shadow='lg' borderRadius='lg' p={3}>
 			{position !== 1 && (
@@ -17,10 +25,10 @@ const First3 = ({ salesperson, position, timeConstraint = 'today' }) => {
 			<Avatar src={salesperson.profile_picture} />
 			<Box>
 				<Text align='center' noOfLines={1} fontWeight='bold' isTruncated='true'>
-					{salesperson.first_name} {salesperson.last_name}
+					salesperson.first_name salesperson.last_name
 				</Text>
 				<Text fontSize='sm' align='center'>
-					{salesperson.leaderboard_points[timeConstraint]} points
+					{points} points
 				</Text>
 			</Box>
 		</VStack>
