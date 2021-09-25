@@ -29,6 +29,9 @@ import {
 import SideBar from '../../common/sidebar/SideBar';
 import VehicleCard from '../../presentation/vehicle/VehicleCard';
 import AddVehicleForm from '../../presentation/vehicle/AddVehicleForm';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchVehicleData } from '../../../redux/actions/vehicleActions';
 
 const VehiclePage = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -38,254 +41,106 @@ const VehiclePage = () => {
 		onClose: onCloseReportModal,
 	} = useDisclosure();
 
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(fetchVehicleData());
+	}, [dispatch]);
+	const { vehicles, isLoading, error } = useSelector((state) => state.vehicles);
 	const data = [
 		{
 			vehicle_type: 'Lorry',
 			vehicle_model: 'Layland',
-			image_url: '/6025.jpg',
-			vehicle_id: '1',
-			assigned_salesperson: [
+			vehicle_image: '/6025.jpg',
+			id: '1',
+			salesperson: [
 				{
-					first_name: 'Peter Paul',
+					email: 'shehanxperera@gmail.com',
+					first_name: 'Shehan Perera',
 					image_url: 'https://bit.ly/sage-adebayo',
 				},
 			],
 
 			assigned_products: [
 				{
-					product_shortname: 'Chocolate Biscuit',
-					product_quantity: '12',
-					product_imageURL: '/1234.jpg',
+					product: {
+						id: 1,
+						short_name: 'Tikiri Marie',
+						long_name: 'Munchee Tikiri Marie',
+						product_image: '/1234.jpg',
+						category: 'biscuit',
+						price: '120.00',
+					},
+					quantity: '12',
 				},
 				{
-					product_shortname: 'Tikiri Marie',
-					product_quantity: '10',
-					product_imageURL: '/1234.jpg',
+					product: {
+						id: 2,
+						short_name: 'Gold Marie',
+						long_name: 'Munchee Tikiri Marie',
+						product_image: '/1234.jpg',
+						category: 'biscuit',
+						price: '120.00',
+					},
+					quantity: '23',
 				},
 				{
-					product_shortname: 'Gold Marie',
-					product_quantity: '20',
-					product_imageURL: '/1234.jpg',
-				},
-				{
-					product_shortname: 'Hawain Cookies',
-					product_quantity: '15',
-					product_imageURL: '/1234.jpg',
+					product: {
+						id: 1,
+						short_name: 'Cream Cracker',
+						long_name: 'Munchee Tikiri Marie',
+						product_image: '/1234.jpg',
+						category: 'biscuit',
+						price: '130.00',
+					},
+					quantity: '127',
 				},
 			],
 			is_deleted: false,
 		},
 		{
-			vehicle_type: 'Van',
-			vehicle_model: 'Hiace',
-			image_url: '/6025.jpg',
-			vehicle_id: '2',
-			assigned_salesperson: [],
-			assigned_products: [
-				{
-					product_shortname: 'Tikiri Marie',
-					product_quantity: '10',
-					product_imageURL: '/1234.jpg',
-				},
-				{
-					product_shortname: 'Gold Marie',
-					product_quantity: '20',
-					product_imageURL: '/1234.jpg',
-				},
-				{
-					product_shortname: 'Hawain Cookies',
-					product_quantity: '15',
-					product_imageURL: '/1234.jpg',
-				},
-			],
-			is_deleted: false,
-		},
-		{
-			vehicle_type: 'Bus',
+			vehicle_type: 'Lorry',
 			vehicle_model: 'Layland',
-			image_url: '/6025.jpg',
-			vehicle_id: '3',
-			assigned_salesperson: [
+			vehicle_image: '/6025.jpg',
+			id: '1',
+			salesperson: [
 				{
-					first_name: 'Peter Paul',
+					email: 'shehanxperera@gmail.com',
+					first_name: 'Hiroon Perera',
 					image_url: 'https://bit.ly/sage-adebayo',
 				},
 			],
+
 			assigned_products: [
 				{
-					product_shortname: 'Chocolate Biscuit',
-					product_quantity: '12',
-					product_imageURL: '/1234.jpg',
+					product: {
+						id: 1,
+						short_name: 'Tikiri Marie',
+						long_name: 'Munchee Tikiri Marie',
+						product_image: '/1234.jpg',
+						category: 'biscuit',
+						price: '120.00',
+					},
+					quantity: '12',
 				},
 				{
-					product_shortname: 'Tikiri Marie',
-					product_quantity: '10',
-					product_imageURL: '/1234.jpg',
-				},
-				{
-					product_shortname: 'Gold Marie',
-					product_quantity: '20',
-					product_imageURL: '/1234.jpg',
-				},
-				{
-					product_shortname: 'Hawain Cookies',
-					product_quantity: '15',
-					product_imageURL: '/1234.jpg',
-				},
-			],
-			is_deleted: false,
-		},
-		{
-			vehicle_type: 'ThreeWheeler',
-			vehicle_model: 'Piaggio',
-			image_url: '/6025.jpg',
-			vehicle_id: '4',
-			assigned_salesperson: [],
-			assigned_products: [],
-			is_deleted: false,
-		},
-		{
-			vehicle_type: 'Biscuit',
-			vehicle_model: 'Layland',
-			image_url: '/6025.jpg',
-			vehicle_id: '5',
-			assigned_salesperson: [
-				{
-					first_name: 'Peter Paul',
-					image_url: 'https://bit.ly/sage-adebayo',
-				},
-			],
-			assigned_products: [
-				{
-					product_shortname: 'Chocolate Biscuit',
-					product_quantity: '12',
-					product_imageURL: '/1234.jpg',
-				},
-				{
-					product_shortname: 'Tikiri Marie',
-					product_quantity: '10',
-					product_imageURL: '/1234.jpg',
-				},
-				{
-					product_shortname: 'Gold Marie',
-					product_quantity: '20',
-					product_imageURL: '/1234.jpg',
-				},
-				{
-					product_shortname: 'Hawain Cookies',
-					product_quantity: '15',
-					product_imageURL: '/1234.jpg',
-				},
-			],
-			is_deleted: false,
-		},
-		{
-			vehicle_type: 'Biscuit',
-			vehicle_model: 'Layland',
-			image_url: '/6025.jpg',
-			vehicle_id: '6',
-			assigned_salesperson: [
-				{
-					first_name: 'Peter Paul',
-					image_url: 'https://bit.ly/sage-adebayo',
-				},
-			],
-			assigned_products: [
-				{
-					product_shortname: 'Chocolate Biscuit',
-					product_quantity: '12',
-					product_imageURL: '/1234.jpg',
-				},
-				{
-					product_shortname: 'Tikiri Marie',
-					product_quantity: '10',
-					product_imageURL: '/1234.jpg',
-				},
-				{
-					product_shortname: 'Gold Marie',
-					product_quantity: '20',
-					product_imageURL: '/1234.jpg',
-				},
-				{
-					product_shortname: 'Hawain Cookies',
-					product_quantity: '15',
-					product_imageURL: '/1234.jpg',
-				},
-			],
-			is_deleted: false,
-		},
-		{
-			vehicle_type: 'Biscuit',
-			vehicle_model: 'Layland',
-			image_url: '/6025.jpg',
-			vehicle_id: '7',
-			assigned_salesperson: [
-				{
-					first_name: 'Peter Paul',
-					image_url: 'https://bit.ly/sage-adebayo',
-				},
-			],
-			assigned_products: [
-				{
-					product_shortname: 'Chocolate Biscuit',
-					product_quantity: '12',
-					product_imageURL: '/1234.jpg',
-				},
-				{
-					product_shortname: 'Tikiri Marie',
-					product_quantity: '10',
-					product_imageURL: '/1234.jpg',
-				},
-				{
-					product_shortname: 'Gold Marie',
-					product_quantity: '20',
-					product_imageURL: '/1234.jpg',
-				},
-				{
-					product_shortname: 'Hawain Cookies',
-					product_quantity: '15',
-					product_imageURL: '/1234.jpg',
-				},
-			],
-			is_deleted: false,
-		},
-		{
-			vehicle_type: 'Biscuit',
-			vehicle_model: 'Layland',
-			image_url: '/6025.jpg',
-			vehicle_id: '8',
-			assigned_salesperson: [
-				{
-					first_name: 'Peter Paul',
-					image_url: 'https://bit.ly/sage-adebayo',
-				},
-			],
-			assigned_products: [
-				{
-					product_shortname: 'Chocolate Biscuit',
-					product_quantity: '12',
-					product_imageURL: '/1234.jpg',
-				},
-				{
-					product_shortname: 'Tikiri Marie',
-					product_quantity: '10',
-					product_imageURL: '/1234.jpg',
-				},
-				{
-					product_shortname: 'Gold Marie',
-					product_quantity: '20',
-					product_imageURL: '/1234.jpg',
-				},
-				{
-					product_shortname: 'Hawain Cookies',
-					product_quantity: '15',
-					product_imageURL: '/1234.jpg',
+					product: {
+						id: 1,
+						short_name: 'Tikiri Marie',
+						long_name: 'Munchee Tikiri Marie',
+						product_image: '/1234.jpg',
+						category: 'biscuit',
+						price: '120.00',
+					},
+					quantity: '122',
 				},
 			],
 			is_deleted: false,
 		},
 	];
 
+	if (isLoading) return <h3>Loading ...</h3>;
+	if (error) return <h3>{error}</h3>;
 	return (
 		<Box minH='100vh'>
 			<SideBar />
@@ -324,11 +179,11 @@ const VehiclePage = () => {
 							<VehicleCard
 								key={index}
 								assigned_products={vehicle.assigned_products}
-								assigned_salesperson={vehicle.assigned_salesperson}
+								salesperson={vehicle.salesperson}
 								vehicle_type={vehicle.vehicle_type}
 								vehicle_model={vehicle.vehicle_model}
-								image_url={vehicle.image_url}
-								vehicle_id={vehicle.vehicle_id}
+								vehicle_image={vehicle.vehicle_image}
+								id={vehicle.id}
 								is_deleted={vehicle.is_deleted}
 							/>
 						</GridItem>

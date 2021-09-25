@@ -21,67 +21,20 @@ import { Stat, StatLabel, StatNumber, StatHelpText } from '@chakra-ui/react';
 import VehicleProducts from './VehicleProducts';
 import VehicleSalesperson from './VehicleSalesperson';
 import VehicleAssignForm from './VehicleAssignForm';
-//import Axios from 'axios';
 
 function ProductCard(props) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
-	//const toast = useToast();
+	const array = props.assigned_products.map((p) => ({
+		id: p.product.id,
+		quantity: p.quantity,
+	}));
 
 	const updateDetails = (ProductDetails) => {
 		// Axios.update('http://localhost:5000/xxxxxxx', {
-		// 	ProductDetails: ProductDetails,
-		// })
-		// 	.then((Response) => {
-		// 		if (Response.data.success === true) {
-		// 			var card_id = Response.data.insertId;
-		// 			var newCard = { card_id, ...CardDetails };
-		// 			setBankCards([...bankCards, newCard]);
-		// 			toast({
-		// 				position: 'bottom-right',
-		// 				description: 'Product details updated successfully',
-		// 				status: 'success',
-		// 				duration: 5000,
-		// 				isClosable: true,
-		// 			});
-		// 		}
-		// 	})
-		// 	.catch((err) => {
-		// 		toast({
-		// 			position: 'bottom-right',
-		// 			description: 'Internal Server Error. Try again later',
-		// 			status: 'error',
-		// 			duration: 5000,
-		// 			isClosable: true,
-		// 		});
-		// 	});
 	};
 	const deleteItem = (id) => {
 		// Axios.delete('http://localhost:5000/xxxxx', {
-		// 	data: { id: id },
-		// })
-		// 	.then((Response) => {
-		// 		// console.log(Response);
-		// 		setBankCards(
-		// 			bankCards.filter((bankCard) => bankCard.card_id !== card_id)
-		// 		);
-		// 		toast({
-		// 			position: 'bottom-right',
-		// 			description: 'Product deleted successfully',
-		// 			status: 'error',
-		// 			duration: 5000,
-		// 			isClosable: true,
-		// 		});
-		// 	})
-		// 	.catch((err) => {
-		// 		toast({
-		// 			position: 'bottom-right',
-		// 			description: 'Internal Server Error. Try again later',
-		// 			status: 'error',
-		// 			duration: 5000,
-		// 			isClosable: true,
-		// 		});
-		// 	});
 	};
 
 	return (
@@ -96,7 +49,7 @@ function ProductCard(props) {
 				position='relative'
 			>
 				<Image
-					src={props.image_url}
+					src={props.vehicle_image}
 					alt={`Picture of ${props.vehicle_type}`}
 					roundedTop='lg'
 				/>
@@ -105,7 +58,7 @@ function ProductCard(props) {
 					<Stat>
 						<StatLabel>{props.vehicle_model}</StatLabel>
 						<StatNumber>{props.vehicle_type}</StatNumber>
-						<StatHelpText>{props.vehicle_id}</StatHelpText>
+						<StatHelpText>{props.id}</StatHelpText>
 					</Stat>
 				</Box>
 				<Divider size='30' pt='1' />
@@ -119,19 +72,19 @@ function ProductCard(props) {
 							{props.assigned_products.map((product, index) => (
 								<VehicleProducts
 									key={index}
-									product_imageURL={product.product_imageURL}
-									product_shortname={product.product_shortname}
-									product_quantity={product.product_quantity}
+									product_imageURL={product.product.product_image}
+									product_shortname={product.product.short_name}
+									product_quantity={product.quantity}
 								/>
 							))}
 						</Wrap>
 					</Box>
 					<Box pb='3' pl='1'>
 						<Wrap>
-							{props.assigned_salesperson.map((salesperson, index) => (
+							{props.salesperson.map((salesperson, index) => (
 								<VehicleSalesperson
 									key={index}
-									image_url={salesperson.image_url}
+									image_url={salesperson.profile_picture}
 									first_name={salesperson.first_name}
 								/>
 							))}
@@ -164,6 +117,7 @@ function ProductCard(props) {
 								<ModalCloseButton />
 								<ModalBody pb='5'>
 									<VehicleAssignForm
+										array={array}
 										updateDetails={updateDetails}
 										trigger={onClose}
 									/>

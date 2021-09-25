@@ -21,7 +21,7 @@ import {
 } from '@chakra-ui/react';
 import { Wrap } from '@chakra-ui/react';
 
-const ProductEditForm = ({ updateDetails, trigger }) => {
+const ProductEditForm = ({ updateDetails, trigger, array }) => {
 	const products = [
 		{ id: 1, short_name: 'Tikiri Marie' },
 		{ id: 2, short_name: 'Gold Marie' },
@@ -39,7 +39,7 @@ const ProductEditForm = ({ updateDetails, trigger }) => {
 		{ id: 5, first_name: 'Bethesda' },
 	];
 
-	const [productQuantity, updateproductQuantity] = React.useState([]);
+	const [productQuantity, updateproductQuantity] = React.useState(array);
 	const [product_id, setproduct_id] = React.useState();
 	const [quantity, setproduct_quantity] = React.useState();
 
@@ -67,8 +67,6 @@ const ProductEditForm = ({ updateDetails, trigger }) => {
 	};
 
 	const removeProduct = (id) => {
-		// var index = productQuantity.findIndex((x) => x.id === id);
-		// productQuantity.splice(index, 1);
 		updateproductQuantity(
 			productQuantity.filter((product) => product.id !== id)
 		);

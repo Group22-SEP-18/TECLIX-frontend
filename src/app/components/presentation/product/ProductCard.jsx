@@ -30,62 +30,14 @@ function ProductCard({ categoryList, product, key }) {
 		onOpen: onOpenReportModal,
 		onClose: onCloseReportModal,
 	} = useDisclosure();
+
 	//const toast = useToast();
 
 	const updateDetails = (ProductDetails) => {
 		// Axios.update('http://localhost:5000/xxxxxxx', {
-		// 	ProductDetails: ProductDetails,
-		// })
-		// 	.then((Response) => {
-		// 		if (Response.data.success === true) {
-		// 			var card_id = Response.data.insertId;
-		// 			var newCard = { card_id, ...CardDetails };
-		// 			setBankCards([...bankCards, newCard]);
-		// 			toast({
-		// 				position: 'bottom-right',
-		// 				description: 'Product details updated successfully',
-		// 				status: 'success',
-		// 				duration: 5000,
-		// 				isClosable: true,
-		// 			});
-		// 		}
-		// 	})
-		// 	.catch((err) => {
-		// 		toast({
-		// 			position: 'bottom-right',
-		// 			description: 'Internal Server Error. Try again later',
-		// 			status: 'error',
-		// 			duration: 5000,
-		// 			isClosable: true,
-		// 		});
-		// 	});
 	};
 	const deleteItem = (id) => {
 		// Axios.delete('http://localhost:5000/xxxxx', {
-		// 	data: { id: id },
-		// })
-		// 	.then((Response) => {
-		// 		// console.log(Response);
-		// 		setBankCards(
-		// 			bankCards.filter((bankCard) => bankCard.card_id !== card_id)
-		// 		);
-		// 		toast({
-		// 			position: 'bottom-right',
-		// 			description: 'Product deleted successfully',
-		// 			status: 'error',
-		// 			duration: 5000,
-		// 			isClosable: true,
-		// 		});
-		// 	})
-		// 	.catch((err) => {
-		// 		toast({
-		// 			position: 'bottom-right',
-		// 			description: 'Internal Server Error. Try again later',
-		// 			status: 'error',
-		// 			duration: 5000,
-		// 			isClosable: true,
-		// 		});
-		// 	});
 	};
 
 	return (
@@ -101,7 +53,8 @@ function ProductCard({ categoryList, product, key }) {
 					position='relative'
 				>
 					<Image
-						src={product.imageURL}
+						width='200'
+						src={product.product_image}
 						alt={`Picture of ${product.name}`}
 						roundedTop='lg'
 					/>
@@ -124,7 +77,7 @@ function ProductCard({ categoryList, product, key }) {
 									colorScheme='red'
 									right={2}
 								>
-									{product.productId}
+									{product.id}
 								</Badge>
 							</HStack>
 						</Box>
@@ -136,7 +89,7 @@ function ProductCard({ categoryList, product, key }) {
 								lineHeight='tight'
 								isTruncated
 							>
-								{product.name}
+								{product.short_name}
 							</Box>
 						</Flex>
 						<Flex justifyContent='space-between' alignContent='center'>
@@ -147,7 +100,7 @@ function ProductCard({ categoryList, product, key }) {
 								<Box as='span' color={'gray.600'} fontSize='lg'>
 									Rs.
 								</Box>
-								{product.price.toFixed(2)}
+								{parseFloat(product.price).toFixed(2)}
 							</Box>
 
 							<Tooltip label='Edit' placement={'bottom'}>

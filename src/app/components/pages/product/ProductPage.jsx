@@ -15,14 +15,17 @@ import { Box, useDisclosure, Grid, GridItem } from '@chakra-ui/react';
 import SideBar from '../../common/sidebar/SideBar';
 import React, { useEffect } from 'react';
 import ProductCard from '../../presentation/product/ProductCard';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProductData } from '../../../redux/actions/productActions';
 
 const ProductPage = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	// const dispatch = useDispatch();
-	// const products = useSelector(selectAllProducts);
-	// useEffect(() => {
-	// 	dispatch(getProductsAsync());
-	// }, [dispatch]);
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(fetchProductData());
+	}, [dispatch]);
+	const { products, isLoading, error } = useSelector((state) => state.products);
 
 	const categoryList = ['Biscuit', 'Chocolate', 'Spices', 'Drinks'];
 
@@ -93,7 +96,7 @@ const ProductPage = () => {
 					templateColumns={{ base: 'repeat(2, 1fr)', xl: 'repeat(4, 1fr)' }}
 					gap={1}
 				>
-					{data.map((product, index) => (
+					{products.map((product, index) => (
 						<GridItem>
 							<ProductCard
 								key={index}
