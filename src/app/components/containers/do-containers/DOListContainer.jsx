@@ -41,7 +41,8 @@ const DOListContainer = (props) => {
 					<SearchBar placeholder={'Search distribution officers.........'} />
 					{isLoading && <LoadingCards count={3} />}
 					{error !== '' && <ErrorOverlay error={error} />}
-					{user_role !== 'Distribution Officer' &&
+					{!isLoading &&
+						user_role !== 'Distribution Officer' &&
 						distributionOfficers.filter(
 							(dOfficer) => dOfficer.is_approved === false
 						).length > 0 && (
@@ -67,11 +68,12 @@ const DOListContainer = (props) => {
 								</Collapse>
 							</>
 						)}
-					{distributionOfficers
-						.filter((dOfficer) => dOfficer.is_approved !== false)
-						.map((dOfficer, index) => (
-							<DOCard key={index} dOfficer={dOfficer} />
-						))}
+					{!isLoading &&
+						distributionOfficers
+							.filter((dOfficer) => dOfficer.is_approved !== false)
+							.map((dOfficer, index) => (
+								<DOCard key={index} dOfficer={dOfficer} />
+							))}
 				</>
 			}
 		</div>

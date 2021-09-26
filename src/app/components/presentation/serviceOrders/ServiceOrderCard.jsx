@@ -9,9 +9,8 @@
  * @since  18.09.2021
  */
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { useSelector, useDispatch } from 'react-redux';
 import {
 	AccordionItem,
 	AccordionButton,
@@ -28,7 +27,7 @@ import {
 	Td,
 	Text,
 } from '@chakra-ui/react';
-import { getDateTime, formatPrice } from '../../../utils';
+import { getDateTime } from '../../../utils';
 
 const ServiceOrderCard = ({ serviceOrder, showCustomer, showSP }) => {
 	console.log(serviceOrder);
