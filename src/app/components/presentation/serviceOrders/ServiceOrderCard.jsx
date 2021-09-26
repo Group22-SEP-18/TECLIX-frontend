@@ -28,21 +28,11 @@ import {
 	Td,
 	Text,
 } from '@chakra-ui/react';
-import {
-	getSalespersonsAsync,
-	selectAllSalespersons,
-} from '../../../redux/slices/salespersonSlice';
 import { getDateTime, formatPrice } from '../../../utils';
 
 const ServiceOrderCard = ({ serviceOrder, customer }) => {
-	const dispatch = useDispatch();
-	const salesperson = useSelector((state) => state.salesperson.salespersons)
-		.slice()
-		.find((s) => s.employee_no === serviceOrder.salesperson_id);
-	useEffect(() => {
-		dispatch(getSalespersonsAsync());
-	}, [dispatch]);
-	const datetime = getDateTime(serviceOrder.date);
+	console.log(serviceOrder);
+	const datetime = getDateTime(serviceOrder.order_date);
 	return (
 		<div>
 			<AccordionItem>
@@ -58,7 +48,7 @@ const ServiceOrderCard = ({ serviceOrder, customer }) => {
 						<HStack align={'center'}>
 							<Box>
 								<Text fontWeight={500} mb={4} textAlign='start' pl='4'>
-									Order Id {serviceOrder.order_id}
+									Order Id {serviceOrder.id}
 								</Text>
 								<Text
 									fontWeight={500}
@@ -66,7 +56,8 @@ const ServiceOrderCard = ({ serviceOrder, customer }) => {
 									textAlign='start'
 									pl='4'
 								>
-									SalesPerson: {salesperson.first_name} {salesperson.last_name}
+									SalesPerson: {serviceOrder.salesperson.first_name}{' '}
+									{serviceOrder.salesperson.last_name}
 								</Text>
 								<Text
 									fontWeight={500}
@@ -82,7 +73,7 @@ const ServiceOrderCard = ({ serviceOrder, customer }) => {
 									textAlign='start'
 									pl='4'
 								>
-									Price: {formatPrice(serviceOrder.actual_price)}
+									Price: Rs.{serviceOrder.original_price}
 								</Text>
 								<Text
 									fontWeight={500}
@@ -91,7 +82,7 @@ const ServiceOrderCard = ({ serviceOrder, customer }) => {
 									textAlign='start'
 									pl='4'
 								>
-									Discount: {formatPrice(serviceOrder.discount)}
+									Discount: Rs. {serviceOrder.discount}
 								</Text>
 							</Box>
 						</HStack>
@@ -110,7 +101,7 @@ const ServiceOrderCard = ({ serviceOrder, customer }) => {
 							</Tr>
 						</Thead>
 						<Tbody>
-							{serviceOrder.products.map((p) => (
+							{serviceOrder.order_items.map((p) => (
 								<Tr>
 									<Td>{p.product_id}</Td>
 									<Td isNumeric>{p.quantity}</Td>

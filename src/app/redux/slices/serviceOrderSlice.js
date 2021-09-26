@@ -22,7 +22,7 @@ const initialState = {
 
 export const serviceOrderSlice = createSlice({
 	name: 'serviceOrders',
-	initialState: [],
+	initialState,
 	reducers: {
 		serviceOrdersPending: (state) => {
 			state.isLoading = true;
@@ -30,7 +30,7 @@ export const serviceOrderSlice = createSlice({
 		serviceOrdersSuccess: (state, { payload }) => {
 			state.isLoading = false;
 			state.error = '';
-			state.locations = payload;
+			state.serviceOrders = payload;
 		},
 		serviceOrdersFail: (state, { payload }) => {
 			state.isLoading = false;
@@ -47,6 +47,7 @@ export const serviceOrderSlice = createSlice({
 export const { serviceOrdersPending, serviceOrdersFail, serviceOrdersSuccess } =
 	serviceOrderSlice.actions;
 
-export const selectAllServiceOrders = (state) => state.serviceOrders;
+export const selectAllServiceOrders = (state) =>
+	state.serviceOrders.serviceOrders;
 
 export default serviceOrderSlice.reducer;
