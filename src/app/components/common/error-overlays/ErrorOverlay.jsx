@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Flex, Spacer, Text } from '@chakra-ui/react';
+import { Box, Flex, Text } from '@chakra-ui/react';
 
 const ErrorOverlay = ({ error = 'Error while accessing data', my = '260' }) => {
 	return (

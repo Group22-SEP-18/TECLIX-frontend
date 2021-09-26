@@ -22,6 +22,8 @@ import {
 import SearchBar from '../../common/SearchBar';
 import SalesPersonCard from '../../presentation/salesperson/SalesPersonCard';
 import { getSalespersons } from '../../../redux/actions/salespersonActions';
+import LoadingCards from '../../common/loading/LoadingCards';
+import ErrorOverlay from '../../common/error-overlays/ErrorOverlay';
 
 const SalesPersonsContainer = ({ onCardClick }) => {
 	const { isOpen, onToggle } = useDisclosure();
@@ -33,12 +35,13 @@ const SalesPersonsContainer = ({ onCardClick }) => {
 	useEffect(() => {
 		dispatch(getSalespersons());
 	}, [dispatch]);
-
 	return (
 		<div>
 			{
 				<>
 					<SearchBar placeholder={'Search salespersons.........'} />
+					{isLoading && <LoadingCards count={3} />}
+					{error !== '' && <ErrorOverlay error={error} />}
 					{user_role === 'Distribution Officer' &&
 						salespersons.filter((sp) => sp.is_approved === false).length >
 							0 && (

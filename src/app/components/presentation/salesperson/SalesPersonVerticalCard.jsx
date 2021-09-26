@@ -32,9 +32,7 @@ const SalesPersonVerticalCardView = ({ salesperson }) => {
 	useEffect(() => {
 		dispatch(getLocations());
 	}, [dispatch]);
-	const { isLoading, locations, filteredlocations, error } = useSelector(
-		(state) => state.locations
-	);
+	const { locations } = useSelector((state) => state.locations);
 	const lastLocations = locations
 		.slice()
 		.filter((l) => l.salesperson.employee_no === salesperson.employee_no)

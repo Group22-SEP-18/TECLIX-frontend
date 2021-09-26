@@ -19,7 +19,7 @@ import CustomerCard from '../../presentation/customer/CustomerCard';
 
 const CustomerListContainer = ({ onCardClick }) => {
 	const dispatch = useDispatch();
-	const { customers } = useSelector((state) => state.customers);
+	const { customers } = useSelector(selectAllCustomers);
 	useEffect(() => {
 		dispatch(getCustomers());
 	}, [dispatch]);

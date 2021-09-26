@@ -13,6 +13,8 @@ import {
 } from '@chakra-ui/react';
 import { fetchSalesPerProductData } from '../../../../redux/actions/reportActions';
 import SimpleChart from '../../../common/charts/SimpleChart';
+import LoadingCards from '../../../common/loading/LoadingCards';
+import ErrorOverlay from '../../../common/error-overlays/ErrorOverlay';
 
 const SalesPerProductContainer = (props) => {
 	const dispatch = useDispatch();
@@ -31,7 +33,6 @@ const SalesPerProductContainer = (props) => {
 		setAdded(newAdded);
 		const newAvailable = available.slice();
 		newAvailable.push(found);
-		console.log(newAvailable);
 		setAvailable(newAvailable);
 	};
 	const addToChart = () => {
@@ -45,6 +46,12 @@ const SalesPerProductContainer = (props) => {
 		setAvailable(newAdded);
 		setSelected('');
 	};
+	if (isLoading) {
+		return <LoadingCards count={3} />;
+	}
+	if (error) {
+		<ErrorOverlay error={error} />;
+	}
 	return (
 		<div>
 			<InputGroup size='sm'>

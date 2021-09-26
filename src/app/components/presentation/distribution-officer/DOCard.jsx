@@ -28,7 +28,7 @@ import { approveAccountById } from '../../../redux/actions/doActions';
 
 const DOCard = ({ dOfficer }) => {
 	const dispatch = useDispatch();
-	const { isLoading, success, error, id } = useSelector(
+	const { isLoading, id } = useSelector(
 		(state) => state.distributionOfficers.approve
 	);
 	const approveAccount = () => {

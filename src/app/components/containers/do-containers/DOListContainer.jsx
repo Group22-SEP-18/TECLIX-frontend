@@ -11,7 +11,6 @@
 
 import React, { useEffect } from 'react';
 import {
-	SimpleGrid,
 	Alert,
 	AlertIcon,
 	AlertDescription,
@@ -22,6 +21,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import SearchBar from '../../common/SearchBar';
 import { getDistributionOfficers } from '../../../redux/actions/doActions';
 import DOCard from '../../presentation/distribution-officer/DOCard';
+import LoadingCards from '../../common/loading/LoadingCards';
+import ErrorOverlay from '../../common/error-overlays/ErrorOverlay';
 
 const DOListContainer = (props) => {
 	const dispatch = useDispatch();
@@ -38,6 +39,8 @@ const DOListContainer = (props) => {
 			{
 				<>
 					<SearchBar placeholder={'Search distribution officers.........'} />
+					{isLoading && <LoadingCards count={3} />}
+					{error !== '' && <ErrorOverlay error={error} />}
 					{user_role !== 'Distribution Officer' &&
 						distributionOfficers.filter(
 							(dOfficer) => dOfficer.is_approved === false

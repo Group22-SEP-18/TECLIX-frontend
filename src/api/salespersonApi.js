@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { fetchWithAuthorization, postWithAuthorization } from './baseApi';
 
 const rootUrl = 'https://teclix.herokuapp.com/salesperson-api/';
