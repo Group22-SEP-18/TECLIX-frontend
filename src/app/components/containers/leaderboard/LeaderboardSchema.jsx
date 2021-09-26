@@ -101,8 +101,8 @@ const LeaderboardSchema = (props) => {
 					<ModalHeader>Leaderboard Schema</ModalHeader>
 					<ModalCloseButton />
 					<ModalBody>
-						{dataSet.map((dset) => (
-							<VStack my='4'>
+						{dataSet.map((dset, i) => (
+							<VStack my='4' key={1}>
 								<Box flex='1' flexDirection='row'>
 									<Text
 										fontSize='md'
@@ -122,8 +122,8 @@ const LeaderboardSchema = (props) => {
 												</Tr>
 											</Thead>
 											<Tbody>
-												{dset.schema.map((row) => (
-													<Tr my='1'>
+												{dset.schema.map((row, index) => (
+													<Tr my='1' key={index}>
 														<Td>
 															{dset.name === 'ItemCount'
 																? `${row.below_margin}`
