@@ -13,6 +13,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
+	Accordion,
 	Box,
 	Tabs,
 	TabList,
@@ -30,16 +31,20 @@ import {
 	filterLocationData,
 } from '../../../redux/actions/locationsAction';
 import { fetchServiceOrderData } from '../../../redux/actions/serviceOrderActions';
+import { selectAllServiceOrders } from '../../../redux/slices/serviceOrderSlice';
+import ServiceOrderCard from '../../presentation/serviceOrders/ServiceOrderCard';
+import AddFilter from '../AddFilter';
 
 const SalesPersonHistoryContainer = ({ salesperson }) => {
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(getLocations());
 		dispatch(fetchServiceOrderData);
+		dispatch(fetchServiceOrderData());
 	}, [dispatch]);
-	// const { isLoading, serviceOrders, error } = useSelector(
-	// 	(state) => state.serviceOrder
-	// );
+	const serviceOrders = useSelector(selectAllServiceOrders)
+		.slice()
+		.filter((so) => so.salesperson.email === salesperson.email);
 	const [mapFilters, setMapFilters] = useState({
 		from: null,
 		to: null,
@@ -84,22 +89,29 @@ const SalesPersonHistoryContainer = ({ salesperson }) => {
 								/>
 							</InputGroup>
 						</Stack>
-						<MapWithHeader locations={locations} />
+						<Box
+							maxW='100%'
+							maxH='60%'
+							borderWidth='1px'
+							borderRadius='xl'
+							overflowY='hidden'
+						>
+							<MapWithHeader locations={locations} />
+						</Box>
 					</TabPanel>
 					<TabPanel>
 						<Tabs align='end' variant='soft-rounded' colorScheme='green'>
-							<TabList>
-								<Tab>Today</Tab>
-								<Tab>Month</Tab>
-								<Tab>AllTime</Tab>
-							</TabList>
-							<TabPanels>
-								{[...Array(3)].map((x, i) => (
-									<TabPanel key={i}>
-										No Service Order History Available
-									</TabPanel>
+							<AddFilter />
+							<Accordion allowToggle>
+								{serviceOrders.map((so) => (
+									<ServiceOrderCard
+										key={so.order_id}
+										serviceOrder={so}
+										showCustomer={true}
+										showSP={false}
+									/>
 								))}
-							</TabPanels>
+							</Accordion>
 						</Tabs>
 					</TabPanel>
 				</TabPanels>

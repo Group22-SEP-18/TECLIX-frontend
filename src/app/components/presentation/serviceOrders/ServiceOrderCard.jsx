@@ -30,7 +30,7 @@ import {
 } from '@chakra-ui/react';
 import { getDateTime, formatPrice } from '../../../utils';
 
-const ServiceOrderCard = ({ serviceOrder, customer }) => {
+const ServiceOrderCard = ({ serviceOrder, showCustomer, showSP }) => {
 	console.log(serviceOrder);
 	const datetime = getDateTime(serviceOrder.order_date);
 	return (
@@ -50,15 +50,27 @@ const ServiceOrderCard = ({ serviceOrder, customer }) => {
 								<Text fontWeight={500} mb={4} textAlign='start' pl='4'>
 									Order Id {serviceOrder.id}
 								</Text>
-								<Text
-									fontWeight={500}
-									color={'gray.500'}
-									textAlign='start'
-									pl='4'
-								>
-									SalesPerson: {serviceOrder.salesperson.first_name}{' '}
-									{serviceOrder.salesperson.last_name}
-								</Text>
+								{showSP && (
+									<Text
+										fontWeight={500}
+										color={'gray.500'}
+										textAlign='start'
+										pl='4'
+									>
+										SalesPerson: {serviceOrder.salesperson.first_name}{' '}
+										{serviceOrder.salesperson.last_name}
+									</Text>
+								)}
+								{showCustomer && (
+									<Text
+										fontWeight={500}
+										color={'gray.500'}
+										textAlign='start'
+										pl='4'
+									>
+										Customer: {serviceOrder.customer.shop_name}
+									</Text>
+								)}
 								<Text
 									fontWeight={500}
 									color={'gray.500'}

@@ -31,7 +31,12 @@ const CustomerSOHistoryContainer = ({ customer }) => {
 			<AddFilter />
 			<Accordion allowToggle>
 				{serviceOrders.map((so) => (
-					<ServiceOrderCard key={so.order_id} serviceOrder={so} />
+					<ServiceOrderCard
+						key={so.order_id}
+						serviceOrder={so}
+						showCustomer={false}
+						showSP={true}
+					/>
 				))}
 			</Accordion>
 		</div>

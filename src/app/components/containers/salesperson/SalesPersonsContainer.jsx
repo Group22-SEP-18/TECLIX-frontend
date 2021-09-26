@@ -42,7 +42,8 @@ const SalesPersonsContainer = ({ onCardClick }) => {
 					<SearchBar placeholder={'Search salespersons.........'} />
 					{isLoading && <LoadingCards count={3} />}
 					{error !== '' && <ErrorOverlay error={error} />}
-					{user_role === 'Distribution Officer' &&
+					{!isLoading &&
+						user_role === 'Distribution Officer' &&
 						salespersons.filter((sp) => sp.is_approved === false).length >
 							0 && (
 							<>
@@ -72,15 +73,16 @@ const SalesPersonsContainer = ({ onCardClick }) => {
 							</>
 						)}
 
-					{salespersons
-						.filter((sp) => sp.is_approved !== false)
-						.map((salesperson, index) => (
-							<SalesPersonCard
-								key={index}
-								salesperson={salesperson}
-								onClick={onCardClick}
-							/>
-						))}
+					{!isLoading &&
+						salespersons
+							.filter((sp) => sp.is_approved !== false)
+							.map((salesperson, index) => (
+								<SalesPersonCard
+									key={index}
+									salesperson={salesperson}
+									onClick={onCardClick}
+								/>
+							))}
 				</>
 			}
 		</div>
