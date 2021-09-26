@@ -65,7 +65,7 @@ export const filteredCustomers = (state) => {
 	} else {
 		return all.filter(
 			(c) =>
-				`${c.owner_first_name}${c.owner_last_name}${c.shop_name}`
+				`${c.owner_first_name}${c.owner_last_name}${c.shop_name}${c.street}${c.city}${c.district}`
 					.toLowerCase()
 					.indexOf(filterId) >= 0
 		);

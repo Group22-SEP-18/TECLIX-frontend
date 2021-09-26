@@ -96,7 +96,9 @@ export const filteredDistributionOfficers = (state) => {
 	} else {
 		return all.filter(
 			(d) =>
-				`${d.first_name}${d.last_name}`.toLowerCase().indexOf(filterId) >= 0
+				`${d.first_name}${d.last_name}${d.employee_no}${d.email}`
+					.toLowerCase()
+					.indexOf(filterId) >= 0
 		);
 	}
 };

@@ -94,7 +94,9 @@ export const filteredSalespersons = (state) => {
 	} else {
 		return all.filter(
 			(sp) =>
-				`${sp.first_name}${sp.last_name}`.toLowerCase().indexOf(filterId) >= 0
+				`${sp.first_name}${sp.last_name}${sp.employee_no}${sp.email}`
+					.toLowerCase()
+					.indexOf(filterId) >= 0
 		);
 	}
 };
