@@ -16,6 +16,7 @@ const initialState = {
 		error: null,
 		id: '',
 	},
+	listViewFilter: '',
 };
 
 export const distributionOfficersSlice = createSlice({
@@ -68,6 +69,9 @@ export const distributionOfficersSlice = createSlice({
 			state.reject.success = null;
 			state.reject.error = payload;
 		},
+		setListViewFilter: (state, { payload }) => {
+			state.listViewFilter = payload.filter;
+		},
 	},
 });
 
@@ -81,11 +85,20 @@ export const {
 	rejectPending,
 	rejectFail,
 	rejectSuccess,
+	setListViewFilter,
 } = distributionOfficersSlice.actions;
 
-export const selectAllSalespersons = (state) => state.distributionOfficers;
-
-export const selectApprovedSalespersons = (state) =>
-	state.distributionOfficers.filter((sp) => sp.is_approved !== false);
+export const filteredDistributionOfficers = (state) => {
+	const all = state.distributionOfficers.distributionOfficers;
+	const filterId = state.distributionOfficers.listViewFilter;
+	if (filterId === null) {
+		return all;
+	} else {
+		return all.filter(
+			(d) =>
+				`${d.first_name}${d.last_name}`.toLowerCase().indexOf(filterId) >= 0
+		);
+	}
+};
 
 export default distributionOfficersSlice.reducer;

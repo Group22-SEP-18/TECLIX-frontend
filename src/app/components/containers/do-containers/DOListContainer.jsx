@@ -23,22 +23,33 @@ import { getDistributionOfficers } from '../../../redux/actions/doActions';
 import DOCard from '../../presentation/distribution-officer/DOCard';
 import LoadingCards from '../../common/loading/LoadingCards';
 import ErrorOverlay from '../../common/error-overlays/ErrorOverlay';
+import {
+	filteredDistributionOfficers,
+	setListViewFilter,
+} from '../../../redux/slices/distributionOfficersSlice';
 
 const DOListContainer = (props) => {
 	const dispatch = useDispatch();
 	const { isOpen, onToggle } = useDisclosure();
-	const { isLoading, distributionOfficers, error } = useSelector(
+	const { isLoading, error } = useSelector(
 		(state) => state.distributionOfficers
 	);
 	const user_role = useSelector((state) => state.user.user.user_role);
+	const distributionOfficers = useSelector(filteredDistributionOfficers);
 	useEffect(() => {
 		dispatch(getDistributionOfficers());
 	}, [dispatch]);
+	const onChange = (word) => {
+		dispatch(setListViewFilter({ filter: word }));
+	};
 	return (
 		<div>
 			{
 				<>
-					<SearchBar placeholder={'Search distribution officers.........'} />
+					<SearchBar
+						placeholder={'Search distribution officers.........'}
+						onChange={onChange}
+					/>
 					{isLoading && <LoadingCards count={3} />}
 					{error !== '' && <ErrorOverlay error={error} />}
 					{!isLoading &&
