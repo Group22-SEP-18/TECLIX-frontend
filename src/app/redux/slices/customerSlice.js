@@ -18,6 +18,7 @@ const initialState = {
 	isLoading: false,
 	customers: [],
 	error: '',
+	listViewFilter: '',
 };
 
 export const customerSlice = createSlice({
@@ -36,6 +37,9 @@ export const customerSlice = createSlice({
 			state.isLoading = false;
 			state.error = payload;
 		},
+		setListViewFilter: (state, { payload }) => {
+			state.listViewFilter = payload.filter;
+		},
 	},
 	extraReducers: {
 		[getCustomersAsync.fulfilled]: (state, action) => {
@@ -44,9 +48,28 @@ export const customerSlice = createSlice({
 	},
 });
 
-export const { customersPending, customersFail, customersSuccess } =
-	customerSlice.actions;
+export const {
+	customersPending,
+	customersFail,
+	customersSuccess,
+	setListViewFilter,
+} = customerSlice.actions;
 
 export const selectAllCustomers = (state) => state.customers;
+
+export const filteredCustomers = (state) => {
+	const all = state.customers.customers;
+	const filterId = state.customers.listViewFilter;
+	if (filterId === null) {
+		return all;
+	} else {
+		return all.filter(
+			(c) =>
+				`${c.owner_first_name}${c.owner_last_name}${c.shop_name}`
+					.toLowerCase()
+					.indexOf(filterId) >= 0
+		);
+	}
+};
 
 export default customerSlice.reducer;
