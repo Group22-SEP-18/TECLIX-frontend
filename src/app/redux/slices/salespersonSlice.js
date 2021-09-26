@@ -86,4 +86,17 @@ export const selectAllSalespersons = (state) => state.salespersons;
 export const selectApprovedSalespersons = (state) =>
 	state.salespersons.filter((sp) => sp.is_approved !== false);
 
+export const filteredSalespersons = (state) => {
+	const all = state.salespersons.salespersons;
+	const filterId = state.salespersons.listViewFilter;
+	if (filterId === null) {
+		return all;
+	} else {
+		return all.filter(
+			(sp) =>
+				`${sp.first_name}${sp.last_name}`.toLowerCase().indexOf(filterId) >= 0
+		);
+	}
+};
+
 export default salespersonSlice.reducer;

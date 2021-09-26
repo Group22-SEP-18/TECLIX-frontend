@@ -24,22 +24,31 @@ import SalesPersonCard from '../../presentation/salesperson/SalesPersonCard';
 import { getSalespersons } from '../../../redux/actions/salespersonActions';
 import LoadingCards from '../../common/loading/LoadingCards';
 import ErrorOverlay from '../../common/error-overlays/ErrorOverlay';
+import {
+	filteredSalespersons,
+	setListViewFilter,
+} from '../../../redux/slices/salespersonSlice';
 
 const SalesPersonsContainer = ({ onCardClick }) => {
 	const { isOpen, onToggle } = useDisclosure();
 	const dispatch = useDispatch();
-	const { isLoading, salespersons, error } = useSelector(
-		(state) => state.salespersons
-	);
+	const { isLoading, error } = useSelector((state) => state.salespersons);
 	const user_role = useSelector((state) => state.user.user.user_role);
+	const salespersons = useSelector(filteredSalespersons);
 	useEffect(() => {
 		dispatch(getSalespersons());
 	}, [dispatch]);
+	const onChange = (word) => {
+		dispatch(setListViewFilter({ filter: word }));
+	};
 	return (
 		<div>
 			{
 				<>
-					<SearchBar placeholder={'Search salespersons.........'} />
+					<SearchBar
+						placeholder={'Search salespersons.........'}
+						onChange={onChange}
+					/>
 					{isLoading && <LoadingCards count={3} />}
 					{error !== '' && <ErrorOverlay error={error} />}
 					{!isLoading &&
