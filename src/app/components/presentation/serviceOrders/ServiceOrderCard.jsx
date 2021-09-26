@@ -116,10 +116,10 @@ const ServiceOrderCard = ({ serviceOrder, showCustomer, showSP }) => {
 								<Tbody>
 									{serviceOrder.order_items.map((p) => (
 										<Tr>
-											<Td>{p.product_id}</Td>
+											<Td>{p.product.short_name}</Td>
 											<Td isNumeric>{p.quantity}</Td>
-											<Td isNumeric>{p.item_price}</Td>
-											<Td isNumeric>{p.item_price * p.quantity}</Td>
+											<Td isNumeric>{p.price_at_the_time}</Td>
+											<Td isNumeric>{p.price_at_the_time * p.quantity}</Td>
 										</Tr>
 									))}
 								</Tbody>
