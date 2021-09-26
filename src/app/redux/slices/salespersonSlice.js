@@ -10,6 +10,7 @@ const initialState = {
 		error: null,
 		id: '',
 	},
+	listViewFilter: '',
 };
 
 export const getSalespersonsAsync = createAsyncThunk(
@@ -59,6 +60,9 @@ export const salespersonSlice = createSlice({
 			state.approve.success = null;
 			state.approve.error = 'Account activation failed';
 		},
+		setListViewFilter: (state, { payload }) => {
+			state.listViewFilter = payload.filter;
+		},
 	},
 	extraReducers: {
 		[getSalespersonsAsync.fulfilled]: (state, action) => {
@@ -74,6 +78,7 @@ export const {
 	approvePending,
 	approveFail,
 	approveSuccess,
+	setListViewFilter,
 } = salespersonSlice.actions;
 
 export const selectAllSalespersons = (state) => state.salespersons;
