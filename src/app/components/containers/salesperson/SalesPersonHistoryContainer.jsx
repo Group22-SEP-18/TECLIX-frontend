@@ -9,56 +9,48 @@
  * @since  10.09.2021
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
+	Accordion,
 	Box,
 	Tabs,
 	TabList,
 	TabPanels,
 	Tab,
 	TabPanel,
-	IconButton,
-	HStack,
 	Input,
 	InputGroup,
 	InputLeftAddon,
 	Stack,
 } from '@chakra-ui/react';
 import MapWithHeader from '../../common/map/MapWithHeader';
-import {
-	getLocations,
-	filterLocationData,
-} from '../../../redux/actions/locationsAction';
+import { getLocations } from '../../../redux/actions/locationsAction';
 import { fetchServiceOrderData } from '../../../redux/actions/serviceOrderActions';
+import { selectAllServiceOrders } from '../../../redux/slices/serviceOrderSlice';
+import ServiceOrderCard from '../../presentation/serviceOrders/ServiceOrderCard';
+import AddFilter from '../AddFilter';
+import {
+	filteredLocations,
+	setFromFilter,
+	setSPFilter,
+	setToFilter,
+} from '../../../redux/slices/locationsSlice';
 
 const SalesPersonHistoryContainer = ({ salesperson }) => {
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(getLocations());
-		dispatch(fetchServiceOrderData);
-	}, [dispatch]);
-	// const { isLoading, serviceOrders, error } = useSelector(
-	// 	(state) => state.serviceOrder
-	// );
-	const [mapFilters, setMapFilters] = useState({
-		from: null,
-		to: null,
-	});
-	const { filteredlocations } = useSelector((state) => state.locations);
-	const locations = filteredlocations
-		.filter((l) => l.salesperson.employee_no === salesperson.employee_no)
-		.map((loc) => ({
-			latitude: parseFloat(loc.customer.latitude),
-			longitude: parseFloat(loc.customer.longitude),
-		}));
-	useEffect(() => {
-		dispatch(filterLocationData(mapFilters));
-	}, [dispatch, mapFilters]);
-	const onChanges = (value) => {
-		setMapFilters({ ...mapFilters, ...value });
-	};
+		dispatch(fetchServiceOrderData());
+		dispatch(setToFilter(''));
+		dispatch(setFromFilter(''));
+		dispatch(setSPFilter(salesperson.employee_no));
+	}, [dispatch, salesperson]);
+	const serviceOrders = useSelector(selectAllServiceOrders)
+		.slice()
+		.filter((so) => so.salesperson.email === salesperson.email);
+	const locations = useSelector(filteredLocations);
 	return (
 		<Box pt='4'>
 			<Tabs variant='soft-rounded' colorScheme='green'>
@@ -74,7 +66,9 @@ const SalesPersonHistoryContainer = ({ salesperson }) => {
 								<Input
 									type='date'
 									placeholder='Select Date'
-									onChange={(event) => onChanges({ from: event.target.value })}
+									onChange={(event) =>
+										dispatch(setFromFilter(event.target.value))
+									}
 								/>
 							</InputGroup>
 							<InputGroup>
@@ -82,26 +76,35 @@ const SalesPersonHistoryContainer = ({ salesperson }) => {
 								<Input
 									type='date'
 									placeholder='Select Date'
-									onChange={(event) => onChanges({ to: event.target.value })}
+									onChange={(event) =>
+										dispatch(setToFilter(event.target.value))
+									}
 								/>
 							</InputGroup>
 						</Stack>
-						<MapWithHeader locations={locations} />
+						<Box
+							maxW='100%'
+							maxH='60%'
+							borderWidth='1px'
+							borderRadius='xl'
+							overflowY='hidden'
+						>
+							<MapWithHeader locations={locations} />
+						</Box>
 					</TabPanel>
 					<TabPanel>
 						<Tabs align='end' variant='soft-rounded' colorScheme='green'>
-							<TabList>
-								<Tab>Today</Tab>
-								<Tab>Month</Tab>
-								<Tab>AllTime</Tab>
-							</TabList>
-							<TabPanels>
-								{[...Array(3)].map((x, i) => (
-									<TabPanel key={i}>
-										No Service Order History Available
-									</TabPanel>
+							<AddFilter />
+							<Accordion allowToggle>
+								{serviceOrders.map((so) => (
+									<ServiceOrderCard
+										key={so.order_id}
+										serviceOrder={so}
+										showCustomer={true}
+										showSP={false}
+									/>
 								))}
-							</TabPanels>
+							</Accordion>
 						</Tabs>
 					</TabPanel>
 				</TabPanels>

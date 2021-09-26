@@ -10,6 +10,13 @@ const initialState = {
 		error: null,
 		id: '',
 	},
+	reject: {
+		isLoading: false,
+		success: null,
+		error: null,
+		id: '',
+	},
+	listViewFilter: '',
 };
 
 export const distributionOfficersSlice = createSlice({
@@ -32,18 +39,38 @@ export const distributionOfficersSlice = createSlice({
 			state.approve.isLoading = true;
 			state.approve.id = payload.id;
 		},
-		approveSuccess: (state) => {
+		approveSuccess: (state, { payload }) => {
 			state.approve.isLoading = false;
 			state.approve.error = null;
-			state.approve.success = 'Successfully approved the account';
+			state.approve.success = payload;
 			state.distributionOfficers = state.distributionOfficers.map((d) =>
 				d.id === state.approve.id ? { ...d, ...{ is_approved: true } } : d
 			);
 		},
-		approveFail: (state) => {
+		approveFail: (state, { payload }) => {
 			state.approve.isLoading = false;
 			state.approve.success = null;
-			state.approve.error = 'Account activation failed';
+			state.approve.error = payload;
+		},
+		rejectPending: (state, { payload }) => {
+			state.reject.isLoading = true;
+			state.reject.id = payload.id;
+		},
+		rejectSuccess: (state, { payload }) => {
+			state.reject.isLoading = false;
+			state.reject.error = null;
+			state.reject.success = payload;
+			state.distributionOfficers = state.distributionOfficers.filter(
+				(d) => d.id !== state.reject.id
+			);
+		},
+		rejectFail: (state, { payload }) => {
+			state.reject.isLoading = false;
+			state.reject.success = null;
+			state.reject.error = payload;
+		},
+		setListViewFilter: (state, { payload }) => {
+			state.listViewFilter = payload.filter;
 		},
 	},
 });
@@ -55,11 +82,25 @@ export const {
 	approvePending,
 	approveFail,
 	approveSuccess,
+	rejectPending,
+	rejectFail,
+	rejectSuccess,
+	setListViewFilter,
 } = distributionOfficersSlice.actions;
 
-export const selectAllSalespersons = (state) => state.distributionOfficers;
-
-export const selectApprovedSalespersons = (state) =>
-	state.distributionOfficers.filter((sp) => sp.is_approved !== false);
+export const filteredDistributionOfficers = (state) => {
+	const all = state.distributionOfficers.distributionOfficers;
+	const filterId = state.distributionOfficers.listViewFilter;
+	if (filterId === null) {
+		return all;
+	} else {
+		return all.filter(
+			(d) =>
+				`${d.first_name}${d.last_name}${d.employee_no}${d.email}`
+					.toLowerCase()
+					.indexOf(filterId) >= 0
+		);
+	}
+};
 
 export default distributionOfficersSlice.reducer;

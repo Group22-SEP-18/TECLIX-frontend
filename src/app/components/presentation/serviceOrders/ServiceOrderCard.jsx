@@ -9,9 +9,8 @@
  * @since  18.09.2021
  */
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { useSelector, useDispatch } from 'react-redux';
 import {
 	AccordionItem,
 	AccordionButton,
@@ -28,21 +27,11 @@ import {
 	Td,
 	Text,
 } from '@chakra-ui/react';
-import {
-	getSalespersonsAsync,
-	selectAllSalespersons,
-} from '../../../redux/slices/salespersonSlice';
-import { getDateTime, formatPrice } from '../../../utils';
+import { getDateTime } from '../../../utils';
 
-const ServiceOrderCard = ({ serviceOrder, customer }) => {
-	const dispatch = useDispatch();
-	const salesperson = useSelector((state) => state.salesperson.salespersons)
-		.slice()
-		.find((s) => s.employee_no === serviceOrder.salesperson_id);
-	useEffect(() => {
-		dispatch(getSalespersonsAsync());
-	}, [dispatch]);
-	const datetime = getDateTime(serviceOrder.date);
+const ServiceOrderCard = ({ serviceOrder, showCustomer, showSP }) => {
+	console.log(serviceOrder);
+	const datetime = getDateTime(serviceOrder.order_date);
 	return (
 		<div>
 			<AccordionItem>
@@ -58,16 +47,29 @@ const ServiceOrderCard = ({ serviceOrder, customer }) => {
 						<HStack align={'center'}>
 							<Box>
 								<Text fontWeight={500} mb={4} textAlign='start' pl='4'>
-									Order Id {serviceOrder.order_id}
+									Order Id {serviceOrder.id}
 								</Text>
-								<Text
-									fontWeight={500}
-									color={'gray.500'}
-									textAlign='start'
-									pl='4'
-								>
-									SalesPerson: {salesperson.first_name} {salesperson.last_name}
-								</Text>
+								{showSP && (
+									<Text
+										fontWeight={500}
+										color={'gray.500'}
+										textAlign='start'
+										pl='4'
+									>
+										SalesPerson: {serviceOrder.salesperson.first_name}{' '}
+										{serviceOrder.salesperson.last_name}
+									</Text>
+								)}
+								{showCustomer && (
+									<Text
+										fontWeight={500}
+										color={'gray.500'}
+										textAlign='start'
+										pl='4'
+									>
+										Customer: {serviceOrder.customer.shop_name}
+									</Text>
+								)}
 								<Text
 									fontWeight={500}
 									color={'gray.500'}
@@ -82,7 +84,7 @@ const ServiceOrderCard = ({ serviceOrder, customer }) => {
 									textAlign='start'
 									pl='4'
 								>
-									Price: {formatPrice(serviceOrder.actual_price)}
+									Price: Rs.{serviceOrder.original_price}
 								</Text>
 								<Text
 									fontWeight={500}
@@ -91,7 +93,7 @@ const ServiceOrderCard = ({ serviceOrder, customer }) => {
 									textAlign='start'
 									pl='4'
 								>
-									Discount: {formatPrice(serviceOrder.discount)}
+									Discount: Rs. {serviceOrder.discount}
 								</Text>
 							</Box>
 						</HStack>
@@ -101,24 +103,30 @@ const ServiceOrderCard = ({ serviceOrder, customer }) => {
 				</AccordionButton>
 				<AccordionPanel>
 					<Table>
-						<Thead>
-							<Tr>
-								<Th>Product</Th>
-								<Th isNumeric>Quantity</Th>
-								<Th isNumeric>Single Unit Price(Rs.)</Th>
-								<Th isNumeric>Price (Rs.)</Th>
-							</Tr>
-						</Thead>
-						<Tbody>
-							{serviceOrder.products.map((p) => (
-								<Tr>
-									<Td>{p.product_id}</Td>
-									<Td isNumeric>{p.quantity}</Td>
-									<Td isNumeric>{p.item_price}</Td>
-									<Td isNumeric>{p.item_price * p.quantity}</Td>
-								</Tr>
-							))}
-						</Tbody>
+						{serviceOrder.order_items.length ? (
+							<>
+								<Thead>
+									<Tr>
+										<Th>Product</Th>
+										<Th isNumeric>Quantity</Th>
+										<Th isNumeric>Single Unit Price(Rs.)</Th>
+										<Th isNumeric>Price (Rs.)</Th>
+									</Tr>
+								</Thead>
+								<Tbody>
+									{serviceOrder.order_items.map((p) => (
+										<Tr>
+											<Td>{p.product_id}</Td>
+											<Td isNumeric>{p.quantity}</Td>
+											<Td isNumeric>{p.item_price}</Td>
+											<Td isNumeric>{p.item_price * p.quantity}</Td>
+										</Tr>
+									))}
+								</Tbody>
+							</>
+						) : (
+							'No products are included'
+						)}
 					</Table>
 				</AccordionPanel>
 			</AccordionItem>

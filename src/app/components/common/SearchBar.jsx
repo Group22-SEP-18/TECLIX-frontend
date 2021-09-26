@@ -13,10 +13,13 @@ import PropTypes from 'prop-types';
 import { Input, InputGroup, InputRightElement } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 
-const SearchBar = ({ placeholder = '' }) => {
+const SearchBar = ({ placeholder = '', onChange }) => {
 	return (
 		<InputGroup borderRadius='lg'>
-			<Input placeholder={placeholder} />
+			<Input
+				placeholder={placeholder}
+				onChange={(e) => onChange(e.target.value)}
+			/>
 			<InputRightElement
 				children={
 					<SearchIcon color='green.500' _hover={{ cursor: 'pointer' }} />

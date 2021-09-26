@@ -5,10 +5,14 @@ import {
 	approvePending,
 	approveFail,
 	approveSuccess,
+	rejectPending,
+	rejectFail,
+	rejectSuccess,
 } from '../slices/distributionOfficersSlice';
 import {
 	fetchDistributionOfficers,
 	approveDOAccount,
+	rejectDOAccount,
 } from '../../../api/staffApi';
 
 export const getDistributionOfficers = () => async (dispatch) => {
@@ -34,11 +38,27 @@ export const approveAccountById = (id) => async (dispatch) => {
 		const result = await approveDOAccount(id);
 
 		if (result.is_approved) {
-			return dispatch(approveSuccess());
+			return dispatch(approveSuccess('Successfully approved the account'));
 		}
 
-		dispatch(approveFail());
+		dispatch(approveFail('Account approval failed'));
 	} catch (error) {
-		dispatch(approveFail());
+		dispatch(approveFail('Account approval failed'));
+	}
+};
+
+export const rejectAccountById = (id) => async (dispatch) => {
+	try {
+		dispatch(rejectPending({ id: id }));
+
+		const result = await rejectDOAccount(id);
+
+		if (result.is_approved) {
+			return dispatch(rejectSuccess('Account rejection successful'));
+		}
+
+		dispatch(rejectFail('Account rejection failed'));
+	} catch (error) {
+		dispatch(rejectFail('Account rejection failed'));
 	}
 };

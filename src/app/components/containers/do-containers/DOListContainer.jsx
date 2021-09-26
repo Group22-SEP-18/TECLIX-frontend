@@ -11,7 +11,6 @@
 
 import React, { useEffect } from 'react';
 import {
-	SimpleGrid,
 	Alert,
 	AlertIcon,
 	AlertDescription,
@@ -22,23 +21,39 @@ import { useSelector, useDispatch } from 'react-redux';
 import SearchBar from '../../common/SearchBar';
 import { getDistributionOfficers } from '../../../redux/actions/doActions';
 import DOCard from '../../presentation/distribution-officer/DOCard';
+import LoadingCards from '../../common/loading/LoadingCards';
+import ErrorOverlay from '../../common/error-overlays/ErrorOverlay';
+import {
+	filteredDistributionOfficers,
+	setListViewFilter,
+} from '../../../redux/slices/distributionOfficersSlice';
 
 const DOListContainer = (props) => {
 	const dispatch = useDispatch();
 	const { isOpen, onToggle } = useDisclosure();
-	const { isLoading, distributionOfficers, error } = useSelector(
+	const { isLoading, error } = useSelector(
 		(state) => state.distributionOfficers
 	);
 	const user_role = useSelector((state) => state.user.user.user_role);
+	const distributionOfficers = useSelector(filteredDistributionOfficers);
 	useEffect(() => {
 		dispatch(getDistributionOfficers());
 	}, [dispatch]);
+	const onChange = (word) => {
+		dispatch(setListViewFilter({ filter: word }));
+	};
 	return (
 		<div>
 			{
 				<>
-					<SearchBar placeholder={'Search distribution officers.........'} />
-					{user_role !== 'Distribution Officer' &&
+					<SearchBar
+						placeholder={'Search distribution officers.........'}
+						onChange={onChange}
+					/>
+					{isLoading && <LoadingCards count={3} />}
+					{error !== '' && <ErrorOverlay error={error} />}
+					{!isLoading &&
+						user_role !== 'Distribution Officer' &&
 						distributionOfficers.filter(
 							(dOfficer) => dOfficer.is_approved === false
 						).length > 0 && (
@@ -64,11 +79,12 @@ const DOListContainer = (props) => {
 								</Collapse>
 							</>
 						)}
-					{distributionOfficers
-						.filter((dOfficer) => dOfficer.is_approved !== false)
-						.map((dOfficer, index) => (
-							<DOCard key={index} dOfficer={dOfficer} />
-						))}
+					{!isLoading &&
+						distributionOfficers
+							.filter((dOfficer) => dOfficer.is_approved !== false)
+							.map((dOfficer, index) => (
+								<DOCard key={index} dOfficer={dOfficer} />
+							))}
 				</>
 			}
 		</div>
