@@ -14,16 +14,22 @@ export const getCustomersAsync = createAsyncThunk(
 	}
 );
 
+const initialState = {
+	isLoading: false,
+	customers: [],
+	error: '',
+};
+
 export const customerSlice = createSlice({
 	name: 'customers',
-	initialState: [],
+	initialState,
 	reducers: {
 		customersPending: (state, action) => {
 			state.isLoading = true;
 		},
 		customersSuccess: (state, { payload }) => {
 			state.isLoading = false;
-			state.currentLocations = payload;
+			state.customers = payload;
 			state.error = '';
 		},
 		customersFail: (state, { payload }) => {

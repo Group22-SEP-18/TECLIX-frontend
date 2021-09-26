@@ -11,7 +11,7 @@ export const fetchWithAuthorization = (url) => {
 
 			const res = await axios.get(url, {
 				headers: {
-					Authorization: accessJWT,
+					Authorization: `Token ${accessJWT}`,
 				},
 			});
 

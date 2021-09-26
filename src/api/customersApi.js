@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { fetchWithAuthorization } from './baseApi';
 
 const rootUrl = 'https://teclix.herokuapp.com/customer-api/';
 
@@ -13,7 +14,7 @@ export const fetchCustomers = () => {
 
 			const res = await axios.get(rootUrl, {
 				headers: {
-					Authorization: accessJWT,
+					Authorization: `Token ${accessJWT}`,
 				},
 			});
 

@@ -12,7 +12,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { approveAccountById } from '../../../redux/actions/salespersonActions';
+import {
+	approveAccountById,
+	rejectAccountById,
+} from '../../../redux/actions/salespersonActions';
 import {
 	Avatar,
 	Badge,
@@ -25,16 +28,16 @@ import {
 	Text,
 	VStack,
 } from '@chakra-ui/react';
-import { CheckIcon } from '@chakra-ui/icons';
+import { CheckIcon, CloseIcon } from '@chakra-ui/icons';
 
 const SalesPersonCard = ({ salesperson, onClick }) => {
 	const dispatch = useDispatch();
-	const { isLoading, success, error, id } = useSelector(
-		(state) => state.salespersons.approve
-	);
+	const { isLoading, id } = useSelector((state) => state.salespersons.approve);
 	const approveAccount = () => {
-		console.log(salesperson.id);
 		dispatch(approveAccountById(salesperson.id));
+	};
+	const rejectAccount = () => {
+		dispatch(rejectAccountById(salesperson.id));
 	};
 	return (
 		<div>
@@ -151,13 +154,14 @@ const SalesPersonCard = ({ salesperson, onClick }) => {
 								>
 									Approve
 								</Button>
-								{/* <Button
-									rightIcon={<ArrowForwardIcon />}
+								<Button
+									rightIcon={<CloseIcon />}
 									colorScheme='teal'
 									variant='outline'
+									onClick={rejectAccount}
 								>
 									Reject
-								</Button> */}
+								</Button>
 							</VStack>
 						</Box>
 					)}

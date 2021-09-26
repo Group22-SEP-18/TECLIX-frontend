@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { postWithAuthorization } from './baseApi';
 
 const rootUrl = 'https://teclix.herokuapp.com/staff-api/';
 const loginUrl = rootUrl + 'login/web';
@@ -10,33 +11,10 @@ const userVerificationUrl = userProfileUrl + '/verify';
 const approveUrl = rootUrl + 'approve/distribution-officer/';
 
 export const userRegistration = (frmData) => {
-	return new Promise(async (resolve, reject) => {
-		try {
-			const res = await axios.post(userRegisterUrl, frmData);
-
-			resolve(res.data);
-
-			if (res.data.email !== frmData.email) {
-				reject('Error while user registration');
-			}
-		} catch (error) {
-			reject(error);
-		}
-	});
+	return postWithAuthorization(userRegisterUrl, frmData);
 };
 export const userRegistrationVerification = (frmData) => {
-	return new Promise(async (resolve, reject) => {
-		try {
-			const res = await axios.patch(userVerificationUrl, frmData);
-
-			resolve(res.data);
-			if (res.data.status === 'success') {
-				resolve(res.data);
-			}
-		} catch (error) {
-			reject({ status: 'error', message: error.error });
-		}
-	});
+	return postWithAuthorization(userVerificationUrl, frmData);
 };
 
 export const userLogin = (frmData) => {

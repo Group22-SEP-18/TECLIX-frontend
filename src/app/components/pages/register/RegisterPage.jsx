@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link as ReachLink } from 'react-router-dom';
 import {
 	Alert,
 	AlertIcon,
@@ -9,6 +10,7 @@ import {
 	IconButton,
 	FormControl,
 	FormLabel,
+	Link,
 	Heading,
 	Input,
 	Flex,
@@ -31,7 +33,7 @@ const RegisterPage = (props) => {
 	const initialValues = {
 		email: '',
 		employee_no: '',
-		user_role: 'Distribution Officer',
+		user_role: 'OFFICER',
 		first_name: '',
 		last_name: '',
 		contact_no: '',
@@ -87,6 +89,9 @@ const RegisterPage = (props) => {
 			>
 				<Box textAlign='center'>
 					<Heading>Sign up with TECLIX</Heading>
+					<Link as={ReachLink} to='/login' my={8} textColor='blue'>
+						Already have an account?
+					</Link>
 				</Box>
 				{message && (
 					<Alert my={4} status={status === 'success' ? 'success' : 'error'}>
