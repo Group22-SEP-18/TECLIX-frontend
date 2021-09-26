@@ -3,7 +3,6 @@ import {
 	locationsPending,
 	locationsSuccess,
 	locationsFail,
-	filterLocations,
 } from '../slices/locationsSlice';
 
 export const getLocations = () => async (dispatch) => {
@@ -20,8 +19,4 @@ export const getLocations = () => async (dispatch) => {
 	} catch (error) {
 		dispatch(locationsFail());
 	}
-};
-
-export const filterLocationData = (filters) => (dispatch) => {
-	dispatch(filterLocations(filters));
 };

@@ -9,7 +9,7 @@
  * @since  10.09.2021
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
@@ -26,41 +26,31 @@ import {
 	Stack,
 } from '@chakra-ui/react';
 import MapWithHeader from '../../common/map/MapWithHeader';
-import {
-	getLocations,
-	filterLocationData,
-} from '../../../redux/actions/locationsAction';
+import { getLocations } from '../../../redux/actions/locationsAction';
 import { fetchServiceOrderData } from '../../../redux/actions/serviceOrderActions';
 import { selectAllServiceOrders } from '../../../redux/slices/serviceOrderSlice';
 import ServiceOrderCard from '../../presentation/serviceOrders/ServiceOrderCard';
 import AddFilter from '../AddFilter';
+import {
+	filteredLocations,
+	setFromFilter,
+	setSPFilter,
+	setToFilter,
+} from '../../../redux/slices/locationsSlice';
 
 const SalesPersonHistoryContainer = ({ salesperson }) => {
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(getLocations());
-		dispatch(fetchServiceOrderData);
-	}, [dispatch]);
+		dispatch(fetchServiceOrderData());
+		dispatch(setToFilter(''));
+		dispatch(setFromFilter(''));
+		dispatch(setSPFilter(salesperson.employee_no));
+	}, [dispatch, salesperson]);
 	const serviceOrders = useSelector(selectAllServiceOrders)
 		.slice()
 		.filter((so) => so.salesperson.email === salesperson.email);
-	const [mapFilters, setMapFilters] = useState({
-		from: null,
-		to: null,
-	});
-	const { filteredlocations } = useSelector((state) => state.locations);
-	const locations = filteredlocations
-		.filter((l) => l.salesperson.employee_no === salesperson.employee_no)
-		.map((loc) => ({
-			latitude: parseFloat(loc.customer.latitude),
-			longitude: parseFloat(loc.customer.longitude),
-		}));
-	useEffect(() => {
-		dispatch(filterLocationData(mapFilters));
-	}, [dispatch, mapFilters]);
-	const onChanges = (value) => {
-		setMapFilters({ ...mapFilters, ...value });
-	};
+	const locations = useSelector(filteredLocations);
 	return (
 		<Box pt='4'>
 			<Tabs variant='soft-rounded' colorScheme='green'>
@@ -76,7 +66,9 @@ const SalesPersonHistoryContainer = ({ salesperson }) => {
 								<Input
 									type='date'
 									placeholder='Select Date'
-									onChange={(event) => onChanges({ from: event.target.value })}
+									onChange={(event) =>
+										dispatch(setFromFilter(event.target.value))
+									}
 								/>
 							</InputGroup>
 							<InputGroup>
@@ -84,7 +76,9 @@ const SalesPersonHistoryContainer = ({ salesperson }) => {
 								<Input
 									type='date'
 									placeholder='Select Date'
-									onChange={(event) => onChanges({ to: event.target.value })}
+									onChange={(event) =>
+										dispatch(setToFilter(event.target.value))
+									}
 								/>
 							</InputGroup>
 						</Stack>
