@@ -35,6 +35,6 @@ export const UserRegistration = (formData) => async (dispatch) => {
 			? dispatch(registrationSuccess(result.message))
 			: dispatch(registrationError(result.message));
 	} catch (error) {
-		dispatch(registrationError(error.message));
+		dispatch(registrationError('Error while registering'));
 	}
 };

@@ -33,7 +33,7 @@ const RegisterPage = (props) => {
 	const initialValues = {
 		email: '',
 		employee_no: '',
-		user_role: 'Distribution Officer',
+		user_role: 'OFFICER',
 		first_name: '',
 		last_name: '',
 		contact_no: '',
