@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { postWithAuthorization } from './baseApi';
+import { postWithAuthorization, postWithOutAuthorization } from './baseApi';
 
 const rootUrl = 'https://teclix.herokuapp.com/staff-api/';
 const loginUrl = rootUrl + 'login/web';
@@ -11,7 +11,7 @@ const userVerificationUrl = userProfileUrl + '/verify';
 const approveUrl = rootUrl + 'approve/distribution-officer/';
 
 export const userRegistration = (frmData) => {
-	return postWithAuthorization(userRegisterUrl, frmData);
+	return postWithOutAuthorization(userRegisterUrl, frmData);
 };
 export const userRegistrationVerification = (frmData) => {
 	return postWithAuthorization(userVerificationUrl, frmData);
@@ -91,9 +91,10 @@ export const fetchNewAccessJWT = () => {
 
 export const userLogout = async () => {
 	try {
+		const accessJWT = localStorage.getItem('token');
 		await axios.delete(logoutUrl, {
 			headers: {
-				Authorization: localStorage.getItem('token'),
+				Authorization: `Token ${accessJWT}`,
 			},
 		});
 	} catch (error) {}
@@ -108,11 +109,15 @@ export const approveUserAccount = (id) => {
 				reject('Token not found!');
 			}
 
-			const res = await axios.get(approveUrl + id, {
-				headers: {
-					Authorization: accessJWT,
-				},
-			});
+			const res = await axios.get(
+				approveUrl + id,
+				{ is_approved: true },
+				{
+					headers: {
+						Authorization: `Token ${accessJWT}`,
+					},
+				}
+			);
 
 			resolve(res.data);
 		} catch (error) {
