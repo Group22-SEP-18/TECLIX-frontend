@@ -6,10 +6,10 @@ const LoadingSkelton = ({ count = 3 }) => {
 		<div>
 			<Box padding='6' boxShadow='lg' bg='white'>
 				{[...Array(count)].map((x, i) => (
-					<>
+					<div key={i}>
 						<SkeletonCircle size='10' />
 						<SkeletonText mt='4' noOfLines={4} spacing='4' />
-					</>
+					</div>
 				))}
 			</Box>
 		</div>
