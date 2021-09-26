@@ -4,7 +4,7 @@ const rootUrl = 'https://teclix.herokuapp.com/staff-api/distribution-officer';
 const approveUrl = '/staff-api/approve/distribution-officer/{id}';
 
 export const fetchDistributionOfficers = () => {
-	return fetchWithAuthorization(rootUrl);
+	return fetchWithAuthorization(rootUrl + '/pending/');
 };
 
 export const approveDOAccount = (id) => {

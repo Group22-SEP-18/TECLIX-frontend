@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { fetchWithAuthorization } from './baseApi';
+import { fetchWithAuthorization, postWithAuthorization } from './baseApi';
 
 const rootUrl = 'https://teclix.herokuapp.com/salesperson-api/';
 const locationUrl = rootUrl + 'locations/';
@@ -10,47 +10,11 @@ const approveUrl =
 	'https://teclix.herokuapp.com/staff-api/approve/salesperson/';
 
 export const fetchCurrentLocations = () => {
-	return new Promise(async (resolve, reject) => {
-		try {
-			const accessJWT = localStorage.getItem('token');
-
-			if (!accessJWT) {
-				reject('Token not found!');
-			}
-
-			const res = await axios.get(currentLocationsUrl, {
-				headers: {
-					Authorization: accessJWT,
-				},
-			});
-
-			resolve(res.data);
-		} catch (error) {
-			reject(error.message);
-		}
-	});
+	return fetchWithAuthorization(currentLocationsUrl);
 };
 
 export const fetchSalespersons = () => {
-	return new Promise(async (resolve, reject) => {
-		try {
-			const accessJWT = localStorage.getItem('token');
-
-			if (!accessJWT) {
-				reject('Token not found!');
-			}
-
-			const res = await axios.get(rootUrl, {
-				headers: {
-					Authorization: accessJWT,
-				},
-			});
-
-			resolve(res.data);
-		} catch (error) {
-			reject(error.message);
-		}
-	});
+	return fetchWithAuthorization(rootUrl);
 };
 
 export const fetchLocations = () => {
@@ -58,71 +22,17 @@ export const fetchLocations = () => {
 };
 
 export const fetchLeaderboard = () => {
-	return new Promise(async (resolve, reject) => {
-		try {
-			const accessJWT = localStorage.getItem('token');
-
-			if (!accessJWT) {
-				reject('Token not found!');
-			}
-
-			const res = await axios.get(leaderboardUrl, {
-				headers: {
-					Authorization: accessJWT,
-				},
-			});
-
-			resolve(res.data);
-		} catch (error) {
-			reject(error.message);
-		}
-	});
+	return fetchWithAuthorization(leaderboardUrl);
 };
 
 export const fetchLeaderboardPointSchema = () => {
-	return new Promise(async (resolve, reject) => {
-		try {
-			const accessJWT = localStorage.getItem('token');
-
-			if (!accessJWT) {
-				reject('Token not found!');
-			}
-
-			const res = await axios.get(leaderboardSchemaUrl, {
-				headers: {
-					Authorization: accessJWT,
-				},
-			});
-
-			resolve(res.data);
-		} catch (error) {
-			reject(error.message);
-		}
-	});
+	return fetchWithAuthorization(leaderboardSchemaUrl);
 };
 
 export const approveSalespersonAccount = (id) => {
-	return new Promise(async (resolve, reject) => {
-		try {
-			const accessJWT = localStorage.getItem('token');
+	return postWithAuthorization(`${approveUrl}${id}`, { is_approved: true });
+};
 
-			if (!accessJWT) {
-				reject('Token not found!');
-			}
-
-			const res = await axios.post(
-				`${approveUrl}${id}`,
-				{ is_approved: true },
-				{
-					headers: {
-						Authorization: accessJWT,
-					},
-				}
-			);
-
-			resolve(res.data);
-		} catch (error) {
-			reject(error.message);
-		}
-	});
+export const rejectSalespersonAccount = (id) => {
+	return postWithAuthorization(`${approveUrl}${id}`, { is_approved: true });
 };
