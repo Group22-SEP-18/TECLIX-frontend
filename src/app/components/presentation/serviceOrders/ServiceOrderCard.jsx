@@ -103,24 +103,30 @@ const ServiceOrderCard = ({ serviceOrder, showCustomer, showSP }) => {
 				</AccordionButton>
 				<AccordionPanel>
 					<Table>
-						<Thead>
-							<Tr>
-								<Th>Product</Th>
-								<Th isNumeric>Quantity</Th>
-								<Th isNumeric>Single Unit Price(Rs.)</Th>
-								<Th isNumeric>Price (Rs.)</Th>
-							</Tr>
-						</Thead>
-						<Tbody>
-							{serviceOrder.order_items.map((p) => (
-								<Tr>
-									<Td>{p.product_id}</Td>
-									<Td isNumeric>{p.quantity}</Td>
-									<Td isNumeric>{p.item_price}</Td>
-									<Td isNumeric>{p.item_price * p.quantity}</Td>
-								</Tr>
-							))}
-						</Tbody>
+						{serviceOrder.order_items.length ? (
+							<>
+								<Thead>
+									<Tr>
+										<Th>Product</Th>
+										<Th isNumeric>Quantity</Th>
+										<Th isNumeric>Single Unit Price(Rs.)</Th>
+										<Th isNumeric>Price (Rs.)</Th>
+									</Tr>
+								</Thead>
+								<Tbody>
+									{serviceOrder.order_items.map((p) => (
+										<Tr>
+											<Td>{p.product_id}</Td>
+											<Td isNumeric>{p.quantity}</Td>
+											<Td isNumeric>{p.item_price}</Td>
+											<Td isNumeric>{p.item_price * p.quantity}</Td>
+										</Tr>
+									))}
+								</Tbody>
+							</>
+						) : (
+							'No products are included'
+						)}
 					</Table>
 				</AccordionPanel>
 			</AccordionItem>
