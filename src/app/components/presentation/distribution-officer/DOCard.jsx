@@ -23,8 +23,11 @@ import {
 	Text,
 	VStack,
 } from '@chakra-ui/react';
-import { CheckIcon } from '@chakra-ui/icons';
-import { approveAccountById } from '../../../redux/actions/doActions';
+import { CheckIcon, CloseIcon } from '@chakra-ui/icons';
+import {
+	approveAccountById,
+	rejectAccountById,
+} from '../../../redux/actions/doActions';
 
 const DOCard = ({ dOfficer }) => {
 	const dispatch = useDispatch();
@@ -33,6 +36,9 @@ const DOCard = ({ dOfficer }) => {
 	);
 	const approveAccount = () => {
 		dispatch(approveAccountById(dOfficer.id));
+	};
+	const rejectAccount = () => {
+		dispatch(rejectAccountById(dOfficer.id));
 	};
 	return (
 		<div>
@@ -86,6 +92,15 @@ const DOCard = ({ dOfficer }) => {
 						<Box>
 							<VStack>
 								<Spacer />
+								<Button
+									leftIcon={<CloseIcon />}
+									colorScheme='red'
+									variant='solid'
+									isLoading={isLoading && id === dOfficer.id}
+									onClick={rejectAccount}
+								>
+									Reject
+								</Button>
 								<Button
 									leftIcon={<CheckIcon />}
 									colorScheme='whatsapp'

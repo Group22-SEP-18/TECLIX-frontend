@@ -10,3 +10,7 @@ export const fetchDistributionOfficers = () => {
 export const approveDOAccount = (id) => {
 	return postWithAuthorization(`${approveUrl}${id}`, { is_approved: true });
 };
+
+export const rejectDOAccount = (id) => {
+	return postWithAuthorization(`${approveUrl}${id}`, { is_approved: false });
+};
