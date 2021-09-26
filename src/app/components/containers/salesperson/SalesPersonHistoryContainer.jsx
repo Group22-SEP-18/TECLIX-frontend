@@ -40,7 +40,6 @@ const SalesPersonHistoryContainer = ({ salesperson }) => {
 	useEffect(() => {
 		dispatch(getLocations());
 		dispatch(fetchServiceOrderData);
-		dispatch(fetchServiceOrderData());
 	}, [dispatch]);
 	const serviceOrders = useSelector(selectAllServiceOrders)
 		.slice()
