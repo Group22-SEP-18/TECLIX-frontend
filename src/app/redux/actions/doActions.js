@@ -53,7 +53,7 @@ export const rejectAccountById = (id) => async (dispatch) => {
 
 		const result = await rejectDOAccount(id);
 
-		if (result.is_approved) {
+		if (!result.is_approved) {
 			return dispatch(rejectSuccess('Account rejection successful'));
 		}
 

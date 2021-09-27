@@ -84,7 +84,7 @@ const DOCard = ({ dOfficer }) => {
 							Email: {dOfficer.email}
 						</Text>
 						<Text fontWeight={500} textAlign='start' pl='4'>
-							Mobile: {dOfficer.mobile_no}
+							Mobile: {dOfficer.contact_no}
 						</Text>
 					</Box>
 					<Spacer />
