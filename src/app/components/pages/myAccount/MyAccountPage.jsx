@@ -13,13 +13,11 @@ import { useSelector } from 'react-redux';
 import {
 	Avatar,
 	Box,
-	// Button,
-	// useColorModeValue,
-	Flex,
-	Grid,
-	GridItem,
+	Button,
+	Center,
+	useColorModeValue,
 	Heading,
-	Spacer,
+	Stack,
 	Text,
 } from '@chakra-ui/react';
 import SideBar from '../../common/sidebar/SideBar';
@@ -38,64 +36,82 @@ const MyAccountPage = (props) => {
 				p='4'
 				justify='center'
 				align='center'
-				boxShadow='lg'
-				borderRadius='2xl'
 			>
-				<Grid
-					templateRows='repeat(3, 1fr)'
-					templateColumns='repeat(12, 1fr)'
-					gap={4}
-				>
-					<GridItem rowSpan={2} colSpan={4} overflow='hidden'>
+				<Center py={6}>
+					<Box
+						minW={'320px'}
+						w={'full'}
+						bg={useColorModeValue('white', 'gray.900')}
+						boxShadow={'2xl'}
+						rounded={'lg'}
+						p={6}
+						textAlign={'center'}
+					>
 						<Avatar
 							size={'2xl'}
 							src={user.profile_picture}
 							alt={user.first_name}
-							mb={4}
 							pos={'relative'}
+							_after={{
+								content: '""',
+								w: 6,
+								h: 6,
+								bg: 'green.300',
+								border: '2px solid white',
+								rounded: 'full',
+								pos: 'absolute',
+								bottom: 0,
+								right: 3,
+							}}
 						/>
-					</GridItem>
-					<GridItem rowSpan={2} colSpan={8} overflow='hidden'>
+						<Text
+							fontWeight={600}
+							color={'gray.500'}
+							mt={4}
+							textAlign='center'
+							pl='4'
+						>
+							Employee Id: {user.employee_no}
+						</Text>
 						<Heading
-							fontSize={'xl'}
+							fontSize={'2xl'}
 							fontFamily={'body'}
-							textAlign='start'
+							textAlign='center'
 							pl='4'
 						>
 							Name: {user.first_name} {user.last_name}
 						</Heading>
-						<Text fontWeight={500} textAlign='start' pl='4'>
-							Employee Id: {user.employee_no}
-						</Text>
-						<Text fontWeight={500} textAlign='start' pl='4'>
-							Role: {user.user_role}
-						</Text>
-						<Text fontWeight={500} textAlign='start' pl='4'>
+						<Text
+							fontWeight={600}
+							color={'gray.500'}
+							mb={4}
+							textAlign='center'
+							pl='4'
+						>
 							Email: {user.email}
 						</Text>
-						<Text fontWeight={500} textAlign='start' pl='4'>
+						<Text fontWeight={500} textAlign='center' pl='4'>
+							Role: {user.user_role}
+						</Text>
+						<Text fontWeight={500} textAlign='center' pl='4'>
 							Mobile: {user.mobile_number | '1234567890'}
 						</Text>
-					</GridItem>
-				</Grid>
-				<GridItem rowSpan={1} colSpan={6} overflow='hidden'></GridItem>
-				<GridItem rowSpan={1} colSpan={6} overflow='hidden'>
-					<Box>
-						<Flex>
-							<Spacer />
-							{/* <Button
-								bg={useColorModeValue('green.100', 'green.900')}
-								size='lg'
-								_hover={{ bg: 'trasparent' }}
-								onClick={() => {}}
-								mx={4}
+						<Box h='100px' />
+						<Stack mt={8} direction={'row'} spacing={4}>
+							<Button
+								flex={1}
+								fontSize={'sm'}
+								rounded={'full'}
+								_focus={{
+									bg: 'gray.200',
+								}}
 							>
-								<Text mx={2}>Edit Profile</Text>
-							</Button> */}
+								Change Profile Picture
+							</Button>
 							<ResetPassword />
-						</Flex>
+						</Stack>
 					</Box>
-				</GridItem>
+				</Center>
 			</Box>
 		</Box>
 	);

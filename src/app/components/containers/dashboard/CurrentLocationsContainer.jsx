@@ -12,6 +12,8 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCurrentLocationData } from '../../../redux/actions/currentLocationsActions';
 import MapWithHeader from '../../common/map/MapWithHeader';
+import LoadingSkelton from '../../common/loading/LoadingSkelton';
+import ErrorOverlay from '../../common/error-overlays/ErrorOverlay';
 
 const CurrentLocationsContainer = (props) => {
 	const dispatch = useDispatch();
@@ -22,8 +24,8 @@ const CurrentLocationsContainer = (props) => {
 	const { currentLocations, isLoading, error } = useSelector(
 		(state) => state.currentLocations
 	);
-	if (isLoading) return <h3>Loading ...</h3>;
-	if (error) return <h3>{error}</h3>;
+	if (isLoading) return <LoadingSkelton />;
+	if (error) return <ErrorOverlay error={error} />;
 	const locations = currentLocations.map((l) => ({
 		latitude: parseFloat(l.customer.latitude),
 		longitude: parseFloat(l.customer.longitude),

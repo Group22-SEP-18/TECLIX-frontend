@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, Link as ReachLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {
 	Box,
@@ -52,7 +52,11 @@ const LoginPage = (props) => {
 			>
 				<Box textAlign='center'>
 					<Heading>Sign in to Your Account</Heading>
+					<Link as={ReachLink} to='/register' my={8} textColor='blue'>
+						Create an account
+					</Link>
 				</Box>
+
 				<Box my={8} textAlign='center'>
 					<Formik
 						initialValues={{

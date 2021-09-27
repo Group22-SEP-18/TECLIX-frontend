@@ -25,7 +25,7 @@ const First3 = ({ row, position, timeConstraint = 'today' }) => {
 			<Avatar src={salesperson.profile_picture} />
 			<Box>
 				<Text align='center' noOfLines={1} fontWeight='bold' isTruncated='true'>
-					salesperson.first_name salesperson.last_name
+					{salesperson.first_name} {salesperson.last_name}
 				</Text>
 				<Text fontSize='sm' align='center'>
 					{points} points

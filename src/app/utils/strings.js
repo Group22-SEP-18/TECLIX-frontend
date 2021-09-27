@@ -3,6 +3,8 @@ export const capitalizeFirstLetter = (string) => {
 };
 
 export const sentenceFromCamelCase = (word) =>
-	capitalizeFirstLetter(word)
-		.match(/[A-Z][a-z]+|[0-9]+/g)
-		.join(' ');
+	word === ''
+		? word
+		: capitalizeFirstLetter(word)
+				.match(/[A-Z][a-z]+|[0-9]+/g)
+				.join(' ');

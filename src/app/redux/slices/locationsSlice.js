@@ -3,8 +3,12 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 const initialState = {
 	isLoading: false,
 	locations: [],
-	filteredlocations: [],
 	error: '',
+	filters: {
+		from: '',
+		to: '',
+		salesperson_id: '',
+	},
 };
 
 export const getLocationsAsync = createAsyncThunk(
@@ -35,19 +39,16 @@ export const locationSlice = createSlice({
 		},
 		locationsFail: (state) => {
 			state.isLoading = false;
-			state.error = 'Error while accessing salesperson leaderboard';
+			state.error = 'Error while accessing salesperson locations';
 		},
-		filterLocations: (state, { payload }) => {
-			const ed = payload.from
-				? new Date(`${payload.from}T00:00:00.000Z`).getTime()
-				: new Date('0001-01-01T00:00:00Z').getTime();
-			const sd = payload.to
-				? new Date(`${payload.to}T00:00:00.000Z`).getTime()
-				: new Date().getTime();
-			state.filteredlocations = state.locations.filter((row) => {
-				var time = new Date(row.date).getTime();
-				return sd < time && time < ed;
-			});
+		setFromFilter: (state, { payload }) => {
+			state.filters.from = payload;
+		},
+		setToFilter: (state, { payload }) => {
+			state.filters.to = payload;
+		},
+		setSPFilter: (state, { payload }) => {
+			state.filters.salesperson_id = payload;
 		},
 	},
 	extraReducers: {
@@ -57,9 +58,41 @@ export const locationSlice = createSlice({
 	},
 });
 
-export const { locationsPending, locationsSuccess, locationsFail } =
-	locationSlice.actions;
+export const {
+	locationsPending,
+	locationsSuccess,
+	locationsFail,
+	setFromFilter,
+	setToFilter,
+	setSPFilter,
+} = locationSlice.actions;
 
 export const selectAllLocations = (state) => state.locations;
+
+export const filteredLocations = (state) => {
+	const all = state.locations.locations;
+	const sd =
+		state.locations.filters.from !== ''
+			? new Date(`${state.locations.filters.from}T00:00:00.000Z`).getTime()
+			: new Date('0001-01-01T00:00:00Z').getTime();
+	const ed =
+		state.locations.filters.to !== ''
+			? new Date(`${state.locations.filters.to}T00:00:00.000Z`).getTime()
+			: new Date().getTime();
+	return all
+		.filter((row) => {
+			var time = new Date(row.date).getTime();
+			return (
+				row.salesperson.employee_no ===
+					state.locations.filters.salesperson_id &&
+				sd < time &&
+				time < ed
+			);
+		})
+		.map((loc) => ({
+			latitude: parseFloat(loc.customer.latitude),
+			longitude: parseFloat(loc.customer.longitude),
+		}));
+};
 
 export default locationSlice.reducer;

@@ -9,12 +9,48 @@
  * @since  10.09.2021
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Box, Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
-import SimpleMap from '../../common/map/SimpleMap';
+import {
+	Accordion,
+	Box,
+	Tabs,
+	TabList,
+	TabPanels,
+	Tab,
+	TabPanel,
+	Input,
+	InputGroup,
+	InputLeftAddon,
+	Stack,
+} from '@chakra-ui/react';
+import MapWithHeader from '../../common/map/MapWithHeader';
+import { getLocations } from '../../../redux/actions/locationsAction';
+import { fetchServiceOrderData } from '../../../redux/actions/serviceOrderActions';
+import { selectAllServiceOrders } from '../../../redux/slices/serviceOrderSlice';
+import ServiceOrderCard from '../../presentation/serviceOrders/ServiceOrderCard';
+import AddFilter from '../AddFilter';
+import {
+	filteredLocations,
+	setFromFilter,
+	setSPFilter,
+	setToFilter,
+} from '../../../redux/slices/locationsSlice';
 
 const SalesPersonHistoryContainer = ({ salesperson }) => {
+	const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch(getLocations());
+		dispatch(fetchServiceOrderData());
+		dispatch(setToFilter(''));
+		dispatch(setFromFilter(''));
+		dispatch(setSPFilter(salesperson.employee_no));
+	}, [dispatch, salesperson]);
+	const serviceOrders = useSelector(selectAllServiceOrders)
+		.slice()
+		.filter((so) => so.salesperson.email === salesperson.email);
+	const locations = useSelector(filteredLocations);
 	return (
 		<Box pt='4'>
 			<Tabs variant='soft-rounded' colorScheme='green'>
@@ -24,42 +60,51 @@ const SalesPersonHistoryContainer = ({ salesperson }) => {
 				</TabList>
 				<TabPanels>
 					<TabPanel>
-						<Tabs align='end' variant='soft-rounded' colorScheme='green'>
-							<TabList>
-								<Tab>Today</Tab>
-								<Tab>Month</Tab>
-								<Tab>AllTime</Tab>
-							</TabList>
-							<TabPanels>
-								{[...Array(3)].map((x, i) => (
-									<TabPanel key={i}>
-										<Box
-											h='670px'
-											borderWidth='1px'
-											borderRadius='xl'
-											overflow='hidden'
-										>
-											<SimpleMap />
-										</Box>
-									</TabPanel>
-								))}
-							</TabPanels>
-						</Tabs>
+						<Stack direction='row' spacing={4}>
+							<InputGroup>
+								<InputLeftAddon children={'From'} />
+								<Input
+									type='date'
+									placeholder='Select Date'
+									onChange={(event) =>
+										dispatch(setFromFilter(event.target.value))
+									}
+								/>
+							</InputGroup>
+							<InputGroup>
+								<InputLeftAddon children={'To'} />
+								<Input
+									type='date'
+									placeholder='Select Date'
+									onChange={(event) =>
+										dispatch(setToFilter(event.target.value))
+									}
+								/>
+							</InputGroup>
+						</Stack>
+						<Box
+							maxW='100%'
+							maxH='60%'
+							borderWidth='1px'
+							borderRadius='xl'
+							overflowY='hidden'
+						>
+							<MapWithHeader locations={locations} />
+						</Box>
 					</TabPanel>
 					<TabPanel>
 						<Tabs align='end' variant='soft-rounded' colorScheme='green'>
-							<TabList>
-								<Tab>Today</Tab>
-								<Tab>Month</Tab>
-								<Tab>AllTime</Tab>
-							</TabList>
-							<TabPanels>
-								{[...Array(3)].map((x, i) => (
-									<TabPanel key={i}>
-										No Service Order History Available
-									</TabPanel>
+							<AddFilter />
+							<Accordion allowToggle>
+								{serviceOrders.map((so) => (
+									<ServiceOrderCard
+										key={so.order_id}
+										serviceOrder={so}
+										showCustomer={true}
+										showSP={false}
+									/>
 								))}
-							</TabPanels>
+							</Accordion>
 						</Tabs>
 					</TabPanel>
 				</TabPanels>

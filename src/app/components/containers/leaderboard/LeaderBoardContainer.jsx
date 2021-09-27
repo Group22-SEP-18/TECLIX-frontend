@@ -6,6 +6,7 @@ import {
 	GridItem,
 	Heading,
 	HStack,
+	Spacer,
 	Tabs,
 	TabList,
 	TabPanels,
@@ -16,18 +17,14 @@ import {
 import First3 from '../../presentation/leaderboard/First3';
 import HorPositions from '../../presentation/leaderboard/HorPositions';
 import { getLeaderboardPoints } from '../../../redux/actions/salespersonActions';
+import LeaderboardSchema from './LeaderboardSchema';
 
-const LeaderBoardContainer = (props) => {
+const LeaderBoardContainer = ({ withSchema }) => {
 	const dispatch = useDispatch();
+	const user_role = useSelector((state) => state.user.user.user_role);
 	const [timeConstraint, setTimeConstraint] = useState('today');
-	const {
-		isLoading,
-		leaderborad,
-		todayLeaderboard,
-		monthLeaderboard,
-		alltimeLeaderboard,
-		error,
-	} = useSelector((state) => state.leaderboard);
+	const { todayLeaderboard, monthLeaderboard, alltimeLeaderboard } =
+		useSelector((state) => state.leaderboard);
 	const salespersons =
 		timeConstraint === 'today'
 			? todayLeaderboard
@@ -40,6 +37,12 @@ const LeaderBoardContainer = (props) => {
 
 	return (
 		<Box flex='1'>
+			{user_role !== 'Distribution Officer' && withSchema && (
+				<HStack>
+					<Spacer />
+					<LeaderboardSchema />
+				</HStack>
+			)}
 			<VStack>
 				{/* Heading */}
 				<Heading as='h4' size='md' pt={3}>

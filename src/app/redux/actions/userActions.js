@@ -31,10 +31,10 @@ export const UserRegistration = (formData) => async (dispatch) => {
 		dispatch(registrationPending());
 
 		const result = await userRegistration(formData);
-		result.status === 'success'
-			? dispatch(registrationSuccess(result.message))
+		result.profile_picture
+			? dispatch(registrationSuccess('Registration Succssful'))
 			: dispatch(registrationError(result.message));
 	} catch (error) {
-		dispatch(registrationError(error.message));
+		dispatch(registrationError('Error while registering'));
 	}
 };

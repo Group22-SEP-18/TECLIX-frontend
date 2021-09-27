@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link as ReachLink } from 'react-router-dom';
 import {
 	Alert,
 	AlertIcon,
@@ -7,8 +8,10 @@ import {
 	Box,
 	Button,
 	IconButton,
+	Image,
 	FormControl,
 	FormLabel,
+	Link,
 	Heading,
 	Input,
 	Flex,
@@ -16,14 +19,21 @@ import {
 	InputRightElement,
 	FormErrorMessage,
 } from '@chakra-ui/react';
-import { ArrowForwardIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import {
+	ArrowForwardIcon,
+	ViewIcon,
+	ViewOffIcon,
+	AttachmentIcon,
+} from '@chakra-ui/icons';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { UserRegistration } from '../../../redux/actions/userActions';
 
 const RegisterPage = (props) => {
+	const fileInputRef = useRef();
 	const dispatch = useDispatch();
 	const [passwordShow, setPasswordShow] = useState(false);
+	const [preview, setPreview] = useState();
 	const { isLoading, status, message } = useSelector(
 		(state) => state.registration
 	);
@@ -31,12 +41,13 @@ const RegisterPage = (props) => {
 	const initialValues = {
 		email: '',
 		employee_no: '',
-		user_role: 'Distribution Officer',
+		user_role: 'OFFICER',
 		first_name: '',
 		last_name: '',
 		contact_no: '',
 		password: '',
 		confirm_password: '',
+		profile_picture: '/avatars/default.png',
 	};
 	const phoneRegExp =
 		/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -72,8 +83,34 @@ const RegisterPage = (props) => {
 			.required()
 			.oneOf([Yup.ref('password'), null], 'Passwords must match'),
 	});
+	const buildFormData = (formData, data, parentKey) => {
+		if (
+			data &&
+			typeof data === 'object' &&
+			!(data instanceof Date) &&
+			!(data instanceof File)
+		) {
+			Object.keys(data).forEach((key) => {
+				buildFormData(
+					formData,
+					data[key],
+					parentKey ? `${parentKey}[${key}]` : key
+				);
+			});
+		} else {
+			const value = data == null ? '' : data;
+			formData.append(parentKey, value);
+		}
+	};
+
+	const jsonToFormData = (data) => {
+		const formData = new FormData();
+		buildFormData(formData, data);
+		return formData;
+	};
 	const onSubmit = async (values) => {
-		dispatch(UserRegistration(values));
+		const frmData = jsonToFormData(values);
+		dispatch(UserRegistration(frmData));
 	};
 	return (
 		<Flex minHeight='100vh' minW='100vw' align='center' justify='center'>
@@ -85,15 +122,24 @@ const RegisterPage = (props) => {
 				width='full'
 				bg='transparent'
 			>
-				<Box textAlign='center'>
+				<Box textAlign='center' alignContent='center'>
 					<Heading>Sign up with TECLIX</Heading>
+					<Link as={ReachLink} to='/login' my={8} textColor='blue'>
+						Already have an account?
+					</Link>
+					{message && (
+						<Alert my={4} status={status === 'success' ? 'success' : 'error'}>
+							<AlertIcon />
+							<AlertDescription>{message}</AlertDescription>
+						</Alert>
+					)}
+					<Image
+						borderRadius='full'
+						boxSize='150px'
+						src={preview || './avatars/defaul.png'}
+					/>
 				</Box>
-				{message && (
-					<Alert my={4} status={status === 'success' ? 'success' : 'error'}>
-						<AlertIcon />
-						<AlertDescription>{message}</AlertDescription>
-					</Alert>
-				)}
+
 				<Box my={8} textAlign='center'>
 					<Formik
 						initialValues={initialValues}
@@ -102,6 +148,40 @@ const RegisterPage = (props) => {
 					>
 						{(props) => (
 							<Box>
+								<Box
+									display='flex'
+									textAlign='center'
+									justifyContent='center'
+									flexDirection='column'
+								>
+									<Button
+										variant='contained'
+										component='label'
+										rightIcon={<AttachmentIcon />}
+										onClick={() => fileInputRef.current.click()}
+									>
+										Choose Avatar
+										<Input
+											name='profile_picture'
+											accept='image/*'
+											type='file'
+											hidden
+											multiple={false}
+											ref={fileInputRef}
+											onChange={(e) => {
+												props.setFieldValue(
+													'profile_picture',
+													e.target.files[0]
+												);
+												const objectUrl = URL.createObjectURL(
+													e.target.files[0]
+												);
+												setPreview(objectUrl);
+												console.log(props.getFieldProps('profile_picture'));
+											}}
+										/>
+									</Button>
+								</Box>
 								<FormControl
 									isInvalid={props.errors.email && props.touched.email}
 								>

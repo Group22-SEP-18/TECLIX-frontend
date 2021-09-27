@@ -24,7 +24,7 @@ const HorPositions = ({ row, position, timeConstraint = 'today' }) => {
 						<Avatar src={salesperson.profile_picture} />
 						<Box width='full'>
 							<Text noOfLines={1} fontWeight='bold'>
-								salesperson.first_name salesperson.last_name
+								{salesperson.first_name} {salesperson.last_name}
 							</Text>
 							<Text fontSize='sm' align='right'>
 								{points} points

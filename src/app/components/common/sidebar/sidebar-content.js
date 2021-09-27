@@ -72,7 +72,13 @@ const sidebarContent = [
 				// ],
 			},
 			{
-				name: 'Customer',
+				name: 'Distribution Officers',
+				icon: FiUsers,
+				link: '/distribution-officers',
+				acceptable_user_roles: ['Operation Manager'],
+			},
+			{
+				name: 'Customers',
 				icon: FiUserCheck,
 				link: '/customers',
 				acceptable_user_roles: ['Distribution Officer', 'Operation Manager'],

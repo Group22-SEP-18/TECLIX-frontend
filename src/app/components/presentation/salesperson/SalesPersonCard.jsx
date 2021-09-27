@@ -12,7 +12,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { approveAccountById } from '../../../redux/actions/salespersonActions';
+import {
+	approveAccountById,
+	rejectAccountById,
+} from '../../../redux/actions/salespersonActions';
 import {
 	Avatar,
 	Badge,
@@ -24,17 +27,60 @@ import {
 	Stack,
 	Text,
 	VStack,
+	useToast,
 } from '@chakra-ui/react';
-import { CheckIcon } from '@chakra-ui/icons';
+import { CheckIcon, CloseIcon } from '@chakra-ui/icons';
 
 const SalesPersonCard = ({ salesperson, onClick }) => {
 	const dispatch = useDispatch();
-	const { isLoading, success, error, id } = useSelector(
-		(state) => state.salespersons.approve
-	);
-	const approveAccount = () => {
-		console.log(salesperson.id);
-		dispatch(approveAccountById(salesperson.id));
+	const toast = useToast();
+	const approve = useSelector((state) => state.salespersons.approve);
+	const reject = useSelector((state) => state.salespersons.reject);
+	const approveAccount = async () => {
+		await dispatch(approveAccountById(salesperson.id));
+		setTimeout(() => {
+			if (approve.success === 'Successfully approved the account') {
+				toast({
+					title: 'Account Approved.',
+					description: approve.success,
+					status: 'success',
+					duration: 5000,
+					isClosable: true,
+				});
+			}
+			if (approve.error === 'Account activation failed') {
+				toast({
+					title: 'An error occurred.',
+					description: approve.error,
+					status: 'error',
+					duration: 5000,
+					isClosable: true,
+				});
+			}
+		}, 500);
+	};
+	const rejectAccount = async () => {
+		await dispatch(rejectAccountById(salesperson.id));
+		setTimeout(() => {
+			if (reject.success === 'Account rejection successful') {
+				toast({
+					title: 'Account Rejected.',
+					description: reject.success,
+					status: 'success',
+					duration: 5000,
+					isClosable: true,
+				});
+			}
+			if (reject.error === 'Account rejection failed') {
+				toast({
+					title: 'An error occurred.',
+					description: reject.error,
+					status: 'error',
+					duration: 5000,
+					isClosable: true,
+				});
+			}
+		}, 500);
 	};
 	return (
 		<div>
@@ -143,21 +189,23 @@ const SalesPersonCard = ({ salesperson, onClick }) => {
 							<VStack>
 								<Spacer />
 								<Button
+									rightIcon={<CloseIcon />}
+									colorScheme='red'
+									variant='solid'
+									isLoading={reject.isLoading && reject.id === salesperson.id}
+									onClick={rejectAccount}
+								>
+									Reject
+								</Button>
+								<Button
 									leftIcon={<CheckIcon />}
 									colorScheme='whatsapp'
 									variant='solid'
-									isLoading={isLoading && id === salesperson.id}
+									isLoading={approve.isLoading && approve.id === salesperson.id}
 									onClick={approveAccount}
 								>
 									Approve
 								</Button>
-								{/* <Button
-									rightIcon={<ArrowForwardIcon />}
-									colorScheme='teal'
-									variant='outline'
-								>
-									Reject
-								</Button> */}
 							</VStack>
 						</Box>
 					)}

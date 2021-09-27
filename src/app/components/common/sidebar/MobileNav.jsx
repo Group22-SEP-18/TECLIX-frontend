@@ -12,7 +12,7 @@
  * @since  05.09.2021
  */
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link as ReachLink } from 'react-router-dom';
 import {
 	IconButton,
 	Avatar,
@@ -102,7 +102,9 @@ const MobileNav = ({ onOpen, user, ...rest }) => {
 							</HStack>
 						</MenuButton>
 						<MenuList>
-							<MenuItem>Profile</MenuItem>
+							<MenuItem as={ReachLink} to='/myaccount'>
+								Profile
+							</MenuItem>
 							<MenuItem>Settings</MenuItem>
 							<MenuDivider />
 							<MenuItem onClick={logOut}>Sign out</MenuItem>

@@ -5,11 +5,20 @@ import { Marker } from 'react-google-maps';
 import SimpleMap from './SimpleMap';
 
 const MapWithHeader = ({ header = '', locations, Component = Marker }) => {
-	const center = locations[0];
+	const center =
+		locations.length > 0
+			? {
+					latitude: parseFloat(locations[0].latitude),
+					longitude: parseFloat(locations[0].longitude),
+			  }
+			: { latitude: 6.8696358044539165, longitude: 79.88899961877866 };
 	const markers = locations.map((loc, index) => (
 		<Component
 			key={index}
-			position={{ lat: loc.latitude, lng: loc.longitude }}
+			position={{
+				lat: parseFloat(loc.latitude),
+				lng: parseFloat(loc.longitude),
+			}}
 		/>
 	));
 	return (

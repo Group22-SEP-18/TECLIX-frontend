@@ -10,6 +10,13 @@ const initialState = {
 		error: null,
 		id: '',
 	},
+	reject: {
+		isLoading: false,
+		success: null,
+		error: null,
+		id: '',
+	},
+	listViewFilter: '',
 };
 
 export const getSalespersonsAsync = createAsyncThunk(
@@ -43,9 +50,10 @@ export const salespersonSlice = createSlice({
 			state.error = 'Error while accessing salesperson informations';
 		},
 		approvePending: (state, { payload }) => {
-			console.log('pend');
 			state.approve.isLoading = true;
 			state.approve.id = payload.id;
+			state.reject.error = '';
+			state.reject.success = '';
 		},
 		approveSuccess: (state) => {
 			state.approve.isLoading = false;
@@ -59,6 +67,28 @@ export const salespersonSlice = createSlice({
 			state.approve.isLoading = false;
 			state.approve.success = null;
 			state.approve.error = 'Account activation failed';
+		},
+		rejectPending: (state, { payload }) => {
+			state.reject.isLoading = true;
+			state.reject.id = payload.id;
+			state.reject.error = '';
+			state.reject.success = '';
+		},
+		rejectSuccess: (state, { payload }) => {
+			state.reject.isLoading = false;
+			state.reject.error = null;
+			state.reject.success = payload;
+			state.salespersons = state.salespersons.filter(
+				(d) => d.id !== state.reject.id
+			);
+		},
+		rejectFail: (state, { payload }) => {
+			state.reject.isLoading = false;
+			state.reject.success = null;
+			state.reject.error = payload;
+		},
+		setListViewFilter: (state, { payload }) => {
+			state.listViewFilter = payload.filter;
 		},
 	},
 	extraReducers: {
@@ -75,11 +105,30 @@ export const {
 	approvePending,
 	approveFail,
 	approveSuccess,
+	rejectPending,
+	rejectFail,
+	rejectSuccess,
+	setListViewFilter,
 } = salespersonSlice.actions;
 
 export const selectAllSalespersons = (state) => state.salespersons;
 
 export const selectApprovedSalespersons = (state) =>
 	state.salespersons.filter((sp) => sp.is_approved !== false);
+
+export const filteredSalespersons = (state) => {
+	const all = state.salespersons.salespersons;
+	const filterId = state.salespersons.listViewFilter;
+	if (filterId === null) {
+		return all;
+	} else {
+		return all.filter(
+			(sp) =>
+				`${sp.first_name}${sp.last_name}${sp.employee_no}${sp.email}`
+					.toLowerCase()
+					.indexOf(filterId) >= 0
+		);
+	}
+};
 
 export default salespersonSlice.reducer;

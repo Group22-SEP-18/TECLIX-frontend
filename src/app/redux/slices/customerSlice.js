@@ -14,21 +14,31 @@ export const getCustomersAsync = createAsyncThunk(
 	}
 );
 
+const initialState = {
+	isLoading: false,
+	customers: [],
+	error: '',
+	listViewFilter: '',
+};
+
 export const customerSlice = createSlice({
 	name: 'customers',
-	initialState: [],
+	initialState,
 	reducers: {
 		customersPending: (state, action) => {
 			state.isLoading = true;
 		},
 		customersSuccess: (state, { payload }) => {
 			state.isLoading = false;
-			state.currentLocations = payload;
+			state.customers = payload;
 			state.error = '';
 		},
 		customersFail: (state, { payload }) => {
 			state.isLoading = false;
 			state.error = payload;
+		},
+		setListViewFilter: (state, { payload }) => {
+			state.listViewFilter = payload.filter;
 		},
 	},
 	extraReducers: {
@@ -38,9 +48,28 @@ export const customerSlice = createSlice({
 	},
 });
 
-export const { customersPending, customersFail, customersSuccess } =
-	customerSlice.actions;
+export const {
+	customersPending,
+	customersFail,
+	customersSuccess,
+	setListViewFilter,
+} = customerSlice.actions;
 
 export const selectAllCustomers = (state) => state.customers;
+
+export const filteredCustomers = (state) => {
+	const all = state.customers.customers;
+	const filterId = state.customers.listViewFilter;
+	if (filterId === null) {
+		return all;
+	} else {
+		return all.filter(
+			(c) =>
+				`${c.owner_first_name}${c.owner_last_name}${c.shop_name}${c.street}${c.city}${c.district}`
+					.toLowerCase()
+					.indexOf(filterId) >= 0
+		);
+	}
+};
 
 export default customerSlice.reducer;

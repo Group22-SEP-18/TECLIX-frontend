@@ -7,12 +7,18 @@ import MyAccountPage from './components/pages/myAccount/MyAccountPage';
 import SalesReportPage from './components/pages/reports/SalesReportPage';
 import SalespersonReportPage from './components/pages/reports/SalespersonReportPage';
 import ProductReportPage from './components/pages/reports/ProductReportPage';
+import OfficersPage from './components/pages/distribution-officer/OfficersPage';
 
 export const privateRoutes = [
 	{
 		path: '/salespersons',
 		component: SalesPersonViewMainPage,
 		acceptable_user_roles: ['Distribution Officer', 'Operation Manager'],
+	},
+	{
+		path: '/distribution-officers',
+		component: OfficersPage,
+		acceptable_user_roles: ['Operation Manager'],
 	},
 	{
 		path: '/customers',

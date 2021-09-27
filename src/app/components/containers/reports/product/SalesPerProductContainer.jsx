@@ -13,47 +13,39 @@ import {
 } from '@chakra-ui/react';
 import { fetchSalesPerProductData } from '../../../../redux/actions/reportActions';
 import SimpleChart from '../../../common/charts/SimpleChart';
+import LoadingCards from '../../../common/loading/LoadingCards';
+import ErrorOverlay from '../../../common/error-overlays/ErrorOverlay';
+import {
+	getAvailablesForSalesPerProduct,
+	getChartValuesForSalesPerProduct,
+	salesPerProductAddToAdded,
+	salesPerProductRemoveFromAdded,
+} from '../../../../redux/slices/reportSlice';
 
 const SalesPerProductContainer = (props) => {
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(fetchSalesPerProductData());
 	}, [dispatch]);
-	const { isLoading, chartColumns, chartValues, error } = useSelector(
+	const { isLoading, chartColumns, error } = useSelector(
 		(state) => state.report.salesPerProduct
 	);
-	const [available, setAvailable] = useState(chartValues);
-	const [added, setAdded] = useState([]);
 	const [selected, setSelected] = useState('');
+	const chartValues = useSelector(getChartValuesForSalesPerProduct);
+	const availables = useSelector(getAvailablesForSalesPerProduct);
 	const onClickClose = (id) => {
-		const found = added.find((a) => a.product_long_name === id);
-		const newAdded = added.filter((a) => a.product_long_name !== id);
-		setAdded(newAdded);
-		console.log(newAdded);
-		const newAvailable = available.slice();
-		newAvailable.push(found);
-		console.log(newAvailable);
-		setAvailable(newAvailable);
-		console.log('added');
-		console.log(added);
-		console.log('available');
-		console.log(available);
+		dispatch(salesPerProductRemoveFromAdded(id));
 	};
 	const addToChart = () => {
-		const found = available.find((a) => a.product_long_name === selected);
-		const newAvailable = available.filter(
-			(a) => a.product_long_name !== selected
-		);
-		setAvailable(newAvailable);
-		const newAdded = added;
-		newAdded.push(found);
-		setAvailable(newAdded);
+		dispatch(salesPerProductAddToAdded(selected));
 		setSelected('');
-		console.log('added');
-		console.log(added);
-		console.log('available');
-		console.log(available);
 	};
+	if (isLoading) {
+		return <LoadingCards count={3} />;
+	}
+	if (error) {
+		return <ErrorOverlay error={error} />;
+	}
 	return (
 		<div>
 			<InputGroup size='sm'>
@@ -63,8 +55,8 @@ const SalesPerProductContainer = (props) => {
 					value={selected}
 					onChange={(e) => setSelected(e.target.value)}
 				>
-					{chartValues.map((item, i) => (
-						<option key={i} value={item.product_long_name}>
+					{availables.map((item, i) => (
+						<option key={i} value={item.product_id}>
 							{item.product_long_name}
 						</option>
 					))}
@@ -77,7 +69,7 @@ const SalesPerProductContainer = (props) => {
 			</Flex>
 
 			<HStack spacing={4}>
-				{added.map((item) => (
+				{chartValues.map((item) => (
 					<Tag
 						size={'lg'}
 						key={item.product_id}
@@ -90,7 +82,7 @@ const SalesPerProductContainer = (props) => {
 						<TagLabel>{item.product_long_name}</TagLabel>
 						<TagCloseButton
 							pt={1}
-							onClick={() => onClickClose(item.product_long_name)}
+							onClick={() => onClickClose(item.product_id)}
 						/>
 					</Tag>
 				))}
@@ -99,7 +91,7 @@ const SalesPerProductContainer = (props) => {
 				type='line'
 				header=''
 				xAxisValues={chartColumns}
-				dataToPlot={added}
+				dataToPlot={chartValues}
 			/>
 		</div>
 	);

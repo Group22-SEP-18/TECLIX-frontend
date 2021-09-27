@@ -12,6 +12,8 @@
  * @since  10.09.2021
  */
 
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
 	Heading,
 	Avatar,
@@ -22,9 +24,21 @@ import {
 	Badge,
 	useColorModeValue,
 } from '@chakra-ui/react';
+import { getLocations } from '../../../redux/actions/locationsAction';
 import MapWithHeader from '../../common/map/MapWithHeader';
 
 const SalesPersonVerticalCardView = ({ salesperson }) => {
+	const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch(getLocations());
+	}, [dispatch]);
+	const { locations } = useSelector((state) => state.locations);
+	const lastLocations = locations
+		.slice()
+		.filter((l) => l.salesperson.employee_no === salesperson.employee_no)
+		.sort((a, b) => a.date.localeCompare(b.date))
+		.reverse();
+	const lastLocation = lastLocations.length > 0 ? lastLocations[0] : null;
 	return (
 		<Center>
 			<Box
@@ -43,7 +57,7 @@ const SalesPersonVerticalCardView = ({ salesperson }) => {
 					pos={'relative'}
 				/>
 				<Text ml='4' px={4} py={1} fontWeight={'400'}>
-					#Emplooyee Id {salesperson.emp_id}
+					#Emplooyee Id {salesperson.employee_no}
 				</Text>
 				<Heading fontSize={'xl'} fontFamily={'body'} textAlign='center' pl='4'>
 					{salesperson.first_name} {salesperson.last_name}
@@ -58,7 +72,7 @@ const SalesPersonVerticalCardView = ({ salesperson }) => {
 					textAlign='center'
 					pl='4'
 				>
-					{salesperson.mobile_number}
+					{salesperson.mobile_no}
 				</Text>
 
 				<Stack align={'center'} justify={'center'} direction={'row'} mt={6}>
@@ -88,10 +102,19 @@ const SalesPersonVerticalCardView = ({ salesperson }) => {
 					</Badge>
 				</Stack>
 
-				{/* <MapWithHeader
+				<MapWithHeader
 					header='Last Location'
-					locations={[salesperson.location]}
-				/> */}
+					locations={
+						lastLocation
+							? [
+									{
+										latitude: parseFloat(lastLocation.customer.latitude),
+										longitude: parseFloat(lastLocation.customer.longitude),
+									},
+							  ]
+							: []
+					}
+				/>
 			</Box>
 		</Center>
 	);
