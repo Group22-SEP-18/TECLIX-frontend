@@ -38,6 +38,8 @@ export const distributionOfficersSlice = createSlice({
 		approvePending: (state, { payload }) => {
 			state.approve.isLoading = true;
 			state.approve.id = payload.id;
+			state.approve.error = '';
+			state.approve.success = '';
 		},
 		approveSuccess: (state, { payload }) => {
 			state.approve.isLoading = false;
@@ -55,6 +57,8 @@ export const distributionOfficersSlice = createSlice({
 		rejectPending: (state, { payload }) => {
 			state.reject.isLoading = true;
 			state.reject.id = payload.id;
+			state.reject.error = '';
+			state.reject.success = '';
 		},
 		rejectSuccess: (state, { payload }) => {
 			state.reject.isLoading = false;

@@ -10,6 +10,12 @@ const initialState = {
 		error: null,
 		id: '',
 	},
+	reject: {
+		isLoading: false,
+		success: null,
+		error: null,
+		id: '',
+	},
 	listViewFilter: '',
 };
 
@@ -46,6 +52,8 @@ export const salespersonSlice = createSlice({
 		approvePending: (state, { payload }) => {
 			state.approve.isLoading = true;
 			state.approve.id = payload.id;
+			state.reject.error = '';
+			state.reject.success = '';
 		},
 		approveSuccess: (state) => {
 			state.approve.isLoading = false;
@@ -59,6 +67,25 @@ export const salespersonSlice = createSlice({
 			state.approve.isLoading = false;
 			state.approve.success = null;
 			state.approve.error = 'Account activation failed';
+		},
+		rejectPending: (state, { payload }) => {
+			state.reject.isLoading = true;
+			state.reject.id = payload.id;
+			state.reject.error = '';
+			state.reject.success = '';
+		},
+		rejectSuccess: (state, { payload }) => {
+			state.reject.isLoading = false;
+			state.reject.error = null;
+			state.reject.success = payload;
+			state.salespersons = state.salespersons.filter(
+				(d) => d.id !== state.reject.id
+			);
+		},
+		rejectFail: (state, { payload }) => {
+			state.reject.isLoading = false;
+			state.reject.success = null;
+			state.reject.error = payload;
 		},
 		setListViewFilter: (state, { payload }) => {
 			state.listViewFilter = payload.filter;
@@ -78,6 +105,9 @@ export const {
 	approvePending,
 	approveFail,
 	approveSuccess,
+	rejectPending,
+	rejectFail,
+	rejectSuccess,
 	setListViewFilter,
 } = salespersonSlice.actions;
 

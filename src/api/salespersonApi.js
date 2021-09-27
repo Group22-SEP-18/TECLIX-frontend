@@ -33,5 +33,5 @@ export const approveSalespersonAccount = (id) => {
 };
 
 export const rejectSalespersonAccount = (id) => {
-	return postWithAuthorization(`${approveUrl}${id}`, { is_approved: true });
+	return postWithAuthorization(`${approveUrl}${id}`, { is_approved: false });
 };

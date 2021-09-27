@@ -22,6 +22,7 @@ import {
 	Spacer,
 	Text,
 	VStack,
+	useToast,
 } from '@chakra-ui/react';
 import { CheckIcon, CloseIcon } from '@chakra-ui/icons';
 import {
@@ -31,14 +32,53 @@ import {
 
 const DOCard = ({ dOfficer }) => {
 	const dispatch = useDispatch();
-	const { isLoading, id } = useSelector(
-		(state) => state.distributionOfficers.approve
-	);
-	const approveAccount = () => {
-		dispatch(approveAccountById(dOfficer.id));
+	const toast = useToast();
+	const approve = useSelector((state) => state.distributionOfficers.approve);
+	const reject = useSelector((state) => state.distributionOfficers.reject);
+	const approveAccount = async () => {
+		await dispatch(approveAccountById(dOfficer.id));
+		setTimeout(() => {
+			if (approve.success === 'Successfully approved the account') {
+				toast({
+					title: 'Account Approved.',
+					description: approve.success,
+					status: 'success',
+					duration: 5000,
+					isClosable: true,
+				});
+			} else {
+				toast({
+					title: 'An error occurred.',
+					description: approve.error,
+					status: 'error',
+					duration: 5000,
+					isClosable: true,
+				});
+			}
+		}, 500);
 	};
-	const rejectAccount = () => {
-		dispatch(rejectAccountById(dOfficer.id));
+	const rejectAccount = async () => {
+		await dispatch(rejectAccountById(dOfficer.id));
+		setTimeout(() => {
+			if (reject.success === 'Account rejection successful') {
+				toast({
+					title: 'Account Rejected.',
+					description: reject.success,
+					status: 'success',
+					duration: 5000,
+					isClosable: true,
+				});
+			}
+			if (reject.error === 'Account rejection failed') {
+				toast({
+					title: 'An error occurred.',
+					description: reject.error,
+					status: 'error',
+					duration: 5000,
+					isClosable: true,
+				});
+			}
+		}, 500);
 	};
 	return (
 		<div>
@@ -84,7 +124,7 @@ const DOCard = ({ dOfficer }) => {
 							Email: {dOfficer.email}
 						</Text>
 						<Text fontWeight={500} textAlign='start' pl='4'>
-							Mobile: {dOfficer.mobile_no}
+							Mobile: {dOfficer.contact_no}
 						</Text>
 					</Box>
 					<Spacer />
@@ -96,7 +136,7 @@ const DOCard = ({ dOfficer }) => {
 									leftIcon={<CloseIcon />}
 									colorScheme='red'
 									variant='solid'
-									isLoading={isLoading && id === dOfficer.id}
+									isLoading={reject.isLoading && reject.id === dOfficer.id}
 									onClick={rejectAccount}
 								>
 									Reject
@@ -105,7 +145,7 @@ const DOCard = ({ dOfficer }) => {
 									leftIcon={<CheckIcon />}
 									colorScheme='whatsapp'
 									variant='solid'
-									isLoading={isLoading && id === dOfficer.id}
+									isLoading={approve.isLoading && approve.id === dOfficer.id}
 									onClick={approveAccount}
 								>
 									Approve

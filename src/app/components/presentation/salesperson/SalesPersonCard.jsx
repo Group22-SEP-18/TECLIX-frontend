@@ -27,17 +27,60 @@ import {
 	Stack,
 	Text,
 	VStack,
+	useToast,
 } from '@chakra-ui/react';
 import { CheckIcon, CloseIcon } from '@chakra-ui/icons';
 
 const SalesPersonCard = ({ salesperson, onClick }) => {
 	const dispatch = useDispatch();
-	const { isLoading, id } = useSelector((state) => state.salespersons.approve);
-	const approveAccount = () => {
-		dispatch(approveAccountById(salesperson.id));
+	const toast = useToast();
+	const approve = useSelector((state) => state.salespersons.approve);
+	const reject = useSelector((state) => state.salespersons.reject);
+	const approveAccount = async () => {
+		await dispatch(approveAccountById(salesperson.id));
+		setTimeout(() => {
+			if (approve.success === 'Successfully approved the account') {
+				toast({
+					title: 'Account Approved.',
+					description: approve.success,
+					status: 'success',
+					duration: 5000,
+					isClosable: true,
+				});
+			}
+			if (approve.error === 'Account activation failed') {
+				toast({
+					title: 'An error occurred.',
+					description: approve.error,
+					status: 'error',
+					duration: 5000,
+					isClosable: true,
+				});
+			}
+		}, 500);
 	};
-	const rejectAccount = () => {
-		dispatch(rejectAccountById(salesperson.id));
+	const rejectAccount = async () => {
+		await dispatch(rejectAccountById(salesperson.id));
+		setTimeout(() => {
+			if (reject.success === 'Account rejection successful') {
+				toast({
+					title: 'Account Rejected.',
+					description: reject.success,
+					status: 'success',
+					duration: 5000,
+					isClosable: true,
+				});
+			}
+			if (reject.error === 'Account rejection failed') {
+				toast({
+					title: 'An error occurred.',
+					description: reject.error,
+					status: 'error',
+					duration: 5000,
+					isClosable: true,
+				});
+			}
+		}, 500);
 	};
 	return (
 		<div>
@@ -146,21 +189,22 @@ const SalesPersonCard = ({ salesperson, onClick }) => {
 							<VStack>
 								<Spacer />
 								<Button
-									leftIcon={<CheckIcon />}
-									colorScheme='whatsapp'
-									variant='solid'
-									isLoading={isLoading && id === salesperson.id}
-									onClick={approveAccount}
-								>
-									Approve
-								</Button>
-								<Button
 									rightIcon={<CloseIcon />}
-									colorScheme='teal'
-									variant='outline'
+									colorScheme='red'
+									variant='solid'
+									isLoading={reject.isLoading && reject.id === salesperson.id}
 									onClick={rejectAccount}
 								>
 									Reject
+								</Button>
+								<Button
+									leftIcon={<CheckIcon />}
+									colorScheme='whatsapp'
+									variant='solid'
+									isLoading={approve.isLoading && approve.id === salesperson.id}
+									onClick={approveAccount}
+								>
+									Approve
 								</Button>
 							</VStack>
 						</Box>

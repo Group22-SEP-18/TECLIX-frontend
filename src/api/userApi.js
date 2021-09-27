@@ -109,7 +109,7 @@ export const approveUserAccount = (id) => {
 				reject('Token not found!');
 			}
 
-			const res = await axios.get(
+			const res = await axios.post(
 				approveUrl + id,
 				{ is_approved: true },
 				{

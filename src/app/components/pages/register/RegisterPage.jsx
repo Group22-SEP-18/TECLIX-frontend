@@ -5,7 +5,6 @@ import {
 	Alert,
 	AlertIcon,
 	AlertDescription,
-	Avatar,
 	Box,
 	Button,
 	IconButton,

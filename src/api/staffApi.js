@@ -1,7 +1,8 @@
 import { fetchWithAuthorization, postWithAuthorization } from './baseApi';
 
 const rootUrl = 'https://teclix.herokuapp.com/staff-api/distribution-officer';
-const approveUrl = '/staff-api/approve/distribution-officer/{id}';
+const approveUrl =
+	'https://teclix.herokuapp.com/staff-api/approve/distribution-officer/';
 
 export const fetchDistributionOfficers = () => {
 	return fetchWithAuthorization(rootUrl + '/pending/');
