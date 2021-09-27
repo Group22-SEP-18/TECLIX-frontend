@@ -21,6 +21,7 @@ import LeaderboardSchema from './LeaderboardSchema';
 
 const LeaderBoardContainer = ({ withSchema }) => {
 	const dispatch = useDispatch();
+	const user_role = useSelector((state) => state.user.user.user_role);
 	const [timeConstraint, setTimeConstraint] = useState('today');
 	const { todayLeaderboard, monthLeaderboard, alltimeLeaderboard } =
 		useSelector((state) => state.leaderboard);
@@ -36,7 +37,7 @@ const LeaderBoardContainer = ({ withSchema }) => {
 
 	return (
 		<Box flex='1'>
-			{withSchema && (
+			{user_role !== 'Distribution Officer' && withSchema && (
 				<HStack>
 					<Spacer />
 					<LeaderboardSchema />
