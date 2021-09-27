@@ -19,6 +19,9 @@ import {
 	approvePending,
 	approveFail,
 	approveSuccess,
+	rejectPending,
+	rejectFail,
+	rejectSuccess,
 } from '../slices/salespersonSlice';
 
 export const getSalespersons = () => async (dispatch) => {
@@ -91,16 +94,16 @@ export const approveAccountById = (id) => async (dispatch) => {
 
 export const rejectAccountById = (id) => async (dispatch) => {
 	try {
-		dispatch(approvePending({ id: id }));
+		dispatch(rejectPending({ id: id }));
 
 		const result = await rejectSalespersonAccount(id);
 
-		if (result.is_approved) {
-			return dispatch(approveSuccess());
+		if (!result.is_approved) {
+			return dispatch(rejectSuccess('Account rejection successful'));
 		}
 
-		dispatch(approveFail());
+		dispatch(rejectFail('Account rejection failed'));
 	} catch (error) {
-		dispatch(approveFail());
+		dispatch(rejectFail('Account rejection failed'));
 	}
 };
