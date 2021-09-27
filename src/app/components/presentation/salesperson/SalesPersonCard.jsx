@@ -47,7 +47,8 @@ const SalesPersonCard = ({ salesperson, onClick }) => {
 					duration: 5000,
 					isClosable: true,
 				});
-			} else {
+			}
+			if (approve.error === 'Account activation failed') {
 				toast({
 					title: 'An error occurred.',
 					description: approve.error,
@@ -189,7 +190,7 @@ const SalesPersonCard = ({ salesperson, onClick }) => {
 								<Spacer />
 								<Button
 									rightIcon={<CloseIcon />}
-									colorScheme='teal'
+									colorScheme='red'
 									variant='solid'
 									isLoading={reject.isLoading && reject.id === salesperson.id}
 									onClick={rejectAccount}
