@@ -124,7 +124,7 @@ const ProductPage = () => {
 					>
 						<ModalOverlay />
 						<ModalContent>
-							<ModalHeader></ModalHeader>
+							<ModalHeader>Register a new product</ModalHeader>
 							<ModalCloseButton />
 							<ModalBody pb='5'>
 								<AddNewProduct trigger={onCloseReportModal} />

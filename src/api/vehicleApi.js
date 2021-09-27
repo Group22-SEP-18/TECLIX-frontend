@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const rootUrl = 'http://127.0.0.1:8000/asset-api/';
+const rootUrl = 'https://teclix.herokuapp.com/asset-api/';
 const vehiclegetUrl = rootUrl + 'vehicles';
 const vehicleassignUrl = rootUrl + 'vehicle/assign-items/';
 const vehicleassigngetUrl = rootUrl + 'vehicle/salesperson/all/';

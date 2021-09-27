@@ -14,7 +14,7 @@ import {
 	ModalHeader,
 	Stack,
 } from '@chakra-ui/react';
-import { MdBuild, MdDelete } from 'react-icons/md';
+import { MdBuild } from 'react-icons/md';
 import { VStack, StackDivider } from '@chakra-ui/react';
 import { Wrap } from '@chakra-ui/react';
 import { useEffect } from 'react';
@@ -112,7 +112,7 @@ function VehicleCard(props) {
 							onClick={onOpen}
 							colorScheme='pink'
 							variant='solid'
-							minWidth='100'
+							minWidth='230'
 							left='1'
 						>
 							Assignments
@@ -140,15 +140,6 @@ function VehicleCard(props) {
 							</ModalContent>
 						</Modal>
 					</Box>
-					<Button
-						rightIcon={<MdDelete />}
-						colorScheme='blue'
-						variant='outline'
-						minWidth='110'
-						right='4xl'
-					>
-						Delete
-					</Button>
 				</Stack>
 			</Box>
 		</Flex>

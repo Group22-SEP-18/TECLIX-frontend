@@ -16,7 +16,6 @@ import {
 	ModalFooter,
 	chakra,
 	Tooltip,
-	useToast,
 	HStack,
 } from '@chakra-ui/react';
 import { FiSettings, FiTrash } from 'react-icons/fi';
@@ -30,8 +29,6 @@ function ProductCard({ categoryList, product, key }) {
 		onOpen: onOpenReportModal,
 		onClose: onCloseReportModal,
 	} = useDisclosure();
-
-	//const toast = useToast();
 
 	const updateDetails = (ProductDetails) => {
 		// Axios.update('http://localhost:5000/xxxxxxx', {

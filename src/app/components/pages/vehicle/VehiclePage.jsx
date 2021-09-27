@@ -474,11 +474,7 @@ const VehiclePage = () => {
 							<ModalHeader>Edit Product Details</ModalHeader>
 							<ModalCloseButton />
 							<ModalBody pb='5'>
-								<AddVehicleForm
-								// // categoryList={categoryList}
-								// // updateDetails={updateDetails}
-								// trigger={onClose}
-								/>
+								<AddVehicleForm />
 							</ModalBody>
 						</ModalContent>
 					</Modal>

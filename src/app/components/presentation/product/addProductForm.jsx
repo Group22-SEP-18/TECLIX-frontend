@@ -11,14 +11,11 @@ const AddNewProduct = ({ addBankCard, trigger }) => {
 	const [product_category, setProductCategory] = useState('');
 	const [product_image, setProductImage] = useState('');
 	const [product_price, setProductPrice] = useState('');
+	const [product_barcode, setProductBarcode] = useState('');
 
 	const inputE1 = useRef();
-	useEffect(() => {
-		console.log(inputE1, 'inpute1');
-	}, [inputE1]);
+	useEffect(() => {}, [inputE1]);
 	const onSubmit = (e, image) => {
-		console.log(e, 'e');
-		console.log(image, 'image');
 		e.preventDefault();
 		if (
 			!product_short_name ||
@@ -29,7 +26,6 @@ const AddNewProduct = ({ addBankCard, trigger }) => {
 			alert('Empty Field');
 			return;
 		}
-		console.log(inputE1, 'cjcj');
 
 		const formData = new FormData(inputE1.current);
 		formData.append('short_name', product_short_name);
@@ -66,6 +62,16 @@ const AddNewProduct = ({ addBankCard, trigger }) => {
 					name='long_name'
 					value={product_long_name}
 					onChange={(e) => setProductLongName(e.target.value)}
+				/>
+			</FormControl>
+			<FormControl>
+				<FormLabel>Product Bar Code</FormLabel>
+				<Input
+					type='number'
+					placeholder='Product Bar Code'
+					name='bar_code'
+					value={product_barcode}
+					onChange={(e) => setProductBarcode(e.target.value)}
 				/>
 			</FormControl>
 			<FormControl>

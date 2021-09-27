@@ -142,13 +142,13 @@ const ProductEditForm = ({
 									{product.quantity}x
 								</TagLabel>
 								<Avatar
-									src='/1234.jpg'
+									src={products[product.id - 7].product_image}
 									size='xs'
 									name='Segun Adebayo'
 									ml={-1}
 									mr={2}
 								/>
-								<TagLabel>{products[product.id - 4].short_name}</TagLabel>
+								<TagLabel>{products[product.id - 7].short_name}</TagLabel>
 								<TagCloseButton onClick={() => removeProduct(product.id)} />
 							</Tag>
 						</WrapItem>
