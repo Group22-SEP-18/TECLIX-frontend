@@ -22,8 +22,15 @@ const ResetPassword = () => {
 		<>
 			<Button
 				bg={useColorModeValue('green.100', 'green.900')}
-				size='lg'
-				_hover={{ bg: 'trasparent' }}
+				flex={1}
+				fontSize={'sm'}
+				rounded={'full'}
+				_hover={{
+					bg: 'green.500',
+				}}
+				_focus={{
+					bg: 'green.500',
+				}}
 				mx={4}
 				onClick={onOpen}
 			>
