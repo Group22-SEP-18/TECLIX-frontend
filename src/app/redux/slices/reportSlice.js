@@ -20,6 +20,7 @@ const initialState = {
 		chartColumns: monthList,
 		chartValues: [],
 		error: '',
+		added: [],
 	},
 	salesPerMonth: {
 		isLoading: false,
@@ -66,13 +67,21 @@ export const reportSlice = createSlice({
 				d[row.product_id]['data'][new Date(row.date).getMonth()] += row.total;
 				return d;
 			}, {});
-			state.salesPerProduct.chartValues = Object.keys(result).map(
-				(key) => result[key]
-			);
+			const vals = Object.keys(result).map((key) => result[key]);
+			state.salesPerProduct.chartValues = vals;
+			state.salesPerProduct.added = vals.map((v) => v.product_id);
 		},
 		salesPerProductFail: (state, { payload }) => {
 			state.salesPerProduct.isLoading = false;
 			state.salesPerProduct.error = payload.error;
+		},
+		salesPerProductAddToAdded: (state, { payload }) => {
+			state.salesPerProduct.added.push(parseInt(payload));
+		},
+		salesPerProductRemoveFromAdded: (state, { payload }) => {
+			state.salesPerProduct.added = state.salesPerProduct.added.filter(
+				(v) => v !== payload
+			);
 		},
 		salesPerMonthPending: (state) => {
 			state.salesPerMonth.isLoading = true;
@@ -129,6 +138,8 @@ export const {
 	salesPerProductPending,
 	salesPerProductFail,
 	salesPerProductSuccss,
+	salesPerProductAddToAdded,
+	salesPerProductRemoveFromAdded,
 	salesPerMonthPending,
 	salesPerMonthFail,
 	salesPerMonthSuccss,
@@ -142,5 +153,17 @@ export const {
 	progressBySalespersonFail,
 	progressBySalespersonSuccss,
 } = reportSlice.actions;
+
+export const getAvailablesForSalesPerProduct = (state) => {
+	const all = state.report.salesPerProduct.chartValues;
+	const added = state.report.salesPerProduct.added;
+	return all.filter((cVal) => !added.includes(cVal.product_id));
+};
+
+export const getChartValuesForSalesPerProduct = (state) => {
+	const all = state.report.salesPerProduct.chartValues;
+	const added = state.report.salesPerProduct.added;
+	return all.filter((cVal) => added.includes(cVal.product_id));
+};
 
 export default reportSlice.reducer;
