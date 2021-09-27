@@ -13,7 +13,9 @@ function VehicleSalesperson(props) {
 					ml={-1}
 					mr={2}
 				/>
-				<TagLabel>{props.first_name}</TagLabel>
+				<TagLabel>
+					{props.first_name} {props.last_name}
+				</TagLabel>
 			</Tag>
 		</WrapItem>
 	);

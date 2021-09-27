@@ -17,13 +17,25 @@ import {
 import { MdBuild, MdDelete } from 'react-icons/md';
 import { VStack, StackDivider } from '@chakra-ui/react';
 import { Wrap } from '@chakra-ui/react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Stat, StatLabel, StatNumber, StatHelpText } from '@chakra-ui/react';
 import VehicleProducts from './VehicleProducts';
 import VehicleSalesperson from './VehicleSalesperson';
 import VehicleAssignForm from './VehicleAssignForm';
+import { fetchVehicleAssignData } from '../../../redux/actions/vehicleActions';
 
-function ProductCard(props) {
+function VehicleCard(props) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
+
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(fetchVehicleAssignData(props.id));
+	}, [dispatch]);
+	const { vehiclesAssignments, isLoading, error } = useSelector(
+		(state) => state.vehiclesAssignments
+	);
 
 	const array = props.assigned_products.map((p) => ({
 		id: p.product.id,
@@ -58,7 +70,7 @@ function ProductCard(props) {
 					<Stat>
 						<StatLabel>{props.vehicle_model}</StatLabel>
 						<StatNumber>{props.vehicle_type}</StatNumber>
-						<StatHelpText>{props.id}</StatHelpText>
+						<StatHelpText>ID: {props.id}</StatHelpText>
 					</Stat>
 				</Box>
 				<Divider size='30' pt='1' />
@@ -86,6 +98,7 @@ function ProductCard(props) {
 									key={index}
 									image_url={salesperson.profile_picture}
 									first_name={salesperson.first_name}
+									last_name={salesperson.last_name}
 								/>
 							))}
 						</Wrap>
@@ -118,6 +131,8 @@ function ProductCard(props) {
 								<ModalBody pb='5'>
 									<VehicleAssignForm
 										array={array}
+										vehicleid={props.id}
+										assignedsalesprson={props.salesperson}
 										updateDetails={updateDetails}
 										trigger={onClose}
 									/>
@@ -140,4 +155,4 @@ function ProductCard(props) {
 	);
 }
 
-export default ProductCard;
+export default VehicleCard;

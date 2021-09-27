@@ -27,42 +27,35 @@ const AddVehicleForm = ({ categoryList, updateDetails, trigger }) => {
 	return (
 		<form onSubmit={onSubmit}>
 			<FormControl>
-				<FormLabel>Product Name</FormLabel>
+				<FormLabel>Vehicle Model</FormLabel>
 				<Input
 					type='text'
-					placeholder='Product Name'
+					placeholder='Vehicle Model'
 					value={product_name}
 					onChange={(e) => setProductName(e.target.value)}
 				/>
 			</FormControl>
 			<FormControl>
-				<FormLabel>Product Category</FormLabel>
+				<FormLabel>Vehicle Type</FormLabel>
 				<Select
-					placeholder='Product Category'
+					placeholder='Vehicle Type'
 					onChange={(e) => setCategory(e.target.value)}
 				>
-					{Array(categoryList.length)
-						.fill('')
-						.map((_, i) => (
-							<option value={categoryList[i]}>{categoryList[i]}</option>
-						))}
+					<option value='VAN'>Van</option>
+					<option value='LORRY'>Lorry</option>
+					<option value='THREEWHEELER'>Three Wheelar</option>
+					<option value='CAB'>Cab</option>
+					<option value='BIKE'>Bike</option>
+					<option value='BUS'>Bus</option>
 				</Select>
 			</FormControl>
 			<FormControl>
-				<FormLabel>Product ID</FormLabel>
+				<FormLabel>Photo</FormLabel>
 				<Input
-					type='number'
-					placeholder='Id'
+					type='file'
+					placeholder='Upload Image'
 					value={product_id}
 					onChange={(e) => setProductId(e.target.value)}
-				/>
-			</FormControl>
-			<FormControl>
-				<FormLabel>Price</FormLabel>
-				<Input
-					type='number'
-					placeholder='Price'
-					onChange={(e) => setPrice(e.target.value)}
 				/>
 			</FormControl>
 
@@ -70,7 +63,7 @@ const AddVehicleForm = ({ categoryList, updateDetails, trigger }) => {
 				mt='5'
 				mb='5'
 				type='submit'
-				value='Update Product Details'
+				value='Add the Vehicle'
 				className='btn btn-block'
 				bg='green.400'
 				color='white'
