@@ -20,7 +20,6 @@ import {
 } from '@chakra-ui/react';
 import { FiSettings, FiTrash } from 'react-icons/fi';
 import ProductEditForm from './ProductEditForm';
-//import Axios from 'axios';
 
 function ProductCard({ categoryList, product, key }) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -29,13 +28,6 @@ function ProductCard({ categoryList, product, key }) {
 		onOpen: onOpenReportModal,
 		onClose: onCloseReportModal,
 	} = useDisclosure();
-
-	const updateDetails = (ProductDetails) => {
-		// Axios.update('http://localhost:5000/xxxxxxx', {
-	};
-	const deleteItem = (id) => {
-		// Axios.delete('http://localhost:5000/xxxxx', {
-	};
 
 	return (
 		<div key={key}>
@@ -125,7 +117,6 @@ function ProductCard({ categoryList, product, key }) {
 											<ModalBody pb='5'>
 												<ProductEditForm
 													categoryList={categoryList}
-													updateDetails={updateDetails}
 													trigger={onClose}
 												/>
 											</ModalBody>
@@ -159,12 +150,7 @@ function ProductCard({ categoryList, product, key }) {
 											<ModalCloseButton />
 											<ModalBody pb='5'></ModalBody>
 											<ModalFooter>
-												<Button
-													onClick={deleteItem(product.productId)}
-													colorScheme='whatsapp'
-													mr={3}
-													minWidth='200'
-												>
+												<Button colorScheme='whatsapp' mr={3} minWidth='200'>
 													Yes
 												</Button>
 												<Button onClick={onCloseReportModal} minWidth='200'>

@@ -15,13 +15,15 @@ const AddNewProduct = ({ addBankCard, trigger }) => {
 
 	const inputE1 = useRef();
 	useEffect(() => {}, [inputE1]);
-	const onSubmit = (e, image) => {
+	const onSubmit = (e) => {
 		e.preventDefault();
 		if (
 			!product_short_name ||
 			!product_long_name ||
 			!product_category ||
-			!product_price
+			!product_price ||
+			!product_barcode ||
+			!product_image
 		) {
 			alert('Empty Field');
 			return;
@@ -32,6 +34,8 @@ const AddNewProduct = ({ addBankCard, trigger }) => {
 		formData.append('long_name', product_long_name);
 		formData.append('category', product_category);
 		formData.append('price', product_price);
+		formData.append('barcode', product_barcode);
+		formData.append('image', product_image);
 		dispatch(addProduct(formData));
 
 		console.log({

@@ -30,11 +30,10 @@ import SideBar from '../../common/sidebar/SideBar';
 import VehicleCard from '../../presentation/vehicle/VehicleCard';
 import AddVehicleForm from '../../presentation/vehicle/AddVehicleForm';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { fetchVehicleData } from '../../../redux/actions/vehicleActions';
 
 const VehiclePage = () => {
-	const { isOpen, onOpen, onClose } = useDisclosure();
 	const {
 		isOpen: isOpenReportModal,
 		onOpen: onOpenReportModal,
@@ -46,7 +45,6 @@ const VehiclePage = () => {
 	useEffect(() => {
 		dispatch(fetchVehicleData());
 	}, [dispatch]);
-	const { vehicles, isLoading, error } = useSelector((state) => state.vehicles);
 	const vehicledata = [
 		{
 			id: 2,
@@ -128,7 +126,19 @@ const VehiclePage = () => {
 				'https://res.cloudinary.com/dtsbekuau/image/upload/v1/teclix/media/vehicle/Picture10_uq7ooh',
 			vehicle_model: 'Piaggio',
 			created_by: 1,
-			salesperson: [],
+			salesperson: [
+				{
+					id: 9,
+					email: 'nim@gmail.com',
+					employee_no: 'EMP1015',
+					first_name: 'nimal',
+					last_name: 'perera',
+					contact_no: '0785963214',
+					profile_picture:
+						'https://res.cloudinary.com/dtsbekuau/image/upload/v1/teclix/media/staff/image_cropper_1632575208451_prgvqe',
+					is_approved: true,
+				},
+			],
 			assigned_products: [
 				{
 					product: {
@@ -141,6 +151,30 @@ const VehiclePage = () => {
 						price: '60.00',
 					},
 					quantity: 10,
+				},
+				{
+					product: {
+						id: 9,
+						short_name: 'Cheddar Cheese',
+						long_name: 'Processed Cheddar Cheese 250g',
+						product_image:
+							'https://res.cloudinary.com/dtsbekuau/image/upload/v1/teclix/media/product/Picture12_vk1i8d',
+						category: 'cheese',
+						price: '350.00',
+					},
+					quantity: 22,
+				},
+				{
+					product: {
+						id: 12,
+						short_name: 'Crunchee Carols',
+						long_name: 'Munchee Biscuit Crunchee Carols 275g',
+						product_image:
+							'https://res.cloudinary.com/dtsbekuau/image/upload/v1/teclix/media/product/cc_leef8j',
+						category: 'biscuit',
+						price: '140.00',
+					},
+					quantity: 5,
 				},
 			],
 		},
@@ -309,7 +343,20 @@ const VehiclePage = () => {
 					is_approved: true,
 				},
 			],
-			assigned_products: [],
+			assigned_products: [
+				{
+					product: {
+						id: 5,
+						short_name: 'Hand Picked',
+						long_name: 'Hand Picked Collection 550g',
+						product_image:
+							'https://res.cloudinary.com/dtsbekuau/image/upload/v1/teclix/media/product/Picture2_j8i7db',
+						category: 'biscuit',
+						price: '300.00',
+					},
+					quantity: 4,
+				},
+			],
 		},
 		{
 			id: 4,
@@ -360,99 +407,6 @@ const VehiclePage = () => {
 			],
 		},
 	];
-	const data = [
-		{
-			vehicle_type: 'Lorry',
-			vehicle_model: 'Layland',
-			vehicle_image: '/6025.jpg',
-			id: '1',
-			salesperson: [
-				{
-					id: '1',
-					email: 'shehanxperera@gmail.com',
-					first_name: 'Shehan Perera',
-					image_url: 'https://bit.ly/sage-adebayo',
-				},
-			],
-
-			assigned_products: [
-				{
-					product: {
-						id: 1,
-						short_name: 'Tikiri Marie',
-						long_name: 'Munchee Tikiri Marie',
-						product_image: '/1234.jpg',
-						category: 'biscuit',
-						price: '120.00',
-					},
-					quantity: '12',
-				},
-				{
-					product: {
-						id: 2,
-						short_name: 'Gold Marie',
-						long_name: 'Munchee Tikiri Marie',
-						product_image: '/1234.jpg',
-						category: 'biscuit',
-						price: '120.00',
-					},
-					quantity: '23',
-				},
-				{
-					product: {
-						id: 1,
-						short_name: 'Cream Cracker',
-						long_name: 'Munchee Tikiri Marie',
-						product_image: '/1234.jpg',
-						category: 'biscuit',
-						price: '130.00',
-					},
-					quantity: '127',
-				},
-			],
-			is_deleted: false,
-		},
-		{
-			vehicle_type: 'Lorry',
-			vehicle_model: 'Layland',
-			vehicle_image: '/6025.jpg',
-			id: '1',
-			salesperson: [
-				{
-					id: '1',
-					email: 'shehanxperera@gmail.com',
-					first_name: 'Hiroon Perera',
-					image_url: 'https://bit.ly/sage-adebayo',
-				},
-			],
-
-			assigned_products: [
-				{
-					product: {
-						id: 1,
-						short_name: 'Tikiri Marie',
-						long_name: 'Munchee Tikiri Marie',
-						product_image: '/1234.jpg',
-						category: 'biscuit',
-						price: '120.00',
-					},
-					quantity: '12',
-				},
-				{
-					product: {
-						id: 1,
-						short_name: 'Tikiri Marie',
-						long_name: 'Munchee Tikiri Marie',
-						product_image: '/1234.jpg',
-						category: 'biscuit',
-						price: '120.00',
-					},
-					quantity: '122',
-				},
-			],
-			is_deleted: false,
-		},
-	];
 
 	return (
 		<Box minH='100vh'>
@@ -471,7 +425,7 @@ const VehiclePage = () => {
 					>
 						<ModalOverlay />
 						<ModalContent>
-							<ModalHeader>Edit Product Details</ModalHeader>
+							<ModalHeader>Register A New Vehicle</ModalHeader>
 							<ModalCloseButton />
 							<ModalBody pb='5'>
 								<AddVehicleForm />
@@ -488,6 +442,7 @@ const VehiclePage = () => {
 							<VehicleCard
 								key={index}
 								vehicle_type={vehicle.vehicle_type}
+								vehicle_number={vehicle.vehicle_number}
 								vehicle_model={vehicle.vehicle_model}
 								vehicle_image={vehicle.vehicle_image}
 								salesperson={vehicle.salesperson}
