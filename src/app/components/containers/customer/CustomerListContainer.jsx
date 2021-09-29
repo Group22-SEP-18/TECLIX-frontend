@@ -10,7 +10,7 @@
  */
 
 import React, { useEffect } from 'react';
-import { SimpleGrid } from '@chakra-ui/react';
+import { SimpleGrid, Spacer, HStack } from '@chakra-ui/react';
 import { useSelector, useDispatch } from 'react-redux';
 import SearchBar from '../../common/SearchBar';
 import {
@@ -22,9 +22,11 @@ import { getCustomers } from '../../../redux/actions/customerActions';
 import CustomerCard from '../../presentation/customer/CustomerCard';
 import LoadingCards from '../../common/loading/LoadingCards';
 import ErrorOverlay from '../../common/error-overlays/ErrorOverlay';
+import LoyaltySchema from './LoyaltySchema';
 
 const CustomerListContainer = ({ onCardClick }) => {
 	const dispatch = useDispatch();
+	const user_role = useSelector((state) => state.user.user.user_role);
 	const { isLoading, error } = useSelector(selectAllCustomers);
 	const customers = useSelector(filteredCustomers);
 	useEffect(() => {
@@ -41,6 +43,12 @@ const CustomerListContainer = ({ onCardClick }) => {
 						placeholder={'Search customers.........'}
 						onChange={onChange}
 					/>
+					{user_role !== 'Distribution Officer' && (
+						<HStack>
+							<Spacer />
+							<LoyaltySchema />
+						</HStack>
+					)}
 					{isLoading && <LoadingCards count={3} />}
 					{error !== '' && <ErrorOverlay error={error} />}
 					<SimpleGrid columns={{ base: 1, xl: 2 }} spacing={{ base: 1, xl: 2 }}>

@@ -63,7 +63,7 @@ const MobileNav = ({ onOpen, user, ...rest }) => {
 				fontFamily='monospace'
 				fontWeight='bold'
 			>
-				Logo
+				TECLIX
 			</Text>
 
 			<HStack spacing={{ base: '0', md: '6' }}>
