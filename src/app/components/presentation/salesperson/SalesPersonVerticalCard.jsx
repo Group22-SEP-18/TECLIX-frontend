@@ -12,8 +12,8 @@
  * @since  10.09.2021
  */
 
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import {
 	Heading,
 	Avatar,
@@ -24,15 +24,11 @@ import {
 	Badge,
 	useColorModeValue,
 } from '@chakra-ui/react';
-import { getLocations } from '../../../redux/actions/locationsAction';
 import MapWithHeader from '../../common/map/MapWithHeader';
+import { selectAllLocations } from '../../../redux/slices/locationsSlice';
 
 const SalesPersonVerticalCardView = ({ salesperson }) => {
-	const dispatch = useDispatch();
-	useEffect(() => {
-		dispatch(getLocations());
-	}, [dispatch]);
-	const { locations } = useSelector((state) => state.locations);
+	const { locations } = useSelector(selectAllLocations);
 	const lastLocations = locations
 		.slice()
 		.filter((l) => l.salesperson.employee_no === salesperson.employee_no)

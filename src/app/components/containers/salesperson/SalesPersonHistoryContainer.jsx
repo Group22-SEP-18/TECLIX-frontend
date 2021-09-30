@@ -26,7 +26,7 @@ import {
 	Stack,
 } from '@chakra-ui/react';
 import MapWithHeader from '../../common/map/MapWithHeader';
-import { getLocations } from '../../../redux/actions/locationsAction';
+import { getLocationsAsync } from '../../../redux/slices/locationsSlice';
 import { fetchServiceOrderData } from '../../../redux/actions/serviceOrderActions';
 import { selectAllServiceOrders } from '../../../redux/slices/serviceOrderSlice';
 import ServiceOrderCard from '../../presentation/serviceOrders/ServiceOrderCard';
@@ -41,10 +41,8 @@ import {
 const SalesPersonHistoryContainer = ({ salesperson }) => {
 	const dispatch = useDispatch();
 	useEffect(() => {
-		dispatch(getLocations());
+		dispatch(getLocationsAsync());
 		dispatch(fetchServiceOrderData());
-		dispatch(setToFilter(''));
-		dispatch(setFromFilter(''));
 		dispatch(setSPFilter(salesperson.employee_no));
 	}, [dispatch, salesperson]);
 	const serviceOrders = useSelector(selectAllServiceOrders)

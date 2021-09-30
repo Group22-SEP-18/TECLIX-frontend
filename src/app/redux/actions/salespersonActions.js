@@ -31,22 +31,6 @@ export const getSalespersons = () => async (dispatch) => {
 	}
 };
 
-export const getAllLocations = () => async (dispatch) => {
-	try {
-		dispatch(salespersonPending());
-
-		const result = await fetchSalespersons();
-
-		if (Array.isArray(result)) {
-			return dispatch(salespersonSuccess(result));
-		}
-
-		dispatch(salespersonFail());
-	} catch (error) {
-		dispatch(salespersonFail());
-	}
-};
-
 export const approveAccountById = (id) => async (dispatch) => {
 	try {
 		dispatch(approvePending({ id: id }));

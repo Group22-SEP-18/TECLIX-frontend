@@ -1,7 +1,4 @@
 import {
-	distributionOfficersPending,
-	distributionOfficersFail,
-	distributionOfficersSuccess,
 	approvePending,
 	approveFail,
 	approveSuccess,
@@ -9,27 +6,7 @@ import {
 	rejectFail,
 	rejectSuccess,
 } from '../slices/distributionOfficersSlice';
-import {
-	fetchDistributionOfficers,
-	approveDOAccount,
-	rejectDOAccount,
-} from '../../../api/staffApi';
-
-// export const getDistributionOfficers = () => async (dispatch) => {
-// 	try {
-// 		dispatch(distributionOfficersPending());
-
-// 		const result = await fetchDistributionOfficers();
-
-// 		if (Array.isArray(result)) {
-// 			return dispatch(distributionOfficersSuccess(result));
-// 		}
-
-// 		dispatch(distributionOfficersFail());
-// 	} catch (error) {
-// 		dispatch(distributionOfficersFail());
-// 	}
-// };
+import { approveDOAccount, rejectDOAccount } from '../../../api/staffApi';
 
 export const approveAccountById = (id) => async (dispatch) => {
 	try {
