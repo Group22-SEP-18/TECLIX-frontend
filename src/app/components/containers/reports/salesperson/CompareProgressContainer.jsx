@@ -1,7 +1,10 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Box } from '@chakra-ui/react';
-import { fetchProgressBySalepersonData } from '../../../../redux/actions/reportActions';
+import {
+	getProgressBySalespersonAsync,
+	selectProgressBySalesperson,
+} from '../../../../redux/slices/reportSlice';
 import RechartChart from '../../../common/charts/RechartChart';
 import LoadingCards from '../../../common/loading/LoadingCards';
 import ErrorOverlay from '../../../common/error-overlays/ErrorOverlay';
@@ -9,10 +12,10 @@ import ErrorOverlay from '../../../common/error-overlays/ErrorOverlay';
 const CompareProgressContainer = (props) => {
 	const dispatch = useDispatch();
 	useEffect(() => {
-		dispatch(fetchProgressBySalepersonData());
+		dispatch(getProgressBySalespersonAsync());
 	}, [dispatch]);
 	const { isLoading, chartValues, error } = useSelector(
-		(state) => state.report.progressBySalesperson
+		selectProgressBySalesperson
 	);
 	if (isLoading) {
 		return <LoadingCards count={3} />;

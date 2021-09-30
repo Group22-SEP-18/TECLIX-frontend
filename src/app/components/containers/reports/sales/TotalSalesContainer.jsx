@@ -1,19 +1,20 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Box } from '@chakra-ui/react';
-import { fetchSalesPerMonthData } from '../../../../redux/actions/reportActions';
 import RechartChart from '../../../common/charts/RechartChart';
 import LoadingCards from '../../../common/loading/LoadingCards';
 import ErrorOverlay from '../../../common/error-overlays/ErrorOverlay';
+import {
+	selectSalesPerMonth,
+	getSalesPerMonthAsync,
+} from '../../../../redux/slices/reportSlice';
 
 const TotalSalesContainer = (props) => {
 	const dispatch = useDispatch();
 	useEffect(() => {
-		dispatch(fetchSalesPerMonthData());
+		dispatch(getSalesPerMonthAsync());
 	}, [dispatch]);
-	const { isLoading, chartValues, error } = useSelector(
-		(state) => state.report.salesPerMonth
-	);
+	const { isLoading, chartValues, error } = useSelector(selectSalesPerMonth);
 	if (isLoading) {
 		return <LoadingCards count={3} />;
 	}

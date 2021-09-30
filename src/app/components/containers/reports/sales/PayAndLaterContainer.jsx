@@ -1,7 +1,10 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Box } from '@chakra-ui/react';
-import { fetchPayOrLaterData } from '../../../../redux/actions/reportActions';
+import {
+	getPayOrLaterAsync,
+	selectPayOrPayLater,
+} from '../../../../redux/slices/reportSlice';
 import RechartChart from '../../../common/charts/RechartChart';
 import LoadingCards from '../../../common/loading/LoadingCards';
 import ErrorOverlay from '../../../common/error-overlays/ErrorOverlay';
@@ -9,11 +12,9 @@ import ErrorOverlay from '../../../common/error-overlays/ErrorOverlay';
 const PayAndLaterContainer = (props) => {
 	const dispatch = useDispatch();
 	useEffect(() => {
-		dispatch(fetchPayOrLaterData());
+		dispatch(getPayOrLaterAsync());
 	}, [dispatch]);
-	const { isLoading, chartValues, error } = useSelector(
-		(state) => state.report.payOrLater
-	);
+	const { isLoading, chartValues, error } = useSelector(selectPayOrPayLater);
 	if (isLoading) {
 		return <LoadingCards count={3} />;
 	}
