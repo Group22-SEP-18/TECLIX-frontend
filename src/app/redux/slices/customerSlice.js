@@ -5,7 +5,7 @@ export const getCustomersAsync = createAsyncThunk(
 	'customers/getCustomersAsync',
 	async () => {
 		const response = await fetchCustomers();
-		const customers = response.data;
+		const customers = response;
 		return customers;
 	}
 );
@@ -34,7 +34,7 @@ export const customerSlice = createSlice({
 			state.customers = payload;
 			state.error = '';
 		});
-		builder.addCase(getCustomersAsync.fulfilled, (state) => {
+		builder.addCase(getCustomersAsync.rejected, (state) => {
 			state.isLoading = false;
 			state.error = 'Error while accessing customer data';
 		});
