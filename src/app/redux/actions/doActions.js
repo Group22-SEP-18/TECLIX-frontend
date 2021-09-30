@@ -15,21 +15,21 @@ import {
 	rejectDOAccount,
 } from '../../../api/staffApi';
 
-export const getDistributionOfficers = () => async (dispatch) => {
-	try {
-		dispatch(distributionOfficersPending());
+// export const getDistributionOfficers = () => async (dispatch) => {
+// 	try {
+// 		dispatch(distributionOfficersPending());
 
-		const result = await fetchDistributionOfficers();
+// 		const result = await fetchDistributionOfficers();
 
-		if (Array.isArray(result)) {
-			return dispatch(distributionOfficersSuccess(result));
-		}
+// 		if (Array.isArray(result)) {
+// 			return dispatch(distributionOfficersSuccess(result));
+// 		}
 
-		dispatch(distributionOfficersFail());
-	} catch (error) {
-		dispatch(distributionOfficersFail());
-	}
-};
+// 		dispatch(distributionOfficersFail());
+// 	} catch (error) {
+// 		dispatch(distributionOfficersFail());
+// 	}
+// };
 
 export const approveAccountById = (id) => async (dispatch) => {
 	try {

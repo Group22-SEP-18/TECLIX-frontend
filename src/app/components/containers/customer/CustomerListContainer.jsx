@@ -23,10 +23,11 @@ import CustomerCard from '../../presentation/customer/CustomerCard';
 import LoadingCards from '../../common/loading/LoadingCards';
 import ErrorOverlay from '../../common/error-overlays/ErrorOverlay';
 import LoyaltySchema from './LoyaltySchema';
+import { selectUserRole } from '../../../redux/slices/userSlice';
 
 const CustomerListContainer = ({ onCardClick }) => {
 	const dispatch = useDispatch();
-	const user_role = useSelector((state) => state.user.user.user_role);
+	const user_role = useSelector(selectUserRole);
 	const { isLoading, error } = useSelector(selectAllCustomers);
 	const customers = useSelector(filteredCustomers);
 	useEffect(() => {

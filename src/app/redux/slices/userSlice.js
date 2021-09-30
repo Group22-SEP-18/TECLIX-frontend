@@ -58,4 +58,6 @@ const userSlice = createSlice({
 export const { getUserPending, getUserSuccess, getUserFail, setUser } =
 	userSlice.actions;
 
+export const selectUserRole = (state) => state.user.user.user_role;
+
 export default userSlice.reducer;

@@ -20,7 +20,6 @@ import ErrorOverlay from '../../common/error-overlays/ErrorOverlay';
 
 const CurrentLocationsContainer = (props) => {
 	const dispatch = useDispatch();
-
 	useEffect(() => {
 		dispatch(fetchCurrentLocationsAsync());
 	}, [dispatch]);
