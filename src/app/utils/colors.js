@@ -1,4 +1,4 @@
-const colors = [
+export const colors = [
 	{
 		name: 'Absolute Zero',
 		hex: '#0048BA',
@@ -5208,5 +5208,3 @@ const colors = [
 		hex: '#39A78E',
 	},
 ];
-
-export default colors;

@@ -9,7 +9,7 @@ import {
 	Legend,
 	ResponsiveContainer,
 } from 'recharts';
-import colors from '../colors';
+import { colors } from '../../../utils';
 
 const RechartChart = ({ data, XAxisDataKey, barDataKeys }) => {
 	var maxi = 0;

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactEcharts from 'echarts-for-react';
 import { Heading } from '@chakra-ui/react';
-import colors from '../colors';
+import { colors } from '../../../utils';
 
 const SimpleChart = ({
 	type,
