@@ -30,7 +30,7 @@ export const fetchAllProducts = () => {
 export const productRegistration = (frmData) => {
 	return new Promise(async (resolve, reject) => {
 		try {
-			const res = await axios.post(productregisterUrl);
+			const res = await axios.post(productregisterUrl, frmData);
 
 			resolve(res.data);
 		} catch (error) {

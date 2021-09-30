@@ -19,6 +19,7 @@ import {
 	Button,
 	Modal,
 	ModalBody,
+	Heading,
 	ModalContent,
 	ModalOverlay,
 	ModalCloseButton,
@@ -60,11 +61,13 @@ const ProductPage = () => {
 						isOpen={isOpenReportModal}
 						motionPreset='scale'
 						isCentered
-						size='xl'
+						size='md'
 					>
 						<ModalOverlay />
 						<ModalContent>
-							<ModalHeader>Register a new product</ModalHeader>
+							<ModalHeader>
+								{/* <Heading>Add a New Product</Heading> */}
+							</ModalHeader>
 							<ModalCloseButton />
 							<ModalBody pb='5'>
 								<AddNewProduct trigger={onCloseReportModal} />
