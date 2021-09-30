@@ -1,17 +1,8 @@
 import {
 	fetchSalespersons,
-	fetchLeaderboard,
 	approveSalespersonAccount,
 	rejectSalespersonAccount,
 } from '../../../api/salespersonApi';
-import {
-	leaderboradFail,
-	leaderboradPending,
-	leaderboradSuccess,
-	getTodayLeaderboard,
-	getMonthlyLeaderboard,
-	getAllTimeLeaderboard,
-} from '../slices/leaderboardSlice';
 import {
 	salespersonFail,
 	salespersonPending,
@@ -37,26 +28,6 @@ export const getSalespersons = () => async (dispatch) => {
 		dispatch(salespersonFail());
 	} catch (error) {
 		dispatch(salespersonFail());
-	}
-};
-
-export const getLeaderboardPoints = () => async (dispatch) => {
-	try {
-		dispatch(leaderboradPending());
-
-		const result = await fetchLeaderboard();
-
-		if (Array.isArray(result)) {
-			dispatch(leaderboradSuccess(result));
-			dispatch(getTodayLeaderboard());
-			dispatch(getMonthlyLeaderboard());
-			dispatch(getAllTimeLeaderboard());
-			return;
-		}
-
-		dispatch(leaderboradFail());
-	} catch (error) {
-		dispatch(leaderboradFail());
 	}
 };
 
