@@ -16,7 +16,6 @@ const RechartChart = ({ data, XAxisDataKey, barDataKeys }) => {
 	for (let index = 0; index < barDataKeys.length; index++) {
 		maxi = Math.max(...data.map((d) => d[barDataKeys[index]]), maxi);
 	}
-	console.log(maxi);
 	return (
 		<ResponsiveContainer width='100%' height='100%'>
 			<BarChart

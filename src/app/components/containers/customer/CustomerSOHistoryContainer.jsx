@@ -13,10 +13,12 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Accordion } from '@chakra-ui/react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectAllServiceOrders } from '../../../redux/slices/serviceOrderSlice';
+import {
+	selectAllServiceOrders,
+	getServiceOrdersAsync,
+} from '../../../redux/slices/serviceOrderSlice';
 import ServiceOrderCard from '../../presentation/serviceOrders/ServiceOrderCard';
 import AddFilter from '../AddFilter';
-import { fetchServiceOrderData } from '../../../redux/actions/serviceOrderActions';
 
 const CustomerSOHistoryContainer = ({ customer }) => {
 	const dispatch = useDispatch();
@@ -24,7 +26,7 @@ const CustomerSOHistoryContainer = ({ customer }) => {
 		.slice()
 		.filter((so) => so.customer.shop_name === customer.shop_name);
 	useEffect(() => {
-		dispatch(fetchServiceOrderData());
+		dispatch(getServiceOrdersAsync());
 	}, [dispatch]);
 	return (
 		<div>
@@ -32,7 +34,7 @@ const CustomerSOHistoryContainer = ({ customer }) => {
 			<Accordion allowToggle>
 				{serviceOrders.map((so) => (
 					<ServiceOrderCard
-						key={so.order_id}
+						key={so.id}
 						serviceOrder={so}
 						showCustomer={false}
 						showSP={true}

@@ -38,11 +38,9 @@ export const fetchSalesPerProductData = () => async (dispatch) => {
 
 export const fetchSalesPerMonthData = () => async (dispatch) => {
 	try {
-		console.log(123);
 		dispatch(salesPerMonthPending());
 
 		const result = await fetchSalesPerMonth();
-		console.log(result);
 		if (result.data) return dispatch(salesPerMonthSuccss(result.data));
 
 		dispatch(salesPerMonthFail({ error: 'No sales data' }));

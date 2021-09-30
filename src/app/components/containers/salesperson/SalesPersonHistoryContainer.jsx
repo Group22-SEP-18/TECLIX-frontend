@@ -27,8 +27,10 @@ import {
 } from '@chakra-ui/react';
 import MapWithHeader from '../../common/map/MapWithHeader';
 import { getLocationsAsync } from '../../../redux/slices/locationsSlice';
-import { fetchServiceOrderData } from '../../../redux/actions/serviceOrderActions';
-import { selectAllServiceOrders } from '../../../redux/slices/serviceOrderSlice';
+import {
+	selectAllServiceOrders,
+	getServiceOrdersAsync,
+} from '../../../redux/slices/serviceOrderSlice';
 import ServiceOrderCard from '../../presentation/serviceOrders/ServiceOrderCard';
 import AddFilter from '../AddFilter';
 import {
@@ -42,7 +44,7 @@ const SalesPersonHistoryContainer = ({ salesperson }) => {
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(getLocationsAsync());
-		dispatch(fetchServiceOrderData());
+		dispatch(getServiceOrdersAsync());
 		dispatch(setSPFilter(salesperson.employee_no));
 	}, [dispatch, salesperson]);
 	const serviceOrders = useSelector(selectAllServiceOrders)
@@ -96,7 +98,7 @@ const SalesPersonHistoryContainer = ({ salesperson }) => {
 							<Accordion allowToggle>
 								{serviceOrders.map((so) => (
 									<ServiceOrderCard
-										key={so.order_id}
+										key={so.id}
 										serviceOrder={so}
 										showCustomer={true}
 										showSP={false}

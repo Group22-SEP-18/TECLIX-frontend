@@ -177,7 +177,6 @@ const RegisterPage = (props) => {
 													e.target.files[0]
 												);
 												setPreview(objectUrl);
-												console.log(props.getFieldProps('profile_picture'));
 											}}
 										/>
 									</Button>
