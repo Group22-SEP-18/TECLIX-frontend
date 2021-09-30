@@ -11,7 +11,7 @@ const loginSlice = createSlice({
 	name: 'login',
 	initialState: initialState,
 	reducers: {
-		loginPending: (state, action) => {
+		loginPending: (state) => {
 			state.isLoading = true;
 		},
 		loginSuccess: (state, { payload }) => {

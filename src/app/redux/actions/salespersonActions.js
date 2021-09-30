@@ -1,12 +1,8 @@
 import {
-	fetchSalespersons,
 	approveSalespersonAccount,
 	rejectSalespersonAccount,
 } from '../../../api/salespersonApi';
 import {
-	salespersonFail,
-	salespersonPending,
-	salespersonSuccess,
 	approvePending,
 	approveFail,
 	approveSuccess,
@@ -14,22 +10,6 @@ import {
 	rejectFail,
 	rejectSuccess,
 } from '../slices/salespersonSlice';
-
-export const getSalespersons = () => async (dispatch) => {
-	try {
-		dispatch(salespersonPending());
-
-		const result = await fetchSalespersons();
-
-		if (Array.isArray(result)) {
-			return dispatch(salespersonSuccess(result));
-		}
-
-		dispatch(salespersonFail());
-	} catch (error) {
-		dispatch(salespersonFail());
-	}
-};
 
 export const approveAccountById = (id) => async (dispatch) => {
 	try {

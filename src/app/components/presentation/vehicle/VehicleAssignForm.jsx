@@ -7,7 +7,7 @@ import { Tag, TagLabel, TagCloseButton } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProductData } from '../../../redux/actions/productActions';
 import { assignToVehicle } from '../../../redux/actions/vehicleActions';
-import { getSalespersons } from '../../../redux/actions/salespersonActions';
+import { getSalespersonsAsync } from '../../../redux/slices/salespersonSlice';
 import {
 	NumberInput,
 	NumberInputField,
@@ -28,9 +28,7 @@ const ProductEditForm = ({
 
 	useEffect(() => {
 		dispatch(fetchProductData());
-	}, [dispatch]);
-	useEffect(() => {
-		dispatch(getSalespersons());
+		dispatch(getSalespersonsAsync());
 	}, [dispatch]);
 
 	const { products } = useSelector((state) => state.products);
