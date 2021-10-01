@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { fetchLeaderboard } from '../../../api/salespersonApi';
+import { reverseSortArrayOfObjectsByFloat } from '../../utils';
 
 const initialState = {
 	isLoading: false,
@@ -30,25 +31,18 @@ export const leaderboradSlice = createSlice({
 		builder.addCase(getLeaderboardAsync.fulfilled, (state, { payload }) => {
 			state.isLoading = false;
 			state.leaderboard = payload;
-			state.alltimeLeaderboard = payload
-				.slice()
-				.sort(
-					(a, b) =>
-						parseFloat(a.points_all_time) - parseFloat(b.points_all_time)
-				)
-				.reverse();
-			state.monthLeaderboard = payload
-				.slice()
-				.sort(
-					(a, b) =>
-						parseFloat(a.points_current_month) -
-						parseFloat(b.points_current_month)
-				)
-				.reverse();
-			state.todayLeaderboard = payload
-				.slice()
-				.sort((a, b) => parseFloat(a.points_today) - parseFloat(b.points_today))
-				.reverse();
+			state.alltimeLeaderboard = reverseSortArrayOfObjectsByFloat(
+				payload,
+				'points_all_time'
+			);
+			state.monthLeaderboard = reverseSortArrayOfObjectsByFloat(
+				payload,
+				'points_current_month'
+			);
+			state.todayLeaderboard = reverseSortArrayOfObjectsByFloat(
+				payload,
+				'points_today'
+			);
 			state.error = '';
 		});
 		builder.addCase(getLeaderboardAsync.rejected, (state) => {
