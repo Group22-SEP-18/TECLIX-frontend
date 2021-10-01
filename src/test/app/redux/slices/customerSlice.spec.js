@@ -105,7 +105,7 @@ describe('customerSlice', () => {
 		});
 	});
 	describe('getCustomersAsync', () => {
-		it('1) getCustomersAsync', async () => {
+		it('1) should call correct end point', async () => {
 			const store = configureStore({
 				reducer: (state = '', action) => {
 					switch (action.type) {
