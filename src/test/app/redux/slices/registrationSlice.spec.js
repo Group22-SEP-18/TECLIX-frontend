@@ -22,7 +22,7 @@ const mockedPayload = {
 	profile_picture: '/avatars/default.png',
 };
 
-describe('customerSlice', () => {
+describe('registrationSlice', () => {
 	describe('reducers', () => {
 		it('1) returns the initial state', () => {
 			expect(reducer(undefined, {})).toEqual(initialState);

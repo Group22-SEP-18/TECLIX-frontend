@@ -395,7 +395,7 @@ const mockedData = [
 	},
 ];
 
-describe('customerSlice', () => {
+describe('locationsSlice', () => {
 	describe('reducers', () => {
 		it('1) returns the initial state', () => {
 			expect(reducer(undefined, {})).toEqual(initialState);

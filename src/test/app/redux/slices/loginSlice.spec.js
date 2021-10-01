@@ -21,7 +21,7 @@ const mockUser = {
 	profile_picture: 'payload.profile_picture',
 };
 
-describe('customerSlice', () => {
+describe('loginSlice', () => {
 	describe('reducers', () => {
 		it('1) returns the initial state', () => {
 			expect(reducer(undefined, {})).toEqual(initialState);
