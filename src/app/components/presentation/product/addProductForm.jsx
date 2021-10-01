@@ -8,6 +8,7 @@ import {
 	Box,
 	Button,
 	Image,
+	useToast,
 	FormControl,
 	FormLabel,
 	Select,
@@ -20,21 +21,31 @@ import * as Yup from 'yup';
 import { addProduct } from '../../../redux/actions/productActions';
 
 const AddNewProduct = (props) => {
+	const toast = useToast();
+	var [updateConstant, setupdateConstant] = useState(0);
 	const fileInputRef = useRef();
 	const dispatch = useDispatch();
 	const [preview, setPreview] = useState();
 	const { isLoading, status, message } = useSelector(
 		(state) => state.productRegistration
 	);
+	var toast_type1 = (success, message) =>
+		toast({
+			position: 'bottom-right',
+			title: success ? 'Success' : 'Failed',
+			description: message,
+			status: success ? 'success' : 'error',
+			duration: 5000,
+			isClosable: true,
+		});
 	const initialValues = {
 		short_name: '',
 		long_name: '',
 		barcode: '',
 		category: '',
 		price: '',
-		product_picture: '/avatars/default.png',
+		product_image: '/avatars/product.jpg',
 	};
-
 	const schema = Yup.object({
 		price: Yup.string()
 			.min(1, 'Please enter valid amount')
@@ -84,19 +95,19 @@ const AddNewProduct = (props) => {
 		return formData;
 	};
 	const onSubmit = async (values) => {
-		console.log(values);
 		const frmData = jsonToFormData(values);
 		dispatch(addProduct(frmData));
+		setupdateConstant((count) => count + 1);
 	};
+	if (updateConstant === 1 && !isLoading) {
+		toast_type1(status, message);
+		setupdateConstant((count) => count - 1);
+		props.trigger();
+	}
+
 	return (
 		<Box>
 			<Box textAlign='center' alignContent='center'>
-				{message && (
-					<Alert my={4} status={status === 'success' ? 'success' : 'error'}>
-						<AlertIcon />
-						<AlertDescription>{message}</AlertDescription>
-					</Alert>
-				)}
 				<Flex align='center' justify='center'>
 					<Image
 						borderRadius='full'
@@ -135,7 +146,7 @@ const AddNewProduct = (props) => {
 										multiple={false}
 										ref={fileInputRef}
 										onChange={(e) => {
-											props.setFieldValue('product_picture', e.target.files[0]);
+											props.setFieldValue('product_image', e.target.files[0]);
 											const objectUrl = URL.createObjectURL(e.target.files[0]);
 											setPreview(objectUrl);
 										}}
@@ -219,7 +230,7 @@ const AddNewProduct = (props) => {
 								width='full'
 								mt={4}
 								isLoading={isLoading}
-								loadingText='Signinig up'
+								loadingText='Adding product'
 							>
 								Register the New Product
 							</Button>

@@ -26,7 +26,7 @@ import {
 	ModalHeader,
 } from '@chakra-ui/react';
 import SideBar from '../../common/sidebar/SideBar';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ProductCard from '../../presentation/product/ProductCard';
 import AddNewProduct from '../../presentation/product/addProductForm';
 import { useDispatch, useSelector } from 'react-redux';
@@ -43,6 +43,7 @@ const ProductPage = () => {
 	useEffect(() => {
 		dispatch(fetchProductData());
 	}, [dispatch]);
+
 	const { products } = useSelector((state) => state.products);
 
 	const categoryList = ['Biscuit', 'Chocolate', 'Spices', 'Drinks'];

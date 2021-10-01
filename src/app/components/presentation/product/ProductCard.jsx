@@ -12,22 +12,47 @@ import {
 	ModalContent,
 	ModalOverlay,
 	ModalCloseButton,
+	useToast,
 	ModalHeader,
 	ModalFooter,
 	chakra,
 	Tooltip,
 	HStack,
 } from '@chakra-ui/react';
-import { FiSettings, FiTrash } from 'react-icons/fi';
-import ProductEditForm from './ProductEditForm';
+import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+
+import { FiTrash } from 'react-icons/fi';
+import { productDelete } from '../../../redux/actions/productActions';
 
 function ProductCard({ categoryList, product, key }) {
-	const { isOpen, onOpen, onClose } = useDisclosure();
+	const toast = useToast();
+	const deleteproduct = useSelector((state) => state.products.deleteproduct);
+	var [updateConstant, setupdateConstant] = useState(0);
+	const dispatch = useDispatch();
+	var toast_type1 = (success) =>
+		toast({
+			position: 'bottom-right',
+			title: success ? 'Success' : 'Failed',
+			status: success ? 'success' : 'error',
+			duration: 5000,
+			isClosable: true,
+		});
 	const {
 		isOpen: isOpenReportModal,
 		onOpen: onOpenReportModal,
 		onClose: onCloseReportModal,
 	} = useDisclosure();
+
+	const deleteProduct = () => {
+		dispatch(productDelete(product.id));
+		setupdateConstant((count) => count + 1);
+	};
+	if (updateConstant === 1 && !deleteproduct.isLoading) {
+		toast_type1(deleteproduct.success);
+		setupdateConstant((count) => count - 1);
+		onCloseReportModal();
+	}
 
 	return (
 		<div key={key}>
@@ -42,7 +67,7 @@ function ProductCard({ categoryList, product, key }) {
 					position='relative'
 				>
 					<Image
-						width='200'
+						height='200'
 						src={product.product_image}
 						alt={`Picture of ${product.name}`}
 						roundedTop='lg'
@@ -92,38 +117,6 @@ function ProductCard({ categoryList, product, key }) {
 								{parseFloat(product.price).toFixed(2)}
 							</Box>
 
-							<Tooltip label='Edit' placement={'bottom'}>
-								<Box>
-									<chakra.a onClick={onOpen} display={'flex'}>
-										<Icon
-											as={FiSettings}
-											h={7}
-											w={7}
-											alignSelf={'center'}
-											color='green.500'
-										/>
-									</chakra.a>
-									<Modal
-										closeOnOverlayClick={false}
-										onClose={onClose}
-										isOpen={isOpen}
-										motionPreset='scale'
-										isCentered
-									>
-										<ModalOverlay />
-										<ModalContent>
-											<ModalHeader>Edit Product Details</ModalHeader>
-											<ModalCloseButton />
-											<ModalBody pb='5'>
-												<ProductEditForm
-													categoryList={categoryList}
-													trigger={onClose}
-												/>
-											</ModalBody>
-										</ModalContent>
-									</Modal>
-								</Box>
-							</Tooltip>
 							<Tooltip label='Delete' placement={'bottom'}>
 								<Box>
 									<chakra.a display={'flex'} onClick={onOpenReportModal}>
@@ -150,7 +143,13 @@ function ProductCard({ categoryList, product, key }) {
 											<ModalCloseButton />
 											<ModalBody pb='5'></ModalBody>
 											<ModalFooter>
-												<Button colorScheme='whatsapp' mr={3} minWidth='200'>
+												<Button
+													colorScheme='whatsapp'
+													mr={3}
+													minWidth='200'
+													onClick={deleteProduct}
+													isLoading={deleteproduct.isLoading}
+												>
 													Yes
 												</Button>
 												<Button onClick={onCloseReportModal} minWidth='200'>

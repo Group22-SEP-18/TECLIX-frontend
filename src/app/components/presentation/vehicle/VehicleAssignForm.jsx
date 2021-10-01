@@ -27,6 +27,7 @@ const ProductEditForm = ({
 	const dispatch = useDispatch();
 
 	useEffect(() => {
+		console.log('a');
 		dispatch(fetchProductData());
 	}, [dispatch]);
 	useEffect(() => {

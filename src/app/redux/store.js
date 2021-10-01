@@ -7,7 +7,7 @@ import locationReducer from './slices/locationsSlice';
 import loginReducer from './slices/loginSlice';
 import notificationReducer from './slices/notificationSlice';
 import productsReducer from './slices/productsSlice';
-import productRegistrationReducer from './slices/productsSlice';
+import productRegistrationReducer from './slices/addProductSlice';
 import registrationReducer from './slices/registrationSlice';
 import reportsReducer from './slices/reportSlice';
 import salespersonReducer from './slices/salespersonSlice';

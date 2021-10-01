@@ -1,9 +1,15 @@
 import { fetchAllProducts } from '../../../api/productApi';
 import { productRegistration } from '../../../api/productApi';
+import { deleteProductById } from '../../../api/productApi';
 import {
 	productsPending,
 	productsSuccess,
 	productsFail,
+	deletePending,
+	deleteSuccess,
+	deleteFail,
+	addnewproduct,
+	deleteproduct,
 } from '../slices/productsSlice';
 import {
 	productRegistrationPending,
@@ -27,12 +33,25 @@ export const fetchProductData = () => async (dispatch) => {
 export const addProduct = (formData) => async (dispatch) => {
 	try {
 		dispatch(productRegistrationPending());
-
 		const result = await productRegistration(formData);
-		result.status === 'success'
-			? dispatch(productRegistrationSuccess(result.message))
-			: dispatch(productRegistrationError(result.message));
+		if (result.id) {
+			dispatch(addnewproduct(result));
+			dispatch(productRegistrationSuccess());
+		} else {
+			dispatch(productRegistrationError());
+		}
 	} catch (error) {
-		dispatch(productRegistrationError(error.message));
+		dispatch(productRegistrationError());
+	}
+};
+
+export const productDelete = (id) => async (dispatch) => {
+	try {
+		dispatch(deletePending());
+		const result = await deleteProductById(id);
+		dispatch(deleteproduct(id));
+		dispatch(deleteSuccess());
+	} catch (error) {
+		dispatch(deleteFail(error.message));
 	}
 };
