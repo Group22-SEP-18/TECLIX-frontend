@@ -2,10 +2,12 @@ import { configureStore } from '@reduxjs/toolkit';
 import axios from 'axios';
 import reducer, {
 	getSalesPerProductAsync,
+	getSalesPerMonthAsync,
 	salesPerProductAddToAdded,
 	salesPerProductRemoveFromAdded,
 } from '../../../../app/redux/slices/reportSlice';
 import { data as salesperproduct } from '.../../../requests/salesperproduct.json';
+import { data as totalsales } from '.../../../requests/totalsales.json';
 import { monthList } from '../../../../app/utils';
 
 const initialState = {
@@ -135,6 +137,64 @@ describe('reportSlice', () => {
 				await store.dispatch(getSalesPerProductAsync());
 				expect(getSpy).toBeCalledWith(
 					'https://run.mocky.io/v3/46d2e675-781c-471d-b0ba-0e0a01b67c41',
+					{ headers: { Authorization: 'Token null' } }
+				);
+			});
+		});
+	});
+	describe('salesPerMonth', () => {
+		describe('extra reducers', () => {
+			it('1) getSalesPerMonthAsync.pending', () => {
+				const nextState = reducer(
+					initialState,
+					getSalesPerMonthAsync.pending()
+				);
+				expect(nextState.salesPerMonth.chartValues).toBe(
+					initialState.salesPerMonth.chartValues
+				);
+				expect(nextState.salesPerMonth.isLoading).toBe(true);
+			});
+
+			it('2) getSalesPerMonthAsync.fulfilled', () => {
+				const mockAsyncPayload = totalsales;
+				const nextState = reducer(
+					initialState,
+					getSalesPerMonthAsync.fulfilled(mockAsyncPayload)
+				);
+				expect(nextState.salesPerMonth.isLoading).toBe(false);
+				expect(nextState.salesPerMonth.chartValues).toStrictEqual(
+					mockAsyncPayload
+				);
+			});
+
+			it('3) getSalesPerMonthAsync.rejected', () => {
+				const nextState = reducer(
+					initialState,
+					getSalesPerMonthAsync.rejected()
+				);
+				expect(nextState.salesPerMonth.isLoading).toBe(false);
+				expect(nextState.salesPerMonth.error).toBe(
+					'Error while accessing data'
+				);
+			});
+		});
+		describe('getSalesPerMonthAsync', () => {
+			it('1) should call correct end point', async () => {
+				const store = configureStore({
+					reducer: (state = '', action) => {
+						switch (action.type) {
+							case 'report/getSalesPerMonthAsync/fulfilled':
+								return action.payload;
+							default:
+								return state;
+						}
+					},
+				});
+				const getSpy = jest.spyOn(axios, 'get');
+
+				await store.dispatch(getSalesPerMonthAsync());
+				expect(getSpy).toBeCalledWith(
+					'https://run.mocky.io/v3/7686c5f2-9912-4665-be95-18f54fadd8d7',
 					{ headers: { Authorization: 'Token null' } }
 				);
 			});
