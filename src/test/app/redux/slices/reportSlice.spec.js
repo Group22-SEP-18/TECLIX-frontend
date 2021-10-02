@@ -3,11 +3,13 @@ import axios from 'axios';
 import reducer, {
 	getSalesPerProductAsync,
 	getSalesPerMonthAsync,
+	getPayOrLaterAsync,
 	salesPerProductAddToAdded,
 	salesPerProductRemoveFromAdded,
 } from '../../../../app/redux/slices/reportSlice';
 import { data as salesperproduct } from '.../../../requests/salesperproduct.json';
 import { data as totalsales } from '.../../../requests/totalsales.json';
+import { data as payOrLater } from '.../../../requests/payOrLater.json';
 import { monthList } from '../../../../app/utils';
 
 const initialState = {
@@ -195,6 +197,56 @@ describe('reportSlice', () => {
 				await store.dispatch(getSalesPerMonthAsync());
 				expect(getSpy).toBeCalledWith(
 					'https://run.mocky.io/v3/7686c5f2-9912-4665-be95-18f54fadd8d7',
+					{ headers: { Authorization: 'Token null' } }
+				);
+			});
+		});
+	});
+	describe('payOrLater', () => {
+		describe('extra reducers', () => {
+			it('1) getPayOrLaterAsync.pending', () => {
+				const nextState = reducer(initialState, getPayOrLaterAsync.pending());
+				expect(nextState.payOrLater.chartValues).toBe(
+					initialState.payOrLater.chartValues
+				);
+				expect(nextState.payOrLater.isLoading).toBe(true);
+			});
+
+			it('2) getPayOrLaterAsync.fulfilled', () => {
+				const mockAsyncPayload = payOrLater;
+				const nextState = reducer(
+					initialState,
+					getPayOrLaterAsync.fulfilled(mockAsyncPayload)
+				);
+				expect(nextState.payOrLater.isLoading).toBe(false);
+				expect(nextState.payOrLater.chartValues).toStrictEqual(
+					mockAsyncPayload
+				);
+			});
+
+			it('3) getPayOrLaterAsync.rejected', () => {
+				const nextState = reducer(initialState, getPayOrLaterAsync.rejected());
+				expect(nextState.payOrLater.isLoading).toBe(false);
+				expect(nextState.payOrLater.error).toBe('Error while accessing data');
+			});
+		});
+		describe('getPayOrLaterAsync', () => {
+			it('1) should call correct end point', async () => {
+				const store = configureStore({
+					reducer: (state = '', action) => {
+						switch (action.type) {
+							case 'report/getPayOrLaterAsync/fulfilled':
+								return action.payload;
+							default:
+								return state;
+						}
+					},
+				});
+				const getSpy = jest.spyOn(axios, 'get');
+
+				await store.dispatch(getPayOrLaterAsync());
+				expect(getSpy).toBeCalledWith(
+					'https://run.mocky.io/v3/0a6f5008-15e1-4bf7-92a0-0347072881d0',
 					{ headers: { Authorization: 'Token null' } }
 				);
 			});
