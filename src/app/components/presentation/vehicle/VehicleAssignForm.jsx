@@ -27,6 +27,7 @@ const ProductEditForm = ({
 	const dispatch = useDispatch();
 
 	useEffect(() => {
+		console.log('a');
 		dispatch(fetchProductData());
 	}, [dispatch]);
 	useEffect(() => {
@@ -38,12 +39,9 @@ const ProductEditForm = ({
 
 	const [productQuantity, updateproductQuantity] = React.useState(array);
 	const [product_id, setproduct_id] = React.useState();
-	const [quantity, setproduct_quantity] = React.useState();
+	const [quantity, setproduct_quantity] = React.useState(10);
 	const [salesperson, setsalesperson] = React.useState(assignedsalesprson.id);
 
-	const findindex = (array, id) => {
-		return array.findIndex((x) => x.id === id);
-	};
 	const updateItem = (id, value) => {
 		var index = productQuantity.findIndex((x) => x.id === id);
 		if (index >= 0) {
@@ -98,7 +96,9 @@ const ProductEditForm = ({
 							onChange={(e) => setproduct_id(e.target.value)}
 						>
 							{products.map((product, i) => (
-								<option value={product.id}>{product.short_name}</option>
+								<option key={i} value={product.id}>
+									{product.short_name}
+								</option>
 							))}
 						</Select>
 					</FormControl>
@@ -107,6 +107,7 @@ const ProductEditForm = ({
 						<NumberInput
 							isRequired
 							min={1}
+							defaultValue={10}
 							name='quantity'
 							maxW='100px'
 							mr='2rem'
@@ -136,7 +137,7 @@ const ProductEditForm = ({
 			<Box>
 				<Wrap pt='3' pl='1'>
 					{productQuantity.map((product, index) => (
-						<WrapItem>
+						<WrapItem key={index}>
 							<Tag size='lg' colorScheme='whatsapp' borderRadius='full'>
 								<TagLabel pr='2' color='blue.700'>
 									{product.quantity}x
@@ -163,7 +164,7 @@ const ProductEditForm = ({
 					defaultValue={assignedsalesprson.id}
 				>
 					{salespersons.map((salesperson, i) => (
-						<option value={salesperson.id}>
+						<option key={i} value={salesperson.id}>
 							{salesperson.employee_no} | {salesperson.first_name}{' '}
 							{salesperson.last_name}
 						</option>
@@ -181,7 +182,7 @@ const ProductEditForm = ({
 				color='white'
 				onClick={assignProductsSalesperson}
 			>
-				submit
+				Assign to the vehicle
 			</Button>
 		</form>
 	);

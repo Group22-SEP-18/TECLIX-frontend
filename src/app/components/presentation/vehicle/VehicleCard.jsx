@@ -17,37 +17,18 @@ import {
 import { MdBuild } from 'react-icons/md';
 import { VStack, StackDivider } from '@chakra-ui/react';
 import { Wrap } from '@chakra-ui/react';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Stat, StatLabel, StatNumber, StatHelpText } from '@chakra-ui/react';
 import VehicleProducts from './VehicleProducts';
 import VehicleSalesperson from './VehicleSalesperson';
 import VehicleAssignForm from './VehicleAssignForm';
-import { fetchVehicleAssignData } from '../../../redux/actions/vehicleActions';
 
 function VehicleCard(props) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
-
-	const dispatch = useDispatch();
-
-	useEffect(() => {
-		dispatch(fetchVehicleAssignData(props.id));
-	}, [dispatch]);
-	const { vehiclesAssignments, isLoading, error } = useSelector(
-		(state) => state.vehiclesAssignments
-	);
 
 	const array = props.assigned_products.map((p) => ({
 		id: p.product.id,
 		quantity: p.quantity,
 	}));
-
-	const updateDetails = (ProductDetails) => {
-		// Axios.update('http://localhost:5000/xxxxxxx', {
-	};
-	const deleteItem = (id) => {
-		// Axios.delete('http://localhost:5000/xxxxx', {
-	};
 
 	return (
 		<Flex p={25} w='full' alignItems='center' justifyContent='center'>
@@ -68,7 +49,9 @@ function VehicleCard(props) {
 
 				<Box p='2' maxHeight='40'>
 					<Stat>
-						<StatLabel>{props.vehicle_model}</StatLabel>
+						<StatLabel>
+							{props.vehicle_model} {props.vehicle_number}
+						</StatLabel>
 						<StatNumber>{props.vehicle_type}</StatNumber>
 						<StatHelpText>ID: {props.id}</StatHelpText>
 					</Stat>
@@ -83,7 +66,7 @@ function VehicleCard(props) {
 						<Wrap pt='3' pl='1'>
 							{props.assigned_products.map((product, index) => (
 								<VehicleProducts
-									key={index}
+									key={product.id}
 									product_imageURL={product.product.product_image}
 									product_shortname={product.product.short_name}
 									product_quantity={product.quantity}
@@ -95,7 +78,7 @@ function VehicleCard(props) {
 						<Wrap>
 							{props.salesperson.map((salesperson, index) => (
 								<VehicleSalesperson
-									key={index}
+									key={salesperson.id}
 									image_url={salesperson.profile_picture}
 									first_name={salesperson.first_name}
 									last_name={salesperson.last_name}
@@ -133,7 +116,6 @@ function VehicleCard(props) {
 										array={array}
 										vehicleid={props.id}
 										assignedsalesprson={props.salesperson}
-										updateDetails={updateDetails}
 										trigger={onClose}
 									/>
 								</ModalBody>
