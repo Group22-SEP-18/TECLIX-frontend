@@ -4,12 +4,14 @@ import reducer, {
 	getSalesPerProductAsync,
 	getSalesPerMonthAsync,
 	getPayOrLaterAsync,
+	getSalesBySalespersonAsync,
 	salesPerProductAddToAdded,
 	salesPerProductRemoveFromAdded,
 } from '../../../../app/redux/slices/reportSlice';
 import { data as salesperproduct } from '.../../../requests/salesperproduct.json';
 import { data as totalsales } from '.../../../requests/totalsales.json';
 import { data as payOrLater } from '.../../../requests/payOrLater.json';
+import { data as salesBySalesperson } from '.../../../requests/sales-salesperson.json';
 import { monthList } from '../../../../app/utils';
 
 const initialState = {
@@ -247,6 +249,64 @@ describe('reportSlice', () => {
 				await store.dispatch(getPayOrLaterAsync());
 				expect(getSpy).toBeCalledWith(
 					'https://run.mocky.io/v3/0a6f5008-15e1-4bf7-92a0-0347072881d0',
+					{ headers: { Authorization: 'Token null' } }
+				);
+			});
+		});
+	});
+	describe('salesBySalesperson', () => {
+		describe('extra reducers', () => {
+			it('1) getSalesBySalespersonAsync.pending', () => {
+				const nextState = reducer(
+					initialState,
+					getSalesBySalespersonAsync.pending()
+				);
+				expect(nextState.salesBySalesperson.chartValues).toBe(
+					initialState.salesBySalesperson.chartValues
+				);
+				expect(nextState.salesBySalesperson.isLoading).toBe(true);
+			});
+
+			it('2) getSalesBySalespersonAsync.fulfilled', () => {
+				const mockAsyncPayload = salesBySalesperson;
+				const nextState = reducer(
+					initialState,
+					getSalesBySalespersonAsync.fulfilled(mockAsyncPayload)
+				);
+				expect(nextState.salesBySalesperson.isLoading).toBe(false);
+				expect(nextState.salesBySalesperson.chartValues).toStrictEqual(
+					mockAsyncPayload
+				);
+			});
+
+			it('3) getSalesBySalespersonAsync.rejected', () => {
+				const nextState = reducer(
+					initialState,
+					getSalesBySalespersonAsync.rejected()
+				);
+				expect(nextState.salesBySalesperson.isLoading).toBe(false);
+				expect(nextState.salesBySalesperson.error).toBe(
+					'Error while accessing data'
+				);
+			});
+		});
+		describe('getSalesBySalespersonAsync', () => {
+			it('1) should call correct end point', async () => {
+				const store = configureStore({
+					reducer: (state = '', action) => {
+						switch (action.type) {
+							case 'report/getSalesBySalespersonAsync/fulfilled':
+								return action.payload;
+							default:
+								return state;
+						}
+					},
+				});
+				const getSpy = jest.spyOn(axios, 'get');
+
+				await store.dispatch(getSalesBySalespersonAsync());
+				expect(getSpy).toBeCalledWith(
+					'https://run.mocky.io/v3/b37460a4-4650-415f-93a2-bbf36f97f2dd',
 					{ headers: { Authorization: 'Token null' } }
 				);
 			});
