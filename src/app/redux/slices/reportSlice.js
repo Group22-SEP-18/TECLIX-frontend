@@ -95,30 +95,6 @@ export const reportSlice = createSlice({
 				(v) => v !== payload
 			);
 		},
-		salesBySalespersonPending: (state) => {
-			state.salesBySalesperson.isLoading = true;
-		},
-		salesBySalespersonSuccss: (state, { payload }) => {
-			state.salesBySalesperson.isLoading = false;
-			state.salesBySalesperson.error = '';
-			state.salesBySalesperson.chartValues = payload;
-		},
-		salesBySalespersonFail: (state, { payload }) => {
-			state.salesBySalesperson.isLoading = false;
-			state.salesBySalesperson.error = payload.error;
-		},
-		progressBySalespersonPending: (state) => {
-			state.progressBySalesperson.isLoading = true;
-		},
-		progressBySalespersonSuccss: (state, { payload }) => {
-			state.progressBySalesperson.isLoading = false;
-			state.progressBySalesperson.error = '';
-			state.progressBySalesperson.chartValues = payload;
-		},
-		progressBySalespersonFail: (state, { payload }) => {
-			state.progressBySalesperson.isLoading = false;
-			state.progressBySalesperson.error = payload.error;
-		},
 	},
 	extraReducers: (builder) => {
 		builder.addCase(getSalesPerProductAsync.pending, (state) => {
