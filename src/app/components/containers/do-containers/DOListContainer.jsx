@@ -19,25 +19,25 @@ import {
 } from '@chakra-ui/react';
 import { useSelector, useDispatch } from 'react-redux';
 import SearchBar from '../../common/SearchBar';
-import { getDistributionOfficers } from '../../../redux/actions/doActions';
+import { getDistributionOfficersAsync } from '../../../redux/slices/distributionOfficersSlice';
 import DOCard from '../../presentation/distribution-officer/DOCard';
 import LoadingCards from '../../common/loading/LoadingCards';
 import ErrorOverlay from '../../common/error-overlays/ErrorOverlay';
 import {
-	filteredDistributionOfficers,
+	selectFilteredDistributionOfficers,
+	selectDistributionOfficers,
 	setListViewFilter,
 } from '../../../redux/slices/distributionOfficersSlice';
+import { selectUserRole } from '../../../redux/slices/userSlice';
 
 const DOListContainer = (props) => {
 	const dispatch = useDispatch();
 	const { isOpen, onToggle } = useDisclosure();
-	const { isLoading, error } = useSelector(
-		(state) => state.distributionOfficers
-	);
-	const user_role = useSelector((state) => state.user.user.user_role);
-	const distributionOfficers = useSelector(filteredDistributionOfficers);
+	const { isLoading, error } = useSelector(selectDistributionOfficers);
+	const user_role = useSelector(selectUserRole);
+	const distributionOfficers = useSelector(selectFilteredDistributionOfficers);
 	useEffect(() => {
-		dispatch(getDistributionOfficers());
+		dispatch(getDistributionOfficersAsync());
 	}, [dispatch]);
 	const onChange = (word) => {
 		dispatch(setListViewFilter({ filter: word }));

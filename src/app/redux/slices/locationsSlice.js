@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { fetchLocations } from '../../../api/salespersonApi';
 
 const initialState = {
 	isLoading: false,
@@ -14,14 +15,9 @@ const initialState = {
 export const getLocationsAsync = createAsyncThunk(
 	'locations/getLocationsAsync',
 	async () => {
-		const resp = await fetch(
-			'https://run.mocky.io/v3/ed1ce291-8127-429b-a0e0-a78de5f423de'
-		);
-		if (resp.ok) {
-			const response = await resp.json();
-			const locations = response.data;
-			return { locations: locations };
-		}
+		const response = await fetchLocations();
+		const locations = response;
+		return locations;
 	}
 );
 
@@ -29,18 +25,6 @@ export const locationSlice = createSlice({
 	name: 'locations',
 	initialState,
 	reducers: {
-		locationsPending: (state) => {
-			state.isLoading = true;
-		},
-		locationsSuccess: (state, { payload }) => {
-			state.isLoading = false;
-			state.error = '';
-			state.locations = payload;
-		},
-		locationsFail: (state) => {
-			state.isLoading = false;
-			state.error = 'Error while accessing salesperson locations';
-		},
 		setFromFilter: (state, { payload }) => {
 			state.filters.from = payload;
 		},
@@ -51,21 +35,26 @@ export const locationSlice = createSlice({
 			state.filters.salesperson_id = payload;
 		},
 	},
-	extraReducers: {
-		[getLocationsAsync.fulfilled]: (state, action) => {
-			return action.payload.locations;
-		},
+	extraReducers: (builder) => {
+		builder.addCase(getLocationsAsync.pending, (state) => {
+			state.isLoading = true;
+		});
+		builder.addCase(getLocationsAsync.fulfilled, (state, { payload }) => {
+			state.isLoading = false;
+			state.locations = payload;
+			state.error = '';
+			state.filters.to = '';
+			state.filters.from = '';
+		});
+		builder.addCase(getLocationsAsync.rejected, (state) => {
+			state.isLoading = false;
+			state.error = 'Error while accessing salesperson locations';
+		});
 	},
 });
 
-export const {
-	locationsPending,
-	locationsSuccess,
-	locationsFail,
-	setFromFilter,
-	setToFilter,
-	setSPFilter,
-} = locationSlice.actions;
+export const { setFromFilter, setToFilter, setSPFilter } =
+	locationSlice.actions;
 
 export const selectAllLocations = (state) => state.locations;
 

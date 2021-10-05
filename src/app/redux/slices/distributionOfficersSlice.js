@@ -1,4 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { fetchDistributionOfficers } from '../../../api/staffApi';
 
 const initialState = {
 	isLoading: false,
@@ -19,22 +20,19 @@ const initialState = {
 	listViewFilter: '',
 };
 
+export const getDistributionOfficersAsync = createAsyncThunk(
+	'distributionOfficers/getDistributionOfficersAsync',
+	async () => {
+		const response = await fetchDistributionOfficers();
+		const customers = response;
+		return customers;
+	}
+);
+
 export const distributionOfficersSlice = createSlice({
 	name: 'distributionOfficers',
 	initialState: initialState,
 	reducers: {
-		distributionOfficersPending: (state) => {
-			state.isLoading = true;
-		},
-		distributionOfficersSuccess: (state, { payload }) => {
-			state.isLoading = false;
-			state.error = '';
-			state.distributionOfficers = payload;
-		},
-		distributionOfficersFail: (state) => {
-			state.isLoading = false;
-			state.error = 'Error while accessing distribution officers informations';
-		},
 		approvePending: (state, { payload }) => {
 			state.approve.isLoading = true;
 			state.approve.id = payload.id;
@@ -77,12 +75,26 @@ export const distributionOfficersSlice = createSlice({
 			state.listViewFilter = payload.filter;
 		},
 	},
+	extraReducers: (builder) => {
+		builder.addCase(getDistributionOfficersAsync.pending, (state) => {
+			state.isLoading = true;
+		});
+		builder.addCase(
+			getDistributionOfficersAsync.fulfilled,
+			(state, { payload }) => {
+				state.isLoading = false;
+				state.distributionOfficers = payload;
+				state.error = '';
+			}
+		);
+		builder.addCase(getDistributionOfficersAsync.rejected, (state) => {
+			state.isLoading = false;
+			state.error = 'Error while accessing distribution officers informations';
+		});
+	},
 });
 
 export const {
-	distributionOfficersPending,
-	distributionOfficersFail,
-	distributionOfficersSuccess,
 	approvePending,
 	approveFail,
 	approveSuccess,
@@ -92,7 +104,7 @@ export const {
 	setListViewFilter,
 } = distributionOfficersSlice.actions;
 
-export const filteredDistributionOfficers = (state) => {
+export const selectFilteredDistributionOfficers = (state) => {
 	const all = state.distributionOfficers.distributionOfficers;
 	const filterId = state.distributionOfficers.listViewFilter;
 	if (filterId === null) {
@@ -106,5 +118,7 @@ export const filteredDistributionOfficers = (state) => {
 		);
 	}
 };
+
+export const selectDistributionOfficers = (state) => state.distributionOfficers;
 
 export default distributionOfficersSlice.reducer;

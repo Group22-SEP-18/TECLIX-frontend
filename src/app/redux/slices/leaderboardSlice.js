@@ -1,4 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { fetchLeaderboard } from '../../../api/salespersonApi';
+import { reverseSortArrayOfObjectsByFloat } from '../../utils';
 
 const initialState = {
 	isLoading: false,
@@ -9,56 +11,51 @@ const initialState = {
 	error: '',
 };
 
+export const getLeaderboardAsync = createAsyncThunk(
+	'leaderboard/getLeaderboardAsync',
+	async () => {
+		const response = await fetchLeaderboard();
+		const leaderboard = response;
+		return leaderboard;
+	}
+);
+
 export const leaderboradSlice = createSlice({
 	name: 'leaderboard',
 	initialState: initialState,
-	reducers: {
-		leaderboradPending: (state) => {
+	reducers: {},
+	extraReducers: (builder) => {
+		builder.addCase(getLeaderboardAsync.pending, (state) => {
 			state.isLoading = true;
-		},
-		leaderboradSuccess: (state, { payload }) => {
+		});
+		builder.addCase(getLeaderboardAsync.fulfilled, (state, { payload }) => {
 			state.isLoading = false;
-			state.error = '';
 			state.leaderboard = payload;
-		},
-		leaderboradFail: (state) => {
+			state.alltimeLeaderboard = reverseSortArrayOfObjectsByFloat(
+				payload,
+				'points_all_time'
+			);
+			state.monthLeaderboard = reverseSortArrayOfObjectsByFloat(
+				payload,
+				'points_current_month'
+			);
+			state.todayLeaderboard = reverseSortArrayOfObjectsByFloat(
+				payload,
+				'points_today'
+			);
+			state.error = '';
+		});
+		builder.addCase(getLeaderboardAsync.rejected, (state) => {
 			state.isLoading = false;
 			state.error = 'Error while accessing salesperson leaderboard';
-		},
-		getTodayLeaderboard: (state) => {
-			state.todayLeaderboard = state.leaderboard
-				.slice()
-				.sort((a, b) => parseFloat(a.points_today) - parseFloat(b.points_today))
-				.reverse();
-		},
-		getMonthlyLeaderboard: (state) => {
-			state.monthLeaderboard = state.leaderboard
-				.slice()
-				.sort(
-					(a, b) =>
-						parseFloat(a.points_current_month) -
-						parseFloat(b.points_current_month)
-				)
-				.reverse();
-		},
-		getAllTimeLeaderboard: (state) => {
-			state.alltimeLeaderboard = state.leaderboard
-				.slice()
-				.sort(
-					(a, b) =>
-						parseFloat(a.points_all_time) - parseFloat(b.points_all_time)
-				)
-				.reverse();
-		},
+		});
 	},
 });
 
-export const {
-	leaderboradPending,
-	leaderboradFail,
-	leaderboradSuccess,
-	getTodayLeaderboard,
-	getMonthlyLeaderboard,
-	getAllTimeLeaderboard,
-} = leaderboradSlice.actions;
+export const selectLeaderboard = (state) => ({
+	todayLeaderboard: state.leaderboard.todayLeaderboard,
+	monthLeaderboard: state.leaderboard.monthLeaderboard,
+	alltimeLeaderboard: state.leaderboard.alltimeLeaderboard,
+});
+
 export default leaderboradSlice.reducer;

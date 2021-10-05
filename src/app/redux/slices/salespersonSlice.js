@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { fetchSalespersons } from '../../../api/salespersonApi';
 
 const initialState = {
 	isLoading: false,
@@ -22,14 +23,9 @@ const initialState = {
 export const getSalespersonsAsync = createAsyncThunk(
 	'salespersons/getSalespersonsAsync',
 	async () => {
-		const resp = await fetch(
-			'https://run.mocky.io/v3/5e62ad6b-2f4e-4ec8-9073-280b63cb8798'
-		);
-		if (resp.ok) {
-			const response = await resp.json();
-			const salespersons = response.data;
-			return { salespersons: salespersons };
-		}
+		const response = await fetchSalespersons();
+		const salespersons = response;
+		return salespersons;
 	}
 );
 
@@ -37,18 +33,6 @@ export const salespersonSlice = createSlice({
 	name: 'salespersons',
 	initialState: initialState,
 	reducers: {
-		salespersonPending: (state) => {
-			state.isLoading = true;
-		},
-		salespersonSuccess: (state, { payload }) => {
-			state.isLoading = false;
-			state.error = '';
-			state.salespersons = payload;
-		},
-		salespersonFail: (state) => {
-			state.isLoading = false;
-			state.error = 'Error while accessing salesperson informations';
-		},
 		approvePending: (state, { payload }) => {
 			state.approve.isLoading = true;
 			state.approve.id = payload.id;
@@ -91,17 +75,23 @@ export const salespersonSlice = createSlice({
 			state.listViewFilter = payload.filter;
 		},
 	},
-	extraReducers: {
-		[getSalespersonsAsync.fulfilled]: (state, action) => {
-			return action.payload.salespersons;
-		},
+	extraReducers: (builder) => {
+		builder.addCase(getSalespersonsAsync.pending, (state) => {
+			state.isLoading = true;
+		});
+		builder.addCase(getSalespersonsAsync.fulfilled, (state, { payload }) => {
+			state.isLoading = false;
+			state.salespersons = payload;
+			state.error = '';
+		});
+		builder.addCase(getSalespersonsAsync.rejected, (state) => {
+			state.isLoading = false;
+			state.error = 'Error while accessing salesperson informations';
+		});
 	},
 });
 
 export const {
-	salespersonPending,
-	salespersonFail,
-	salespersonSuccess,
 	approvePending,
 	approveFail,
 	approveSuccess,
@@ -116,7 +106,7 @@ export const selectAllSalespersons = (state) => state.salespersons;
 export const selectApprovedSalespersons = (state) =>
 	state.salespersons.filter((sp) => sp.is_approved !== false);
 
-export const filteredSalespersons = (state) => {
+export const selectFilteredSalespersons = (state) => {
 	const all = state.salespersons.salespersons;
 	const filterId = state.salespersons.listViewFilter;
 	if (filterId === null) {

@@ -21,22 +21,24 @@ import {
 } from '@chakra-ui/react';
 import SearchBar from '../../common/SearchBar';
 import SalesPersonCard from '../../presentation/salesperson/SalesPersonCard';
-import { getSalespersons } from '../../../redux/actions/salespersonActions';
 import LoadingCards from '../../common/loading/LoadingCards';
 import ErrorOverlay from '../../common/error-overlays/ErrorOverlay';
 import {
-	filteredSalespersons,
+	selectAllSalespersons,
+	selectFilteredSalespersons,
 	setListViewFilter,
+	getSalespersonsAsync,
 } from '../../../redux/slices/salespersonSlice';
+import { selectUserRole } from '../../../redux/slices/userSlice';
 
 const SalesPersonsContainer = ({ onCardClick }) => {
 	const { isOpen, onToggle } = useDisclosure();
 	const dispatch = useDispatch();
-	const { isLoading, error } = useSelector((state) => state.salespersons);
-	const user_role = useSelector((state) => state.user.user.user_role);
-	const salespersons = useSelector(filteredSalespersons);
+	const { isLoading, error } = useSelector(selectAllSalespersons);
+	const user_role = useSelector(selectUserRole);
+	const salespersons = useSelector(selectFilteredSalespersons);
 	useEffect(() => {
-		dispatch(getSalespersons());
+		dispatch(getSalespersonsAsync());
 	}, [dispatch]);
 	const onChange = (word) => {
 		dispatch(setListViewFilter({ filter: word }));

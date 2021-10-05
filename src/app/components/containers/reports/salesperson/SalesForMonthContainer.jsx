@@ -1,7 +1,10 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Box } from '@chakra-ui/react';
-import { fetchSalesBySalepersonData } from '../../../../redux/actions/reportActions';
+import {
+	getSalesBySalespersonAsync,
+	selectSalesBySalesperson,
+} from '../../../../redux/slices/reportSlice';
 import RechartChart from '../../../common/charts/RechartChart';
 import LoadingCards from '../../../common/loading/LoadingCards';
 import ErrorOverlay from '../../../common/error-overlays/ErrorOverlay';
@@ -9,10 +12,10 @@ import ErrorOverlay from '../../../common/error-overlays/ErrorOverlay';
 const SalesForMonthContainer = (props) => {
 	const dispatch = useDispatch();
 	useEffect(() => {
-		dispatch(fetchSalesBySalepersonData());
+		dispatch(getSalesBySalespersonAsync());
 	}, [dispatch]);
 	const { isLoading, chartValues, error } = useSelector(
-		(state) => state.report.salesBySalesperson
+		selectSalesBySalesperson
 	);
 	if (isLoading) {
 		return <LoadingCards count={3} />;

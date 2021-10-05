@@ -26,7 +26,7 @@ import {
 	loginSuccess,
 	loginFail,
 } from '../../../redux/slices/loginSlice';
-import { setUser } from '../../../redux/slices/userSlice';
+import { getUserSuccess } from '../../../redux/slices/userSlice';
 import { userLogin } from '../../../../api/userApi';
 
 const LoginPage = (props) => {
@@ -80,7 +80,7 @@ const LoginPage = (props) => {
 								}
 
 								dispatch(loginSuccess(isAuth));
-								dispatch(setUser(isAuth));
+								dispatch(getUserSuccess(isAuth));
 								history.push('/');
 							} catch (error) {
 								const errmsg =

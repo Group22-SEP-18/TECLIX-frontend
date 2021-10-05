@@ -17,3 +17,18 @@ export const getDateTime = (timestamp) => {
 	dateTime.time = time;
 	return dateTime;
 };
+
+export const monthList = [
+	'Jan',
+	'Feb',
+	'Mar',
+	'Apr',
+	'May',
+	'Jun',
+	'Jul',
+	'Aug',
+	'Sept',
+	'Oct',
+	'Nov',
+	'Dec',
+];
