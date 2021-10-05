@@ -19,20 +19,20 @@ import {
 	Button,
 	Modal,
 	ModalBody,
+	Heading,
 	ModalContent,
 	ModalOverlay,
 	ModalCloseButton,
 	ModalHeader,
 } from '@chakra-ui/react';
 import SideBar from '../../common/sidebar/SideBar';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ProductCard from '../../presentation/product/ProductCard';
 import AddNewProduct from '../../presentation/product/addProductForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProductData } from '../../../redux/actions/productActions';
 
 const ProductPage = () => {
-	const { isOpen, onOpen, onClose } = useDisclosure();
 	const {
 		isOpen: isOpenReportModal,
 		onOpen: onOpenReportModal,
@@ -43,68 +43,10 @@ const ProductPage = () => {
 	useEffect(() => {
 		dispatch(fetchProductData());
 	}, [dispatch]);
-	const { products, isLoading, error } = useSelector((state) => state.products);
+
+	const { products } = useSelector((state) => state.products);
 
 	const categoryList = ['Biscuit', 'Chocolate', 'Spices', 'Drinks'];
-
-	const data = [
-		{
-			category: 'Biscuit',
-			imageURL: '/1234.jpg',
-			name: 'Wayfarer Classic Biscuit Cut',
-			price: 300,
-			productId: '1',
-		},
-		{
-			category: 'Chocolate',
-			imageURL: '/1234.jpg',
-			name: 'Wayfarer Classic Biscuit Cut',
-			price: 250,
-			productId: '2',
-		},
-		{
-			category: 'Spices',
-			imageURL: '/1234.jpg',
-			name: 'Wayfarer Classic Biscuit Cut',
-			price: 600,
-			productId: '3',
-		},
-		{
-			category: 'Drinks',
-			imageURL: '/1234.jpg',
-			name: 'Wayfarer Classic Biscuit Cut',
-			price: 450,
-			productId: '4',
-		},
-		{
-			category: 'Biscuit',
-			imageURL: '/1234.jpg',
-			name: 'Wayfarer Classic Biscuit Cut',
-			price: 300,
-			productId: '5',
-		},
-		{
-			category: 'Chocolate',
-			imageURL: '/1234.jpg',
-			name: 'Wayfarer Classic Biscuit Cut',
-			price: 250,
-			productId: '6',
-		},
-		{
-			category: 'Spices',
-			imageURL: '/1234.jpg',
-			name: 'Wayfarer Classic Biscuit Cut',
-			price: 600,
-			productId: '7',
-		},
-		{
-			category: 'Drinks',
-			imageURL: '/1234.jpg',
-			name: 'Wayfarer Classic Biscuit Cut',
-			price: 450,
-			productId: '8',
-		},
-	];
 
 	return (
 		<Box minH='100vh'>
@@ -120,11 +62,13 @@ const ProductPage = () => {
 						isOpen={isOpenReportModal}
 						motionPreset='scale'
 						isCentered
-						size='xl'
+						size='md'
 					>
 						<ModalOverlay />
 						<ModalContent>
-							<ModalHeader>Register a new product</ModalHeader>
+							<ModalHeader>
+								{/* <Heading>Add a New Product</Heading> */}
+							</ModalHeader>
 							<ModalCloseButton />
 							<ModalBody pb='5'>
 								<AddNewProduct trigger={onCloseReportModal} />
@@ -139,7 +83,7 @@ const ProductPage = () => {
 					{products.map((product, index) => (
 						<GridItem>
 							<ProductCard
-								key={index}
+								key={product.id}
 								categoryList={categoryList}
 								product={product}
 							/>

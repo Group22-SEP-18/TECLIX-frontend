@@ -133,11 +133,13 @@ const RegisterPage = (props) => {
 							<AlertDescription>{message}</AlertDescription>
 						</Alert>
 					)}
-					<Image
-						borderRadius='full'
-						boxSize='150px'
-						src={preview || './avatars/defaul.png'}
-					/>
+					<Flex align='center' justify='center'>
+						<Image
+							borderRadius='full'
+							boxSize='150px'
+							src={preview || './avatars/defaul.png'}
+						/>
+					</Flex>
 				</Box>
 
 				<Box my={8} textAlign='center'>
