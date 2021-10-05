@@ -800,7 +800,7 @@ const mockedData = [
 		discount: '0.00',
 	},
 ];
-describe('customerSlice', () => {
+describe('serviceOrderSlice', () => {
 	describe('reducers', () => {
 		it('1) returns the initial state', () => {
 			expect(reducer(undefined, {})).toEqual(initialState);
