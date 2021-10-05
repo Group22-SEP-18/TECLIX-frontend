@@ -9,14 +9,13 @@ import {
 	Legend,
 	ResponsiveContainer,
 } from 'recharts';
-import colors from '../colors';
+import { colors } from '../../../utils';
 
 const RechartChart = ({ data, XAxisDataKey, barDataKeys }) => {
 	var maxi = 0;
 	for (let index = 0; index < barDataKeys.length; index++) {
 		maxi = Math.max(...data.map((d) => d[barDataKeys[index]]), maxi);
 	}
-	console.log(maxi);
 	return (
 		<ResponsiveContainer width='100%' height='100%'>
 			<BarChart

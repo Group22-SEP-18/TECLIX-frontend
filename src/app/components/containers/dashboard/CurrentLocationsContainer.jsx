@@ -10,19 +10,21 @@
  */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCurrentLocationData } from '../../../redux/actions/currentLocationsActions';
+import {
+	fetchCurrentLocationsAsync,
+	selectAllCurrentLocations,
+} from '../../../redux/slices/currentLocationsSlice';
 import MapWithHeader from '../../common/map/MapWithHeader';
 import LoadingSkelton from '../../common/loading/LoadingSkelton';
 import ErrorOverlay from '../../common/error-overlays/ErrorOverlay';
 
 const CurrentLocationsContainer = (props) => {
 	const dispatch = useDispatch();
-
 	useEffect(() => {
-		dispatch(fetchCurrentLocationData());
+		dispatch(fetchCurrentLocationsAsync());
 	}, [dispatch]);
 	const { currentLocations, isLoading, error } = useSelector(
-		(state) => state.currentLocations
+		selectAllCurrentLocations
 	);
 	if (isLoading) return <LoadingSkelton />;
 	if (error) return <ErrorOverlay error={error} />;

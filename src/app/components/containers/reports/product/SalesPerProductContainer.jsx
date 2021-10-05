@@ -11,11 +11,11 @@ import {
 	TagCloseButton,
 	TagLabel,
 } from '@chakra-ui/react';
-import { fetchSalesPerProductData } from '../../../../redux/actions/reportActions';
 import SimpleChart from '../../../common/charts/SimpleChart';
 import LoadingCards from '../../../common/loading/LoadingCards';
 import ErrorOverlay from '../../../common/error-overlays/ErrorOverlay';
 import {
+	getSalesPerProductAsync,
 	getAvailablesForSalesPerProduct,
 	getChartValuesForSalesPerProduct,
 	salesPerProductAddToAdded,
@@ -25,7 +25,7 @@ import {
 const SalesPerProductContainer = (props) => {
 	const dispatch = useDispatch();
 	useEffect(() => {
-		dispatch(fetchSalesPerProductData());
+		dispatch(getSalesPerProductAsync());
 	}, [dispatch]);
 	const { isLoading, chartColumns, error } = useSelector(
 		(state) => state.report.salesPerProduct

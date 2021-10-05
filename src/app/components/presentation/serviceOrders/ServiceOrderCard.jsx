@@ -30,7 +30,6 @@ import {
 import { getDateTime } from '../../../utils';
 
 const ServiceOrderCard = ({ serviceOrder, showCustomer, showSP }) => {
-	console.log(serviceOrder);
 	const datetime = getDateTime(serviceOrder.order_date);
 	return (
 		<div>

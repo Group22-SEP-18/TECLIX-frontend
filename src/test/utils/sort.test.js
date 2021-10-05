@@ -45,7 +45,7 @@ describe('sort.js', () => {
 			const sortedData = sortArrayOfObjects(data);
 			expect(sortedData).to.equal(data);
 		});
-		it('2) should return a aray sorted by specified field.', () => {
+		it('2) should return a array sorted by specified field.', () => {
 			const sortedData = sortArrayOfObjects(data, 'name');
 			assert.deepStrictEqual(sortedData, sortedById);
 		});

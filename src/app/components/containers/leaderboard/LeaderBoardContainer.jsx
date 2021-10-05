@@ -16,15 +16,19 @@ import {
 } from '@chakra-ui/react';
 import First3 from '../../presentation/leaderboard/First3';
 import HorPositions from '../../presentation/leaderboard/HorPositions';
-import { getLeaderboardPoints } from '../../../redux/actions/salespersonActions';
+import {
+	getLeaderboardAsync,
+	selectLeaderboard,
+} from '../../../redux/slices/leaderboardSlice';
 import LeaderboardSchema from './LeaderboardSchema';
+import { selectUserRole } from '../../../redux/slices/userSlice';
 
 const LeaderBoardContainer = ({ withSchema }) => {
 	const dispatch = useDispatch();
-	const user_role = useSelector((state) => state.user.user.user_role);
+	const user_role = useSelector(selectUserRole);
 	const [timeConstraint, setTimeConstraint] = useState('today');
 	const { todayLeaderboard, monthLeaderboard, alltimeLeaderboard } =
-		useSelector((state) => state.leaderboard);
+		useSelector(selectLeaderboard);
 	const salespersons =
 		timeConstraint === 'today'
 			? todayLeaderboard
@@ -32,7 +36,7 @@ const LeaderBoardContainer = ({ withSchema }) => {
 			? monthLeaderboard
 			: alltimeLeaderboard;
 	useEffect(() => {
-		dispatch(getLeaderboardPoints());
+		dispatch(getLeaderboardAsync());
 	}, [dispatch]);
 
 	return (
