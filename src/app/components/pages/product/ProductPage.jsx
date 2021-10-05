@@ -19,14 +19,13 @@ import {
 	Button,
 	Modal,
 	ModalBody,
-	Heading,
 	ModalContent,
 	ModalOverlay,
 	ModalCloseButton,
 	ModalHeader,
 } from '@chakra-ui/react';
 import SideBar from '../../common/sidebar/SideBar';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import ProductCard from '../../presentation/product/ProductCard';
 import AddNewProduct from '../../presentation/product/addProductForm';
 import { useDispatch, useSelector } from 'react-redux';
@@ -45,8 +44,6 @@ const ProductPage = () => {
 	}, [dispatch]);
 
 	const { products } = useSelector((state) => state.products);
-
-	const categoryList = ['Biscuit', 'Chocolate', 'Spices', 'Drinks'];
 
 	return (
 		<Box minH='100vh'>
@@ -82,11 +79,7 @@ const ProductPage = () => {
 				>
 					{products.map((product, index) => (
 						<GridItem>
-							<ProductCard
-								key={product.id}
-								categoryList={categoryList}
-								product={product}
-							/>
+							<ProductCard key={index} product={product} />
 						</GridItem>
 					))}
 				</Grid>

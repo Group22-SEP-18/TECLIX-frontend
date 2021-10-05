@@ -31,11 +31,11 @@ export const fetchVehicleData = () => async (dispatch) => {
 	}
 };
 
-export const fetchVehicleAssignData = (id) => async (dispatch) => {
+export const fetchVehicleAssignData = () => async (dispatch) => {
 	try {
 		dispatch(vehiclesAssignmentsPending());
 
-		const result = await fetchVehicleAssignments(id);
+		const result = await fetchVehicleAssignments();
 		if (result.length) return dispatch(vehiclesAssignmentsSuccess(result));
 
 		dispatch(vehiclesAssignmentsFail('No vehicle assign data'));

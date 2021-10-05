@@ -1,13 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Button } from '@chakra-ui/react';
 import { FormControl, FormLabel, Select, HStack, Box } from '@chakra-ui/react';
 import { WrapItem } from '@chakra-ui/react';
 import { Avatar } from '@chakra-ui/react';
 import { Tag, TagLabel, TagCloseButton } from '@chakra-ui/react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchProductData } from '../../../redux/actions/productActions';
 import { assignToVehicle } from '../../../redux/actions/vehicleActions';
-import { getSalespersons } from '../../../redux/actions/salespersonActions';
 import {
 	NumberInput,
 	NumberInputField,
@@ -22,25 +19,17 @@ const ProductEditForm = ({
 	trigger,
 	array,
 	vehicleid,
+	unassignedSalespersons,
 	assignedsalesprson,
+	assignedsalesprsonEmpNo,
+	assignedsalesprsonFirstName,
+	assignedsalesprsonLastName,
+	products,
 }) => {
-	const dispatch = useDispatch();
-
-	useEffect(() => {
-		console.log('a');
-		dispatch(fetchProductData());
-	}, [dispatch]);
-	useEffect(() => {
-		dispatch(getSalespersons());
-	}, [dispatch]);
-
-	const { products } = useSelector((state) => state.products);
-	const { salespersons } = useSelector((state) => state.salespersons);
-
 	const [productQuantity, updateproductQuantity] = React.useState(array);
 	const [product_id, setproduct_id] = React.useState();
 	const [quantity, setproduct_quantity] = React.useState(10);
-	const [salesperson, setsalesperson] = React.useState(assignedsalesprson.id);
+	const [salesperson, setsalesperson] = React.useState(assignedsalesprson);
 
 	const updateItem = (id, value) => {
 		var index = productQuantity.findIndex((x) => x.id === id);
@@ -81,7 +70,7 @@ const ProductEditForm = ({
 			vehicle: vehicleid,
 			salesperson: salesperson,
 		};
-		dispatch(assignToVehicle(vehiclecomplex));
+		// dispatch(assignToVehicle(vehiclecomplex));
 	};
 
 	return (
@@ -143,13 +132,21 @@ const ProductEditForm = ({
 									{product.quantity}x
 								</TagLabel>
 								<Avatar
-									src={products[product.id - 7].product_image}
+									src={
+										products[products.findIndex((x) => x.id === product.id)]
+											.product_image
+									}
 									size='xs'
 									name='Segun Adebayo'
 									ml={-1}
 									mr={2}
 								/>
-								<TagLabel>{products[product.id - 7].short_name}</TagLabel>
+								<TagLabel>
+									{
+										products[products.findIndex((x) => x.id === product.id)]
+											.short_name
+									}
+								</TagLabel>
 								<TagCloseButton onClick={() => removeProduct(product.id)} />
 							</Tag>
 						</WrapItem>
@@ -161,9 +158,13 @@ const ProductEditForm = ({
 				<Select
 					placeholder='Select'
 					onChange={(e) => setsalesperson(e.target.value)}
-					defaultValue={assignedsalesprson.id}
+					defaultValue={assignedsalesprson}
 				>
-					{salespersons.map((salesperson, i) => (
+					<option value={assignedsalesprson}>
+						{assignedsalesprsonEmpNo} | {assignedsalesprsonFirstName}{' '}
+						{assignedsalesprsonLastName}
+					</option>
+					{unassignedSalespersons.map((salesperson, i) => (
 						<option key={i} value={salesperson.id}>
 							{salesperson.employee_no} | {salesperson.first_name}{' '}
 							{salesperson.last_name}

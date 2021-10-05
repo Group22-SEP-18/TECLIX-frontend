@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 const rootUrl = 'https://teclix.herokuapp.com/asset-api/';
-const vehiclegetUrl = rootUrl + 'vehicles';
+const vehiclegetUrl = rootUrl + 'vehicles/';
 const vehicleassignUrl = rootUrl + 'vehicle/assign-items/';
-const vehicleassigngetUrl = rootUrl + 'vehicle/salesperson/all/';
+const vehicleassigngetUrl = rootUrl + 'vehicle/salesperson/all';
 
 export const fetchAllVehicles = () => {
 	return new Promise(async (resolve, reject) => {
@@ -28,7 +28,7 @@ export const fetchAllVehicles = () => {
 	});
 };
 
-export const fetchVehicleAssignments = (id) => {
+export const fetchVehicleAssignments = () => {
 	return new Promise(async (resolve, reject) => {
 		try {
 			const accessJWT = localStorage.getItem('token');
@@ -37,9 +37,9 @@ export const fetchVehicleAssignments = (id) => {
 				reject('Token not found!');
 			}
 
-			const res = await axios.post(`${vehicleassigngetUrl}${id}`, {
+			const res = await axios.get(vehicleassigngetUrl, {
 				headers: {
-					Authorization: accessJWT,
+					Authorization: `Token ${accessJWT}`,
 				},
 			});
 
