@@ -20,6 +20,7 @@ const userSlice = createSlice({
 				employee_no: payload.employee_no,
 				first_name: payload.first_name,
 				last_name: payload.last_name,
+				mobile_number: payload.mobile_number,
 				user_role:
 					payload.user_role === 'MANAGER'
 						? 'Operation Manager'
@@ -32,26 +33,10 @@ const userSlice = createSlice({
 			state.isLoading = false;
 			state.error = payload;
 		},
-		setUser: (state, { payload }) => {
-			state.isLoading = false;
-			state.user = {
-				email: payload.email,
-				employee_no: payload.employee_no,
-				first_name: payload.first_name,
-				last_name: payload.last_name,
-				mobile_number: payload.mobile_number,
-				user_role:
-					payload.user_role === 'MANAGER'
-						? 'Operation Manager'
-						: 'Distribution Officer',
-				profile_picture: payload.profile_picture,
-			};
-			state.error = '';
-		},
 	},
 });
 
-export const { getUserPending, getUserSuccess, getUserFail, setUser } =
+export const { getUserPending, getUserSuccess, getUserFail } =
 	userSlice.actions;
 
 export const selectUserRole = (state) => state.user.user.user_role;
