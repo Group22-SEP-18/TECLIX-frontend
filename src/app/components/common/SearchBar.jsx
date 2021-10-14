@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
 import { Input, InputGroup, InputRightElement } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 
-const SearchBar = ({ placeholder = '', onChange }) => {
+const SearchBar = ({ placeholder = '', onChange = {} }) => {
 	return (
 		<InputGroup borderRadius='lg'>
 			<Input
@@ -31,6 +31,7 @@ const SearchBar = ({ placeholder = '', onChange }) => {
 
 SearchBar.propTypes = {
 	placeholder: PropTypes.string,
+	onChange: PropTypes.func,
 };
 
 export default SearchBar;
