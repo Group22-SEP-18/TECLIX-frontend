@@ -4,6 +4,9 @@ import { Avatar, Box, Text, VStack } from '@chakra-ui/react';
 import { FaCrown } from 'react-icons/fa';
 
 const First3 = ({ row, position, timeConstraint = 'today' }) => {
+	if (!row || !position) {
+		return null;
+	}
 	const { salesperson, points_today, points_current_month, points_all_time } =
 		row;
 	const points =
@@ -13,7 +16,7 @@ const First3 = ({ row, position, timeConstraint = 'today' }) => {
 			? points_current_month
 			: points_all_time;
 	return (
-		<VStack shadow='lg' borderRadius='lg' p={3}>
+		<VStack id='leaderboard_first_3_div' shadow='lg' borderRadius='lg' p={3}>
 			{position !== 1 && (
 				<Box borderRadius='xl' background='green.200' mx={4}>
 					<Text as='h3' fontWeight='bold' px={1.5}>
@@ -22,12 +25,21 @@ const First3 = ({ row, position, timeConstraint = 'today' }) => {
 				</Box>
 			)}
 			{position === 1 && <FaCrown color='gold' />}
-			<Avatar src={salesperson.profile_picture} />
+			<Avatar
+				id='leaderboard_first_3_sp_profile_picture'
+				src={salesperson.profile_picture}
+			/>
 			<Box>
-				<Text align='center' noOfLines={1} fontWeight='bold' isTruncated='true'>
+				<Text
+					id='leaderboard_first_3_sp_name'
+					align='center'
+					noOfLines={1}
+					fontWeight='bold'
+					isTruncated='true'
+				>
 					{salesperson.first_name} {salesperson.last_name}
 				</Text>
-				<Text fontSize='sm' align='center'>
+				<Text id='leaderboard_first_3_sp_points' fontSize='sm' align='center'>
 					{points} points
 				</Text>
 			</Box>
