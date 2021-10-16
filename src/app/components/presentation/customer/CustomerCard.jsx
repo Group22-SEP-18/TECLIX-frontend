@@ -29,6 +29,7 @@ const CustomerCard = ({ customer, onClick }) => {
 	return (
 		<div>
 			<Box
+				id='customer-card-div'
 				borderRadius='lg'
 				boxShadow='lg'
 				m={4}
@@ -41,6 +42,7 @@ const CustomerCard = ({ customer, onClick }) => {
 			>
 				<HStack align={'center'}>
 					<Avatar
+						id='profile_picture'
 						size={'xl'}
 						src={customer.profile_picture}
 						alt={customer.shop_name}
@@ -49,6 +51,7 @@ const CustomerCard = ({ customer, onClick }) => {
 					/>
 					<Box>
 						<Heading
+							id='shop_name'
 							fontSize={'xl'}
 							fontFamily={'body'}
 							textAlign='start'
@@ -56,6 +59,7 @@ const CustomerCard = ({ customer, onClick }) => {
 						>
 							{customer.shop_name}
 							<Badge
+								id='customer_id'
 								ml='4'
 								px={4}
 								py={1}
@@ -66,6 +70,7 @@ const CustomerCard = ({ customer, onClick }) => {
 							</Badge>
 						</Heading>
 						<Text
+							id='owner_name'
 							fontWeight={500}
 							color={'gray.500'}
 							mb={4}
@@ -74,19 +79,20 @@ const CustomerCard = ({ customer, onClick }) => {
 						>
 							Owner: {customer.owner_first_name} {customer.owner_last_name}
 						</Text>
-						<Text fontWeight={500} textAlign='start' pl='4'>
+						<Text id='email' fontWeight={500} textAlign='start' pl='4'>
 							Email: {customer.email}
 						</Text>
-						<Text fontWeight={500} textAlign='start' pl='4'>
+						<Text id='contact_no' fontWeight={500} textAlign='start' pl='4'>
 							Mobile: {customer.contact_no}
 						</Text>
-						<Text fontWeight={500} mb={4} textAlign='start' pl='4'>
+						<Text id='address' fontWeight={500} mb={4} textAlign='start' pl='4'>
 							Address: {customer.street}, {customer.city}, {customer.district}
 						</Text>
 					</Box>
 					<Spacer />
 					<VStack>
 						<Badge
+							id='loyalty_points'
 							justifyContent='start'
 							px={2}
 							py={1}
