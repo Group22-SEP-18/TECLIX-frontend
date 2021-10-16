@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
-import ReactTestUtils, { act } from 'react-dom/test-utils';
+import { act } from 'react-dom/test-utils';
 import pretty from 'pretty';
 import First3 from './First3';
 
