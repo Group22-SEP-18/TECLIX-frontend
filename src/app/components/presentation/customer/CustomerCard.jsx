@@ -29,7 +29,7 @@ const CustomerCard = ({ customer, onClick }) => {
 	return (
 		<div>
 			<Box
-				id='customer-card-div'
+				id={`customer-card-div-${customer.id}`}
 				borderRadius='lg'
 				boxShadow='lg'
 				m={4}
