@@ -23,6 +23,9 @@ import {
 } from '@chakra-ui/react';
 
 const CustomerCard = ({ customer, onClick }) => {
+	if (!customer) {
+		return null;
+	}
 	return (
 		<div>
 			<Box
