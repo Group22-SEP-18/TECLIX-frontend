@@ -1,76 +1,212 @@
-import { useState } from 'react';
-import { FormControl, FormLabel, Input, Select } from '@chakra-ui/react';
+import React, { useState, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+	Input,
+	Box,
+	Button,
+	Image,
+	useToast,
+	FormControl,
+	FormLabel,
+	Select,
+	Flex,
+	FormErrorMessage,
+} from '@chakra-ui/react';
+import { ArrowForwardIcon, AttachmentIcon } from '@chakra-ui/icons';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+import { addVehicle } from '../../../redux/actions/vehicleActions';
 
-const AddVehicleForm = ({ categoryList, updateDetails, trigger }) => {
-	const [price, setPrice] = useState('');
-	const [product_id, setProductId] = useState('');
-	const [product_name, setProductName] = useState('');
-	const [category, setCategory] = useState('');
-	const onSubmit = (e) => {
-		e.preventDefault();
-
-		//console.log(category);
-
-		if (!price || !product_id || !product_name || !category) {
-			alert('Empty Field');
-			return;
-		}
-
-		updateDetails({ product_name, category, product_id, price });
-
-		setPrice('');
-		setProductId('');
-		setProductName('');
-		setCategory('');
+const AddNewVehicle = (props) => {
+	const toast = useToast();
+	var [updateConstant, setupdateConstant] = useState(0);
+	const fileInputRef = useRef();
+	const dispatch = useDispatch();
+	const [preview, setPreview] = useState();
+	const { isLoading, status, message } = useSelector(
+		(state) => state.vehicleRegistration
+	);
+	var toast_type1 = (success, message) =>
+		toast({
+			position: 'bottom-right',
+			title: success ? 'Success' : 'Failed',
+			description: message,
+			status: success ? 'success' : 'error',
+			duration: 5000,
+			isClosable: true,
+		});
+	const initialValues = {
+		vehicle_number: '',
+		vehicle_type: '',
+		vehicle_model: '',
+		vehicle_image: '/avatars/vehicle.jpg',
 	};
+	const schema = Yup.object({
+		vehicle_number: Yup.string()
+			.matches(/^[a-zA-Z0-9 -]+$/, 'Please enter valid barcode')
+			.required('Vehicle Number cannot be empty'),
+		vehicle_model: Yup.string()
+			.min(2, 'Vehicle Model must be at least 2 characters')
+			.max(30)
+			.matches(/^[a-zA-Z0-9 ]+$/, 'Please enter valid model')
+			.required('Vehicle Model cannot be empty'),
+	});
+	const buildFormData = (formData, data, parentKey) => {
+		if (
+			data &&
+			typeof data === 'object' &&
+			!(data instanceof Date) &&
+			!(data instanceof File)
+		) {
+			Object.keys(data).forEach((key) => {
+				buildFormData(
+					formData,
+					data[key],
+					parentKey ? `${parentKey}[${key}]` : key
+				);
+			});
+		} else {
+			const value = data == null ? '' : data;
+			formData.append(parentKey, value);
+		}
+	};
+	const jsonToFormData = (data) => {
+		const formData = new FormData();
+		buildFormData(formData, data);
+		return formData;
+	};
+	const onSubmit = async (values) => {
+		const frmData = jsonToFormData(values);
+		dispatch(addVehicle(frmData));
+		setupdateConstant((count) => count + 1);
+	};
+	if (updateConstant === 1 && !isLoading) {
+		toast_type1(status, message);
+		setupdateConstant((count) => count - 1);
+		props.trigger();
+	}
 
 	return (
-		<form onSubmit={onSubmit}>
-			<FormControl>
-				<FormLabel>Vehicle Model</FormLabel>
-				<Input
-					type='text'
-					placeholder='Vehicle Model'
-					value={product_name}
-					onChange={(e) => setProductName(e.target.value)}
-				/>
-			</FormControl>
-			<FormControl>
-				<FormLabel>Vehicle Type</FormLabel>
-				<Select
-					placeholder='Vehicle Type'
-					onChange={(e) => setCategory(e.target.value)}
-				>
-					<option value='VAN'>Van</option>
-					<option value='LORRY'>Lorry</option>
-					<option value='THREEWHEELER'>Three Wheelar</option>
-					<option value='CAB'>Cab</option>
-					<option value='BIKE'>Bike</option>
-					<option value='BUS'>Bus</option>
-				</Select>
-			</FormControl>
-			<FormControl>
-				<FormLabel>Photo</FormLabel>
-				<Input
-					type='file'
-					placeholder='Upload Image'
-					value={product_id}
-					onChange={(e) => setProductId(e.target.value)}
-				/>
-			</FormControl>
+		<Box>
+			<Box textAlign='center' alignContent='center'>
+				<Flex align='center' justify='center'>
+					<Image
+						borderRadius='full'
+						boxSize='150px'
+						src={preview || './avatars/vehicle.jpg'}
+					/>
+				</Flex>
+			</Box>
 
-			<Input
-				mt='5'
-				mb='5'
-				type='submit'
-				value='Add the Vehicle'
-				className='btn btn-block'
-				bg='green.400'
-				color='white'
-				onClick={trigger}
-			/>
-		</form>
+			<Box my={8} textAlign='center'>
+				<Formik
+					initialValues={initialValues}
+					validationSchema={schema}
+					onSubmit={(values) => onSubmit(values)}
+				>
+					{(props) => (
+						<Box>
+							<Box
+								display='flex'
+								textAlign='center'
+								justifyContent='center'
+								flexDirection='column'
+							>
+								<Button
+									variant='contained'
+									component='label'
+									rightIcon={<AttachmentIcon />}
+									onClick={() => fileInputRef.current.click()}
+								>
+									Upload Image
+									<Input
+										name='vehicle_picture'
+										accept='image/*'
+										type='file'
+										hidden
+										multiple={false}
+										ref={fileInputRef}
+										onChange={(e) => {
+											props.setFieldValue('vehicle_image', e.target.files[0]);
+											const objectUrl = URL.createObjectURL(e.target.files[0]);
+											setPreview(objectUrl);
+										}}
+									/>
+								</Button>
+							</Box>
+							<FormControl
+								isInvalid={
+									props.errors.vehicle_number && props.touched.vehicle_number
+								}
+							>
+								<FormLabel>Vehicle Number:</FormLabel>
+								<Input
+									type='vehicle_number'
+									placeholder='Enter the Vehicle Number'
+									name='vehicle_number'
+									value={props.initialValues.vehicle_number}
+									{...props.getFieldProps('vehicle_number')}
+								/>
+								<FormErrorMessage>
+									{props.errors.vehicle_number}
+								</FormErrorMessage>
+							</FormControl>
+							<FormControl
+								isInvalid={
+									props.errors.vehicle_type && props.touched.vehicle_type
+								}
+							>
+								<FormLabel>Vehicle Type:</FormLabel>
+								<Select
+									type='text'
+									placeholder='Select the Vehicle Type'
+									name='vehicle_type'
+									value={props.initialValues.vehicle_type}
+									{...props.getFieldProps('vehicle_type')}
+								>
+									<option value='VAN'>Van</option>
+									<option value='LORRY'>Lorry</option>
+									<option value='THREEWHEELER'>Three Wheeler</option>
+									<option value='CAB'>Cab</option>
+									<option value='BIKE'>Bike</option>
+									<option value='BUS'>Bus</option>
+								</Select>
+								<FormErrorMessage>{props.errors.vehicle_type}</FormErrorMessage>
+							</FormControl>
+							<FormControl
+								isInvalid={
+									props.errors.vehicle_model && props.touched.vehicle_model
+								}
+							>
+								<FormLabel>Vehicle Model:</FormLabel>
+								<Input
+									type='text'
+									placeholder='Enter the Vehicle Model'
+									name='vehicle_model'
+									value={props.initialValues.vehicle_model}
+									{...props.getFieldProps('vehicle_model')}
+								/>
+								<FormErrorMessage>
+									{props.errors.vehicle_model}
+								</FormErrorMessage>
+							</FormControl>
+							<Button
+								onClick={props.submitForm}
+								colorScheme='green'
+								rightIcon={<ArrowForwardIcon />}
+								width='full'
+								mt={4}
+								isLoading={isLoading}
+								loadingText='Adding vehicle'
+							>
+								Register the New Vehicle
+							</Button>
+						</Box>
+					)}
+				</Formik>
+			</Box>
+		</Box>
 	);
 };
 
-export default AddVehicleForm;
+export default AddNewVehicle;

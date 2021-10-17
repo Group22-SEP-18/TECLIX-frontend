@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { fetchWithAuthorization, postWithAuthorization } from './baseApi';
+import { postWithAuthorization } from './baseApi';
 
 const rootUrl = 'https://teclix.herokuapp.com/asset-api/';
 const productgetUrl = rootUrl + 'products';

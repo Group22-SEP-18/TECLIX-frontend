@@ -18,7 +18,7 @@ import {
 import SideBar from '../../common/sidebar/SideBar';
 import AssignedVehicles from '../../presentation/vehicle/AssignedVehicles';
 import UnAssignedVehicles from '../../presentation/vehicle/UnAssignedVehicles';
-import AddVehicleForm from '../../presentation/vehicle/AddVehicleForm';
+import AddNewVehicle from '../../presentation/vehicle/AddVehicleForm';
 
 const VehiclePage = () => {
 	const {
@@ -46,7 +46,7 @@ const VehiclePage = () => {
 							<ModalHeader>Register A New Vehicle</ModalHeader>
 							<ModalCloseButton />
 							<ModalBody pb='5'>
-								<AddVehicleForm />
+								<AddNewVehicle trigger={onCloseReportModal} />
 							</ModalBody>
 						</ModalContent>
 					</Modal>

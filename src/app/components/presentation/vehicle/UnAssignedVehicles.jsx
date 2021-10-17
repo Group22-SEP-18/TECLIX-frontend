@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchVehicleAssignData } from '../../../redux/actions/vehicleActions';
 import { fetchVehicleData } from '../../../redux/actions/vehicleActions';
-import { getSalespersons } from '../../../redux/actions/salespersonActions';
+import { getSalespersonsAsync } from '../../../redux/slices/salespersonSlice';
 import { fetchProductData } from '../../../redux/actions/productActions';
 
 const UnAssignedVehicles = () => {
@@ -15,7 +15,7 @@ const UnAssignedVehicles = () => {
 		dispatch(fetchVehicleAssignData());
 	}, [dispatch]);
 	useEffect(() => {
-		dispatch(getSalespersons());
+		dispatch(getSalespersonsAsync());
 	}, [dispatch]);
 	useEffect(() => {
 		dispatch(fetchProductData());

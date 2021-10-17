@@ -2,6 +2,7 @@ import {
 	Flex,
 	Box,
 	Image,
+	useToast,
 	useColorModeValue,
 	Button,
 	Divider,
@@ -12,15 +13,44 @@ import {
 	ModalOverlay,
 	ModalCloseButton,
 	ModalHeader,
+	ModalFooter,
 	Stack,
 } from '@chakra-ui/react';
-import { MdBuild } from 'react-icons/md';
-import React from 'react';
+import { MdBuild, MdDelete } from 'react-icons/md';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Stat, StatLabel, StatNumber, StatHelpText } from '@chakra-ui/react';
+import { vehicleDelete } from '../../../redux/actions/vehicleActions';
 // import VehicleAssignForm from './VehicleAssignForm';
 
 function UnAssignedVehicleCard(props) {
+	const toast = useToast();
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const deletevehicle = useSelector((state) => state.vehicles.deletevehicle);
+	var [updateConstant, setupdateConstant] = useState(0);
+	const dispatch = useDispatch();
+	var toast_type2 = (success) =>
+		toast({
+			position: 'bottom-right',
+			title: success ? 'Success' : 'Failed',
+			status: success ? 'success' : 'error',
+			duration: 5000,
+			isClosable: true,
+		});
+	const {
+		isOpen: isOpenReportModal,
+		onOpen: onOpenReportModal,
+		onClose: onCloseReportModal,
+	} = useDisclosure();
+	const deleteVehicle = () => {
+		dispatch(vehicleDelete(props.id));
+		setupdateConstant((count) => count + 1);
+	};
+	if (updateConstant === 1 && !deletevehicle.isLoading) {
+		toast_type2(deletevehicle.success);
+		setupdateConstant((count) => count - 1);
+		onCloseReportModal();
+	}
 
 	return (
 		<Flex p={25} w='full' alignItems='center' justifyContent='center'>
@@ -54,12 +84,12 @@ function UnAssignedVehicleCard(props) {
 						<Button
 							leftIcon={<MdBuild />}
 							onClick={onOpen}
-							colorScheme='pink'
+							colorScheme='facebook'
 							variant='solid'
-							minWidth='230'
+							minWidth='100'
 							left='1'
 						>
-							Assignments
+							Assign
 						</Button>
 						<Modal
 							closeOnOverlayClick={false}
@@ -80,6 +110,46 @@ function UnAssignedVehicleCard(props) {
 										trigger={onClose}
 									/> */}
 								</ModalBody>
+							</ModalContent>
+						</Modal>
+					</Box>
+					<Box>
+						<Button
+							leftIcon={<MdDelete />}
+							onClick={onOpenReportModal}
+							colorScheme='pink'
+							variant='solid'
+							minWidth='100'
+							left='1'
+						>
+							Delete
+						</Button>
+						<Modal
+							closeOnOverlayClick={false}
+							onClose={onCloseReportModal}
+							isOpen={isOpenReportModal}
+							motionPreset='scale'
+							isCentered
+						>
+							<ModalOverlay />
+							<ModalContent>
+								<ModalHeader>Do you want to delete this product?</ModalHeader>
+								<ModalCloseButton />
+								<ModalBody pb='5'></ModalBody>
+								<ModalFooter>
+									<Button
+										colorScheme='whatsapp'
+										mr={3}
+										minWidth='200'
+										onClick={deleteVehicle}
+										isLoading={deletevehicle.isLoading}
+									>
+										Yes
+									</Button>
+									<Button onClick={onCloseReportModal} minWidth='200'>
+										No
+									</Button>
+								</ModalFooter>
 							</ModalContent>
 						</Modal>
 					</Box>

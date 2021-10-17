@@ -24,7 +24,7 @@ export const fetchProductData = () => async (dispatch) => {
 		const result = await fetchAllProducts();
 		if (result.length) return dispatch(productsSuccess(result));
 
-		dispatch(productsFail('No current location data'));
+		dispatch(productsFail('Error while accesing products data'));
 	} catch (error) {
 		dispatch(productsFail(error));
 	}

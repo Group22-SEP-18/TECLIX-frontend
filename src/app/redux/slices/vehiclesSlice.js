@@ -4,6 +4,11 @@ const initialState = {
 	isLoading: false,
 	vehicles: [],
 	error: '',
+	deletevehicle: {
+		isLoading: false,
+		success: false,
+		error: null,
+	},
 };
 
 const vehiclesSlice = createSlice({
@@ -22,10 +27,37 @@ const vehiclesSlice = createSlice({
 			state.isLoading = false;
 			state.error = payload;
 		},
+		deletePending: (state) => {
+			state.deletevehicle.isLoading = true;
+		},
+		deleteSuccess: (state) => {
+			state.deletevehicle.isLoading = false;
+			state.deletevehicle.success = true;
+			state.deletevehicle.error = '';
+		},
+		deleteFail: (state, { payload }) => {
+			state.deletevehicle.isLoading = false;
+			state.deletevehicle.error = payload;
+			state.deletevehicle.success = false;
+		},
+		addnewvehicle: (state, { payload }) => {
+			state.vehicles.push(payload);
+		},
+		deletevehicle: (state, { payload }) => {
+			state.vehicles = state.vehicles.filter((x) => x.id !== payload);
+		},
 	},
 });
 
-export const { vehiclesPending, vehiclesSuccess, vehiclesFail } =
-	vehiclesSlice.actions;
+export const {
+	vehiclesPending,
+	vehiclesSuccess,
+	vehiclesFail,
+	addnewvehicle,
+	deletevehicle,
+	deletePending,
+	deleteSuccess,
+	deleteFail,
+} = vehiclesSlice.actions;
 
 export default vehiclesSlice.reducer;
