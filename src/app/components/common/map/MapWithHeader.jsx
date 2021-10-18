@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, Text } from '@chakra-ui/react';
-import { Marker } from 'react-google-maps';
+import { Marker } from '@react-google-maps/api';
 import SimpleMap from './SimpleMap';
 
 const MapWithHeader = ({ header = '', locations, Component = Marker }) => {
