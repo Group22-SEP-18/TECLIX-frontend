@@ -3,7 +3,7 @@ import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import LoadingSkelton from '../loading/LoadingSkelton';
 
 const containerStyle = {
-	height: '500px',
+	height: '600px',
 };
 
 const SimpleMap = ({
