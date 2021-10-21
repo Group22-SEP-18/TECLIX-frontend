@@ -25,12 +25,12 @@ import React, { useState } from 'react';
 import { FiTrash } from 'react-icons/fi';
 import { productDelete } from '../../../redux/actions/productActions';
 
-function ProductCard({ categoryList, product, key }) {
+function ProductCard({ product }) {
 	const toast = useToast();
 	const deleteproduct = useSelector((state) => state.products.deleteproduct);
 	var [updateConstant, setupdateConstant] = useState(0);
 	const dispatch = useDispatch();
-	var toast_type1 = (success) =>
+	var toast_type2 = (success) =>
 		toast({
 			position: 'bottom-right',
 			title: success ? 'Success' : 'Failed',
@@ -49,13 +49,13 @@ function ProductCard({ categoryList, product, key }) {
 		setupdateConstant((count) => count + 1);
 	};
 	if (updateConstant === 1 && !deleteproduct.isLoading) {
-		toast_type1(deleteproduct.success);
+		toast_type2(deleteproduct.success);
 		setupdateConstant((count) => count - 1);
 		onCloseReportModal();
 	}
 
 	return (
-		<div key={key}>
+		<div>
 			<Flex p={25} w='full' alignItems='center' justifyContent='center'>
 				<Box
 					bg={useColorModeValue('white', 'gray.800')}

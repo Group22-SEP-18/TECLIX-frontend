@@ -1,11 +1,18 @@
 import { fetchAllVehicles } from '../../../api/vehicleApi';
 import { assigntoVehicle } from '../../../api/vehicleApi';
+import { vehicleRegistration } from '../../../api/vehicleApi';
 import { fetchVehicleAssignments } from '../../../api/vehicleApi';
+import { deleteVehicleById } from '../../../api/vehicleApi';
 
 import {
 	vehiclesPending,
 	vehiclesSuccess,
 	vehiclesFail,
+	addnewvehicle,
+	deletevehicle,
+	deletePending,
+	deleteSuccess,
+	deleteFail,
 } from '../slices/vehiclesSlice';
 import {
 	assigningPending,
@@ -17,6 +24,11 @@ import {
 	vehiclesAssignmentsSuccess,
 	vehiclesAssignmentsFail,
 } from '../slices/vehicleAssignmentsSlice';
+import {
+	vehicleRegistrationPending,
+	vehicleRegistrationSuccess,
+	vehicleRegistrationError,
+} from '../slices/addVehicleSlice';
 
 export const fetchVehicleData = () => async (dispatch) => {
 	try {
@@ -31,11 +43,11 @@ export const fetchVehicleData = () => async (dispatch) => {
 	}
 };
 
-export const fetchVehicleAssignData = (id) => async (dispatch) => {
+export const fetchVehicleAssignData = () => async (dispatch) => {
 	try {
 		dispatch(vehiclesAssignmentsPending());
 
-		const result = await fetchVehicleAssignments(id);
+		const result = await fetchVehicleAssignments();
 		if (result.length) return dispatch(vehiclesAssignmentsSuccess(result));
 
 		dispatch(vehiclesAssignmentsFail('No vehicle assign data'));
@@ -54,5 +66,31 @@ export const assignToVehicle = (formData) => async (dispatch) => {
 			: dispatch(assigningError(result.message));
 	} catch (error) {
 		dispatch(assigningError(error.message));
+	}
+};
+
+export const addVehicle = (formData) => async (dispatch) => {
+	try {
+		dispatch(vehicleRegistrationPending());
+		const result = await vehicleRegistration(formData);
+		if (result.id) {
+			dispatch(addnewvehicle(result));
+			dispatch(vehicleRegistrationSuccess());
+		} else {
+			dispatch(vehicleRegistrationError());
+		}
+	} catch (error) {
+		dispatch(vehicleRegistrationError());
+	}
+};
+
+export const vehicleDelete = (id) => async (dispatch) => {
+	try {
+		dispatch(deletePending());
+		await deleteVehicleById(id);
+		dispatch(deletevehicle(id));
+		dispatch(deleteSuccess());
+	} catch (error) {
+		dispatch(deleteFail(error.message));
 	}
 };

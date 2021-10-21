@@ -13,6 +13,7 @@ import salespersonReducer from './slices/salespersonSlice';
 import serviceOrderReducer from './slices/serviceOrderSlice';
 import userReducer from './slices/userSlice';
 import vehicleReducer from './slices/vehiclesSlice';
+import vehicleRegistrationReducer from './slices/addVehicleSlice';
 import vehiclesAssignmentsReducer from './slices/vehicleAssignmentsSlice';
 
 export default configureStore({
@@ -31,6 +32,7 @@ export default configureStore({
 		serviceOrders: serviceOrderReducer,
 		user: userReducer,
 		vehicles: vehicleReducer,
+		vehicleRegistration: vehicleRegistrationReducer,
 		vehiclesAssignments: vehiclesAssignmentsReducer,
 	},
 });

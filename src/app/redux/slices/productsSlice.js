@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { findIndex } from 'lodash';
 
 const initialState = {
 	isLoading: false,
@@ -16,7 +15,7 @@ const productsSlice = createSlice({
 	name: 'products',
 	initialState: initialState,
 	reducers: {
-		productsPending: (state, action) => {
+		productsPending: (state) => {
 			state.isLoading = true;
 		},
 		productsSuccess: (state, { payload }) => {
@@ -28,10 +27,10 @@ const productsSlice = createSlice({
 			state.isLoading = false;
 			state.error = payload;
 		},
-		deletePending: (state, action) => {
+		deletePending: (state) => {
 			state.deleteproduct.isLoading = true;
 		},
-		deleteSuccess: (state, { payload }) => {
+		deleteSuccess: (state) => {
 			state.deleteproduct.isLoading = false;
 			state.deleteproduct.success = true;
 			state.deleteproduct.error = '';
@@ -39,6 +38,7 @@ const productsSlice = createSlice({
 		deleteFail: (state, { payload }) => {
 			state.deleteproduct.isLoading = false;
 			state.deleteproduct.error = payload;
+			state.deleteproduct.success = false;
 		},
 		addnewproduct: (state, { payload }) => {
 			state.products.push(payload);

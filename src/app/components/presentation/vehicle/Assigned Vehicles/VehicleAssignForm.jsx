@@ -1,13 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Button } from '@chakra-ui/react';
 import { FormControl, FormLabel, Select, HStack, Box } from '@chakra-ui/react';
 import { WrapItem } from '@chakra-ui/react';
 import { Avatar } from '@chakra-ui/react';
 import { Tag, TagLabel, TagCloseButton } from '@chakra-ui/react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchProductData } from '../../../redux/actions/productActions';
-import { assignToVehicle } from '../../../redux/actions/vehicleActions';
-import { getSalespersonsAsync } from '../../../redux/slices/salespersonSlice';
+import { assignToVehicle } from '../../../../redux/actions/vehicleActions';
+import { useDispatch } from 'react-redux';
 import {
 	NumberInput,
 	NumberInputField,
@@ -22,29 +20,24 @@ const ProductEditForm = ({
 	trigger,
 	array,
 	vehicleid,
+	unassignedSalespersons,
 	assignedsalesprson,
+	assignedsalesprsonEmpNo,
+	assignedsalesprsonFirstName,
+	assignedsalesprsonLastName,
+	products,
 }) => {
-	const dispatch = useDispatch();
-
-	useEffect(() => {
-		console.log('a');
-		dispatch(fetchProductData());
-		dispatch(getSalespersonsAsync());
-	}, [dispatch]);
-
-	const { products } = useSelector((state) => state.products);
-	const { salespersons } = useSelector((state) => state.salespersons);
-
 	const [productQuantity, updateproductQuantity] = React.useState(array);
 	const [product_id, setproduct_id] = React.useState();
 	const [quantity, setproduct_quantity] = React.useState(10);
-	const [salesperson, setsalesperson] = React.useState(assignedsalesprson.id);
+	const [salesperson, setsalesperson] = React.useState(assignedsalesprson);
+	const dispatch = useDispatch();
 
 	const updateItem = (id, value) => {
-		var index = productQuantity.findIndex((x) => x.id === id);
+		var index = productQuantity.findIndex((x) => x.product === id);
 		if (index >= 0) {
 			let g = productQuantity.map((v) => {
-				if (v.id === id) {
+				if (v.product === id) {
 					v.quantity = value;
 				}
 				return v;
@@ -56,17 +49,15 @@ const ProductEditForm = ({
 			if (value !== '') {
 				updateproductQuantity([
 					...productQuantity,
-					{ id: parseInt(product_id), quantity: quantity },
+					{ product: parseInt(product_id), quantity: quantity },
 				]);
-				console.log(productQuantity);
 			}
 		}
-		console.log(productQuantity);
 	};
 
 	const removeProduct = (id) => {
 		updateproductQuantity(
-			productQuantity.filter((product) => product.id !== id)
+			productQuantity.filter((product) => product.product !== id)
 		);
 	};
 
@@ -83,7 +74,7 @@ const ProductEditForm = ({
 	};
 
 	return (
-		<form>
+		<div>
 			<form>
 				<HStack spacing='15px'>
 					<FormControl>
@@ -132,57 +123,75 @@ const ProductEditForm = ({
 					</FormControl>
 				</HStack>
 			</form>
-			<Box>
-				<Wrap pt='3' pl='1'>
-					{productQuantity.map((product, index) => (
-						<WrapItem key={index}>
-							<Tag size='lg' colorScheme='whatsapp' borderRadius='full'>
-								<TagLabel pr='2' color='blue.700'>
-									{product.quantity}x
-								</TagLabel>
-								<Avatar
-									src={products[product.id - 7].product_image}
-									size='xs'
-									name='Segun Adebayo'
-									ml={-1}
-									mr={2}
-								/>
-								<TagLabel>{products[product.id - 7].short_name}</TagLabel>
-								<TagCloseButton onClick={() => removeProduct(product.id)} />
-							</Tag>
-						</WrapItem>
-					))}
-				</Wrap>
-			</Box>
-			<FormControl>
-				<FormLabel>Salesperson</FormLabel>
-				<Select
-					placeholder='Select'
-					onChange={(e) => setsalesperson(e.target.value)}
-					defaultValue={assignedsalesprson.id}
-				>
-					{salespersons.map((salesperson, i) => (
-						<option key={i} value={salesperson.id}>
-							{salesperson.employee_no} | {salesperson.first_name}{' '}
-							{salesperson.last_name}
+			<form>
+				<Box>
+					<Wrap pt='3' pl='1'>
+						{productQuantity.map((product, index) => (
+							<WrapItem key={index}>
+								<Tag size='lg' colorScheme='whatsapp' borderRadius='full'>
+									<TagLabel pr='2' color='blue.700'>
+										{product.quantity}x
+									</TagLabel>
+									<Avatar
+										src={
+											products[
+												products.findIndex((x) => x.id === product.product)
+											].product_image
+										}
+										size='xs'
+										name='Segun Adebayo'
+										ml={-1}
+										mr={2}
+									/>
+									<TagLabel>
+										{
+											products[
+												products.findIndex((x) => x.id === product.product)
+											].short_name
+										}
+									</TagLabel>
+									<TagCloseButton
+										onClick={() => removeProduct(product.product)}
+									/>
+								</Tag>
+							</WrapItem>
+						))}
+					</Wrap>
+				</Box>
+				<FormControl>
+					<FormLabel>Salesperson</FormLabel>
+					<Select
+						placeholder='Select'
+						onChange={(e) => setsalesperson(e.target.value)}
+						defaultValue={assignedsalesprson}
+					>
+						<option value={assignedsalesprson}>
+							{assignedsalesprsonEmpNo} | {assignedsalesprsonFirstName}{' '}
+							{assignedsalesprsonLastName}
 						</option>
-					))}
-				</Select>
-			</FormControl>
+						{unassignedSalespersons.map((salesperson, i) => (
+							<option key={i} value={salesperson.id}>
+								{salesperson.employee_no} | {salesperson.first_name}{' '}
+								{salesperson.last_name}
+							</option>
+						))}
+					</Select>
+				</FormControl>
 
-			<Button
-				mt='5'
-				mb='5'
-				type='button'
-				value='Assign to the vehicle'
-				className='btn btn-block'
-				bg='green.400'
-				color='white'
-				onClick={assignProductsSalesperson}
-			>
-				Assign to the vehicle
-			</Button>
-		</form>
+				<Button
+					mt='5'
+					mb='5'
+					type='button'
+					value='Assign to the vehicle'
+					className='btn btn-block'
+					bg='green.400'
+					color='white'
+					onClick={assignProductsSalesperson}
+				>
+					Assign to the vehicle
+				</Button>
+			</form>
+		</div>
 	);
 };
 

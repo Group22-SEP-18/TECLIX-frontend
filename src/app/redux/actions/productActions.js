@@ -24,7 +24,7 @@ export const fetchProductData = () => async (dispatch) => {
 		const result = await fetchAllProducts();
 		if (result.length) return dispatch(productsSuccess(result));
 
-		dispatch(productsFail('No current location data'));
+		dispatch(productsFail('Error while accesing products data'));
 	} catch (error) {
 		dispatch(productsFail(error));
 	}
@@ -48,7 +48,7 @@ export const addProduct = (formData) => async (dispatch) => {
 export const productDelete = (id) => async (dispatch) => {
 	try {
 		dispatch(deletePending());
-		const result = await deleteProductById(id);
+		await deleteProductById(id);
 		dispatch(deleteproduct(id));
 		dispatch(deleteSuccess());
 	} catch (error) {

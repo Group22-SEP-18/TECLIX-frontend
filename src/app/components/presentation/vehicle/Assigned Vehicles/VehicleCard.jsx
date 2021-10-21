@@ -15,18 +15,19 @@ import {
 	Stack,
 } from '@chakra-ui/react';
 import { MdBuild } from 'react-icons/md';
+import React from 'react';
 import { VStack, StackDivider } from '@chakra-ui/react';
 import { Wrap } from '@chakra-ui/react';
 import { Stat, StatLabel, StatNumber, StatHelpText } from '@chakra-ui/react';
-import VehicleProducts from './VehicleProducts';
-import VehicleSalesperson from './VehicleSalesperson';
-import VehicleAssignForm from './VehicleAssignForm';
+import VehicleProducts from '../VehicleProducts';
+import VehicleSalesperson from '../VehicleSalesperson';
+import VehicleAssignForm from '../Assigned Vehicles/VehicleAssignForm';
 
 function VehicleCard(props) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	const array = props.assigned_products.map((p) => ({
-		id: p.product.id,
+		product: p.product.id,
 		quantity: p.quantity,
 	}));
 
@@ -66,7 +67,7 @@ function VehicleCard(props) {
 						<Wrap pt='3' pl='1'>
 							{props.assigned_products.map((product, index) => (
 								<VehicleProducts
-									key={product.id}
+									key={index}
 									product_imageURL={product.product.product_image}
 									product_shortname={product.product.short_name}
 									product_quantity={product.quantity}
@@ -76,14 +77,29 @@ function VehicleCard(props) {
 					</Box>
 					<Box pb='3' pl='1'>
 						<Wrap>
-							{props.salesperson.map((salesperson, index) => (
-								<VehicleSalesperson
-									key={salesperson.id}
-									image_url={salesperson.profile_picture}
-									first_name={salesperson.first_name}
-									last_name={salesperson.last_name}
-								/>
-							))}
+							<VehicleSalesperson
+								image_url={
+									props.allsalespersons[
+										props.allsalespersons.findIndex(
+											(x) => x.id === props.salesperson
+										)
+									].profile_picture
+								}
+								first_name={
+									props.allsalespersons[
+										props.allsalespersons.findIndex(
+											(x) => x.id === props.salesperson
+										)
+									].first_name
+								}
+								last_name={
+									props.allsalespersons[
+										props.allsalespersons.findIndex(
+											(x) => x.id === props.salesperson
+										)
+									].last_name
+								}
+							/>
 						</Wrap>
 					</Box>
 				</VStack>
@@ -93,7 +109,7 @@ function VehicleCard(props) {
 						<Button
 							leftIcon={<MdBuild />}
 							onClick={onOpen}
-							colorScheme='pink'
+							colorScheme='facebook'
 							variant='solid'
 							minWidth='230'
 							left='1'
@@ -116,6 +132,29 @@ function VehicleCard(props) {
 										array={array}
 										vehicleid={props.id}
 										assignedsalesprson={props.salesperson}
+										assignedsalesprsonEmpNo={
+											props.allsalespersons[
+												props.allsalespersons.findIndex(
+													(x) => x.id === props.salesperson
+												)
+											].employee_no
+										}
+										assignedsalesprsonFirstName={
+											props.allsalespersons[
+												props.allsalespersons.findIndex(
+													(x) => x.id === props.salesperson
+												)
+											].first_name
+										}
+										assignedsalesprsonLastName={
+											props.allsalespersons[
+												props.allsalespersons.findIndex(
+													(x) => x.id === props.salesperson
+												)
+											].last_name
+										}
+										unassignedSalespersons={props.unassignedSalespersons}
+										products={props.products}
 										trigger={onClose}
 									/>
 								</ModalBody>

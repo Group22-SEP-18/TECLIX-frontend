@@ -1,9 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-	Alert,
-	AlertIcon,
-	AlertDescription,
 	Input,
 	Box,
 	Button,
@@ -139,7 +136,7 @@ const AddNewProduct = (props) => {
 								>
 									Upload Image
 									<Input
-										name='profile_picture'
+										name='product_picture'
 										accept='image/*'
 										type='file'
 										hidden
@@ -171,7 +168,7 @@ const AddNewProduct = (props) => {
 							>
 								<FormLabel>Short Name:</FormLabel>
 								<Input
-									type='test'
+									type='text'
 									placeholder='Enter the Short Name'
 									name='short_name'
 									value={props.initialValues.short_name}
