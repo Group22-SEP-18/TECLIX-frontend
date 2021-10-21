@@ -26,6 +26,10 @@ import VehicleAssignForm from '../Assigned Vehicles/VehicleAssignForm';
 function VehicleCard(props) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
+	if (!props.id) {
+		return null;
+	}
+
 	const array = props.assigned_products.map((p) => ({
 		product: p.product.id,
 		quantity: p.quantity,
@@ -34,7 +38,6 @@ function VehicleCard(props) {
 	return (
 		<Flex p={25} w='full' alignItems='center' justifyContent='center'>
 			<Box
-				bg={useColorModeValue('white', 'gray.800')}
 				maxW='xs'
 				borderWidth='1px'
 				rounded='lg'
@@ -50,11 +53,11 @@ function VehicleCard(props) {
 
 				<Box p='2' maxHeight='40'>
 					<Stat>
-						<StatLabel>
+						<StatLabel id='vehicle-model-number'>
 							{props.vehicle_model} {props.vehicle_number}
 						</StatLabel>
-						<StatNumber>{props.vehicle_type}</StatNumber>
-						<StatHelpText>ID: {props.id}</StatHelpText>
+						<StatNumber id='vehicle-type'>{props.vehicle_type}</StatNumber>
+						<StatHelpText id='vehicle-id'>ID: {props.id}</StatHelpText>
 					</Stat>
 				</Box>
 				<Divider size='30' pt='1' />
