@@ -2,7 +2,6 @@ import {
 	Flex,
 	Box,
 	Image,
-	useColorModeValue,
 	Button,
 	Divider,
 	Modal,
