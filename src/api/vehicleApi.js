@@ -53,24 +53,28 @@ export const fetchVehicleAssignments = () => {
 	});
 };
 
-export const assigntoVehicle = (frmData) => {
-	return new Promise(async (resolve, reject) => {
-		try {
-			const res = await axios.post(vehicleassignUrl, frmData);
+// export const assigntoVehicle = (frmData) => {
+// 	return new Promise(async (resolve, reject) => {
+// 		try {
+// 			const res = await axios.post(vehicleassignUrl, frmData);
 
-			resolve(res.data);
+// 			resolve(res.data);
 
-			if (res.data.id !== frmData.vehicle) {
-				reject('Error while assigning products and salesperson');
-			}
-		} catch (error) {
-			reject(error);
-		}
-	});
-};
+// 			if (res.data.id !== frmData.vehicle) {
+// 				reject('Error while assigning products and salesperson');
+// 			}
+// 		} catch (error) {
+// 			reject(error);
+// 		}
+// 	});
+// };
 
 export const vehicleRegistration = (frmData) => {
 	return postWithAuthorization(vehicleregisterUrl, frmData);
+};
+
+export const assigntoVehicle = (frmData) => {
+	return postWithAuthorization(vehicleassignUrl, frmData);
 };
 
 export const deleteVehicleById = (id) => {

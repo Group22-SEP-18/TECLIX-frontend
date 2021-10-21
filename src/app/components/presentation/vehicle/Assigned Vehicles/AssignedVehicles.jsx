@@ -14,29 +14,26 @@
 
 import React from 'react';
 import { Box, Grid, GridItem } from '@chakra-ui/react';
-import VehicleCard from '../../presentation/vehicle/VehicleCard';
+import VehicleCard from '../Assigned Vehicles/VehicleCard';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchVehicleAssignData } from '../../../redux/actions/vehicleActions';
-import { getSalespersonsAsync } from '../../../redux/slices/salespersonSlice';
-import { fetchProductData } from '../../../redux/actions/productActions';
+import { fetchVehicleAssignData } from '../../../../redux/actions/vehicleActions';
+import { getSalespersonsAsync } from '../../../../redux/slices/salespersonSlice';
+import { fetchProductData } from '../../../../redux/actions/productActions';
+import LoadingCards from '../../../common/loading/LoadingCards';
 
 const AssignedVehicles = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
 		dispatch(fetchVehicleAssignData());
-	}, [dispatch]);
-	useEffect(() => {
 		dispatch(getSalespersonsAsync());
-	}, [dispatch]);
-	useEffect(() => {
 		dispatch(fetchProductData());
 	}, [dispatch]);
 
 	const { products } = useSelector((state) => state.products);
 	const { salespersons } = useSelector((state) => state.salespersons);
-	const { vehiclesAssignments } = useSelector(
+	const { vehiclesAssignments, isLoading } = useSelector(
 		(state) => state.vehiclesAssignments
 	);
 
@@ -46,11 +43,13 @@ const AssignedVehicles = () => {
 	});
 
 	const unassignedSalespersons = [];
-	salespersons.forEach((s) => {
-		if (!salespersonsId.get(s.id)) {
-			unassignedSalespersons.push(s);
-		}
-	});
+	salespersons
+		.filter((sp) => sp.is_approved !== false)
+		.forEach((s) => {
+			if (!salespersonsId.get(s.id)) {
+				unassignedSalespersons.push(s);
+			}
+		});
 
 	const vehicledata = [
 		{
@@ -417,6 +416,7 @@ const AssignedVehicles = () => {
 
 	return (
 		<Box h='calc(100vh - 200px)' w='80vw'>
+			{isLoading && <LoadingCards count={3} />}
 			<Grid
 				templateColumns={{ base: 'repeat(2, 1fr)', xl: 'repeat(4, 1fr)' }}
 				gap={1}

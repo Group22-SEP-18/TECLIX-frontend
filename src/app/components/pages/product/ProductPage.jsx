@@ -30,6 +30,7 @@ import ProductCard from '../../presentation/product/ProductCard';
 import AddNewProduct from '../../presentation/product/addProductForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProductData } from '../../../redux/actions/productActions';
+import LoadingCards from '../../common/loading/LoadingCards';
 
 const ProductPage = () => {
 	const {
@@ -43,7 +44,7 @@ const ProductPage = () => {
 		dispatch(fetchProductData());
 	}, [dispatch]);
 
-	const { products } = useSelector((state) => state.products);
+	const { products, isLoading } = useSelector((state) => state.products);
 
 	return (
 		<Box minH='100vh'>
@@ -73,6 +74,7 @@ const ProductPage = () => {
 						</ModalContent>
 					</Modal>
 				</Box>
+				{isLoading && <LoadingCards count={5} />}
 				<Grid
 					templateColumns={{ base: 'repeat(2, 1fr)', xl: 'repeat(4, 1fr)' }}
 					gap={1}

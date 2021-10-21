@@ -16,9 +16,9 @@ import {
 	TabPanel,
 } from '@chakra-ui/react';
 import SideBar from '../../common/sidebar/SideBar';
-import AssignedVehicles from '../../presentation/vehicle/AssignedVehicles';
-import UnAssignedVehicles from '../../presentation/vehicle/UnAssignedVehicles';
-import AddNewVehicle from '../../presentation/vehicle/AddVehicleForm';
+import AssignedVehicles from '../../presentation/vehicle/Assigned Vehicles/AssignedVehicles';
+import UnAssignedVehicles from '../../presentation/vehicle/Unassigned Vehicles/UnAssignedVehicles';
+import AddNewVehicle from '../../presentation/vehicle/AddNewVehicle';
 
 const VehiclePage = () => {
 	const {

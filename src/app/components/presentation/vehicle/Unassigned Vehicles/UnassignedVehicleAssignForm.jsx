@@ -4,7 +4,8 @@ import { FormControl, FormLabel, Select, HStack, Box } from '@chakra-ui/react';
 import { WrapItem } from '@chakra-ui/react';
 import { Avatar } from '@chakra-ui/react';
 import { Tag, TagLabel, TagCloseButton } from '@chakra-ui/react';
-import { assignToVehicle } from '../../../redux/actions/vehicleActions';
+import { assignToVehicle } from '../../../../redux/actions/vehicleActions';
+import { useDispatch } from 'react-redux';
 import {
 	NumberInput,
 	NumberInputField,
@@ -17,25 +18,21 @@ import { Wrap } from '@chakra-ui/react';
 const ProductEditForm = ({
 	updateDetails,
 	trigger,
-	array,
 	vehicleid,
 	unassignedSalespersons,
-	assignedsalesprson,
-	assignedsalesprsonEmpNo,
-	assignedsalesprsonFirstName,
-	assignedsalesprsonLastName,
 	products,
 }) => {
-	const [productQuantity, updateproductQuantity] = React.useState(array);
+	const [productQuantity, updateproductQuantity] = React.useState([]);
 	const [product_id, setproduct_id] = React.useState();
 	const [quantity, setproduct_quantity] = React.useState(10);
-	const [salesperson, setsalesperson] = React.useState(assignedsalesprson);
+	const [salesperson, setsalesperson] = React.useState();
+	const dispatch = useDispatch();
 
 	const updateItem = (id, value) => {
-		var index = productQuantity.findIndex((x) => x.id === id);
+		var index = productQuantity.findIndex((x) => x.product === id);
 		if (index >= 0) {
 			let g = productQuantity.map((v) => {
-				if (v.id === id) {
+				if (v.product === id) {
 					v.quantity = value;
 				}
 				return v;
@@ -47,17 +44,15 @@ const ProductEditForm = ({
 			if (value !== '') {
 				updateproductQuantity([
 					...productQuantity,
-					{ id: parseInt(product_id), quantity: quantity },
+					{ product: parseInt(product_id), quantity: quantity },
 				]);
-				console.log(productQuantity);
 			}
 		}
-		console.log(productQuantity);
 	};
 
 	const removeProduct = (id) => {
 		updateproductQuantity(
-			productQuantity.filter((product) => product.id !== id)
+			productQuantity.filter((product) => product.product !== id)
 		);
 	};
 
@@ -70,7 +65,8 @@ const ProductEditForm = ({
 			vehicle: vehicleid,
 			salesperson: salesperson,
 		};
-		// dispatch(assignToVehicle(vehiclecomplex));
+		console.log(vehiclecomplex);
+		dispatch(assignToVehicle(vehiclecomplex));
 	};
 
 	return (
@@ -133,8 +129,9 @@ const ProductEditForm = ({
 								</TagLabel>
 								<Avatar
 									src={
-										products[products.findIndex((x) => x.id === product.id)]
-											.product_image
+										products[
+											products.findIndex((x) => x.id === product.product)
+										].product_image
 									}
 									size='xs'
 									name='Segun Adebayo'
@@ -143,11 +140,14 @@ const ProductEditForm = ({
 								/>
 								<TagLabel>
 									{
-										products[products.findIndex((x) => x.id === product.id)]
-											.short_name
+										products[
+											products.findIndex((x) => x.id === product.product)
+										].short_name
 									}
 								</TagLabel>
-								<TagCloseButton onClick={() => removeProduct(product.id)} />
+								<TagCloseButton
+									onClick={() => removeProduct(product.product)}
+								/>
 							</Tag>
 						</WrapItem>
 					))}
@@ -158,12 +158,8 @@ const ProductEditForm = ({
 				<Select
 					placeholder='Select'
 					onChange={(e) => setsalesperson(e.target.value)}
-					defaultValue={assignedsalesprson}
+					// defaultValue={unassignedSalespersons[0].id}
 				>
-					<option value={assignedsalesprson}>
-						{assignedsalesprsonEmpNo} | {assignedsalesprsonFirstName}{' '}
-						{assignedsalesprsonLastName}
-					</option>
 					{unassignedSalespersons.map((salesperson, i) => (
 						<option key={i} value={salesperson.id}>
 							{salesperson.employee_no} | {salesperson.first_name}{' '}

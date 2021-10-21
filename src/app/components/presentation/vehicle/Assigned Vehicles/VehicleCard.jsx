@@ -19,15 +19,15 @@ import React from 'react';
 import { VStack, StackDivider } from '@chakra-ui/react';
 import { Wrap } from '@chakra-ui/react';
 import { Stat, StatLabel, StatNumber, StatHelpText } from '@chakra-ui/react';
-import VehicleProducts from './VehicleProducts';
-import VehicleSalesperson from './VehicleSalesperson';
-import VehicleAssignForm from './VehicleAssignForm';
+import VehicleProducts from '../VehicleProducts';
+import VehicleSalesperson from '../VehicleSalesperson';
+import VehicleAssignForm from '../Assigned Vehicles/VehicleAssignForm';
 
 function VehicleCard(props) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	const array = props.assigned_products.map((p) => ({
-		id: p.product.id,
+		product: p.product.id,
 		quantity: p.quantity,
 	}));
 
