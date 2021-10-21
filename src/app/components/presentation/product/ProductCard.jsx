@@ -3,7 +3,6 @@ import {
 	Box,
 	Image,
 	Badge,
-	useColorModeValue,
 	useDisclosure,
 	Icon,
 	Button,
@@ -20,16 +19,17 @@ import {
 	HStack,
 } from '@chakra-ui/react';
 import { useSelector, useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
 import { FiTrash } from 'react-icons/fi';
 import { productDelete } from '../../../redux/actions/productActions';
 
-function ProductCard({ product }) {
+const ProductCard = ({ product }) => {
 	const toast = useToast();
+	const dispatch = useDispatch();
 	const deleteproduct = useSelector((state) => state.products.deleteproduct);
 	var [updateConstant, setupdateConstant] = useState(0);
-	const dispatch = useDispatch();
 	var toast_type2 = (success) =>
 		toast({
 			position: 'bottom-right',
@@ -53,12 +53,14 @@ function ProductCard({ product }) {
 		setupdateConstant((count) => count - 1);
 		onCloseReportModal();
 	}
-
+	if (!product) {
+		return null;
+	}
 	return (
 		<div>
 			<Flex p={25} w='full' alignItems='center' justifyContent='center'>
 				<Box
-					bg={useColorModeValue('white', 'gray.800')}
+					id={`product-card-div-${product.id}`}
 					maxW='xs'
 					borderWidth='1px'
 					rounded='lg'
@@ -67,6 +69,7 @@ function ProductCard({ product }) {
 					position='relative'
 				>
 					<Image
+						id='product_image'
 						height='200'
 						src={product.product_image}
 						alt={`Picture of ${product.name}`}
@@ -77,6 +80,7 @@ function ProductCard({ product }) {
 						<Box d='flex' alignItems='baseline'>
 							<HStack>
 								<Badge
+									id='category'
 									rounded='full'
 									px='2'
 									fontSize='0.8em'
@@ -85,6 +89,7 @@ function ProductCard({ product }) {
 									{product.category}
 								</Badge>
 								<Badge
+									id='product_id'
 									rounded='full'
 									px='2'
 									fontSize='0.8em'
@@ -97,6 +102,7 @@ function ProductCard({ product }) {
 						</Box>
 						<Flex mt='1' justifyContent='space-between' alignContent='center'>
 							<Box
+								id='short_name'
 								fontSize='20'
 								fontWeight='semibold'
 								as='h4'
@@ -107,10 +113,7 @@ function ProductCard({ product }) {
 							</Box>
 						</Flex>
 						<Flex justifyContent='space-between' alignContent='center'>
-							<Box
-								fontSize='2xl'
-								color={useColorModeValue('gray.800', 'white')}
-							>
+							<Box id='price' fontSize='2xl'>
 								<Box as='span' color={'gray.600'} fontSize='lg'>
 									Rs.
 								</Box>
@@ -119,7 +122,11 @@ function ProductCard({ product }) {
 
 							<Tooltip label='Delete' placement={'bottom'}>
 								<Box>
-									<chakra.a display={'flex'} onClick={onOpenReportModal}>
+									<chakra.a
+										id='delete-product'
+										display={'flex'}
+										onClick={onOpenReportModal}
+									>
 										<Icon
 											as={FiTrash}
 											h={7}
@@ -166,6 +173,10 @@ function ProductCard({ product }) {
 			</Flex>
 		</div>
 	);
-}
+};
+
+ProductCard.propTypes = {
+	customer: PropTypes.object,
+};
 
 export default ProductCard;
