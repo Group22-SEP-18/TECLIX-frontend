@@ -13,6 +13,7 @@
     "@material-ui/icons": "^4.2.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@material-ui/pickers": "^3.2.2",
+    "@react-google-maps/api": "^2.5.0",
     "@reduxjs/toolkit": "^1.6.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -55,7 +56,9 @@
     "test-utils": "jest --verbose",
     "eject": "react-scripts eject",
     "eslint": "eslint --ignore-path .gitignore .",
-    "eslint-check": "eslint --print-config path/to/main.js | eslint-config-prettier-check"
+    "eslint-check": "eslint --print-config path/to/main.js | eslint-config-prettier-check",
+    "styleguide": "styleguidist server",
+    "styleguide:build": "styleguidist build"
   },
   "eslintConfig": {
     "extends": [
@@ -94,6 +97,8 @@
     "jest-html-reporters": "^2.1.6",
     "mocha": "^9.1.2",
     "prettier": "^2.3.2",
+    "pretty": "^2.0.0",
+    "react-styleguidist": "^11.1.7",
     "redux-mock-store": "^1.5.4"
   }
 }

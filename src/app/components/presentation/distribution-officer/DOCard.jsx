@@ -80,6 +80,9 @@ const DOCard = ({ dOfficer }) => {
 			}
 		}, 500);
 	};
+	if (!dOfficer) {
+		return null;
+	}
 	return (
 		<div>
 			<Box

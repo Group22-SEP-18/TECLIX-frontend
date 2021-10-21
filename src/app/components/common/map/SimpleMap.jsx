@@ -1,25 +1,45 @@
-import { withScriptjs, withGoogleMap, GoogleMap } from 'react-google-maps';
+import React, { memo, useCallback, useState } from 'react';
+import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import LoadingSkelton from '../loading/LoadingSkelton';
 
-const MapContainer = withScriptjs(
-	withGoogleMap((props) => (
-		<GoogleMap defaultZoom={10} defaultCenter={props.center}>
-			{props.markers.map((marker) => marker)}
-		</GoogleMap>
-	))
-);
+const containerStyle = {
+	height: '600px',
+};
 
 const SimpleMap = ({
 	markers,
 	center = { latitude: 6.8696358044539165, longitude: 79.88899961877866 },
-}) => (
-	<MapContainer
-		googleMapURL={process.env.REACT_APP_GOOGLE_MAP_URL}
-		loadingElement={<div style={{ height: `100%` }} />}
-		containerElement={<div style={{ height: `700px` }} />}
-		mapElement={<div style={{ height: `100%` }} />}
-		center={{ lat: center.latitude, lng: center.longitude }}
-		markers={markers}
-	/>
-);
+}) => {
+	const { isLoaded } = useJsApiLoader({
+		id: 'google-map-script',
+		googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY,
+	});
 
-export default SimpleMap;
+	const [, setMap] = useState(null);
+
+	const onLoad = useCallback((map) => {
+		// const bounds = new window.google.maps.LatLngBounds();
+		// map.fitBounds(bounds);
+		setMap(map);
+	}, []);
+
+	const onUnmount = useCallback(() => {
+		setMap(null);
+	}, []);
+
+	return isLoaded ? (
+		<GoogleMap
+			mapContainerStyle={containerStyle}
+			center={{ lat: center.latitude, lng: center.longitude }}
+			zoom={12}
+			onLoad={onLoad}
+			onUnmount={onUnmount}
+		>
+			{markers.map((marker) => marker)}
+		</GoogleMap>
+	) : (
+		<LoadingSkelton />
+	);
+};
+
+export default memo(SimpleMap);
