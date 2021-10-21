@@ -30,7 +30,7 @@ const VehiclePage = () => {
 		<Box minH='100vh'>
 			<SideBar />
 			<Box ml={{ base: 0, md: 60 }} p='4'>
-				<Box pl='12' bgColor='green.300'>
+				<Box pr='12' style={{ display: 'flex', justifyContent: 'flex-end' }}>
 					<Button colorScheme='whatsapp' onClick={onOpenReportModal} size='lg'>
 						Add a vehicle
 					</Button>

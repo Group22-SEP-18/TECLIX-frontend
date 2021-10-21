@@ -59,20 +59,22 @@ const UnAssignedVehicles = () => {
 				templateColumns={{ base: 'repeat(2, 1fr)', xl: 'repeat(4, 1fr)' }}
 				gap={1}
 			>
-				{unassignedVehicles.map((vehicle, index) => (
-					<GridItem>
-						<UnAssignedVehicleCard
-							key={index}
-							vehicle_type={vehicle.vehicle_type}
-							vehicle_number={vehicle.vehicle_number}
-							vehicle_model={vehicle.vehicle_model}
-							vehicle_image={vehicle.vehicle_image}
-							id={vehicle.id}
-							unassignedSalespersons={unassignedSalespersons}
-							products={products}
-						/>
-					</GridItem>
-				))}
+				{!isLoading &&
+					unassignedVehicles &&
+					unassignedVehicles.map((vehicle, index) => (
+						<GridItem key={index}>
+							<UnAssignedVehicleCard
+								key={index}
+								vehicle_type={vehicle.vehicle_type}
+								vehicle_number={vehicle.vehicle_number}
+								vehicle_model={vehicle.vehicle_model}
+								vehicle_image={vehicle.vehicle_image}
+								id={vehicle.id}
+								unassignedSalespersons={unassignedSalespersons}
+								products={products}
+							/>
+						</GridItem>
+					))}
 			</Grid>
 		</Box>
 	);

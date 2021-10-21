@@ -5,7 +5,7 @@ import { Tag, TagLabel } from '@chakra-ui/react';
 
 function VehicleProducts(props) {
 	return (
-		<div key={props.key}>
+		<div>
 			<WrapItem>
 				<Tag size='lg' colorScheme='whatsapp' borderRadius='full'>
 					<TagLabel pr='2' color='blue.700'>

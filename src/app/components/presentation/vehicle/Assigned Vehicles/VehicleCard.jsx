@@ -67,7 +67,7 @@ function VehicleCard(props) {
 						<Wrap pt='3' pl='1'>
 							{props.assigned_products.map((product, index) => (
 								<VehicleProducts
-									key={product.id}
+									key={index}
 									product_imageURL={product.product.product_image}
 									product_shortname={product.product.short_name}
 									product_quantity={product.quantity}

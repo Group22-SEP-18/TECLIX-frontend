@@ -87,7 +87,7 @@ export const addVehicle = (formData) => async (dispatch) => {
 export const vehicleDelete = (id) => async (dispatch) => {
 	try {
 		dispatch(deletePending());
-		const result = await deleteVehicleById(id);
+		await deleteVehicleById(id);
 		dispatch(deletevehicle(id));
 		dispatch(deleteSuccess());
 	} catch (error) {

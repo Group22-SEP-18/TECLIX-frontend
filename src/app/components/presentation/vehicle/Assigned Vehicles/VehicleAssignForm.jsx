@@ -51,10 +51,8 @@ const ProductEditForm = ({
 					...productQuantity,
 					{ product: parseInt(product_id), quantity: quantity },
 				]);
-				console.log(productQuantity);
 			}
 		}
-		console.log(productQuantity);
 	};
 
 	const removeProduct = (id) => {
@@ -76,7 +74,7 @@ const ProductEditForm = ({
 	};
 
 	return (
-		<form>
+		<div>
 			<form>
 				<HStack spacing='15px'>
 					<FormControl>
@@ -125,73 +123,75 @@ const ProductEditForm = ({
 					</FormControl>
 				</HStack>
 			</form>
-			<Box>
-				<Wrap pt='3' pl='1'>
-					{productQuantity.map((product, index) => (
-						<WrapItem key={index}>
-							<Tag size='lg' colorScheme='whatsapp' borderRadius='full'>
-								<TagLabel pr='2' color='blue.700'>
-									{product.quantity}x
-								</TagLabel>
-								<Avatar
-									src={
-										products[
-											products.findIndex((x) => x.id === product.product)
-										].product_image
-									}
-									size='xs'
-									name='Segun Adebayo'
-									ml={-1}
-									mr={2}
-								/>
-								<TagLabel>
-									{
-										products[
-											products.findIndex((x) => x.id === product.product)
-										].short_name
-									}
-								</TagLabel>
-								<TagCloseButton
-									onClick={() => removeProduct(product.product)}
-								/>
-							</Tag>
-						</WrapItem>
-					))}
-				</Wrap>
-			</Box>
-			<FormControl>
-				<FormLabel>Salesperson</FormLabel>
-				<Select
-					placeholder='Select'
-					onChange={(e) => setsalesperson(e.target.value)}
-					defaultValue={assignedsalesprson}
-				>
-					<option value={assignedsalesprson}>
-						{assignedsalesprsonEmpNo} | {assignedsalesprsonFirstName}{' '}
-						{assignedsalesprsonLastName}
-					</option>
-					{unassignedSalespersons.map((salesperson, i) => (
-						<option key={i} value={salesperson.id}>
-							{salesperson.employee_no} | {salesperson.first_name}{' '}
-							{salesperson.last_name}
+			<form>
+				<Box>
+					<Wrap pt='3' pl='1'>
+						{productQuantity.map((product, index) => (
+							<WrapItem key={index}>
+								<Tag size='lg' colorScheme='whatsapp' borderRadius='full'>
+									<TagLabel pr='2' color='blue.700'>
+										{product.quantity}x
+									</TagLabel>
+									<Avatar
+										src={
+											products[
+												products.findIndex((x) => x.id === product.product)
+											].product_image
+										}
+										size='xs'
+										name='Segun Adebayo'
+										ml={-1}
+										mr={2}
+									/>
+									<TagLabel>
+										{
+											products[
+												products.findIndex((x) => x.id === product.product)
+											].short_name
+										}
+									</TagLabel>
+									<TagCloseButton
+										onClick={() => removeProduct(product.product)}
+									/>
+								</Tag>
+							</WrapItem>
+						))}
+					</Wrap>
+				</Box>
+				<FormControl>
+					<FormLabel>Salesperson</FormLabel>
+					<Select
+						placeholder='Select'
+						onChange={(e) => setsalesperson(e.target.value)}
+						defaultValue={assignedsalesprson}
+					>
+						<option value={assignedsalesprson}>
+							{assignedsalesprsonEmpNo} | {assignedsalesprsonFirstName}{' '}
+							{assignedsalesprsonLastName}
 						</option>
-					))}
-				</Select>
-			</FormControl>
+						{unassignedSalespersons.map((salesperson, i) => (
+							<option key={i} value={salesperson.id}>
+								{salesperson.employee_no} | {salesperson.first_name}{' '}
+								{salesperson.last_name}
+							</option>
+						))}
+					</Select>
+				</FormControl>
 
-			<Button
-				mt='5'
-				mb='5'
-				type='button'
-				value='Assign to the vehicle'
-				className='btn btn-block'
-				bg='green.400'
-				color='white'
-				onClick={assignProductsSalesperson}
-			>
-				Assign to the vehicle
-			</Button>
-		</form>
+				<Button
+					mt='5'
+					mb='5'
+					type='button'
+					value='Assign to the vehicle'
+					className='btn btn-block'
+					bg='green.400'
+					color='white'
+					onClick={assignProductsSalesperson}
+				>
+					Assign to the vehicle
+				</Button>
+			</form>
+		</div>
 	);
 };
 

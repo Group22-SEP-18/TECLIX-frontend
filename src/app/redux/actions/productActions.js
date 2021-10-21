@@ -48,7 +48,7 @@ export const addProduct = (formData) => async (dispatch) => {
 export const productDelete = (id) => async (dispatch) => {
 	try {
 		dispatch(deletePending());
-		const result = await deleteProductById(id);
+		await deleteProductById(id);
 		dispatch(deleteproduct(id));
 		dispatch(deleteSuccess());
 	} catch (error) {

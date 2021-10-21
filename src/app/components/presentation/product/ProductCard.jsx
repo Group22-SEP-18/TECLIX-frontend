@@ -25,7 +25,7 @@ import React, { useState } from 'react';
 import { FiTrash } from 'react-icons/fi';
 import { productDelete } from '../../../redux/actions/productActions';
 
-function ProductCard({ product, key }) {
+function ProductCard({ product }) {
 	const toast = useToast();
 	const deleteproduct = useSelector((state) => state.products.deleteproduct);
 	var [updateConstant, setupdateConstant] = useState(0);
@@ -55,7 +55,7 @@ function ProductCard({ product, key }) {
 	}
 
 	return (
-		<div key={key}>
+		<div>
 			<Flex p={25} w='full' alignItems='center' justifyContent='center'>
 				<Box
 					bg={useColorModeValue('white', 'gray.800')}

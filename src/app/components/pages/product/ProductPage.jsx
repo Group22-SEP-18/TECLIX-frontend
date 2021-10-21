@@ -79,11 +79,13 @@ const ProductPage = () => {
 					templateColumns={{ base: 'repeat(2, 1fr)', xl: 'repeat(4, 1fr)' }}
 					gap={1}
 				>
-					{products.map((product, index) => (
-						<GridItem>
-							<ProductCard key={index} product={product} />
-						</GridItem>
-					))}
+					{!isLoading &&
+						products &&
+						products.map((product, index) => (
+							<GridItem key={index}>
+								<ProductCard key={index} product={product} />
+							</GridItem>
+						))}
 				</Grid>
 			</Box>
 		</Box>
