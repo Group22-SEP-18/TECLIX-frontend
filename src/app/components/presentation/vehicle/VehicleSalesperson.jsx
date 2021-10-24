@@ -3,6 +3,9 @@ import { Avatar } from '@chakra-ui/react';
 import { Tag, TagLabel } from '@chakra-ui/react';
 
 function VehicleSalesperson(props) {
+	if (!props.first_name) {
+		return null;
+	}
 	return (
 		<WrapItem>
 			<Tag size='lg' colorScheme='red' borderRadius='full'>
@@ -13,7 +16,7 @@ function VehicleSalesperson(props) {
 					ml={-1}
 					mr={2}
 				/>
-				<TagLabel>
+				<TagLabel id='name'>
 					{props.first_name} {props.last_name}
 				</TagLabel>
 			</Tag>

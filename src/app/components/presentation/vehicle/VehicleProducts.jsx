@@ -4,11 +4,14 @@ import { Avatar } from '@chakra-ui/react';
 import { Tag, TagLabel } from '@chakra-ui/react';
 
 function VehicleProducts(props) {
+	if (!props.product_shortname) {
+		return null;
+	}
 	return (
 		<div>
 			<WrapItem>
 				<Tag size='lg' colorScheme='whatsapp' borderRadius='full'>
-					<TagLabel pr='2' color='blue.700'>
+					<TagLabel id='product_quantity' pr='2' color='blue.700'>
 						{props.product_quantity}x
 					</TagLabel>
 					<Avatar
@@ -18,7 +21,7 @@ function VehicleProducts(props) {
 						ml={-1}
 						mr={2}
 					/>
-					<TagLabel>{props.product_shortname}</TagLabel>
+					<TagLabel id='product_shortname'>{props.product_shortname}</TagLabel>
 				</Tag>
 			</WrapItem>
 		</div>
