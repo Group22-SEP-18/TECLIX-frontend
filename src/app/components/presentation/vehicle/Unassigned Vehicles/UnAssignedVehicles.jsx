@@ -1,5 +1,17 @@
 import React from 'react';
-import { Box, Grid, GridItem } from '@chakra-ui/react';
+import {
+	Box,
+	Grid,
+	GridItem,
+	useDisclosure,
+	Button,
+	Modal,
+	ModalBody,
+	ModalContent,
+	ModalOverlay,
+	ModalCloseButton,
+	ModalHeader,
+} from '@chakra-ui/react';
 import UnAssignedVehicleCard from '../Unassigned Vehicles/UnAssignedVehicleCard';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,9 +20,16 @@ import { fetchVehicleData } from '../../../../redux/actions/vehicleActions';
 import { getSalespersonsAsync } from '../../../../redux/slices/salespersonSlice';
 import { fetchProductData } from '../../../../redux/actions/productActions';
 import LoadingCards from '../../../common/loading/LoadingCards';
+import AddNewVehicle from '../../vehicle/AddNewVehicle';
 
 const UnAssignedVehicles = () => {
 	const dispatch = useDispatch();
+
+	const {
+		isOpen: isOpenReportModal,
+		onOpen: onOpenReportModal,
+		onClose: onCloseReportModal,
+	} = useDisclosure();
 
 	useEffect(() => {
 		dispatch(fetchVehicleAssignData());
@@ -54,6 +73,27 @@ const UnAssignedVehicles = () => {
 
 	return (
 		<Box h='calc(100vh - 200px)' w='80vw'>
+			<Box pr='12' style={{ display: 'flex', justifyContent: 'flex-end' }}>
+				<Button colorScheme='whatsapp' onClick={onOpenReportModal} size='lg'>
+					Add a vehicle
+				</Button>
+				<Modal
+					closeOnOverlayClick={false}
+					onClose={onCloseReportModal}
+					isOpen={isOpenReportModal}
+					motionPreset='scale'
+					isCentered
+				>
+					<ModalOverlay />
+					<ModalContent>
+						<ModalHeader>Register A New Vehicle</ModalHeader>
+						<ModalCloseButton />
+						<ModalBody pb='5'>
+							<AddNewVehicle trigger={onCloseReportModal} />
+						</ModalBody>
+					</ModalContent>
+				</Modal>
+			</Box>
 			{isLoading && <LoadingCards count={5} />}
 			<Grid
 				templateColumns={{ base: 'repeat(2, 1fr)', xl: 'repeat(4, 1fr)' }}

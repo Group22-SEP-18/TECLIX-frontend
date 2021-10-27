@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
+
 import { Button } from '@chakra-ui/react';
 import { FormControl, FormLabel, Select, HStack, Box } from '@chakra-ui/react';
 import { WrapItem } from '@chakra-ui/react';
 import { Avatar } from '@chakra-ui/react';
 import { Tag, TagLabel, TagCloseButton } from '@chakra-ui/react';
 import { assignToVehicle } from '../../../../redux/actions/vehicleActions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
 	NumberInput,
+	useToast,
 	NumberInputField,
 	NumberInputStepper,
 	NumberIncrementStepper,
@@ -15,7 +17,7 @@ import {
 } from '@chakra-ui/react';
 import { Wrap } from '@chakra-ui/react';
 
-const ProductEditForm = ({
+const UnassignedVehicleAssignForm = ({
 	updateDetails,
 	trigger,
 	vehicleid,
@@ -26,8 +28,22 @@ const ProductEditForm = ({
 	const [product_id, setproduct_id] = React.useState();
 	const [quantity, setproduct_quantity] = React.useState(10);
 	const [salesperson, setsalesperson] = React.useState();
-	const dispatch = useDispatch();
 
+	var [updateConstant, setupdateConstant] = useState(0);
+
+	const dispatch = useDispatch();
+	const toast = useToast();
+
+	const { isLoading, status } = useSelector((state) => state.assigntoVehicle);
+
+	var toast_type1 = (success) =>
+		toast({
+			position: 'bottom-right',
+			title: success ? 'Success' : 'Failed',
+			status: success ? 'success' : 'error',
+			duration: 5000,
+			isClosable: true,
+		});
 	const updateItem = (id, value) => {
 		var index = productQuantity.findIndex((x) => x.product === id);
 		if (index >= 0) {
@@ -65,9 +81,14 @@ const ProductEditForm = ({
 			vehicle: vehicleid,
 			salesperson: salesperson,
 		};
-		console.log(vehiclecomplex);
 		dispatch(assignToVehicle(vehiclecomplex));
+		setupdateConstant((count) => count + 1);
 	};
+	if (updateConstant === 1 && !isLoading) {
+		toast_type1(status);
+		setupdateConstant((count) => count - 1);
+		trigger();
+	}
 
 	return (
 		<div>
@@ -174,10 +195,11 @@ const ProductEditForm = ({
 					mt='5'
 					mb='5'
 					type='button'
+					isLoading={isLoading}
 					value='Assign to the vehicle'
 					className='btn btn-block'
-					bg='green.400'
-					color='white'
+					colorScheme='green'
+					isDisabled={productQuantity.length < 1 && !salesperson}
 					onClick={assignProductsSalesperson}
 				>
 					Assign to the vehicle
@@ -187,4 +209,4 @@ const ProductEditForm = ({
 	);
 };
 
-export default ProductEditForm;
+export default UnassignedVehicleAssignForm;

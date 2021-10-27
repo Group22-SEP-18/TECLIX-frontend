@@ -186,6 +186,7 @@ const ProductEditForm = ({
 					className='btn btn-block'
 					bg='green.400'
 					color='white'
+					isDisabled={productQuantity.length < 1}
 					onClick={assignProductsSalesperson}
 				>
 					Assign to the vehicle

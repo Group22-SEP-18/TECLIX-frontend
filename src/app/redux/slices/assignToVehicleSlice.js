@@ -7,7 +7,7 @@ const initialState = {
 };
 
 const assignToVehicleSlice = createSlice({
-	name: 'assign to vehicle',
+	name: 'assigntoVehicle',
 	initialState,
 	reducers: {
 		assigningPending: (state) => {

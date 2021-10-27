@@ -61,9 +61,13 @@ export const assignToVehicle = (formData) => async (dispatch) => {
 		dispatch(assigningPending());
 
 		const result = await assigntoVehicle(formData);
-		result.status === 'success'
-			? dispatch(assigningSuccess(result.message))
-			: dispatch(assigningError(result.message));
+		if (result.vehicle) {
+			dispatch(assigningSuccess(result.message));
+			dispatch(deletevehicle(result.vehicle));
+			dispatch(fetchVehicleAssignData());
+		} else {
+			dispatch(assigningError(result.message));
+		}
 	} catch (error) {
 		dispatch(assigningError(error.message));
 	}
