@@ -35,25 +35,22 @@ const DOCard = ({ dOfficer }) => {
 	const toast = useToast();
 	const approve = useSelector((state) => state.distributionOfficers.approve);
 	const reject = useSelector((state) => state.distributionOfficers.reject);
+	const showToast = (title, status, description) =>
+		toast({
+			position: 'bottom-right',
+			title: title,
+			description: description,
+			status: status,
+			duration: 5000,
+			isClosable: true,
+		});
 	const approveAccount = async () => {
 		await dispatch(approveAccountById(dOfficer.id));
 		setTimeout(() => {
 			if (approve.success === 'Successfully approved the account') {
-				toast({
-					title: 'Account Approved.',
-					description: approve.success,
-					status: 'success',
-					duration: 5000,
-					isClosable: true,
-				});
+				showToast('Account Approved.', 'success', approve.success);
 			} else {
-				toast({
-					title: 'An error occurred.',
-					description: approve.error,
-					status: 'error',
-					duration: 5000,
-					isClosable: true,
-				});
+				showToast('An error occurred.', 'error', approve.error);
 			}
 		}, 500);
 	};
@@ -61,22 +58,10 @@ const DOCard = ({ dOfficer }) => {
 		await dispatch(rejectAccountById(dOfficer.id));
 		setTimeout(() => {
 			if (reject.success === 'Account rejection successful') {
-				toast({
-					title: 'Account Rejected.',
-					description: reject.success,
-					status: 'success',
-					duration: 5000,
-					isClosable: true,
-				});
+				showToast('Account Rejected.', 'success', reject.success);
 			}
 			if (reject.error === 'Account rejection failed') {
-				toast({
-					title: 'An error occurred.',
-					description: reject.error,
-					status: 'error',
-					duration: 5000,
-					isClosable: true,
-				});
+				showToast('An error occurred.', 'error', reject.error);
 			}
 		}, 500);
 	};
@@ -86,6 +71,7 @@ const DOCard = ({ dOfficer }) => {
 	return (
 		<div>
 			<Box
+				id={`dOfficer-card-div-${dOfficer.id}`}
 				borderRadius='lg'
 				boxShadow='lg'
 				m={4}
@@ -107,6 +93,7 @@ const DOCard = ({ dOfficer }) => {
 					/>
 					<Box>
 						<Heading
+							id={`dOfficer_name-${dOfficer.id}`}
 							fontSize={'xl'}
 							fontFamily={'body'}
 							textAlign='start'
@@ -114,6 +101,7 @@ const DOCard = ({ dOfficer }) => {
 						>
 							{dOfficer.first_name} {dOfficer.last_name}
 							<Badge
+								id={`dOfficer_id-${dOfficer.id}`}
 								ml='4'
 								px={4}
 								py={1}
@@ -123,10 +111,20 @@ const DOCard = ({ dOfficer }) => {
 								#Employee Id {dOfficer.employee_no}
 							</Badge>
 						</Heading>
-						<Text fontWeight={500} textAlign='start' pl='4'>
+						<Text
+							id={`dOfficer_email-${dOfficer.id}`}
+							fontWeight={500}
+							textAlign='start'
+							pl='4'
+						>
 							Email: {dOfficer.email}
 						</Text>
-						<Text fontWeight={500} textAlign='start' pl='4'>
+						<Text
+							id={`dOfficer_contact_no-${dOfficer.id}`}
+							fontWeight={500}
+							textAlign='start'
+							pl='4'
+						>
 							Mobile: {dOfficer.contact_no}
 						</Text>
 					</Box>
@@ -136,6 +134,7 @@ const DOCard = ({ dOfficer }) => {
 							<VStack>
 								<Spacer />
 								<Button
+									id={`dOfficer_reject_button-${dOfficer.id}`}
 									leftIcon={<CloseIcon />}
 									colorScheme='red'
 									variant='solid'
@@ -145,6 +144,7 @@ const DOCard = ({ dOfficer }) => {
 									Reject
 								</Button>
 								<Button
+									id={`dOfficer_approve_button-${dOfficer.id}`}
 									leftIcon={<CheckIcon />}
 									colorScheme='whatsapp'
 									variant='solid'
