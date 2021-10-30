@@ -51,7 +51,10 @@ const LeaderboardSchema = (props) => {
 		});
 	const handleSubmit = async (data) => {
 		try {
-			const result = await updateLeaderboardPointSchema(data);
+			const result = await updateLeaderboardPointSchema(data.id, {
+				percentage: data.percentage,
+				bonus_points: data.bonus_points,
+			});
 			if (result.id) {
 				showToast(
 					'Schema updated.',
@@ -106,7 +109,11 @@ const LeaderboardSchema = (props) => {
 										<Td>{row.points_type}</Td>
 										{updateMode.key !== i ? (
 											<>
-												<Td isNumeric>{row.percentage} %</Td>
+												<Td isNumeric>
+													{row.points_type !== 'CUSTOMER_CREATION'
+														? `${row.percentage} %`
+														: ''}
+												</Td>
 												<Td isNumeric>{row.bonus_points} points</Td>
 												<Td>
 													<Button
@@ -142,6 +149,7 @@ const UpdateSchemaView = (row, handleSubmit, cancelUpdate) => {
 	return (
 		<Formik
 			initialValues={{
+				id: row.id,
 				points_type: row.points_type,
 				percentage: row.percentage,
 				bonus_points: row.bonus_points,
@@ -172,20 +180,24 @@ const UpdateSchemaView = (row, handleSubmit, cancelUpdate) => {
 			{(props) => (
 				<>
 					<Td>
-						<FormControl
-							isInvalid={props.errors.percentage && props.touched.percentage}
-						>
-							<InputGroup>
-								<Input
-									type='percentage'
-									name='percentage'
-									value={props.initialValues.percentage}
-									{...props.getFieldProps('percentage')}
-								/>
-								<InputRightAddon children='%' size='sm' />
-							</InputGroup>
-							<FormErrorMessage>{props.errors.percentage}</FormErrorMessage>
-						</FormControl>
+						{row.points_type !== 'CUSTOMER_CREATION' ? (
+							<FormControl
+								isInvalid={props.errors.percentage && props.touched.percentage}
+							>
+								<InputGroup>
+									<Input
+										type='percentage'
+										name='percentage'
+										value={props.initialValues.percentage}
+										{...props.getFieldProps('percentage')}
+									/>
+									<InputRightAddon children='%' size='sm' />
+								</InputGroup>
+								<FormErrorMessage>{props.errors.percentage}</FormErrorMessage>
+							</FormControl>
+						) : (
+							''
+						)}
 					</Td>
 					<Td>
 						<FormControl

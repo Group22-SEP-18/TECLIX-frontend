@@ -66,3 +66,25 @@ export const postWithOutAuthorization = (url, payload) => {
 		}
 	});
 };
+
+export const patchWithAuthorization = (url, payload) => {
+	return new Promise(async (resolve, reject) => {
+		try {
+			const accessJWT = localStorage.getItem('token');
+
+			if (!accessJWT) {
+				reject('Token not found!');
+			}
+
+			const res = await axios.patch(url, payload, {
+				headers: {
+					Authorization: `Token ${accessJWT}`,
+				},
+			});
+
+			resolve(res.data);
+		} catch (error) {
+			reject(error.message);
+		}
+	});
+};
