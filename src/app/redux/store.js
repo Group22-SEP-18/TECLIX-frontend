@@ -3,6 +3,7 @@ import currentLocationsReducer from './slices/currentLocationsSlice';
 import customerReducer from './slices/customerSlice';
 import distributionOfficerReducer from './slices/distributionOfficersSlice';
 import leaderboardReducer from './slices/leaderboardSlice';
+import leaderboardPointSchemaReducer from './slices/leaderboardPointSchemaSlice';
 import locationReducer from './slices/locationsSlice';
 import loginReducer from './slices/loginSlice';
 import productsReducer from './slices/productsSlice';
@@ -22,6 +23,7 @@ export default configureStore({
 		customers: customerReducer,
 		distributionOfficers: distributionOfficerReducer,
 		leaderboard: leaderboardReducer,
+		leaderboardPointSchema: leaderboardPointSchemaReducer,
 		locations: locationReducer,
 		login: loginReducer,
 		products: productsReducer,

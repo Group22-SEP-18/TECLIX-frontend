@@ -1,10 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
 	Button,
-	Box,
-	Editable,
-	EditableInput,
-	EditablePreview,
 	Modal,
 	ModalOverlay,
 	ModalContent,
@@ -12,8 +8,6 @@ import {
 	ModalHeader,
 	ModalBody,
 	ModalCloseButton,
-	VStack,
-	Text,
 	Table,
 	Thead,
 	Tbody,
@@ -22,135 +16,60 @@ import {
 	Td,
 	useDisclosure,
 } from '@chakra-ui/react';
-import { SettingsIcon, CheckIcon } from '@chakra-ui/icons';
-
-const dataSet = [
-	{
-		name: 'Late Payment',
-		schema: [
-			{
-				below_margin: 0,
-				percentage: 1,
-				bonus: 10,
-			},
-			{
-				below_margin: 10000,
-				percentage: 3,
-				bonus: 100,
-			},
-			{
-				below_margin: 100000,
-				percentage: 4,
-				bonus: 10000,
-			},
-		],
-	},
-	{
-		name: 'Service Orders',
-		schema: [
-			{
-				below_margin: 0,
-				percentage: 1,
-				bonus: 10,
-			},
-			{
-				below_margin: 10000,
-				percentage: 3,
-				bonus: 100,
-			},
-			{
-				below_margin: 100000,
-				percentage: 4,
-				bonus: 10000,
-			},
-		],
-	},
-	{
-		name: 'Item Count',
-		schema: [
-			{
-				below_margin: 0,
-				percentage: 1,
-				bonus: 10,
-			},
-			{
-				below_margin: 100,
-				percentage: 3,
-				bonus: 100,
-			},
-			{
-				below_margin: 1000,
-				percentage: 4,
-				bonus: 10000,
-			},
-		],
-	},
-];
+import { SettingsIcon, CheckIcon, EditIcon } from '@chakra-ui/icons';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+	selectLeaderboardPointSchema,
+	getLeaderboardPointSchemaAsync,
+} from '../../../redux/slices/leaderboardPointSchemaSlice';
 
 const LeaderboardSchema = (props) => {
+	const dispatch = useDispatch();
+	const leaderboardPointSchema = useSelector(selectLeaderboardPointSchema);
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	useEffect(() => {
+		dispatch(getLeaderboardPointSchemaAsync());
+	}, [dispatch]);
 	return (
 		<>
 			<Button rightIcon={<SettingsIcon />} colorScheme='gray' onClick={onOpen}>
 				Leaderboard Schema
 			</Button>
 
-			<Modal isOpen={isOpen} onClose={onClose} size='lg'>
+			<Modal isOpen={isOpen} onClose={onClose} size='4xl'>
 				<ModalOverlay />
 				<ModalContent>
 					<ModalHeader>Leaderboard Schema</ModalHeader>
 					<ModalCloseButton />
 					<ModalBody>
-						{dataSet.map((dset, i) => (
-							<VStack my='4' key={1}>
-								<Box flex='1' flexDirection='row'>
-									<Text
-										fontSize='md'
-										fontWeight='bold'
-										textAlign='start'
-										justifyContent='start'
-									>
-										{dset.name}
-									</Text>
-									<Box>
-										<Table variant='unstyled'>
-											<Thead>
-												<Tr>
-													<Th>Lower Margin</Th>
-													<Th isNumeric>Percentage</Th>
-													<Th isNumeric>Bonus Points</Th>
-												</Tr>
-											</Thead>
-											<Tbody>
-												{dset.schema.map((row, index) => (
-													<Tr my='1' key={index}>
-														<Td>
-															{dset.name === 'ItemCount'
-																? `${row.below_margin}`
-																: `Rs.${row.below_margin}.00+`}
-														</Td>
-														<Td isNumeric>
-															<Editable defaultValue={row.percentage}>
-																<EditablePreview />
-																<EditableInput />
-																{' %'}
-															</Editable>
-														</Td>
-														<Td isNumeric>
-															<Editable defaultValue={row.bonus}>
-																<EditablePreview />
-																<EditableInput />
-																{' points'}
-															</Editable>
-														</Td>
-													</Tr>
-												))}
-											</Tbody>
-										</Table>
-									</Box>
-								</Box>
-							</VStack>
-						))}
+						<Table variant='unstyled'>
+							<Thead>
+								<Tr>
+									<Th>Points Type</Th>
+									<Th isNumeric>Percentage</Th>
+									<Th isNumeric>Bonus Points</Th>
+									<Th></Th>
+								</Tr>
+							</Thead>
+							<Tbody>
+								{leaderboardPointSchema.map((row, i) => (
+									<Tr my='1' key={i}>
+										<Td>{row.points_type}</Td>
+										<Td isNumeric>{row.percentage} %</Td>
+										<Td isNumeric>{row.bonus_points} points</Td>
+										<Td>
+											<Button
+												rightIcon={<EditIcon />}
+												colorScheme='gray'
+												onClick={() => {}}
+											>
+												Edit Criteria
+											</Button>
+										</Td>
+									</Tr>
+								))}
+							</Tbody>
+						</Table>
 						<ModalFooter>
 							<Button variant='ghost' rightIcon={<CheckIcon />}>
 								Apply Changes

@@ -45,25 +45,20 @@ const DOCard = ({ dOfficer }) => {
 			isClosable: true,
 		});
 	const approveAccount = async () => {
-		await dispatch(approveAccountById(dOfficer.id));
-		setTimeout(() => {
-			if (approve.success === 'Successfully approved the account') {
-				showToast('Account Approved.', 'success', approve.success);
-			} else {
-				showToast('An error occurred.', 'error', approve.error);
-			}
-		}, 500);
+		const result = await dispatch(approveAccountById(dOfficer.id));
+		if (result) {
+			showToast('Account Approved.', 'success', approve.success);
+		} else {
+			showToast('An error occurred.', 'error', approve.error);
+		}
 	};
 	const rejectAccount = async () => {
-		await dispatch(rejectAccountById(dOfficer.id));
-		setTimeout(() => {
-			if (reject.success === 'Account rejection successful') {
-				showToast('Account Rejected.', 'success', reject.success);
-			}
-			if (reject.error === 'Account rejection failed') {
-				showToast('An error occurred.', 'error', reject.error);
-			}
-		}, 500);
+		const result = await dispatch(rejectAccountById(dOfficer.id));
+		if (result) {
+			showToast('Account Rejected.', 'success', reject.success);
+		} else {
+			showToast('An error occurred.', 'error', reject.error);
+		}
 	};
 	if (!dOfficer) {
 		return null;
