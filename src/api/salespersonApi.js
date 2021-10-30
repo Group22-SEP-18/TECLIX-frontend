@@ -28,6 +28,10 @@ export const fetchLeaderboardPointSchema = () => {
 	return fetchWithAuthorization(leaderboardSchemaUrl);
 };
 
+export const updateLeaderboardPointSchema = (data) => {
+	return postWithAuthorization(leaderboardSchemaUrl, data);
+};
+
 export const approveSalespersonAccount = (id) => {
 	return postWithAuthorization(`${approveUrl}${id}`, { is_approved: true });
 };
