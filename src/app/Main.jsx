@@ -7,7 +7,6 @@ import {
 	Redirect,
 } from 'react-router-dom';
 import { PrivateRoute } from './components/common/PrivateRoute';
-import { history } from './utils';
 import LoginPage from './components/pages/login/LoginPage';
 import RegisterPage from './components/pages/register/RegisterPage';
 import { privateRoutes } from './privateRoutes';
@@ -20,7 +19,7 @@ const Main = (props) => {
 	}, [dispatch]);
 	return (
 		<div>
-			<Router history={history}>
+			<Router>
 				<Switch>
 					{privateRoutes.map((pr, i) => (
 						<PrivateRoute

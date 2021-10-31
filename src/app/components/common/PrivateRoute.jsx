@@ -1,13 +1,14 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
+import { selectUserRole } from '../../redux/slices/userSlice';
 
 export const PrivateRoute = ({
 	component: Component,
 	acceptable_user_roles,
 	...rest
 }) => {
-	const user_role = useSelector((state) => state.user.user.user_role);
+	const user_role = useSelector(selectUserRole);
 	return (
 		<Route
 			{...rest}
