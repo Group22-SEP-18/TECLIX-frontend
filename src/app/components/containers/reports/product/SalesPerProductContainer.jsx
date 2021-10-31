@@ -12,7 +12,7 @@ import {
 	TagLabel,
 } from '@chakra-ui/react';
 import SimpleChart from '../../../common/charts/SimpleChart';
-import LoadingCards from '../../../common/loading/LoadingCards';
+import LoadingSkelton from '../../../common/loading/LoadingSkelton';
 import ErrorOverlay from '../../../common/error-overlays/ErrorOverlay';
 import {
 	getSalesPerProductAsync,
@@ -21,6 +21,7 @@ import {
 	salesPerProductAddToAdded,
 	salesPerProductRemoveFromAdded,
 } from '../../../../redux/slices/reportSlice';
+import { colors } from '../../../../utils';
 
 const SalesPerProductContainer = (props) => {
 	const dispatch = useDispatch();
@@ -41,7 +42,7 @@ const SalesPerProductContainer = (props) => {
 		setSelected('');
 	};
 	if (isLoading) {
-		return <LoadingCards count={3} />;
+		return <LoadingSkelton />;
 	}
 	if (error) {
 		return <ErrorOverlay error={error} />;
@@ -69,7 +70,7 @@ const SalesPerProductContainer = (props) => {
 			</Flex>
 
 			<HStack spacing={4}>
-				{chartValues.map((item) => (
+				{chartValues.map((item, i) => (
 					<Tag
 						size={'lg'}
 						key={item.product_id}
@@ -78,6 +79,9 @@ const SalesPerProductContainer = (props) => {
 						variant='solid'
 						colorScheme='green'
 						minW='150'
+						style={{
+							color: colors[i].hex,
+						}}
 					>
 						<TagLabel>{item.product_long_name}</TagLabel>
 						<TagCloseButton

@@ -1,7 +1,7 @@
 import { fetchWithAuthorization, patchWithAuthorization } from './baseApi';
 
 const rootUrl = 'https://teclix.herokuapp.com/customer-api/';
-const loyaltySchemaUrl = rootUrl + 'loaylty-points/';
+const loyaltySchemaUrl = rootUrl + 'loaylty-point-schema/';
 
 export const fetchCustomers = () => {
 	return fetchWithAuthorization(rootUrl);
