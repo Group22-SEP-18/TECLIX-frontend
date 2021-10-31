@@ -3,13 +3,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
 	Button,
 	Flex,
-	HStack,
+	Wrap,
 	InputLeftAddon,
 	InputGroup,
 	Select,
 	Tag,
 	TagCloseButton,
 	TagLabel,
+	WrapItem,
 } from '@chakra-ui/react';
 import SimpleChart from '../../../common/charts/SimpleChart';
 import LoadingSkelton from '../../../common/loading/LoadingSkelton';
@@ -21,7 +22,6 @@ import {
 	salesPerProductAddToAdded,
 	salesPerProductRemoveFromAdded,
 } from '../../../../redux/slices/reportSlice';
-import { colors } from '../../../../utils';
 
 const SalesPerProductContainer = (props) => {
 	const dispatch = useDispatch();
@@ -69,28 +69,27 @@ const SalesPerProductContainer = (props) => {
 				</Button>
 			</Flex>
 
-			<HStack spacing={4}>
+			<Wrap spacing={4}>
 				{chartValues.map((item, i) => (
-					<Tag
-						size={'lg'}
-						key={item.product_id}
-						borderRadius='full'
-						pb={1}
-						variant='solid'
-						colorScheme='green'
-						minW='150'
-						style={{
-							color: colors[i].hex,
-						}}
-					>
-						<TagLabel>{item.product_long_name}</TagLabel>
-						<TagCloseButton
-							pt={1}
-							onClick={() => onClickClose(item.product_id)}
-						/>
-					</Tag>
+					<WrapItem key={item.product_id}>
+						<Tag
+							size={'lg'}
+							key={item.product_id}
+							borderRadius='full'
+							pb={1}
+							variant='solid'
+							colorScheme='green'
+							minW='150'
+						>
+							<TagLabel>{item.product_long_name}</TagLabel>
+							<TagCloseButton
+								pt={1}
+								onClick={() => onClickClose(item.product_id)}
+							/>
+						</Tag>
+					</WrapItem>
 				))}
-			</HStack>
+			</Wrap>
 			<SimpleChart
 				type='line'
 				header=''
