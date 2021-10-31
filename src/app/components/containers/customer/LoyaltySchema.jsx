@@ -25,6 +25,7 @@ import { SettingsIcon, CheckIcon, EditIcon, CloseIcon } from '@chakra-ui/icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import _ from 'lodash';
 import {
 	selectLoyaltyPointSchema,
 	getloyaltyPointSchemaAsync,
@@ -78,6 +79,7 @@ const LeaderboardSchema = (props) => {
 			key: null,
 			isInUpdateMode: false,
 		});
+		showToast('No changes', 'info', '');
 	};
 	useEffect(() => {
 		dispatch(getloyaltyPointSchemaAsync());
@@ -171,7 +173,9 @@ const UpdateSchemaView = (row, handleSubmit, cancelUpdate) => {
 					)
 					.required('Bonus points cannot be empty'),
 			})}
-			onSubmit={async (values) => handleSubmit(values)}
+			onSubmit={async (values) =>
+				_.isEqual(row, values) ? cancelUpdate() : handleSubmit(values)
+			}
 		>
 			{(props) => (
 				<>

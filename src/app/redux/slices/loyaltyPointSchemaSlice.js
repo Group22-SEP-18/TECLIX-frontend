@@ -28,7 +28,13 @@ export const loyaltyPointSchemaSlice = createSlice({
 			getloyaltyPointSchemaAsync.fulfilled,
 			(state, { payload }) => {
 				state.isLoading = false;
-				state.loyaltyPointSchema = payload;
+				state.loyaltyPointSchema = payload.sort((a, b) =>
+					a.points_type > b.points_type
+						? 1
+						: b.points_type > a.points_type
+						? -1
+						: 0
+				);
 				state.error = '';
 			}
 		);
