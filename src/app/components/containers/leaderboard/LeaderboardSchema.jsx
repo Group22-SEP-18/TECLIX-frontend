@@ -30,6 +30,7 @@ import {
 	getLeaderboardPointSchemaAsync,
 } from '../../../redux/slices/leaderboardPointSchemaSlice';
 import { updateLeaderboardPointSchema } from '../../../../api/salespersonApi';
+import _ from 'lodash';
 
 const LeaderboardSchema = (props) => {
 	const dispatch = useDispatch();
@@ -78,6 +79,7 @@ const LeaderboardSchema = (props) => {
 			key: null,
 			isInUpdateMode: false,
 		});
+		showToast('No changes', 'info', '');
 	};
 	useEffect(() => {
 		dispatch(getLeaderboardPointSchemaAsync());
@@ -175,7 +177,9 @@ const UpdateSchemaView = (row, handleSubmit, cancelUpdate) => {
 					)
 					.required('Bonus points cannot be empty'),
 			})}
-			onSubmit={async (values) => handleSubmit(values)}
+			onSubmit={async (values) =>
+				_.isEqual(row, values) ? cancelUpdate() : handleSubmit(values)
+			}
 		>
 			{(props) => (
 				<>
