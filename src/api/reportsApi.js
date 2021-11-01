@@ -1,6 +1,6 @@
 import { fetchWithAuthorization } from './baseApi';
 
-const rootUrl = 'http://teclix.herokuapp.com/report-api/';
+const rootUrl = 'https://teclix.herokuapp.com/report-api/';
 // salesperson report
 export const fetchSalesPerSalespersonForCurrentMonth = () => {
 	return fetchWithAuthorization(`${rootUrl}salesperson-sales-current-month`);
