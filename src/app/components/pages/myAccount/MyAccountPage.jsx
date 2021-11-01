@@ -98,7 +98,7 @@ const MyAccountPage = (props) => {
 						</Text>
 						<Box h='100px' />
 						<Stack mt={8} direction={'row'} spacing={4}>
-							<Button
+							{/* <Button
 								flex={1}
 								fontSize={'sm'}
 								rounded={'full'}
@@ -108,7 +108,7 @@ const MyAccountPage = (props) => {
 							>
 								Change Profile Picture
 							</Button>
-							<ResetPassword />
+							<ResetPassword /> */}
 						</Stack>
 					</Box>
 				</Center>
