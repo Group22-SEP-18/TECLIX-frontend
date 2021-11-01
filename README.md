@@ -1,4 +1,7 @@
 # TECLIX-frontend
+
+link : https://teclix-webapp.netlify.app/
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/f8a13dd5-8779-4673-af4d-a82a021e86ad/deploy-status)](https://app.netlify.com/sites/teclix-webapp/deploys)
 ## code setup
 clone the repository using HTTPS
