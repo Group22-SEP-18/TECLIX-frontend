@@ -1,10 +1,14 @@
-import { fetchWithAuthorization, postWithAuthorization } from './baseApi';
+import {
+	fetchWithAuthorization,
+	postWithAuthorization,
+	patchWithAuthorization,
+} from './baseApi';
 
 const rootUrl = 'https://teclix.herokuapp.com/salesperson-api/';
 const locationUrl = rootUrl + 'locations/';
 const currentLocationsUrl = rootUrl + 'locations/current';
 const leaderboardUrl = rootUrl + 'leaderboard/';
-const leaderboardSchemaUrl = rootUrl + 'leaderboard-point-schema';
+const leaderboardSchemaUrl = rootUrl + 'leaderboard-point-schema/';
 const approveUrl =
 	'https://teclix.herokuapp.com/staff-api/approve/salesperson/';
 
@@ -26,6 +30,10 @@ export const fetchLeaderboard = () => {
 
 export const fetchLeaderboardPointSchema = () => {
 	return fetchWithAuthorization(leaderboardSchemaUrl);
+};
+
+export const updateLeaderboardPointSchema = (id, data) => {
+	return patchWithAuthorization(`${leaderboardSchemaUrl}${id}`, data);
 };
 
 export const approveSalespersonAccount = (id) => {

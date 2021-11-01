@@ -11,13 +11,22 @@
 
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Accordion } from '@chakra-ui/react';
+import {
+	Accordion,
+	AccordionItem,
+	AccordionButton,
+	AccordionPanel,
+	AccordionIcon,
+	Box,
+	Spacer,
+} from '@chakra-ui/react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
 	selectAllServiceOrders,
 	getServiceOrdersAsync,
 } from '../../../redux/slices/serviceOrderSlice';
-import ServiceOrderCard from '../../presentation/serviceOrders/ServiceOrderCard';
+import ServiceOrderDetailsHeader from '../../presentation/serviceOrders/ServiceOrderDetailsHeader';
+import ServiceOrderProductTable from '../../presentation/serviceOrders/ServiceOrderProductTable';
 import AddFilter from '../AddFilter';
 
 const CustomerSOHistoryContainer = ({ customer }) => {
@@ -32,14 +41,35 @@ const CustomerSOHistoryContainer = ({ customer }) => {
 		<div>
 			<AddFilter />
 			<Accordion allowToggle>
-				{serviceOrders.map((so) => (
-					<ServiceOrderCard
-						key={so.id}
-						serviceOrder={so}
-						showCustomer={false}
-						showSP={true}
-					/>
+				{serviceOrders.map((serviceOrder) => (
+					<AccordionItem>
+						<AccordionButton>
+							<Box
+								id={`serviceorder_div-${serviceOrder.id}`}
+								m={2}
+								minH='100px'
+								overflow='hidden'
+								p={2}
+								textAlign={'center'}
+								_hover={{ cursor: 'pointer' }}
+							>
+								<ServiceOrderDetailsHeader
+									serviceOrder={serviceOrder}
+									showSP={true}
+									showCustomer={false}
+								/>
+							</Box>
+							<Spacer />
+							<AccordionIcon />
+						</AccordionButton>
+						<AccordionPanel>
+							<ServiceOrderProductTable
+								order_items={serviceOrder.order_items}
+							/>
+						</AccordionPanel>
+					</AccordionItem>
 				))}
+				{serviceOrders.length ? null : 'No service orders are included'}
 			</Accordion>
 		</div>
 	);

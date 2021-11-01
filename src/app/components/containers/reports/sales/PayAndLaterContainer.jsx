@@ -6,7 +6,7 @@ import {
 	selectPayOrPayLater,
 } from '../../../../redux/slices/reportSlice';
 import RechartChart from '../../../common/charts/RechartChart';
-import LoadingCards from '../../../common/loading/LoadingCards';
+import LoadingSkelton from '../../../common/loading/LoadingSkelton';
 import ErrorOverlay from '../../../common/error-overlays/ErrorOverlay';
 
 const PayAndLaterContainer = (props) => {
@@ -16,7 +16,7 @@ const PayAndLaterContainer = (props) => {
 	}, [dispatch]);
 	const { isLoading, chartValues, error } = useSelector(selectPayOrPayLater);
 	if (isLoading) {
-		return <LoadingCards count={3} />;
+		return <LoadingSkelton />;
 	}
 	if (error) {
 		<ErrorOverlay error={error} />;

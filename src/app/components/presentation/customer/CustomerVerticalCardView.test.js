@@ -74,7 +74,11 @@ describe('should render correctly', () => {
             <div>
               <p class=\\"chakra-text css-kkw157\\">Location</p>
               <div class=\\"css-90jtzs\\">
-                <div style=\\"height: 100%;\\"></div>
+                <div>
+                  <div class=\\"chakra-skeleton css-1m726o4\\">
+                    <div></div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

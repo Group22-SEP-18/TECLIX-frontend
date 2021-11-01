@@ -27,7 +27,7 @@ import {
 import MapWithHeader from '../../common/map/MapWithHeader';
 import { selectAllLocations } from '../../../redux/slices/locationsSlice';
 
-const SalesPersonVerticalCardView = ({ salesperson }) => {
+const SalesPersonVerticalCard = ({ salesperson }) => {
 	const { locations } = useSelector(selectAllLocations);
 	const lastLocations = locations
 		.slice()
@@ -38,6 +38,7 @@ const SalesPersonVerticalCardView = ({ salesperson }) => {
 	return (
 		<Center>
 			<Box
+				id={`salesperson-vertical-card-div-${salesperson.id}`}
 				w={'full'}
 				borderWidth={1}
 				boxShadow={'md'}
@@ -52,16 +53,35 @@ const SalesPersonVerticalCardView = ({ salesperson }) => {
 					mb={4}
 					pos={'relative'}
 				/>
-				<Text ml='4' px={4} py={1} fontWeight={'400'}>
+				<Text
+					id={`salesperson_id-${salesperson.id}`}
+					ml='4'
+					px={4}
+					py={1}
+					fontWeight={'400'}
+				>
 					#Emplooyee Id {salesperson.employee_no}
 				</Text>
-				<Heading fontSize={'xl'} fontFamily={'body'} textAlign='center' pl='4'>
+				<Heading
+					id={`salesperson_name-${salesperson.id}`}
+					fontSize={'xl'}
+					fontFamily={'body'}
+					textAlign='center'
+					pl='4'
+				>
 					{salesperson.first_name} {salesperson.last_name}
 				</Heading>
-				<Text fontWeight={500} color={'gray.500'} textAlign='center' pl='4'>
+				<Text
+					id={`salesperson_email-${salesperson.id}`}
+					fontWeight={500}
+					color={'gray.500'}
+					textAlign='center'
+					pl='4'
+				>
 					{salesperson.email}
 				</Text>
 				<Text
+					id={`salesperson_mobile_no-${salesperson.id}`}
 					fontWeight={500}
 					color={'gray.500'}
 					mb={4}
@@ -98,22 +118,24 @@ const SalesPersonVerticalCardView = ({ salesperson }) => {
 					</Badge>
 				</Stack>
 
-				<MapWithHeader
-					header='Last Location'
-					locations={
-						lastLocation
-							? [
-									{
-										latitude: parseFloat(lastLocation.customer.latitude),
-										longitude: parseFloat(lastLocation.customer.longitude),
-									},
-							  ]
-							: []
-					}
-				/>
+				<div id={`salesperson_map-${salesperson.id}`}>
+					<MapWithHeader
+						header='Last Location'
+						locations={
+							lastLocation
+								? [
+										{
+											latitude: parseFloat(lastLocation.customer.latitude),
+											longitude: parseFloat(lastLocation.customer.longitude),
+										},
+								  ]
+								: []
+						}
+					/>
+				</div>
 			</Box>
 		</Center>
 	);
 };
 
-export default SalesPersonVerticalCardView;
+export default SalesPersonVerticalCard;

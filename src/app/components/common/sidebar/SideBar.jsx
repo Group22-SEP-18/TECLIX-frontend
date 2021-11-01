@@ -22,10 +22,11 @@ import {
 } from '@chakra-ui/react';
 import Sidebar from './SidebarContent';
 import MobileNav from './MobileNav';
+import { selectUser } from '../../../redux/slices/userSlice';
 
 const SideBar = (props) => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const user = useSelector((state) => state.user.user);
+	const user = useSelector(selectUser);
 	return (
 		<>
 			{/* Side Bar for larger displays */}

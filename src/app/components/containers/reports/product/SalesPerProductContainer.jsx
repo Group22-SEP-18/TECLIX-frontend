@@ -3,16 +3,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
 	Button,
 	Flex,
-	HStack,
+	Wrap,
 	InputLeftAddon,
 	InputGroup,
 	Select,
 	Tag,
 	TagCloseButton,
 	TagLabel,
+	WrapItem,
 } from '@chakra-ui/react';
 import SimpleChart from '../../../common/charts/SimpleChart';
-import LoadingCards from '../../../common/loading/LoadingCards';
+import LoadingSkelton from '../../../common/loading/LoadingSkelton';
 import ErrorOverlay from '../../../common/error-overlays/ErrorOverlay';
 import {
 	getSalesPerProductAsync,
@@ -41,7 +42,7 @@ const SalesPerProductContainer = (props) => {
 		setSelected('');
 	};
 	if (isLoading) {
-		return <LoadingCards count={3} />;
+		return <LoadingSkelton />;
 	}
 	if (error) {
 		return <ErrorOverlay error={error} />;
@@ -68,25 +69,27 @@ const SalesPerProductContainer = (props) => {
 				</Button>
 			</Flex>
 
-			<HStack spacing={4}>
-				{chartValues.map((item) => (
-					<Tag
-						size={'lg'}
-						key={item.product_id}
-						borderRadius='full'
-						pb={1}
-						variant='solid'
-						colorScheme='green'
-						minW='150'
-					>
-						<TagLabel>{item.product_long_name}</TagLabel>
-						<TagCloseButton
-							pt={1}
-							onClick={() => onClickClose(item.product_id)}
-						/>
-					</Tag>
+			<Wrap spacing={4}>
+				{chartValues.map((item, i) => (
+					<WrapItem key={item.product_id}>
+						<Tag
+							size={'lg'}
+							key={item.product_id}
+							borderRadius='full'
+							pb={1}
+							variant='solid'
+							colorScheme='green'
+							minW='150'
+						>
+							<TagLabel>{item.product_long_name}</TagLabel>
+							<TagCloseButton
+								pt={1}
+								onClick={() => onClickClose(item.product_id)}
+							/>
+						</Tag>
+					</WrapItem>
 				))}
-			</HStack>
+			</Wrap>
 			<SimpleChart
 				type='line'
 				header=''

@@ -14,7 +14,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
 	Accordion,
+	AccordionItem,
+	AccordionButton,
+	AccordionPanel,
+	AccordionIcon,
 	Box,
+	Spacer,
 	Tabs,
 	TabList,
 	TabPanels,
@@ -31,7 +36,8 @@ import {
 	selectAllServiceOrders,
 	getServiceOrdersAsync,
 } from '../../../redux/slices/serviceOrderSlice';
-import ServiceOrderCard from '../../presentation/serviceOrders/ServiceOrderCard';
+import ServiceOrderDetailsHeader from '../../presentation/serviceOrders/ServiceOrderDetailsHeader';
+import ServiceOrderProductTable from '../../presentation/serviceOrders/ServiceOrderProductTable';
 import AddFilter from '../AddFilter';
 import {
 	filteredLocations,
@@ -95,14 +101,35 @@ const SalesPersonHistoryContainer = ({ salesperson }) => {
 					<TabPanel>
 						<Tabs align='end' variant='soft-rounded' colorScheme='green'>
 							<AddFilter />
+							{serviceOrders.length ? null : 'No service orders are included'}
 							<Accordion allowToggle>
-								{serviceOrders.map((so) => (
-									<ServiceOrderCard
-										key={so.id}
-										serviceOrder={so}
-										showCustomer={true}
-										showSP={false}
-									/>
+								{serviceOrders.map((serviceOrder) => (
+									<AccordionItem>
+										<AccordionButton>
+											<Box
+												id={`serviceorder_div-${serviceOrder.id}`}
+												m={2}
+												minH='100px'
+												overflow='hidden'
+												p={2}
+												textAlign={'center'}
+												_hover={{ cursor: 'pointer' }}
+											>
+												<ServiceOrderDetailsHeader
+													serviceOrder={serviceOrder}
+													showSP={false}
+													showCustomer={true}
+												/>
+											</Box>
+											<Spacer />
+											<AccordionIcon />
+										</AccordionButton>
+										<AccordionPanel>
+											<ServiceOrderProductTable
+												order_items={serviceOrder.order_items}
+											/>
+										</AccordionPanel>
+									</AccordionItem>
 								))}
 							</Accordion>
 						</Tabs>

@@ -40,5 +40,7 @@ export const { getUserPending, getUserSuccess, getUserFail } =
 	userSlice.actions;
 
 export const selectUserRole = (state) => state.user.user.user_role;
+export const selectUser = (state) => state.user.user;
+export const selectIsLoading = (state) => state.user.isLoading;
 
 export default userSlice.reducer;

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
 	BrowserRouter as Router,
 	Route,
@@ -7,20 +7,24 @@ import {
 	Redirect,
 } from 'react-router-dom';
 import { PrivateRoute } from './components/common/PrivateRoute';
-import { history } from './utils';
 import LoginPage from './components/pages/login/LoginPage';
 import RegisterPage from './components/pages/register/RegisterPage';
 import { privateRoutes } from './privateRoutes';
 import { getUserProfile } from '../app/redux/actions/userActions';
+import { selectIsLoading } from './redux/slices/userSlice';
 
 const Main = (props) => {
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(getUserProfile());
 	}, [dispatch]);
+	const isLoading = useSelector(selectIsLoading);
+	if (isLoading) {
+		return <>Loading</>;
+	}
 	return (
 		<div>
-			<Router history={history}>
+			<Router>
 				<Switch>
 					{privateRoutes.map((pr, i) => (
 						<PrivateRoute
