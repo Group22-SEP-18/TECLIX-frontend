@@ -27,7 +27,7 @@ const DashBorad = (props) => {
 						</Box>
 					</GridItem>
 					<GridItem colSpan={{ base: 2, xl: 1 }}>
-						<LeaderBoardContainer />
+						<LeaderBoardContainer depth={6} />
 					</GridItem>
 				</Grid>
 			</Box>

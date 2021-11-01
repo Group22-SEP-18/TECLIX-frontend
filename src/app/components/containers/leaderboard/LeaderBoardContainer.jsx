@@ -23,7 +23,7 @@ import {
 import LeaderboardSchema from './LeaderboardSchema';
 import { selectUserRole } from '../../../redux/slices/userSlice';
 
-const LeaderBoardContainer = ({ withSchema }) => {
+const LeaderBoardContainer = ({ withSchema, depth }) => {
 	const dispatch = useDispatch();
 	const user_role = useSelector(selectUserRole);
 	const [timeConstraint, setTimeConstraint] = useState('today');
@@ -35,6 +35,7 @@ const LeaderBoardContainer = ({ withSchema }) => {
 			: timeConstraint === 'month'
 			? monthLeaderboard
 			: alltimeLeaderboard;
+	const salespersonsCount = depth || salespersons.length;
 	useEffect(() => {
 		dispatch(getLeaderboardAsync());
 	}, [dispatch]);
@@ -104,14 +105,16 @@ const LeaderBoardContainer = ({ withSchema }) => {
 									</Grid>
 								</HStack>
 								{/* rest */}
-								{salespersons.slice(3, 7).map((salesperson, index) => (
-									<HorPositions
-										key={index}
-										row={salesperson}
-										position={index + 4}
-										timeConstraint={timeConstraint}
-									/>
-								))}
+								{salespersons
+									.slice(3, salespersonsCount)
+									.map((salesperson, index) => (
+										<HorPositions
+											key={index}
+											row={salesperson}
+											position={index + 4}
+											timeConstraint={timeConstraint}
+										/>
+									))}
 							</TabPanel>
 						))}
 					</TabPanels>
