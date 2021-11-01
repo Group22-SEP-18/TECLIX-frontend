@@ -13,7 +13,6 @@ import { useSelector } from 'react-redux';
 import {
 	Avatar,
 	Box,
-	Button,
 	Center,
 	useColorModeValue,
 	Heading,
@@ -21,7 +20,6 @@ import {
 	Text,
 } from '@chakra-ui/react';
 import SideBar from '../../common/sidebar/SideBar';
-import ResetPassword from '../../containers/myAccount/ResetPassword';
 
 const MyAccountPage = (props) => {
 	const user = useSelector((state) => state.user.user);
