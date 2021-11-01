@@ -29,6 +29,7 @@ import {
 	setListViewFilter,
 	getSalespersonsAsync,
 } from '../../../redux/slices/salespersonSlice';
+import { selectLeaderboard } from '../../../redux/slices/leaderboardSlice';
 import { selectUserRole } from '../../../redux/slices/userSlice';
 
 const SalesPersonsContainer = ({ onCardClick }) => {
@@ -37,6 +38,7 @@ const SalesPersonsContainer = ({ onCardClick }) => {
 	const { isLoading, error } = useSelector(selectAllSalespersons);
 	const user_role = useSelector(selectUserRole);
 	const salespersons = useSelector(selectFilteredSalespersons);
+	const { todayLeaderboard } = useSelector(selectLeaderboard);
 	useEffect(() => {
 		dispatch(getSalespersonsAsync());
 	}, [dispatch]);
@@ -78,6 +80,7 @@ const SalesPersonsContainer = ({ onCardClick }) => {
 												key={index}
 												salesperson={salesperson}
 												onClick={onCardClick}
+												leaderboard={todayLeaderboard}
 											/>
 										))}
 								</Collapse>
@@ -92,6 +95,7 @@ const SalesPersonsContainer = ({ onCardClick }) => {
 									key={index}
 									salesperson={salesperson}
 									onClick={onCardClick}
+									leaderboard={todayLeaderboard}
 								/>
 							))}
 				</>

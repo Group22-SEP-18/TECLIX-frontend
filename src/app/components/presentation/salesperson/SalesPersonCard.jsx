@@ -31,7 +31,7 @@ import {
 } from '@chakra-ui/react';
 import { CheckIcon, CloseIcon } from '@chakra-ui/icons';
 
-const SalesPersonCard = ({ salesperson, onClick }) => {
+const SalesPersonCard = ({ salesperson, onClick, leaderboard }) => {
 	const dispatch = useDispatch();
 	const toast = useToast();
 	const approve = useSelector((state) => state.salespersons.approve);
@@ -45,6 +45,16 @@ const SalesPersonCard = ({ salesperson, onClick }) => {
 			duration: 5000,
 			isClosable: true,
 		});
+	var todayPoints = 0;
+	var monthlyPoints = 0;
+	var alltimePoints = 0;
+	for (let j = 0; j < leaderboard.length; j++) {
+		if (salesperson.id === leaderboard[j].salesperson.id) {
+			todayPoints = leaderboard[j].points_today;
+			monthlyPoints = leaderboard[j].points_current_month;
+			alltimePoints = leaderboard[j].points_all_time;
+		}
+	}
 	const approveAccount = async () => {
 		await dispatch(approveAccountById(salesperson.id));
 		setTimeout(() => {
@@ -152,7 +162,7 @@ const SalesPersonCard = ({ salesperson, onClick }) => {
 										colorScheme='green'
 										fontWeight={'400'}
 									>
-										#Today: points
+										#Today: {todayPoints} points
 									</Badge>
 									<Badge
 										px={2}
@@ -161,7 +171,7 @@ const SalesPersonCard = ({ salesperson, onClick }) => {
 										colorScheme='green'
 										fontWeight={'400'}
 									>
-										#Month: points
+										#Month: {monthlyPoints} points
 									</Badge>
 									<Badge
 										px={2}
@@ -170,7 +180,7 @@ const SalesPersonCard = ({ salesperson, onClick }) => {
 										colorScheme='green'
 										fontWeight={'400'}
 									>
-										#All Time: points
+										#All Time: {alltimePoints} points
 									</Badge>
 								</Stack>
 							</>
