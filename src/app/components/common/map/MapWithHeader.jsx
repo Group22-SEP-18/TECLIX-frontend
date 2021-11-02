@@ -19,6 +19,10 @@ const MapWithHeader = ({ header = '', locations, Component = Marker }) => {
 				lat: parseFloat(loc.latitude),
 				lng: parseFloat(loc.longitude),
 			}}
+			info={{
+				name: loc.name || '',
+				profile_picture: loc.profile_picture || '',
+			}}
 		/>
 	));
 	return (

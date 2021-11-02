@@ -17,6 +17,7 @@ import {
 import MapWithHeader from '../../common/map/MapWithHeader';
 import LoadingSkelton from '../../common/loading/LoadingSkelton';
 import ErrorOverlay from '../../common/error-overlays/ErrorOverlay';
+import PopupMarker from '../../common/map/PopupMarker';
 
 const CurrentLocationsContainer = (props) => {
 	const dispatch = useDispatch();
@@ -31,8 +32,12 @@ const CurrentLocationsContainer = (props) => {
 	const locations = currentLocations.map((l) => ({
 		latitude: parseFloat(l.customer.latitude),
 		longitude: parseFloat(l.customer.longitude),
+		name: `${l.salesperson.first_name} ${l.salesperson.last_name}`,
+		profile_picture: l.salesperson.profile_picture,
 	}));
-	return <MapWithHeader header='' locations={locations} />;
+	return (
+		<MapWithHeader header='' locations={locations} Component={PopupMarker} />
+	);
 };
 
 CurrentLocationsContainer.propTypes = {};
