@@ -170,10 +170,8 @@ const AddNewVehicle = (props) => {
 								>
 									<option value='VAN'>Van</option>
 									<option value='LORRY'>Lorry</option>
-									<option value='THREEWHEELER'>Three Wheeler</option>
-									<option value='CAB'>Cab</option>
+									<option value='TUK'>Tuk</option>
 									<option value='BIKE'>Bike</option>
-									<option value='BUS'>Bus</option>
 								</Select>
 								<FormErrorMessage>{props.errors.vehicle_type}</FormErrorMessage>
 							</FormControl>

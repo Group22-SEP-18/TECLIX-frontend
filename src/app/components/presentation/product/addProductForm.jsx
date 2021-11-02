@@ -208,6 +208,8 @@ const AddNewProduct = (props) => {
 									<option value='chips'>Chips</option>
 									<option value='cookies'>Cookies</option>
 									<option value='cheese'>Cheese</option>
+									<option value='snacks'>Snacks</option>
+									<option value='sauce'>Sauce</option>
 								</Select>
 								<FormErrorMessage>{props.errors.category}</FormErrorMessage>
 							</FormControl>
