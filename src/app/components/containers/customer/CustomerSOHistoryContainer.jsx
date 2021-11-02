@@ -22,7 +22,8 @@ import {
 } from '@chakra-ui/react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-	selectAllServiceOrders,
+	filteredServiceOrders,
+	clearFilters,
 	getServiceOrdersAsync,
 } from '../../../redux/slices/serviceOrderSlice';
 import ServiceOrderDetailsHeader from '../../presentation/serviceOrders/ServiceOrderDetailsHeader';
@@ -31,15 +32,16 @@ import AddFilter from '../AddFilter';
 
 const CustomerSOHistoryContainer = ({ customer }) => {
 	const dispatch = useDispatch();
-	const serviceOrders = useSelector(selectAllServiceOrders)
+	const serviceOrders = useSelector(filteredServiceOrders)
 		.slice()
 		.filter((so) => so.customer.shop_name === customer.shop_name);
 	useEffect(() => {
+		dispatch(clearFilters());
 		dispatch(getServiceOrdersAsync());
 	}, [dispatch]);
 	return (
 		<div>
-			<AddFilter />
+			<AddFilter isCustomerView={true} />
 			<Accordion allowToggle>
 				{serviceOrders.map((serviceOrder) => (
 					<AccordionItem key={`serviceorder_accordion_item-${serviceOrder.id}`}>

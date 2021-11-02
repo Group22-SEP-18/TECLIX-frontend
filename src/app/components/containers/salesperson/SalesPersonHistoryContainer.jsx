@@ -33,7 +33,8 @@ import {
 import MapWithHeader from '../../common/map/MapWithHeader';
 import { getLocationsAsync } from '../../../redux/slices/locationsSlice';
 import {
-	selectAllServiceOrders,
+	filteredServiceOrders,
+	clearFilters,
 	getServiceOrdersAsync,
 } from '../../../redux/slices/serviceOrderSlice';
 import ServiceOrderDetailsHeader from '../../presentation/serviceOrders/ServiceOrderDetailsHeader';
@@ -51,9 +52,10 @@ const SalesPersonHistoryContainer = ({ salesperson }) => {
 	useEffect(() => {
 		dispatch(getLocationsAsync());
 		dispatch(getServiceOrdersAsync());
+		dispatch(clearFilters());
 		dispatch(setSPFilter(salesperson.employee_no));
 	}, [dispatch, salesperson]);
-	const serviceOrders = useSelector(selectAllServiceOrders)
+	const serviceOrders = useSelector(filteredServiceOrders)
 		.slice()
 		.filter((so) => so.salesperson.email === salesperson.email);
 	const locations = useSelector(filteredLocations);
@@ -100,7 +102,7 @@ const SalesPersonHistoryContainer = ({ salesperson }) => {
 					</TabPanel>
 					<TabPanel>
 						<Tabs align='end' variant='soft-rounded' colorScheme='green'>
-							<AddFilter />
+							<AddFilter isSalesPersonView={true} />
 							{serviceOrders.length ? null : 'No service orders are included'}
 							<Accordion allowToggle>
 								{serviceOrders.map((serviceOrder) => (
