@@ -96,11 +96,18 @@ export const filteredServiceOrders = (state) => {
 					.indexOf(shop_name) >= 0
 		);
 	}
-	// console.log(all);
-	// return all.filter((row) => {
-	// 	var time = new Date(row.order_date).getTime();
-	// 	return sd < time && time < ed;
-	// });
+	const sd =
+		state.serviceOrders.filters.from !== ''
+			? new Date(`${state.serviceOrders.filters.from}T00:00:00.000Z`).getTime()
+			: new Date('0001-01-01T00:00:00Z').getTime();
+	const ed =
+		state.serviceOrders.filters.to !== ''
+			? new Date(`${state.serviceOrders.filters.to}T00:00:00.000Z`).getTime()
+			: new Date().getTime();
+	all = all.filter((so) => {
+		var time = new Date(so.order_date).getTime();
+		return sd < time && time < ed;
+	});
 	return all;
 };
 
