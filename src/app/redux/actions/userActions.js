@@ -3,12 +3,7 @@ import {
 	getUserSuccess,
 	getUserFail,
 } from '../slices/userSlice';
-import {
-	registrationPending,
-	registrationSuccess,
-	registrationError,
-} from '../slices/registrationSlice';
-import { fetchUser, userRegistration } from '../../../api/userApi';
+import { fetchUser } from '../../../api/userApi';
 
 export const getUserProfile = () => async (dispatch) => {
 	try {
@@ -23,18 +18,5 @@ export const getUserProfile = () => async (dispatch) => {
 		dispatch(getUserFail('User is not found'));
 	} catch (error) {
 		dispatch(getUserFail(error));
-	}
-};
-
-export const UserRegistration = (formData) => async (dispatch) => {
-	try {
-		dispatch(registrationPending());
-
-		const result = await userRegistration(formData);
-		result.profile_picture
-			? dispatch(registrationSuccess('Registration Succssful'))
-			: dispatch(registrationError(result.message));
-	} catch (error) {
-		dispatch(registrationError('Error while registering'));
 	}
 };
