@@ -27,6 +27,8 @@ import {
 	selectFilteredDistributionOfficers,
 	selectDistributionOfficers,
 	setListViewFilter,
+	approveSuccess,
+	rejectSuccess,
 } from '../../../redux/slices/distributionOfficersSlice';
 import { selectUserRole } from '../../../redux/slices/userSlice';
 
@@ -73,8 +75,13 @@ const DOListContainer = (props) => {
 								<Collapse in={isOpen} animateOpacity>
 									{distributionOfficers
 										.filter((sp) => sp.is_approved === false)
-										.map((dOfficer, index) => (
-											<DOCard key={index} dOfficer={dOfficer} />
+										.map((dOfficer) => (
+											<DOCard
+												key={dOfficer.id}
+												dOfficer={dOfficer}
+												onApproveSuccess={(id) => dispatch(approveSuccess(id))}
+												onRejectSuccess={(id) => dispatch(rejectSuccess(id))}
+											/>
 										))}
 								</Collapse>
 							</>
@@ -82,8 +89,8 @@ const DOListContainer = (props) => {
 					{!isLoading &&
 						distributionOfficers
 							.filter((dOfficer) => dOfficer.is_approved !== false)
-							.map((dOfficer, index) => (
-								<DOCard key={index} dOfficer={dOfficer} />
+							.map((dOfficer) => (
+								<DOCard key={dOfficer.id} dOfficer={dOfficer} />
 							))}
 				</>
 			}
