@@ -5,7 +5,6 @@ import {
 	Box,
 	Button,
 	IconButton,
-	Checkbox,
 	FormControl,
 	FormLabel,
 	Heading,
@@ -140,14 +139,14 @@ const LoginPage = (props) => {
 									<FormErrorMessage>{props.errors.password}</FormErrorMessage>
 								</FormControl>
 								<Stack isInline justifyContent='space-between' mt={4}>
-									<Box>
+									{/* <Box>
 										<Checkbox>Remember Me</Checkbox>
 									</Box>
 									<Box>
 										<Link color={`green.500`} href='#'>
 											Forget Your Password?
 										</Link>
-									</Box>
+									</Box> */}
 								</Stack>
 								<Button
 									onClick={props.submitForm}

@@ -4,7 +4,12 @@ import { Box, Text } from '@chakra-ui/react';
 import { Marker } from '@react-google-maps/api';
 import SimpleMap from './SimpleMap';
 
-const MapWithHeader = ({ header = '', locations, Component = Marker }) => {
+const MapWithHeader = ({
+	header = '',
+	locations,
+	Component = Marker,
+	onClick = () => {},
+}) => {
 	const center =
 		locations.length > 0
 			? {
@@ -19,6 +24,13 @@ const MapWithHeader = ({ header = '', locations, Component = Marker }) => {
 				lat: parseFloat(loc.latitude),
 				lng: parseFloat(loc.longitude),
 			}}
+			info={{
+				name: loc.name || '',
+				profile_picture: loc.profile_picture || '',
+				sp_id: loc.sp_id || null,
+				address: loc.address || '',
+			}}
+			onClick={onClick}
 		/>
 	));
 	return (

@@ -1,10 +1,6 @@
 import React, { useState, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Link as ReachLink } from 'react-router-dom';
+import { useHistory, Link as ReachLink } from 'react-router-dom';
 import {
-	Alert,
-	AlertIcon,
-	AlertDescription,
 	Box,
 	Button,
 	IconButton,
@@ -18,6 +14,7 @@ import {
 	InputGroup,
 	InputRightElement,
 	FormErrorMessage,
+	useToast,
 } from '@chakra-ui/react';
 import {
 	ArrowForwardIcon,
@@ -27,16 +24,14 @@ import {
 } from '@chakra-ui/icons';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { UserRegistration } from '../../../redux/actions/userActions';
+import { userRegistration } from '../../../../api/userApi';
 
 const RegisterPage = (props) => {
 	const fileInputRef = useRef();
-	const dispatch = useDispatch();
+	const history = useHistory();
 	const [passwordShow, setPasswordShow] = useState(false);
 	const [preview, setPreview] = useState();
-	const { isLoading, status, message } = useSelector(
-		(state) => state.registration
-	);
+	const [isLoading, setIsLoading] = useState(false);
 	const handlePasswordShow = () => setPasswordShow(!passwordShow);
 	const initialValues = {
 		email: '',
@@ -47,11 +42,12 @@ const RegisterPage = (props) => {
 		contact_no: '',
 		password: '',
 		confirm_password: '',
-		profile_picture: '/avatars/default.png',
+		profile_picture: '',
 	};
 	const phoneRegExp =
 		/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 	const schema = Yup.object({
+		profile_picture: Yup.mixed().required('Profile picture is required'),
 		email: Yup.string()
 			.max(100)
 			.email('Invalid email')
@@ -108,9 +104,48 @@ const RegisterPage = (props) => {
 		buildFormData(formData, data);
 		return formData;
 	};
+	const toast = useToast();
+	const showToast = (title, status, description) =>
+		toast({
+			position: 'top-right',
+			title: title,
+			description: description,
+			status: status,
+			duration: 5000,
+			isClosable: true,
+		});
 	const onSubmit = async (values) => {
+		if (values.profile_picture === '') {
+			showToast('An error occurred.', 'error', 'Profile picture must be added');
+			setIsLoading(true);
+			return;
+		}
+		setIsLoading(true);
 		const frmData = jsonToFormData(values);
-		dispatch(UserRegistration(frmData));
+		try {
+			const result = await userRegistration(frmData);
+			if (!result.data.profile_picture) {
+				showToast('An error occurred.', 'error', 'Account Creation Failed');
+				setIsLoading(false);
+				return;
+			}
+
+			showToast('New Account.', 'success', 'Account Created Successfully');
+			setIsLoading(false);
+			history.push('/login');
+		} catch (error) {
+			if (error === 'Request failed with status code 400') {
+				showToast(
+					'Account is already exists',
+					'info',
+					'Email and Emplooyee Id must be unique'
+				);
+				setIsLoading(false);
+				return;
+			}
+			showToast('An error occurred.', 'error', 'Account Creation Failed');
+			setIsLoading(false);
+		}
 	};
 	return (
 		<Flex minHeight='100vh' minW='100vw' align='center' justify='center'>
@@ -127,12 +162,6 @@ const RegisterPage = (props) => {
 					<Link as={ReachLink} to='/login' my={8} textColor='blue'>
 						Already have an account?
 					</Link>
-					{message && (
-						<Alert my={4} status={status === 'success' ? 'success' : 'error'}>
-							<AlertIcon />
-							<AlertDescription>{message}</AlertDescription>
-						</Alert>
-					)}
 					<Flex align='center' justify='center'>
 						<Image
 							borderRadius='full'
@@ -156,32 +185,44 @@ const RegisterPage = (props) => {
 									justifyContent='center'
 									flexDirection='column'
 								>
-									<Button
-										variant='contained'
-										component='label'
-										rightIcon={<AttachmentIcon />}
-										onClick={() => fileInputRef.current.click()}
+									<FormControl
+										isInvalid={
+											props.errors.profile_picture &&
+											props.touched.profile_picture
+										}
 									>
-										Choose Avatar
-										<Input
-											name='profile_picture'
-											accept='image/*'
-											type='file'
-											hidden
-											multiple={false}
-											ref={fileInputRef}
-											onChange={(e) => {
-												props.setFieldValue(
-													'profile_picture',
-													e.target.files[0]
-												);
-												const objectUrl = URL.createObjectURL(
-													e.target.files[0]
-												);
-												setPreview(objectUrl);
-											}}
-										/>
-									</Button>
+										<FormErrorMessage>
+											{props.errors.profile_picture}
+										</FormErrorMessage>
+										<Button
+											variant='contained'
+											component='label'
+											rightIcon={<AttachmentIcon />}
+											onClick={() => fileInputRef.current.click()}
+										>
+											Choose Avatar
+											<Input
+												name='profile_picture'
+												accept='image/*'
+												type='file'
+												hidden
+												multiple={false}
+												ref={fileInputRef}
+												onChange={(e) => {
+													if (e.target.files[0]) {
+														props.setFieldValue(
+															'profile_picture',
+															e.target.files[0]
+														);
+														const objectUrl = URL.createObjectURL(
+															e.target.files[0]
+														);
+														setPreview(objectUrl);
+													}
+												}}
+											/>
+										</Button>
+									</FormControl>
 								</Box>
 								<FormControl
 									isInvalid={props.errors.email && props.touched.email}

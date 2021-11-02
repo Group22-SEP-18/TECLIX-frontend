@@ -10,7 +10,6 @@ import loginReducer from './slices/loginSlice';
 import loyaltyPointSchemaReducer from './slices/loyaltyPointSchemaSlice';
 import productsReducer from './slices/productsSlice';
 import productRegistrationReducer from './slices/addProductSlice';
-import registrationReducer from './slices/registrationSlice';
 import reportsReducer from './slices/reportSlice';
 import salespersonReducer from './slices/salespersonSlice';
 import serviceOrderReducer from './slices/serviceOrderSlice';
@@ -32,7 +31,6 @@ export default configureStore({
 		loyaltyPointSchema: loyaltyPointSchemaReducer,
 		products: productsReducer,
 		productRegistration: productRegistrationReducer,
-		registration: registrationReducer,
 		report: reportsReducer,
 		salespersons: salespersonReducer,
 		serviceOrders: serviceOrderReducer,

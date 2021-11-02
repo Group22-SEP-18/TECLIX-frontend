@@ -9,9 +9,8 @@
  * @since  17.09.2021
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
 import {
 	Avatar,
 	Badge,
@@ -25,16 +24,14 @@ import {
 	useToast,
 } from '@chakra-ui/react';
 import { CheckIcon, CloseIcon } from '@chakra-ui/icons';
-import {
-	approveAccountById,
-	rejectAccountById,
-} from '../../../redux/actions/doActions';
+import { approveDOAccount, rejectDOAccount } from '../../../../api/staffApi';
 
-const DOCard = ({ dOfficer }) => {
-	const dispatch = useDispatch();
+const DOCard = ({ dOfficer, onRejectSuccess, onApproveSuccess }) => {
 	const toast = useToast();
-	const approve = useSelector((state) => state.distributionOfficers.approve);
-	const reject = useSelector((state) => state.distributionOfficers.reject);
+	const [isLoading, setIsLoading] = useState({
+		approve: false,
+		reject: false,
+	});
 	const showToast = (title, status, description) =>
 		toast({
 			position: 'bottom-right',
@@ -45,20 +42,56 @@ const DOCard = ({ dOfficer }) => {
 			isClosable: true,
 		});
 	const approveAccount = async () => {
-		const result = await dispatch(approveAccountById(dOfficer.id));
-		if (result) {
-			showToast('Account Approved.', 'success', approve.success);
-		} else {
-			showToast('An error occurred.', 'error', approve.error);
+		setIsLoading({
+			approve: true,
+			reject: false,
+		});
+		try {
+			const result = await approveDOAccount(dOfficer.id);
+
+			if (result.is_approved) {
+				showToast(
+					'Account Approved.',
+					'success',
+					'Successfully approved the account'
+				);
+				onApproveSuccess(dOfficer.id);
+			} else {
+				showToast('An error occurred.', 'error', 'Account approval failed');
+			}
+		} catch (error) {
+			showToast('An error occurred.', 'error', 'Account approval failed');
 		}
+		setIsLoading({
+			approve: false,
+			reject: false,
+		});
 	};
 	const rejectAccount = async () => {
-		const result = await dispatch(rejectAccountById(dOfficer.id));
-		if (result) {
-			showToast('Account Rejected.', 'success', reject.success);
-		} else {
-			showToast('An error occurred.', 'error', reject.error);
+		setIsLoading({
+			approve: false,
+			reject: true,
+		});
+		try {
+			const result = await rejectDOAccount(dOfficer.id);
+
+			if (!result.is_approved) {
+				showToast(
+					'Account Rejected.',
+					'success',
+					'Account rejection successful'
+				);
+				onRejectSuccess(dOfficer.id);
+			} else {
+				showToast('An error occurred.', 'error', 'Account rejection failed');
+			}
+		} catch (error) {
+			showToast('An error occurred.', 'error', 'Account rejection failed');
 		}
+		setIsLoading({
+			approve: false,
+			reject: false,
+		});
 	};
 	if (!dOfficer) {
 		return null;
@@ -133,7 +166,7 @@ const DOCard = ({ dOfficer }) => {
 									leftIcon={<CloseIcon />}
 									colorScheme='red'
 									variant='solid'
-									isLoading={reject.isLoading && reject.id === dOfficer.id}
+									isLoading={isLoading.reject}
 									onClick={rejectAccount}
 								>
 									Reject
@@ -143,7 +176,7 @@ const DOCard = ({ dOfficer }) => {
 									leftIcon={<CheckIcon />}
 									colorScheme='whatsapp'
 									variant='solid'
-									isLoading={approve.isLoading && approve.id === dOfficer.id}
+									isLoading={isLoading.approve}
 									onClick={approveAccount}
 								>
 									Approve

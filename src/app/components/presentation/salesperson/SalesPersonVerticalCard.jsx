@@ -20,21 +20,33 @@ import {
 	Box,
 	Center,
 	Text,
-	Stack,
+	Wrap,
 	Badge,
 	useColorModeValue,
 } from '@chakra-ui/react';
 import MapWithHeader from '../../common/map/MapWithHeader';
+import { selectLeaderboard } from '../../../redux/slices/leaderboardSlice';
 import { selectAllLocations } from '../../../redux/slices/locationsSlice';
 
 const SalesPersonVerticalCard = ({ salesperson }) => {
 	const { locations } = useSelector(selectAllLocations);
+	const { todayLeaderboard } = useSelector(selectLeaderboard);
 	const lastLocations = locations
 		.slice()
 		.filter((l) => l.salesperson.employee_no === salesperson.employee_no)
 		.sort((a, b) => a.date.localeCompare(b.date))
 		.reverse();
 	const lastLocation = lastLocations.length > 0 ? lastLocations[0] : null;
+	var todayPoints = 0;
+	var monthlyPoints = 0;
+	var alltimePoints = 0;
+	for (let j = 0; j < todayLeaderboard.length; j++) {
+		if (salesperson.id === todayLeaderboard[j].salesperson.id) {
+			todayPoints = todayLeaderboard[j].points_today;
+			monthlyPoints = todayLeaderboard[j].points_current_month;
+			alltimePoints = todayLeaderboard[j].points_all_time;
+		}
+	}
 	return (
 		<Center>
 			<Box
@@ -91,14 +103,14 @@ const SalesPersonVerticalCard = ({ salesperson }) => {
 					{salesperson.mobile_no}
 				</Text>
 
-				<Stack align={'center'} justify={'center'} direction={'row'} mt={6}>
+				<Wrap align={'center'} justify={'center'} direction={'row'} mt={6}>
 					<Badge
 						px={2}
 						py={1}
 						bg={useColorModeValue('gray.50', 'gray.800')}
 						fontWeight={'400'}
 					>
-						#Today: points
+						#Today: {todayPoints} points
 					</Badge>
 					<Badge
 						px={2}
@@ -106,7 +118,7 @@ const SalesPersonVerticalCard = ({ salesperson }) => {
 						bg={useColorModeValue('gray.50', 'gray.800')}
 						fontWeight={'400'}
 					>
-						#Month: points
+						#Month: {monthlyPoints} points
 					</Badge>
 					<Badge
 						px={2}
@@ -114,9 +126,9 @@ const SalesPersonVerticalCard = ({ salesperson }) => {
 						bg={useColorModeValue('gray.50', 'gray.800')}
 						fontWeight={'400'}
 					>
-						#All Time: points
+						#All Time: {alltimePoints} points
 					</Badge>
-				</Stack>
+				</Wrap>
 
 				<div id={`salesperson_map-${salesperson.id}`}>
 					<MapWithHeader

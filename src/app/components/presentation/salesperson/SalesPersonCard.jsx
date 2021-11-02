@@ -9,13 +9,12 @@
  * @since  09.09.2021
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
 import {
-	approveAccountById,
-	rejectAccountById,
-} from '../../../redux/actions/salespersonActions';
+	approveSalespersonAccount,
+	rejectSalespersonAccount,
+} from '../../../../api/salespersonApi';
 import {
 	Avatar,
 	Badge,
@@ -31,11 +30,18 @@ import {
 } from '@chakra-ui/react';
 import { CheckIcon, CloseIcon } from '@chakra-ui/icons';
 
-const SalesPersonCard = ({ salesperson, onClick }) => {
-	const dispatch = useDispatch();
+const SalesPersonCard = ({
+	salesperson,
+	onClick,
+	leaderboard,
+	onRejectSuccess,
+	onApproveSuccess,
+}) => {
 	const toast = useToast();
-	const approve = useSelector((state) => state.salespersons.approve);
-	const reject = useSelector((state) => state.salespersons.reject);
+	const [isLoading, setIsLoading] = useState({
+		approve: false,
+		reject: false,
+	});
 	const showToast = (title, status, description) =>
 		toast({
 			position: 'bottom-right',
@@ -45,27 +51,67 @@ const SalesPersonCard = ({ salesperson, onClick }) => {
 			duration: 5000,
 			isClosable: true,
 		});
+	var todayPoints = 0;
+	var monthlyPoints = 0;
+	var alltimePoints = 0;
+	for (let j = 0; j < leaderboard.length; j++) {
+		if (salesperson.id === leaderboard[j].salesperson.id) {
+			todayPoints = leaderboard[j].points_today;
+			monthlyPoints = leaderboard[j].points_current_month;
+			alltimePoints = leaderboard[j].points_all_time;
+		}
+	}
 	const approveAccount = async () => {
-		await dispatch(approveAccountById(salesperson.id));
-		setTimeout(() => {
-			if (approve.success === 'Successfully approved the account') {
-				showToast('Account Approved.', 'success', approve.success);
+		setIsLoading({
+			approve: true,
+			reject: false,
+		});
+		try {
+			const result = await approveSalespersonAccount(salesperson.id);
+
+			if (result.is_approved) {
+				showToast(
+					'Account Approved.',
+					'success',
+					'Successfully approved the account'
+				);
+				onApproveSuccess(salesperson.id);
+			} else {
+				showToast('An error occurred.', 'error', 'Account approval failed');
 			}
-			if (approve.error === 'Account activation failed') {
-				showToast('An error occurred.', 'error', approve.error);
-			}
-		}, 500);
+		} catch (error) {
+			showToast('An error occurred.', 'error', 'Account approval failed');
+		}
+		setIsLoading({
+			approve: false,
+			reject: false,
+		});
 	};
 	const rejectAccount = async () => {
-		await dispatch(rejectAccountById(salesperson.id));
-		setTimeout(() => {
-			if (reject.success === 'Account rejection successful') {
-				showToast('Account Rejected.', 'success', reject.success);
+		setIsLoading({
+			approve: false,
+			reject: true,
+		});
+		try {
+			const result = await rejectSalespersonAccount(salesperson.id);
+
+			if (!result.is_approved) {
+				showToast(
+					'Account Rejected.',
+					'success',
+					'Account rejection successful'
+				);
+				onRejectSuccess(salesperson.id);
+			} else {
+				showToast('An error occurred.', 'error', 'Account rejection failed');
 			}
-			if (reject.error === 'Account rejection failed') {
-				showToast('An error occurred.', 'error', reject.error);
-			}
-		}, 500);
+		} catch (error) {
+			showToast('An error occurred.', 'error', 'Account rejection failed');
+		}
+		setIsLoading({
+			approve: false,
+			reject: false,
+		});
 	};
 	if (!salesperson) {
 		return null;
@@ -152,7 +198,7 @@ const SalesPersonCard = ({ salesperson, onClick }) => {
 										colorScheme='green'
 										fontWeight={'400'}
 									>
-										#Today: points
+										#Today: {todayPoints} points
 									</Badge>
 									<Badge
 										px={2}
@@ -161,7 +207,7 @@ const SalesPersonCard = ({ salesperson, onClick }) => {
 										colorScheme='green'
 										fontWeight={'400'}
 									>
-										#Month: points
+										#Month: {monthlyPoints} points
 									</Badge>
 									<Badge
 										px={2}
@@ -170,7 +216,7 @@ const SalesPersonCard = ({ salesperson, onClick }) => {
 										colorScheme='green'
 										fontWeight={'400'}
 									>
-										#All Time: points
+										#All Time: {alltimePoints} points
 									</Badge>
 								</Stack>
 							</>
@@ -186,7 +232,7 @@ const SalesPersonCard = ({ salesperson, onClick }) => {
 									rightIcon={<CloseIcon />}
 									colorScheme='red'
 									variant='solid'
-									isLoading={reject.isLoading && reject.id === salesperson.id}
+									isLoading={isLoading.reject}
 									onClick={rejectAccount}
 								>
 									Reject
@@ -196,7 +242,7 @@ const SalesPersonCard = ({ salesperson, onClick }) => {
 									leftIcon={<CheckIcon />}
 									colorScheme='whatsapp'
 									variant='solid'
-									isLoading={approve.isLoading && approve.id === salesperson.id}
+									isLoading={isLoading.approve}
 									onClick={approveAccount}
 								>
 									Approve

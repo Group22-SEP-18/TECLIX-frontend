@@ -28,7 +28,10 @@ import {
 	selectFilteredSalespersons,
 	setListViewFilter,
 	getSalespersonsAsync,
+	approveSuccess,
+	rejectSuccess,
 } from '../../../redux/slices/salespersonSlice';
+import { selectLeaderboard } from '../../../redux/slices/leaderboardSlice';
 import { selectUserRole } from '../../../redux/slices/userSlice';
 
 const SalesPersonsContainer = ({ onCardClick }) => {
@@ -37,6 +40,7 @@ const SalesPersonsContainer = ({ onCardClick }) => {
 	const { isLoading, error } = useSelector(selectAllSalespersons);
 	const user_role = useSelector(selectUserRole);
 	const salespersons = useSelector(selectFilteredSalespersons);
+	const { todayLeaderboard } = useSelector(selectLeaderboard);
 	useEffect(() => {
 		dispatch(getSalespersonsAsync());
 	}, [dispatch]);
@@ -73,11 +77,14 @@ const SalesPersonsContainer = ({ onCardClick }) => {
 								<Collapse in={isOpen} animateOpacity>
 									{salespersons
 										.filter((sp) => sp.is_approved === false)
-										.map((salesperson, index) => (
+										.map((salesperson) => (
 											<SalesPersonCard
-												key={index}
+												key={salesperson.id}
 												salesperson={salesperson}
 												onClick={onCardClick}
+												leaderboard={todayLeaderboard}
+												onApproveSuccess={(id) => dispatch(approveSuccess(id))}
+												onRejectSuccess={(id) => dispatch(rejectSuccess(id))}
 											/>
 										))}
 								</Collapse>
@@ -87,11 +94,12 @@ const SalesPersonsContainer = ({ onCardClick }) => {
 					{!isLoading &&
 						salespersons
 							.filter((sp) => sp.is_approved !== false)
-							.map((salesperson, index) => (
+							.map((salesperson) => (
 								<SalesPersonCard
-									key={index}
+									key={salesperson.id}
 									salesperson={salesperson}
 									onClick={onCardClick}
+									leaderboard={todayLeaderboard}
 								/>
 							))}
 				</>

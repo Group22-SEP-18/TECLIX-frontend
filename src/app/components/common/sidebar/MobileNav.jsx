@@ -27,7 +27,7 @@ import {
 	MenuItem,
 	MenuList,
 } from '@chakra-ui/react';
-import { FiMenu, FiBell, FiChevronDown } from 'react-icons/fi';
+import { FiMenu, FiChevronDown } from 'react-icons/fi';
 import ThemeSelector from '../themeselector/ThemeSelector';
 import { userLogout } from '../../../../api/userApi';
 
@@ -68,12 +68,6 @@ const MobileNav = ({ onOpen, user, ...rest }) => {
 
 			<HStack spacing={{ base: '0', md: '6' }}>
 				<ThemeSelector />
-				<IconButton
-					size='lg'
-					variant='ghost'
-					aria-label='open menu'
-					icon={<FiBell />}
-				/>
 				<Flex alignItems={'center'}>
 					<Menu>
 						<MenuButton
@@ -105,7 +99,6 @@ const MobileNav = ({ onOpen, user, ...rest }) => {
 							<MenuItem as={ReachLink} to='/myaccount'>
 								Profile
 							</MenuItem>
-							<MenuItem>Settings</MenuItem>
 							<MenuDivider />
 							<MenuItem onClick={logOut}>Sign out</MenuItem>
 						</MenuList>
