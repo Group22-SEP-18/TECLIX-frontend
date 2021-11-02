@@ -15,10 +15,13 @@ import { Avatar, HStack, Text } from '@chakra-ui/react';
 
 const HoverText = ({ info }) => {
 	return (
-		<HStack>
-			<Avatar size='sm' name={info.name} src={info.profile_picture} />{' '}
-			<Text fontSize='md'>{info.name}</Text>
-		</HStack>
+		<>
+			<HStack>
+				<Avatar size='sm' name={info.name} src={info.profile_picture} />{' '}
+				<Text fontSize='md'>{info.name}</Text>
+			</HStack>
+			<Text fontSize='md'>{info.address}</Text>
+		</>
 	);
 };
 
@@ -36,6 +39,7 @@ const PopupMarker = ({ position, info, onClick }) => {
 			position={position}
 			onMouseOver={handleMouseOver}
 			onMouseOut={handleMouseOut}
+			onClick={() => onClick(info.sp_id)}
 		>
 			{isHovering && (
 				<InfoWindow>

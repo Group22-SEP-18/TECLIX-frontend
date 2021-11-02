@@ -104,7 +104,9 @@ const SalesPersonHistoryContainer = ({ salesperson }) => {
 							{serviceOrders.length ? null : 'No service orders are included'}
 							<Accordion allowToggle>
 								{serviceOrders.map((serviceOrder) => (
-									<AccordionItem>
+									<AccordionItem
+										key={`serviceorder_accordion_item-${serviceOrder.id}`}
+									>
 										<AccordionButton>
 											<Box
 												id={`serviceorder_div-${serviceOrder.id}`}

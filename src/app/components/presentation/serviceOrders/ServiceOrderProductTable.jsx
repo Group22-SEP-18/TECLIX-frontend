@@ -24,8 +24,8 @@ const ServiceOrderProductTable = ({ order_items = [] }) => {
 				</Tr>
 			</Thead>
 			<Tbody>
-				{order_items.map((p) => (
-					<Tr>
+				{order_items.map((p, i) => (
+					<Tr key={i}>
 						<Td>{p.product.short_name}</Td>
 						<Td isNumeric>{p.quantity}</Td>
 						<Td isNumeric>{p.price_at_the_time}</Td>

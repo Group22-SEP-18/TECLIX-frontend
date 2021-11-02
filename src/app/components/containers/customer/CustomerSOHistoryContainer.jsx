@@ -42,7 +42,7 @@ const CustomerSOHistoryContainer = ({ customer }) => {
 			<AddFilter />
 			<Accordion allowToggle>
 				{serviceOrders.map((serviceOrder) => (
-					<AccordionItem>
+					<AccordionItem key={`serviceorder_accordion_item-${serviceOrder.id}`}>
 						<AccordionButton>
 							<Box
 								id={`serviceorder_div-${serviceOrder.id}`}
