@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
 	isLoading: false,
-	status: false,
+	status: null,
 };
 
 const addProductSlice = createSlice({
@@ -14,11 +14,11 @@ const addProductSlice = createSlice({
 		},
 		productRegistrationSuccess: (state, { payload }) => {
 			state.isLoading = false;
-			state.status = true;
+			state.status = 'success';
 		},
 		productRegistrationError: (state, { payload }) => {
 			state.isLoading = false;
-			state.status = false;
+			state.status = 'fail';
 		},
 	},
 });

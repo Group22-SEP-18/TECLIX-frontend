@@ -1,23 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@chakra-ui/react';
 import { FormControl, FormLabel, Select, HStack, Box } from '@chakra-ui/react';
 import { WrapItem } from '@chakra-ui/react';
 import { Avatar } from '@chakra-ui/react';
 import { Tag, TagLabel, TagCloseButton } from '@chakra-ui/react';
 import { assignToVehicle } from '../../../../redux/actions/vehicleActions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
 	NumberInput,
 	NumberInputField,
 	NumberInputStepper,
+	useToast,
 	NumberIncrementStepper,
 	NumberDecrementStepper,
 } from '@chakra-ui/react';
 import { Wrap } from '@chakra-ui/react';
 
-const ProductEditForm = ({
-	updateDetails,
+const VehicleAssignForm = ({
 	trigger,
+	rowid,
 	array,
 	vehicleid,
 	unassignedSalespersons,
@@ -31,7 +32,21 @@ const ProductEditForm = ({
 	const [product_id, setproduct_id] = React.useState();
 	const [quantity, setproduct_quantity] = React.useState(10);
 	const [salesperson, setsalesperson] = React.useState(assignedsalesprson);
+	var [updateConstant, setupdateConstant] = useState(0);
+
 	const dispatch = useDispatch();
+	const toast = useToast();
+
+	const { isLoading, status } = useSelector((state) => state.assigntoVehicle);
+
+	var toast_type1 = (success) =>
+		toast({
+			position: 'bottom-right',
+			title: success ? 'Success' : 'Failed',
+			status: success ? 'success' : 'error',
+			duration: 5000,
+			isClosable: true,
+		});
 
 	const updateItem = (id, value) => {
 		var index = productQuantity.findIndex((x) => x.product === id);
@@ -70,8 +85,17 @@ const ProductEditForm = ({
 			vehicle: vehicleid,
 			salesperson: salesperson,
 		};
-		dispatch(assignToVehicle(vehiclecomplex));
+		dispatch(assignToVehicle(vehiclecomplex, rowid));
+		setupdateConstant((count) => count + 1);
 	};
+
+	useEffect(() => {
+		if (updateConstant === 1 && !isLoading) {
+			setupdateConstant((count) => count - 1);
+			toast_type1(status);
+			trigger();
+		}
+	}, [isLoading]);
 
 	return (
 		<div>
@@ -184,8 +208,8 @@ const ProductEditForm = ({
 					type='button'
 					value='Assign to the vehicle'
 					className='btn btn-block'
-					bg='green.400'
-					color='white'
+					colorScheme='green'
+					isLoading={isLoading}
 					isDisabled={productQuantity.length < 1}
 					onClick={assignProductsSalesperson}
 				>
@@ -196,4 +220,4 @@ const ProductEditForm = ({
 	);
 };
 
-export default ProductEditForm;
+export default VehicleAssignForm;

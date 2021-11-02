@@ -2,7 +2,6 @@ import {
 	Flex,
 	Box,
 	Image,
-	useToast,
 	Button,
 	Divider,
 	Modal,
@@ -16,26 +15,17 @@ import {
 	Stack,
 } from '@chakra-ui/react';
 import { MdBuild, MdDelete } from 'react-icons/md';
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Stat, StatLabel, StatNumber, StatHelpText } from '@chakra-ui/react';
 import { vehicleDelete } from '../../../../redux/actions/vehicleActions';
 import UnassignedVehicleAssignForm from '../Unassigned Vehicles/UnassignedVehicleAssignForm';
 
 function UnAssignedVehicleCard(props) {
-	const toast = useToast();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const deletevehicle = useSelector((state) => state.vehicles.deletevehicle);
-	var [updateConstant, setupdateConstant] = useState(0);
 	const dispatch = useDispatch();
-	var toast_type2 = (success) =>
-		toast({
-			position: 'bottom-right',
-			title: success ? 'Success' : 'Failed',
-			status: success ? 'success' : 'error',
-			duration: 5000,
-			isClosable: true,
-		});
+
 	const {
 		isOpen: isOpenReportModal,
 		onOpen: onOpenReportModal,
@@ -43,13 +33,8 @@ function UnAssignedVehicleCard(props) {
 	} = useDisclosure();
 	const deleteVehicle = () => {
 		dispatch(vehicleDelete(props.id));
-		setupdateConstant((count) => count + 1);
 	};
-	if (updateConstant === 1 && !deletevehicle.isLoading) {
-		toast_type2(deletevehicle.success);
-		setupdateConstant((count) => count - 1);
-		onCloseReportModal();
-	}
+
 	if (!props.vehicle_type) {
 		return null;
 	}

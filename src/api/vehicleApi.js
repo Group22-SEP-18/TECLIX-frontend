@@ -6,6 +6,7 @@ const vehicleassignUrl = rootUrl + 'vehicle/assign-items/';
 const vehicleassigngetUrl = rootUrl + 'vehicle/salesperson/all';
 const vehicleregisterUrl = rootUrl + 'vehicles/create';
 const deletevehicleurl = rootUrl + 'vehicles/';
+const unassignvehicleurl = rootUrl + 'assigned-vehicle/';
 
 export const fetchAllVehicles = () => {
 	return new Promise(async (resolve, reject) => {
@@ -87,6 +88,29 @@ export const deleteVehicleById = (id) => {
 			}
 
 			const res = await axios.delete(`${deletevehicleurl}${id}`, {
+				headers: {
+					Authorization: `Token ${accessJWT}`,
+				},
+			});
+
+			resolve(res.data);
+		} catch (error) {
+			console.log(error);
+			reject(error.message);
+		}
+	});
+};
+
+export const unassignVehicleById = (id) => {
+	return new Promise(async (resolve, reject) => {
+		try {
+			const accessJWT = localStorage.getItem('token');
+
+			if (!accessJWT) {
+				reject('Token not found!');
+			}
+
+			const res = await axios.delete(`${unassignvehicleurl}${id}`, {
 				headers: {
 					Authorization: `Token ${accessJWT}`,
 				},

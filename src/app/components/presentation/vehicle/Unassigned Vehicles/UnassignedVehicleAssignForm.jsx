@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Button } from '@chakra-ui/react';
 import { FormControl, FormLabel, Select, HStack, Box } from '@chakra-ui/react';
@@ -18,7 +18,6 @@ import {
 import { Wrap } from '@chakra-ui/react';
 
 const UnassignedVehicleAssignForm = ({
-	updateDetails,
 	trigger,
 	vehicleid,
 	unassignedSalespersons,
@@ -84,11 +83,14 @@ const UnassignedVehicleAssignForm = ({
 		dispatch(assignToVehicle(vehiclecomplex));
 		setupdateConstant((count) => count + 1);
 	};
-	if (updateConstant === 1 && !isLoading) {
-		toast_type1(status);
-		setupdateConstant((count) => count - 1);
-		trigger();
-	}
+
+	useEffect(() => {
+		if (updateConstant === 1 && !isLoading) {
+			setupdateConstant((count) => count - 1);
+			toast_type1(status);
+			trigger();
+		}
+	}, [isLoading]);
 
 	return (
 		<div>

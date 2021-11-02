@@ -4,6 +4,10 @@ const initialState = {
 	isLoading: false,
 	vehiclesAssignments: [],
 	error: '',
+	unassign: {
+		isLoading: false,
+		success: false,
+	},
 };
 
 const vehiclesAssignmentsSlice = createSlice({
@@ -22,6 +26,17 @@ const vehiclesAssignmentsSlice = createSlice({
 			state.isLoading = false;
 			state.error = payload;
 		},
+		vehiclesUnassignPending: (state) => {
+			state.unassign.isLoading = true;
+		},
+		vehiclesUnassignSuccess: (state) => {
+			state.unassign.isLoading = false;
+			state.unassign.success = true;
+		},
+		vehiclesUnassignFail: (state) => {
+			state.unassign.isLoading = false;
+			state.unassign.success = false;
+		},
 	},
 });
 
@@ -29,6 +44,9 @@ export const {
 	vehiclesAssignmentsPending,
 	vehiclesAssignmentsSuccess,
 	vehiclesAssignmentsFail,
+	vehiclesUnassignPending,
+	vehiclesUnassignSuccess,
+	vehiclesUnassignFail,
 } = vehiclesAssignmentsSlice.actions;
 
 export default vehiclesAssignmentsSlice.reducer;

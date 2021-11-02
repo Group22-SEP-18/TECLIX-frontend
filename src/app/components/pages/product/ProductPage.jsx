@@ -33,13 +33,8 @@ import { fetchProductData } from '../../../redux/actions/productActions';
 import LoadingCards from '../../common/loading/LoadingCards';
 
 const ProductPage = () => {
-	const {
-		isOpen: isOpenReportModal,
-		onOpen: onOpenReportModal,
-		onClose: onCloseReportModal,
-	} = useDisclosure();
+	const { isOpen, onOpen, onClose } = useDisclosure();
 	const dispatch = useDispatch();
-
 	useEffect(() => {
 		dispatch(fetchProductData());
 	}, [dispatch]);
@@ -51,25 +46,22 @@ const ProductPage = () => {
 			<SideBar />
 			<Box ml={{ base: 0, md: 60 }} p='4'>
 				<Box pl='6'>
-					<Button colorScheme='whatsapp' onClick={onOpenReportModal} size='lg'>
+					<Button colorScheme='whatsapp' onClick={onOpen} size='lg'>
 						Add a Product
 					</Button>
 					<Modal
-						closeOnOverlayClick={false}
-						onClose={onCloseReportModal}
-						isOpen={isOpenReportModal}
+						onClose={onClose}
+						isOpen={isOpen}
 						motionPreset='scale'
 						isCentered
 						size='md'
 					>
 						<ModalOverlay />
 						<ModalContent>
-							<ModalHeader>
-								{/* <Heading>Add a New Product</Heading> */}
-							</ModalHeader>
+							<ModalHeader></ModalHeader>
 							<ModalCloseButton />
 							<ModalBody pb='5'>
-								<AddNewProduct trigger={onCloseReportModal} />
+								<AddNewProduct trigger={() => onClose()} />
 							</ModalBody>
 						</ModalContent>
 					</Modal>

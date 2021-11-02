@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
 	Input,
@@ -19,10 +19,12 @@ import { addVehicle } from '../../../redux/actions/vehicleActions';
 
 const AddNewVehicle = (props) => {
 	const toast = useToast();
-	var [updateConstant, setupdateConstant] = useState(0);
 	const fileInputRef = useRef();
 	const dispatch = useDispatch();
+
+	var [updateConstant, setupdateConstant] = useState(0);
 	const [preview, setPreview] = useState();
+
 	const { isLoading, status, message } = useSelector(
 		(state) => state.vehicleRegistration
 	);
@@ -80,11 +82,13 @@ const AddNewVehicle = (props) => {
 		dispatch(addVehicle(frmData));
 		setupdateConstant((count) => count + 1);
 	};
-	if (updateConstant === 1 && !isLoading) {
-		toast_type1(status, message);
-		setupdateConstant((count) => count - 1);
-		props.trigger();
-	}
+	useEffect(() => {
+		if (updateConstant === 1 && !isLoading) {
+			toast_type1(status, message);
+			setupdateConstant((count) => count - 1);
+			props.trigger();
+		}
+	}, [isLoading]);
 
 	return (
 		<Box>

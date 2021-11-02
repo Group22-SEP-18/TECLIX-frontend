@@ -78,7 +78,6 @@ const UnAssignedVehicles = () => {
 					Add a vehicle
 				</Button>
 				<Modal
-					closeOnOverlayClick={false}
 					onClose={onCloseReportModal}
 					isOpen={isOpenReportModal}
 					motionPreset='scale'

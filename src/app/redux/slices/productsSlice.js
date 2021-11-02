@@ -6,7 +6,7 @@ const initialState = {
 	error: '',
 	deleteproduct: {
 		isLoading: false,
-		success: false,
+		success: null,
 		error: null,
 	},
 };
