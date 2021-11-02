@@ -45,7 +45,7 @@ describe('should render correctly', () => {
 	});
 	it('renders nothing when position is smaller than 3', () => {
 		act(() => {
-			render(<HorPositions row={data} position />, container);
+			render(<HorPositions row={data} position={1} />, container);
 		});
 		expect(pretty(container.innerHTML)).toMatchInlineSnapshot(`""`);
 	});

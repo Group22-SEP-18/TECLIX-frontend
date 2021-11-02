@@ -13,7 +13,6 @@ import { useSelector } from 'react-redux';
 import {
 	Avatar,
 	Box,
-	Button,
 	Center,
 	useColorModeValue,
 	Heading,
@@ -21,7 +20,6 @@ import {
 	Text,
 } from '@chakra-ui/react';
 import SideBar from '../../common/sidebar/SideBar';
-import ResetPassword from '../../containers/myAccount/ResetPassword';
 
 const MyAccountPage = (props) => {
 	const user = useSelector((state) => state.user.user);
@@ -98,7 +96,7 @@ const MyAccountPage = (props) => {
 						</Text>
 						<Box h='100px' />
 						<Stack mt={8} direction={'row'} spacing={4}>
-							<Button
+							{/* <Button
 								flex={1}
 								fontSize={'sm'}
 								rounded={'full'}
@@ -108,7 +106,7 @@ const MyAccountPage = (props) => {
 							>
 								Change Profile Picture
 							</Button>
-							<ResetPassword />
+							<ResetPassword /> */}
 						</Stack>
 					</Box>
 				</Center>

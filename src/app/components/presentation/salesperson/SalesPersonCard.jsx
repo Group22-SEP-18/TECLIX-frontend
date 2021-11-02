@@ -36,26 +36,23 @@ const SalesPersonCard = ({ salesperson, onClick }) => {
 	const toast = useToast();
 	const approve = useSelector((state) => state.salespersons.approve);
 	const reject = useSelector((state) => state.salespersons.reject);
+	const showToast = (title, status, description) =>
+		toast({
+			position: 'bottom-right',
+			title: title,
+			description: description,
+			status: status,
+			duration: 5000,
+			isClosable: true,
+		});
 	const approveAccount = async () => {
 		await dispatch(approveAccountById(salesperson.id));
 		setTimeout(() => {
 			if (approve.success === 'Successfully approved the account') {
-				toast({
-					title: 'Account Approved.',
-					description: approve.success,
-					status: 'success',
-					duration: 5000,
-					isClosable: true,
-				});
+				showToast('Account Approved.', 'success', approve.success);
 			}
 			if (approve.error === 'Account activation failed') {
-				toast({
-					title: 'An error occurred.',
-					description: approve.error,
-					status: 'error',
-					duration: 5000,
-					isClosable: true,
-				});
+				showToast('An error occurred.', 'error', approve.error);
 			}
 		}, 500);
 	};
@@ -63,28 +60,20 @@ const SalesPersonCard = ({ salesperson, onClick }) => {
 		await dispatch(rejectAccountById(salesperson.id));
 		setTimeout(() => {
 			if (reject.success === 'Account rejection successful') {
-				toast({
-					title: 'Account Rejected.',
-					description: reject.success,
-					status: 'success',
-					duration: 5000,
-					isClosable: true,
-				});
+				showToast('Account Rejected.', 'success', reject.success);
 			}
 			if (reject.error === 'Account rejection failed') {
-				toast({
-					title: 'An error occurred.',
-					description: reject.error,
-					status: 'error',
-					duration: 5000,
-					isClosable: true,
-				});
+				showToast('An error occurred.', 'error', reject.error);
 			}
 		}, 500);
 	};
+	if (!salesperson) {
+		return null;
+	}
 	return (
 		<div>
 			<Box
+				id={`salesperson-card-div-${salesperson.id}`}
 				borderRadius='lg'
 				boxShadow='lg'
 				m={4}
@@ -107,6 +96,7 @@ const SalesPersonCard = ({ salesperson, onClick }) => {
 					/>
 					<Box>
 						<Heading
+							id={`salesperson_name-${salesperson.id}`}
 							fontSize={'xl'}
 							fontFamily={'body'}
 							textAlign='start'
@@ -114,16 +104,18 @@ const SalesPersonCard = ({ salesperson, onClick }) => {
 						>
 							{salesperson.first_name} {salesperson.last_name}
 							<Badge
+								id={`salesperson_id-${salesperson.id}`}
 								ml='4'
 								px={4}
 								py={1}
 								colorScheme='green'
 								fontWeight={'400'}
 							>
-								#Emplooyee Id {salesperson.employee_no}
+								#Employee Id {salesperson.employee_no}
 							</Badge>
 						</Heading>
 						<Text
+							id={`salesperson_email-${salesperson.id}`}
 							fontWeight={500}
 							color={'gray.500'}
 							mt={4}
@@ -133,13 +125,14 @@ const SalesPersonCard = ({ salesperson, onClick }) => {
 							Email: {salesperson.email}
 						</Text>
 						<Text
+							id={`salesperson_contact_no-${salesperson.id}`}
 							fontWeight={500}
 							color={'gray.500'}
 							mb={4}
 							textAlign='start'
 							pl='4'
 						>
-							Contact No: {salesperson.contact_no}
+							Mobile: {salesperson.contact_no}
 						</Text>
 						{salesperson.is_approved && (
 							<>
@@ -189,6 +182,7 @@ const SalesPersonCard = ({ salesperson, onClick }) => {
 							<VStack>
 								<Spacer />
 								<Button
+									id={`salesperson_reject_button-${salesperson.id}`}
 									rightIcon={<CloseIcon />}
 									colorScheme='red'
 									variant='solid'
@@ -198,6 +192,7 @@ const SalesPersonCard = ({ salesperson, onClick }) => {
 									Reject
 								</Button>
 								<Button
+									id={`salesperson_approve_button-${salesperson.id}`}
 									leftIcon={<CheckIcon />}
 									colorScheme='whatsapp'
 									variant='solid'

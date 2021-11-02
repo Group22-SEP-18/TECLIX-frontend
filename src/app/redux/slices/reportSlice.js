@@ -42,7 +42,7 @@ export const getSalesPerProductAsync = createAsyncThunk(
 	'report/getSalesPerProductAsync',
 	async () => {
 		const response = await fetchSalesPerProduct();
-		const salesPerProduct = response.data;
+		const salesPerProduct = response;
 		return salesPerProduct;
 	}
 );
@@ -51,7 +51,7 @@ export const getSalesPerMonthAsync = createAsyncThunk(
 	'report/getSalesPerMonthAsync',
 	async () => {
 		const response = await fetchSalesPerMonth();
-		const salesPerMonth = response.data;
+		const salesPerMonth = response;
 		return salesPerMonth;
 	}
 );
@@ -60,7 +60,7 @@ export const getPayOrLaterAsync = createAsyncThunk(
 	'report/getPayOrLaterAsync',
 	async () => {
 		const response = await fetchSalesByPayAndLater();
-		const payOrLater = response.data;
+		const payOrLater = response;
 		return payOrLater;
 	}
 );
@@ -69,7 +69,7 @@ export const getSalesBySalespersonAsync = createAsyncThunk(
 	'report/getSalesBySalespersonAsync',
 	async () => {
 		const response = await fetchSalesPerSalespersonForCurrentMonth();
-		const salesBySalesperson = response.data;
+		const salesBySalesperson = response;
 		return salesBySalesperson;
 	}
 );
@@ -78,7 +78,7 @@ export const getProgressBySalespersonAsync = createAsyncThunk(
 	'report/getProgressBySalespersonAsync',
 	async () => {
 		const response = await fetchSalesInLastTwoMonths();
-		const progressBySalesperson = response.data;
+		const progressBySalesperson = response;
 		return progressBySalesperson;
 	}
 );
@@ -127,7 +127,29 @@ export const reportSlice = createSlice({
 		builder.addCase(getSalesPerMonthAsync.fulfilled, (state, { payload }) => {
 			state.salesPerMonth.isLoading = false;
 			state.salesPerMonth.error = '';
-			state.salesPerMonth.chartValues = payload;
+			let values = [];
+			monthList.forEach((month, index) =>
+				values.push({
+					month: month,
+					sales: 0,
+					index: index + 1,
+				})
+			);
+			values = values.map((v) => {
+				for (let i = 0; i < payload.length; i++) {
+					if (payload[i]['order_date__month'] === v.index) {
+						return {
+							month: v.month,
+							sales: payload[i]['sales'],
+						};
+					}
+				}
+				return {
+					month: v.month,
+					sales: v.sales,
+				};
+			});
+			state.salesPerMonth.chartValues = values;
 		});
 		builder.addCase(getSalesPerMonthAsync.rejected, (state) => {
 			state.salesPerMonth.isLoading = false;

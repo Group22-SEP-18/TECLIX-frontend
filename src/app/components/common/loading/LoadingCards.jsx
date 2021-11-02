@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, SkeletonCircle, SkeletonText } from '@chakra-ui/react';
 
-const LoadingSkelton = ({ count = 3 }) => {
+const LoadingCards = ({ count = 3 }) => {
 	return (
 		<div>
 			<Box padding='6' boxShadow='lg' bg='white'>
@@ -16,4 +16,4 @@ const LoadingSkelton = ({ count = 3 }) => {
 	);
 };
 
-export default LoadingSkelton;
+export default LoadingCards;

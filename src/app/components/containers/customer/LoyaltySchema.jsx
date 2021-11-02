@@ -1,141 +1,137 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
 	Button,
-	Box,
-	Editable,
-	EditableInput,
-	EditablePreview,
+	FormControl,
+	FormErrorMessage,
 	Modal,
 	ModalOverlay,
 	ModalContent,
-	ModalFooter,
+	Input,
+	InputGroup,
+	InputRightAddon,
 	ModalHeader,
 	ModalBody,
 	ModalCloseButton,
-	VStack,
-	Text,
 	Table,
 	Thead,
 	Tbody,
 	Tr,
 	Th,
 	Td,
+	useToast,
 	useDisclosure,
 } from '@chakra-ui/react';
-import { SettingsIcon, CheckIcon } from '@chakra-ui/icons';
+import { SettingsIcon, CheckIcon, EditIcon, CloseIcon } from '@chakra-ui/icons';
+import { useSelector, useDispatch } from 'react-redux';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+import _ from 'lodash';
+import {
+	selectLoyaltyPointSchema,
+	getloyaltyPointSchemaAsync,
+} from '../../../redux/slices/loyaltyPointSchemaSlice';
+import { updateLoyaltyPointSchema } from '../../../../api/customersApi';
 
-const dataSet = [
-	{
-		name: 'Total',
-		schema: [
-			{
-				below_margin: 0,
-				percentage: 1,
-				bonus: 10,
-			},
-			{
-				below_margin: 10000,
-				percentage: 3,
-				bonus: 100,
-			},
-			{
-				below_margin: 100000,
-				percentage: 4,
-				bonus: 10000,
-			},
-		],
-	},
-	{
-		name: 'Item Count',
-		schema: [
-			{
-				below_margin: 0,
-				percentage: 1,
-				bonus: 10,
-			},
-			{
-				below_margin: 100,
-				percentage: 3,
-				bonus: 100,
-			},
-			{
-				below_margin: 1000,
-				percentage: 4,
-				bonus: 10000,
-			},
-		],
-	},
-];
-
-const LoyaltySchema = (props) => {
+const LeaderboardSchema = (props) => {
+	const dispatch = useDispatch();
+	const loyaltyPointSchema = useSelector(selectLoyaltyPointSchema);
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const [updateMode, setUpdateMode] = useState({
+		key: null,
+		isInUpdateMode: false,
+	});
+	const toast = useToast();
+	const showToast = (title, status, description) =>
+		toast({
+			position: 'bottom-right',
+			title: title,
+			description: description,
+			status: status,
+			duration: 5000,
+			isClosable: true,
+		});
+	const handleSubmit = async (data) => {
+		try {
+			const result = await updateLoyaltyPointSchema(data.id, {
+				percentage: data.percentage,
+				bonus_points: data.bonus_points,
+			});
+			if (result.id) {
+				showToast(
+					'Schema updated.',
+					'success',
+					'Loyalty schema updated successfully'
+				);
+				setUpdateMode({
+					key: null,
+					isInUpdateMode: false,
+				});
+				dispatch(getloyaltyPointSchemaAsync());
+			} else {
+				showToast('An error occurred.', 'error', 'Schema update failed');
+			}
+		} catch (error) {
+			showToast('An error occurred.', 'error', 'Schema update failed');
+		}
+	};
+	const cancelUpdate = () => {
+		setUpdateMode({
+			key: null,
+			isInUpdateMode: false,
+		});
+		showToast('No changes', 'info', '');
+	};
+	useEffect(() => {
+		dispatch(getloyaltyPointSchemaAsync());
+	}, [dispatch]);
 	return (
 		<>
 			<Button rightIcon={<SettingsIcon />} colorScheme='gray' onClick={onOpen}>
-				Loyalty Schema
+				Loyalty Point Schema
 			</Button>
 
-			<Modal isOpen={isOpen} onClose={onClose} size='lg'>
+			<Modal isOpen={isOpen} onClose={onClose} size='4xl'>
 				<ModalOverlay />
 				<ModalContent>
-					<ModalHeader>Loyalty Schema</ModalHeader>
+					<ModalHeader>Loyalty Point Schema</ModalHeader>
 					<ModalCloseButton />
 					<ModalBody>
-						{dataSet.map((dset, i) => (
-							<VStack my='4' key={1}>
-								<Box flex='1' flexDirection='row'>
-									<Text
-										fontSize='md'
-										fontWeight='bold'
-										textAlign='start'
-										justifyContent='start'
-									>
-										{dset.name}
-									</Text>
-									<Box>
-										<Table variant='unstyled'>
-											<Thead>
-												<Tr>
-													<Th>Lower Margin</Th>
-													<Th isNumeric>Percentage</Th>
-													<Th isNumeric>Bonus Points</Th>
-												</Tr>
-											</Thead>
-											<Tbody>
-												{dset.schema.map((row, index) => (
-													<Tr my='1' key={index}>
-														<Td>
-															{dset.name === 'ItemCount'
-																? `${row.below_margin}`
-																: `Rs.${row.below_margin}.00+`}
-														</Td>
-														<Td isNumeric>
-															<Editable defaultValue={row.percentage}>
-																<EditablePreview />
-																<EditableInput />
-																{' %'}
-															</Editable>
-														</Td>
-														<Td isNumeric>
-															<Editable defaultValue={row.bonus}>
-																<EditablePreview />
-																<EditableInput />
-																{' points'}
-															</Editable>
-														</Td>
-													</Tr>
-												))}
-											</Tbody>
-										</Table>
-									</Box>
-								</Box>
-							</VStack>
-						))}
-						<ModalFooter>
-							<Button variant='ghost' rightIcon={<CheckIcon />}>
-								Apply Changes
-							</Button>
-						</ModalFooter>
+						<Table variant='unstyled'>
+							<Thead>
+								<Tr>
+									<Th>Points Type</Th>
+									<Th isNumeric>Percentage</Th>
+									<Th isNumeric>Bonus Points</Th>
+									<Th></Th>
+								</Tr>
+							</Thead>
+							<Tbody>
+								{loyaltyPointSchema.map((row, i) => (
+									<Tr my='1' key={i}>
+										<Td>{row.points_type}</Td>
+										{updateMode.key !== i ? (
+											<>
+												<Td isNumeric>{row.percentage} %</Td>
+												<Td isNumeric>{row.bonus_points} points</Td>
+												<Td>
+													<Button
+														rightIcon={<EditIcon />}
+														colorScheme='gray'
+														onClick={() => {
+															setUpdateMode({ isInUpdateMode: true, key: i });
+														}}
+													>
+														Edit Criteria
+													</Button>
+												</Td>
+											</>
+										) : (
+											UpdateSchemaView(row, handleSubmit, cancelUpdate)
+										)}
+									</Tr>
+								))}
+							</Tbody>
+						</Table>
 					</ModalBody>
 				</ModalContent>
 			</Modal>
@@ -143,4 +139,102 @@ const LoyaltySchema = (props) => {
 	);
 };
 
-export default LoyaltySchema;
+LeaderboardSchema.propTypes = {};
+
+export default LeaderboardSchema;
+
+const UpdateSchemaView = (row, handleSubmit, cancelUpdate) => {
+	return (
+		<Formik
+			initialValues={{
+				id: row.id,
+				points_type: row.points_type,
+				percentage: row.percentage,
+				bonus_points: row.bonus_points,
+			}}
+			validationSchema={Yup.object({
+				percentage: Yup.number()
+					.test(
+						'max',
+						'Percentage should be less than 100',
+						(number) => number < 100
+					)
+					.test(
+						'min',
+						'Percentage should be larger than 0',
+						(number) => number >= 0
+					)
+					.required('Percentage cannot be empty'),
+				bonus_points: Yup.number()
+					.test(
+						'min',
+						'Bonus points should be larger than 0',
+						(number) => number >= 0
+					)
+					.required('Bonus points cannot be empty'),
+			})}
+			onSubmit={async (values) =>
+				_.isEqual(row, values) ? cancelUpdate() : handleSubmit(values)
+			}
+		>
+			{(props) => (
+				<>
+					<Td>
+						<FormControl
+							isInvalid={props.errors.percentage && props.touched.percentage}
+						>
+							<InputGroup>
+								<Input
+									type='percentage'
+									name='percentage'
+									value={props.initialValues.percentage}
+									{...props.getFieldProps('percentage')}
+								/>
+								<InputRightAddon children='%' size='sm' />
+							</InputGroup>
+							<FormErrorMessage>{props.errors.percentage}</FormErrorMessage>
+						</FormControl>
+					</Td>
+					<Td>
+						<FormControl
+							isInvalid={
+								props.errors.bonus_points && props.touched.bonus_points
+							}
+						>
+							<InputGroup>
+								<Input
+									type='bonus_points'
+									name='bonus_points'
+									value={props.initialValues.bonus_points}
+									{...props.getFieldProps('bonus_points')}
+								/>
+								<InputRightAddon children='points' size='sm' />
+							</InputGroup>
+							<FormErrorMessage>{props.errors.bonus_points}</FormErrorMessage>
+						</FormControl>
+					</Td>
+					<Td>
+						<Button
+							rightIcon={<CheckIcon />}
+							colorScheme='gray'
+							onClick={props.submitForm}
+							mt={4}
+							// isLoading={isLoading}
+							loadingText='Signinig in'
+						>
+							Apply Changes
+						</Button>
+						<Button
+							rightIcon={<CloseIcon />}
+							colorScheme='gray'
+							onClick={cancelUpdate}
+							mt={4}
+						>
+							Cancel
+						</Button>
+					</Td>
+				</>
+			)}
+		</Formik>
+	);
+};

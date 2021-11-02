@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Box } from '@chakra-ui/react';
 import RechartChart from '../../../common/charts/RechartChart';
-import LoadingCards from '../../../common/loading/LoadingCards';
+import LoadingSkelton from '../../../common/loading/LoadingSkelton';
 import ErrorOverlay from '../../../common/error-overlays/ErrorOverlay';
 import {
 	selectSalesPerMonth,
@@ -16,7 +16,7 @@ const TotalSalesContainer = (props) => {
 	}, [dispatch]);
 	const { isLoading, chartValues, error } = useSelector(selectSalesPerMonth);
 	if (isLoading) {
-		return <LoadingCards count={3} />;
+		return <LoadingSkelton />;
 	}
 	if (error) {
 		<ErrorOverlay error={error} />;

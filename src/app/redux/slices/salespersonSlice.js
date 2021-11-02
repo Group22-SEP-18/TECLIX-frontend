@@ -36,8 +36,8 @@ export const salespersonSlice = createSlice({
 		approvePending: (state, { payload }) => {
 			state.approve.isLoading = true;
 			state.approve.id = payload.id;
-			state.reject.error = '';
-			state.reject.success = '';
+			state.reject.error = null;
+			state.reject.success = null;
 		},
 		approveSuccess: (state) => {
 			state.approve.isLoading = false;
@@ -55,8 +55,8 @@ export const salespersonSlice = createSlice({
 		rejectPending: (state, { payload }) => {
 			state.reject.isLoading = true;
 			state.reject.id = payload.id;
-			state.reject.error = '';
-			state.reject.success = '';
+			state.reject.error = null;
+			state.reject.success = null;
 		},
 		rejectSuccess: (state, { payload }) => {
 			state.reject.isLoading = false;

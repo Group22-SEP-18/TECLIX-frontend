@@ -8,34 +8,40 @@ import {
 } from '../slices/distributionOfficersSlice';
 import { approveDOAccount, rejectDOAccount } from '../../../api/staffApi';
 
-export const approveAccountById = (id) => async (dispatch) => {
+export const approveAccountById = async (id) => async (dispatch) => {
 	try {
 		dispatch(approvePending({ id: id }));
 
 		const result = await approveDOAccount(id);
 
 		if (result.is_approved) {
-			return dispatch(approveSuccess('Successfully approved the account'));
+			dispatch(approveSuccess('Successfully approved the account'));
+			return true;
+		} else {
+			dispatch(approveFail('Account approval failed'));
+			return false;
 		}
-
-		dispatch(approveFail('Account approval failed'));
 	} catch (error) {
 		dispatch(approveFail('Account approval failed'));
+		return false;
 	}
 };
 
-export const rejectAccountById = (id) => async (dispatch) => {
+export const rejectAccountById = async (id) => async (dispatch) => {
 	try {
 		dispatch(rejectPending({ id: id }));
 
 		const result = await rejectDOAccount(id);
 
 		if (!result.is_approved) {
-			return dispatch(rejectSuccess('Account rejection successful'));
+			dispatch(rejectSuccess('Account rejection successful'));
+			return true;
+		} else {
+			dispatch(rejectFail('Account rejection failed'));
+			return false;
 		}
-
-		dispatch(rejectFail('Account rejection failed'));
 	} catch (error) {
 		dispatch(rejectFail('Account rejection failed'));
+		return false;
 	}
 };
