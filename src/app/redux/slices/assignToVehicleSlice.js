@@ -2,12 +2,12 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
 	isLoading: false,
-	status: '',
+	status: null,
 	message: '',
 };
 
 const assignToVehicleSlice = createSlice({
-	name: 'assign to vehicle',
+	name: 'assigntoVehicle',
 	initialState,
 	reducers: {
 		assigningPending: (state) => {
@@ -15,12 +15,12 @@ const assignToVehicleSlice = createSlice({
 		},
 		assigningSuccess: (state, { payload }) => {
 			state.isLoading = false;
-			state.status = 'success';
+			state.status = true;
 			state.message = payload;
 		},
 		assigningError: (state, { payload }) => {
 			state.isLoading = false;
-			state.status = 'error';
+			state.status = false;
 			state.message = payload;
 		},
 	},

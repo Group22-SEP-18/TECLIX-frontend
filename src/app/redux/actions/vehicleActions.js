@@ -1,8 +1,11 @@
+import { useToast } from '@chakra-ui/react';
+
 import { fetchAllVehicles } from '../../../api/vehicleApi';
 import { assigntoVehicle } from '../../../api/vehicleApi';
 import { vehicleRegistration } from '../../../api/vehicleApi';
 import { fetchVehicleAssignments } from '../../../api/vehicleApi';
 import { deleteVehicleById } from '../../../api/vehicleApi';
+import { unassignVehicleById } from '../../../api/vehicleApi';
 
 import {
 	vehiclesPending,
@@ -23,12 +26,26 @@ import {
 	vehiclesAssignmentsPending,
 	vehiclesAssignmentsSuccess,
 	vehiclesAssignmentsFail,
+	vehiclesUnassignPending,
+	vehiclesUnassignSuccess,
+	vehiclesUnassignFail,
 } from '../slices/vehicleAssignmentsSlice';
 import {
 	vehicleRegistrationPending,
 	vehicleRegistrationSuccess,
 	vehicleRegistrationError,
 } from '../slices/addVehicleSlice';
+
+var Toast_type2 = (success) => {
+	const toast = useToast();
+	toast({
+		position: 'bottom-right',
+		title: success ? 'Success' : 'Failed',
+		status: success ? 'success' : 'error',
+		duration: 5000,
+		isClosable: true,
+	});
+};
 
 export const fetchVehicleData = () => async (dispatch) => {
 	try {
@@ -56,14 +73,19 @@ export const fetchVehicleAssignData = () => async (dispatch) => {
 	}
 };
 
-export const assignToVehicle = (formData) => async (dispatch) => {
+export const assignToVehicle = (formData, rowid) => async (dispatch) => {
 	try {
 		dispatch(assigningPending());
-
+		if (rowid) {
+			await unassignVehicleById(rowid);
+		}
 		const result = await assigntoVehicle(formData);
-		result.status === 'success'
-			? dispatch(assigningSuccess(result.message))
-			: dispatch(assigningError(result.message));
+		if (result.vehicle) {
+			dispatch(assigningSuccess(result.message));
+			dispatch(fetchVehicleAssignData());
+		} else {
+			dispatch(assigningError(result.message));
+		}
 	} catch (error) {
 		dispatch(assigningError(error.message));
 	}
@@ -92,5 +114,17 @@ export const vehicleDelete = (id) => async (dispatch) => {
 		dispatch(deleteSuccess());
 	} catch (error) {
 		dispatch(deleteFail(error.message));
+	}
+};
+
+export const vehicleUnassign = (id) => async (dispatch) => {
+	try {
+		dispatch(vehiclesUnassignPending());
+		await unassignVehicleById(id);
+		dispatch(vehiclesUnassignSuccess());
+		dispatch(fetchVehicleAssignData());
+		Toast_type2(true);
+	} catch (error) {
+		dispatch(vehiclesUnassignFail());
 	}
 };

@@ -11,7 +11,6 @@ import {
 	ModalContent,
 	ModalOverlay,
 	ModalCloseButton,
-	useToast,
 	ModalHeader,
 	ModalFooter,
 	chakra,
@@ -20,24 +19,15 @@ import {
 } from '@chakra-ui/react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React from 'react';
 
 import { FiTrash } from 'react-icons/fi';
 import { productDelete } from '../../../redux/actions/productActions';
 
 const ProductCard = ({ product }) => {
-	const toast = useToast();
 	const dispatch = useDispatch();
 	const deleteproduct = useSelector((state) => state.products.deleteproduct);
-	var [updateConstant, setupdateConstant] = useState(0);
-	var toast_type2 = (success) =>
-		toast({
-			position: 'bottom-right',
-			title: success ? 'Success' : 'Failed',
-			status: success ? 'success' : 'error',
-			duration: 5000,
-			isClosable: true,
-		});
+
 	const {
 		isOpen: isOpenReportModal,
 		onOpen: onOpenReportModal,
@@ -46,13 +36,8 @@ const ProductCard = ({ product }) => {
 
 	const deleteProduct = () => {
 		dispatch(productDelete(product.id));
-		setupdateConstant((count) => count + 1);
 	};
-	if (updateConstant === 1 && !deleteproduct.isLoading) {
-		toast_type2(deleteproduct.success);
-		setupdateConstant((count) => count - 1);
-		onCloseReportModal();
-	}
+
 	if (!product) {
 		return null;
 	}
@@ -136,7 +121,6 @@ const ProductCard = ({ product }) => {
 										/>
 									</chakra.a>
 									<Modal
-										closeOnOverlayClick={false}
 										onClose={onCloseReportModal}
 										isOpen={isOpenReportModal}
 										motionPreset='scale'

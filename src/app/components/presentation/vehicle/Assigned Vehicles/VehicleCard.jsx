@@ -9,21 +9,36 @@ import {
 	ModalBody,
 	ModalContent,
 	ModalOverlay,
+	ModalFooter,
 	ModalCloseButton,
 	ModalHeader,
 	Stack,
 } from '@chakra-ui/react';
 import { MdBuild } from 'react-icons/md';
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { VStack, StackDivider } from '@chakra-ui/react';
 import { Wrap } from '@chakra-ui/react';
 import { Stat, StatLabel, StatNumber, StatHelpText } from '@chakra-ui/react';
 import VehicleProducts from '../VehicleProducts';
 import VehicleSalesperson from '../VehicleSalesperson';
 import VehicleAssignForm from '../Assigned Vehicles/VehicleAssignForm';
+import { vehicleUnassign } from '../../../../redux/actions/vehicleActions';
 
 function VehicleCard(props) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const {
+		isOpen: isOpenReportModal,
+		onOpen: onOpenReportModal,
+		onClose: onCloseReportModal,
+	} = useDisclosure();
+
+	const dispatch = useDispatch();
+	const unassign = useSelector((state) => state.vehiclesAssignments.unassign);
+
+	const UnassignVehicle = () => {
+		dispatch(vehicleUnassign(props.rowid));
+	};
 
 	if (!props.id) {
 		return null;
@@ -113,13 +128,12 @@ function VehicleCard(props) {
 							onClick={onOpen}
 							colorScheme='facebook'
 							variant='solid'
-							minWidth='230'
+							minWidth='100'
 							left='1'
 						>
-							Assignments
+							Assign
 						</Button>
 						<Modal
-							closeOnOverlayClick={false}
 							onClose={onClose}
 							isOpen={isOpen}
 							motionPreset='scale'
@@ -132,6 +146,7 @@ function VehicleCard(props) {
 								<ModalBody pb='5'>
 									<VehicleAssignForm
 										array={array}
+										rowid={props.rowid}
 										vehicleid={props.id}
 										assignedsalesprson={props.salesperson}
 										assignedsalesprsonEmpNo={
@@ -160,6 +175,46 @@ function VehicleCard(props) {
 										trigger={onClose}
 									/>
 								</ModalBody>
+							</ModalContent>
+						</Modal>
+					</Box>
+					<Box>
+						<Button
+							leftIcon={<MdBuild />}
+							onClick={onOpenReportModal}
+							colorScheme='red'
+							variant='solid'
+							minWidth='100'
+							left='1'
+						>
+							Unassign
+						</Button>
+						<Modal
+							closeOnOverlayClick={false}
+							onClose={onCloseReportModal}
+							isOpen={isOpenReportModal}
+							motionPreset='scale'
+							isCentered
+						>
+							<ModalOverlay />
+							<ModalContent>
+								<ModalHeader>Do you want to unassign the vehicle?</ModalHeader>
+								<ModalCloseButton />
+								<ModalBody pb='5'></ModalBody>
+								<ModalFooter>
+									<Button
+										colorScheme='whatsapp'
+										mr={3}
+										minWidth='200'
+										onClick={UnassignVehicle}
+										isLoading={unassign.isLoading}
+									>
+										Yes
+									</Button>
+									<Button onClick={onCloseReportModal} minWidth='200'>
+										No
+									</Button>
+								</ModalFooter>
 							</ModalContent>
 						</Modal>
 					</Box>

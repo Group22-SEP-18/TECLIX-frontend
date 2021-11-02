@@ -1,12 +1,12 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
 	Input,
 	Box,
 	Button,
 	Image,
-	useToast,
 	FormControl,
+	useToast,
 	FormLabel,
 	Select,
 	Flex,
@@ -18,23 +18,30 @@ import * as Yup from 'yup';
 import { addProduct } from '../../../redux/actions/productActions';
 
 const AddNewProduct = (props) => {
-	const toast = useToast();
 	var [updateConstant, setupdateConstant] = useState(0);
+	const [preview, setPreview] = useState();
+
 	const fileInputRef = useRef();
 	const dispatch = useDispatch();
-	const [preview, setPreview] = useState();
-	const { isLoading, status, message } = useSelector(
+	const toast = useToast();
+
+	const { isLoading, status } = useSelector(
 		(state) => state.productRegistration
 	);
-	var toast_type1 = (success, message) =>
-		toast({
-			position: 'bottom-right',
-			title: success ? 'Success' : 'Failed',
-			description: message,
-			status: success ? 'success' : 'error',
-			duration: 5000,
-			isClosable: true,
-		});
+	var toast_type1 = useCallback(
+		(success, message) => {
+			toast({
+				position: 'bottom-right',
+				title: success ? 'Success' : 'Failed',
+				description: message,
+				status: success ? 'success' : 'error',
+				duration: 5000,
+				isClosable: true,
+			});
+		},
+		[toast]
+	);
+
 	const initialValues = {
 		short_name: '',
 		long_name: '',
@@ -96,11 +103,13 @@ const AddNewProduct = (props) => {
 		dispatch(addProduct(frmData));
 		setupdateConstant((count) => count + 1);
 	};
-	if (updateConstant === 1 && !isLoading) {
-		toast_type1(status, message);
-		setupdateConstant((count) => count - 1);
-		props.trigger();
-	}
+	useEffect(() => {
+		if (updateConstant === 1 && !isLoading) {
+			setupdateConstant((count) => count - 1);
+			toast_type1(status);
+			props.trigger();
+		}
+	}, [isLoading, props, status, toast_type1, updateConstant]);
 
 	return (
 		<Box>
@@ -204,6 +213,8 @@ const AddNewProduct = (props) => {
 									<option value='chips'>Chips</option>
 									<option value='cookies'>Cookies</option>
 									<option value='cheese'>Cheese</option>
+									<option value='snacks'>Snacks</option>
+									<option value='sauce'>Sauce</option>
 								</Select>
 								<FormErrorMessage>{props.errors.category}</FormErrorMessage>
 							</FormControl>

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
 	Input,
@@ -19,22 +19,28 @@ import { addVehicle } from '../../../redux/actions/vehicleActions';
 
 const AddNewVehicle = (props) => {
 	const toast = useToast();
-	var [updateConstant, setupdateConstant] = useState(0);
 	const fileInputRef = useRef();
 	const dispatch = useDispatch();
+
+	var [updateConstant, setupdateConstant] = useState(0);
 	const [preview, setPreview] = useState();
+
 	const { isLoading, status, message } = useSelector(
 		(state) => state.vehicleRegistration
 	);
-	var toast_type1 = (success, message) =>
-		toast({
-			position: 'bottom-right',
-			title: success ? 'Success' : 'Failed',
-			description: message,
-			status: success ? 'success' : 'error',
-			duration: 5000,
-			isClosable: true,
-		});
+	var toast_type1 = useCallback(
+		(success, message) => {
+			toast({
+				position: 'bottom-right',
+				title: success ? 'Success' : 'Failed',
+				description: message,
+				status: success ? 'success' : 'error',
+				duration: 5000,
+				isClosable: true,
+			});
+		},
+		[toast]
+	);
 	const initialValues = {
 		vehicle_number: '',
 		vehicle_type: '',
@@ -80,11 +86,13 @@ const AddNewVehicle = (props) => {
 		dispatch(addVehicle(frmData));
 		setupdateConstant((count) => count + 1);
 	};
-	if (updateConstant === 1 && !isLoading) {
-		toast_type1(status, message);
-		setupdateConstant((count) => count - 1);
-		props.trigger();
-	}
+	useEffect(() => {
+		if (updateConstant === 1 && !isLoading) {
+			toast_type1(status, message);
+			setupdateConstant((count) => count - 1);
+			props.trigger();
+		}
+	}, [isLoading, message, props, status, toast_type1, updateConstant]);
 
 	return (
 		<Box>
@@ -166,10 +174,8 @@ const AddNewVehicle = (props) => {
 								>
 									<option value='VAN'>Van</option>
 									<option value='LORRY'>Lorry</option>
-									<option value='THREEWHEELER'>Three Wheeler</option>
-									<option value='CAB'>Cab</option>
+									<option value='TUK'>Tuk</option>
 									<option value='BIKE'>Bike</option>
-									<option value='BUS'>Bus</option>
 								</Select>
 								<FormErrorMessage>{props.errors.vehicle_type}</FormErrorMessage>
 							</FormControl>

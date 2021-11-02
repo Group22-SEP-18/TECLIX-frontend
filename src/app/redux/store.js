@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import assigntoVehicleReducer from './slices/assignToVehicleSlice';
 import currentLocationsReducer from './slices/currentLocationsSlice';
 import customerReducer from './slices/customerSlice';
 import distributionOfficerReducer from './slices/distributionOfficersSlice';
@@ -20,6 +21,7 @@ import vehiclesAssignmentsReducer from './slices/vehicleAssignmentsSlice';
 
 export default configureStore({
 	reducer: {
+		assigntoVehicle: assigntoVehicleReducer,
 		currentLocations: currentLocationsReducer,
 		customers: customerReducer,
 		distributionOfficers: distributionOfficerReducer,
