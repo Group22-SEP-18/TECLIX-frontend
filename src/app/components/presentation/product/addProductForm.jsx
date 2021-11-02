@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
 	Input,
@@ -28,14 +28,19 @@ const AddNewProduct = (props) => {
 	const { isLoading, status } = useSelector(
 		(state) => state.productRegistration
 	);
-	var toast_type1 = (success) =>
-		toast({
-			position: 'bottom-right',
-			title: success ? 'Success' : 'Failed',
-			status: success ? 'success' : 'error',
-			duration: 5000,
-			isClosable: true,
-		});
+	var toast_type1 = useCallback(
+		(success, message) => {
+			toast({
+				position: 'bottom-right',
+				title: success ? 'Success' : 'Failed',
+				description: message,
+				status: success ? 'success' : 'error',
+				duration: 5000,
+				isClosable: true,
+			});
+		},
+		[toast]
+	);
 
 	const initialValues = {
 		short_name: '',
@@ -104,7 +109,7 @@ const AddNewProduct = (props) => {
 			toast_type1(status);
 			props.trigger();
 		}
-	}, [isLoading]);
+	}, [isLoading, props, status, toast_type1, updateConstant]);
 
 	return (
 		<Box>

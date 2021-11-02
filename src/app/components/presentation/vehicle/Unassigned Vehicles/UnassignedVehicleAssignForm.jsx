@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 import { Button } from '@chakra-ui/react';
 import { FormControl, FormLabel, Select, HStack, Box } from '@chakra-ui/react';
@@ -35,14 +35,19 @@ const UnassignedVehicleAssignForm = ({
 
 	const { isLoading, status } = useSelector((state) => state.assigntoVehicle);
 
-	var toast_type1 = (success) =>
-		toast({
-			position: 'bottom-right',
-			title: success ? 'Success' : 'Failed',
-			status: success ? 'success' : 'error',
-			duration: 5000,
-			isClosable: true,
-		});
+	var toast_type1 = useCallback(
+		(success, message) => {
+			toast({
+				position: 'bottom-right',
+				title: success ? 'Success' : 'Failed',
+				description: message,
+				status: success ? 'success' : 'error',
+				duration: 5000,
+				isClosable: true,
+			});
+		},
+		[toast]
+	);
 	const updateItem = (id, value) => {
 		var index = productQuantity.findIndex((x) => x.product === id);
 		if (index >= 0) {
@@ -90,7 +95,7 @@ const UnassignedVehicleAssignForm = ({
 			toast_type1(status);
 			trigger();
 		}
-	}, [isLoading]);
+	}, [isLoading, status, toast_type1, trigger, updateConstant]);
 
 	return (
 		<div>

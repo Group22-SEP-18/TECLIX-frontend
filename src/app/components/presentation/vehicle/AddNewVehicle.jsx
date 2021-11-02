@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
 	Input,
@@ -28,15 +28,19 @@ const AddNewVehicle = (props) => {
 	const { isLoading, status, message } = useSelector(
 		(state) => state.vehicleRegistration
 	);
-	var toast_type1 = (success, message) =>
-		toast({
-			position: 'bottom-right',
-			title: success ? 'Success' : 'Failed',
-			description: message,
-			status: success ? 'success' : 'error',
-			duration: 5000,
-			isClosable: true,
-		});
+	var toast_type1 = useCallback(
+		(success, message) => {
+			toast({
+				position: 'bottom-right',
+				title: success ? 'Success' : 'Failed',
+				description: message,
+				status: success ? 'success' : 'error',
+				duration: 5000,
+				isClosable: true,
+			});
+		},
+		[toast]
+	);
 	const initialValues = {
 		vehicle_number: '',
 		vehicle_type: '',
@@ -88,7 +92,7 @@ const AddNewVehicle = (props) => {
 			setupdateConstant((count) => count - 1);
 			props.trigger();
 		}
-	}, [isLoading]);
+	}, [isLoading, message, props, status, toast_type1, updateConstant]);
 
 	return (
 		<Box>
