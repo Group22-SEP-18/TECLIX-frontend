@@ -31,11 +31,15 @@ import {
 	Stack,
 } from '@chakra-ui/react';
 import MapWithHeader from '../../common/map/MapWithHeader';
-import { getLocationsAsync } from '../../../redux/slices/locationsSlice';
+import {
+	getLocationsAsync,
+	isLocationsLoading,
+} from '../../../redux/slices/locationsSlice';
 import {
 	filteredServiceOrders,
 	clearFilters,
 	getServiceOrdersAsync,
+	isServiceOrdersLoadig,
 } from '../../../redux/slices/serviceOrderSlice';
 import ServiceOrderDetailsHeader from '../../presentation/serviceOrders/ServiceOrderDetailsHeader';
 import ServiceOrderProductTable from '../../presentation/serviceOrders/ServiceOrderProductTable';
@@ -46,6 +50,7 @@ import {
 	setSPFilter,
 	setToFilter,
 } from '../../../redux/slices/locationsSlice';
+import LoadingSkelton from '../../common/loading/LoadingSkelton';
 
 const SalesPersonHistoryContainer = ({ salesperson }) => {
 	const dispatch = useDispatch();
@@ -59,6 +64,8 @@ const SalesPersonHistoryContainer = ({ salesperson }) => {
 		.slice()
 		.filter((so) => so.salesperson.email === salesperson.email);
 	const locations = useSelector(filteredLocations);
+	const isLocationLoading = useSelector(isLocationsLoading);
+	const isSOLoading = useSelector(isServiceOrdersLoadig);
 	return (
 		<Box pt='4'>
 			<Tabs variant='soft-rounded' colorScheme='green'>
@@ -98,45 +105,55 @@ const SalesPersonHistoryContainer = ({ salesperson }) => {
 							borderRadius='xl'
 							overflowY='hidden'
 						>
-							<MapWithHeader locations={locations} height='650px' />
+							{isLocationLoading && <LoadingSkelton />}
+							{!isLocationLoading && (
+								<MapWithHeader locations={locations} height='650px' />
+							)}
 						</Box>
 					</TabPanel>
 					<TabPanel>
 						<Tabs align='end' variant='soft-rounded' colorScheme='green'>
 							<AddFilter isSalesPersonView={true} />
-							{serviceOrders.length ? null : 'No service orders are included'}
-							<Accordion allowToggle>
-								{serviceOrders.map((serviceOrder) => (
-									<AccordionItem
-										key={`serviceorder_accordion_item-${serviceOrder.id}`}
-									>
-										<AccordionButton>
-											<Box
-												id={`serviceorder_div-${serviceOrder.id}`}
-												m={2}
-												minH='100px'
-												overflow='hidden'
-												p={2}
-												textAlign={'center'}
-												_hover={{ cursor: 'pointer' }}
+							{isSOLoading && <LoadingSkelton />}
+							{!isSOLoading && (
+								<>
+									{serviceOrders.length
+										? null
+										: 'No service orders are included'}
+									<Accordion allowToggle>
+										{serviceOrders.map((serviceOrder) => (
+											<AccordionItem
+												key={`serviceorder_accordion_item-${serviceOrder.id}`}
 											>
-												<ServiceOrderDetailsHeader
-													serviceOrder={serviceOrder}
-													showSP={false}
-													showCustomer={true}
-												/>
-											</Box>
-											<Spacer />
-											<AccordionIcon />
-										</AccordionButton>
-										<AccordionPanel>
-											<ServiceOrderProductTable
-												order_items={serviceOrder.order_items}
-											/>
-										</AccordionPanel>
-									</AccordionItem>
-								))}
-							</Accordion>
+												<AccordionButton>
+													<Box
+														id={`serviceorder_div-${serviceOrder.id}`}
+														m={2}
+														minH='100px'
+														overflow='hidden'
+														p={2}
+														textAlign={'center'}
+														_hover={{ cursor: 'pointer' }}
+													>
+														<ServiceOrderDetailsHeader
+															serviceOrder={serviceOrder}
+															showSP={false}
+															showCustomer={true}
+														/>
+													</Box>
+													<Spacer />
+													<AccordionIcon />
+												</AccordionButton>
+												<AccordionPanel>
+													<ServiceOrderProductTable
+														order_items={serviceOrder.order_items}
+													/>
+												</AccordionPanel>
+											</AccordionItem>
+										))}
+									</Accordion>
+								</>
+							)}
 						</Tabs>
 					</TabPanel>
 				</TabPanels>

@@ -74,6 +74,8 @@ export const {
 export const selectAllServiceOrders = (state) =>
 	state.serviceOrders.serviceOrders;
 
+export const isServiceOrdersLoadig = (state) => state.serviceOrders.isLoading;
+
 export const filteredServiceOrders = (state) => {
 	var all = state.serviceOrders.serviceOrders;
 	const salesperson = state.serviceOrders.filters.salesperson;
