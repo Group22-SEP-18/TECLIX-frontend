@@ -91,13 +91,14 @@ const SalesPersonHistoryContainer = ({ salesperson }) => {
 							</InputGroup>
 						</Stack>
 						<Box
+							mt='4'
 							maxW='100%'
 							maxH='60%'
 							borderWidth='1px'
 							borderRadius='xl'
 							overflowY='hidden'
 						>
-							<MapWithHeader locations={locations} />
+							<MapWithHeader locations={locations} height='650px' />
 						</Box>
 					</TabPanel>
 					<TabPanel>
