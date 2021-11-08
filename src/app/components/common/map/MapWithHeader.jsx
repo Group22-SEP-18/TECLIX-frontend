@@ -7,6 +7,7 @@ import SimpleMap from './SimpleMap';
 const MapWithHeader = ({
 	header = '',
 	locations,
+	height,
 	Component = Marker,
 	onClick = () => {},
 }) => {
@@ -53,7 +54,7 @@ const MapWithHeader = ({
 				borderRadius='xl'
 				overflow='hidden'
 			>
-				<SimpleMap center={center} markers={markers} />
+				<SimpleMap center={center} markers={markers} height={height} />
 			</Box>
 		</div>
 	);

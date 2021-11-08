@@ -129,6 +129,7 @@ const CustomerVerticalCardView = ({ customer }) => {
 				<div id={`customer_vertical_card_div_map-${customer.id}`}>
 					<MapWithHeader
 						header='Location'
+						height='400px'
 						locations={[
 							{
 								latitude: parseFloat(customer.latitude),

@@ -36,7 +36,7 @@ const LoginPage = (props) => {
 	const { isLoading, isAuth, error } = useSelector((state) => state.login);
 	let { from } = location.state || { from: { pathname: '/' } };
 	useEffect(() => {
-		sessionStorage.getItem('accessJWT') && history.replace(from);
+		isAuth && history.replace(from);
 	}, [history, isAuth, from]);
 	const handlePasswordShow = () => setPasswordShow(!passwordShow);
 	return (

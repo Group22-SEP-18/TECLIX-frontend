@@ -74,6 +74,8 @@ export const {
 export const selectAllServiceOrders = (state) =>
 	state.serviceOrders.serviceOrders;
 
+export const isServiceOrdersLoadig = (state) => state.serviceOrders.isLoading;
+
 export const filteredServiceOrders = (state) => {
 	var all = state.serviceOrders.serviceOrders;
 	const salesperson = state.serviceOrders.filters.salesperson;
@@ -102,11 +104,11 @@ export const filteredServiceOrders = (state) => {
 			: new Date('0001-01-01T00:00:00Z').getTime();
 	const ed =
 		state.serviceOrders.filters.to !== ''
-			? new Date(`${state.serviceOrders.filters.to}T00:00:00.000Z`).getTime()
+			? new Date(`${state.serviceOrders.filters.to}T23:59:59.000Z`).getTime()
 			: new Date().getTime();
 	all = all.filter((so) => {
 		var time = new Date(so.order_date).getTime();
-		return sd < time && time < ed;
+		return sd <= time && time < ed;
 	});
 	return all;
 };

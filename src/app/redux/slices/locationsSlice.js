@@ -84,4 +84,6 @@ export const filteredLocations = (state) => {
 		}));
 };
 
+export const isLocationsLoading = (state) => state.locations.isLoading;
+
 export default locationSlice.reducer;

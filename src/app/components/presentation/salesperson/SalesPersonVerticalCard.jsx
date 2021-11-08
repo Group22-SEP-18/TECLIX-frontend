@@ -133,6 +133,7 @@ const SalesPersonVerticalCard = ({ salesperson }) => {
 				<div id={`salesperson_map-${salesperson.id}`}>
 					<MapWithHeader
 						header='Last Location'
+						height='400px'
 						locations={
 							lastLocation
 								? [

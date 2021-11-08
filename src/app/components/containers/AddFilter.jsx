@@ -17,6 +17,7 @@ import {
 	Input,
 	InputGroup,
 	InputLeftAddon,
+	Text,
 	Stack,
 } from '@chakra-ui/react';
 import { AddIcon, CheckIcon } from '@chakra-ui/icons';
@@ -36,6 +37,43 @@ const AddFilter = ({ isSalesPersonView, isCustomerView }) => {
 		to: '',
 		customer: '',
 	});
+	const [error, setError] = useState(null);
+	const validate = (field, newValue) => {
+		// from  should be smaller than today and to value
+		var newTime = new Date(`${newValue}T00:00:00.000Z`).getTime();
+		if (field === 'from') {
+			if (changes.to === '') {
+				let toTime = new Date().getTime();
+				if (newTime > toTime) {
+					setError(
+						'Starting date should be a date before today, previous starting date have used'
+					);
+					return false;
+				}
+			}
+			if (changes.to !== '') {
+				let toTime = new Date(`${changes.to}T00:00:00.000Z`).getTime();
+				if (newTime > toTime) {
+					setError(
+						'Starting date should be a date before ending date, previous starting date have used'
+					);
+					return false;
+				}
+			}
+		}
+		if (field === 'to') {
+			if (changes.from !== '') {
+				let fromTime = new Date(`${changes.from}T00:00:00.000Z`).getTime();
+				if (fromTime > newTime) {
+					setError(
+						'Ending date should be a date after starting date, previous ending date have used'
+					);
+					return false;
+				}
+			}
+		}
+		return true;
+	};
 	const onChanges = (value) => {
 		setchanges({ ...changes, ...value });
 	};
@@ -43,6 +81,7 @@ const AddFilter = ({ isSalesPersonView, isCustomerView }) => {
 		<Box m={4}>
 			{showingFilters && (
 				<Stack spacing={4}>
+					{error && <Text color='tomato'>{error}</Text>}
 					{isCustomerView && (
 						<InputGroup>
 							<InputLeftAddon children={'Salesperson'} />
@@ -78,8 +117,11 @@ const AddFilter = ({ isSalesPersonView, isCustomerView }) => {
 								type='date'
 								placeholder='Select Date'
 								onChange={(event) => {
-									dispatch(setFromFilter(event.target.value));
-									onChanges({ from: event.target.value });
+									if (validate('from', event.target.value)) {
+										dispatch(setFromFilter(event.target.value));
+										onChanges({ from: event.target.value });
+										setError(null);
+									}
 								}}
 								value={changes.from}
 							/>
@@ -90,8 +132,11 @@ const AddFilter = ({ isSalesPersonView, isCustomerView }) => {
 								type='date'
 								placeholder='Select Date'
 								onChange={(event) => {
-									dispatch(setToFilter(event.target.value));
-									onChanges({ to: event.target.value });
+									if (validate('to', event.target.value)) {
+										dispatch(setToFilter(event.target.value));
+										onChanges({ to: event.target.value });
+										setError(null);
+									}
 								}}
 								value={changes.to}
 							/>

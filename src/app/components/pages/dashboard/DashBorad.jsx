@@ -56,7 +56,7 @@ const DashBorad = (props) => {
 						<Grid
 							h='calc(100vh - 120px)'
 							templateColumns={{ base: 'repeat(2, 1fr)', xl: 'repeat(3, 1fr)' }}
-							overflowY={{ base: 'scroll', xl: 'hidden' }}
+							overflowY={{ base: 'scroll' }}
 							gap={4}
 						>
 							<GridItem id='dashboard-map-wrapper' colSpan={{ base: 2, xl: 2 }}>
@@ -71,7 +71,7 @@ const DashBorad = (props) => {
 								</Box>
 							</GridItem>
 							<GridItem colSpan={{ base: 2, xl: 1 }}>
-								<LeaderBoardContainer depth={6} />
+								<LeaderBoardContainer depth={9} />
 							</GridItem>
 						</Grid>
 					)}

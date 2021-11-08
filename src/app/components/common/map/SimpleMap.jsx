@@ -2,14 +2,14 @@ import React, { memo, useCallback, useState } from 'react';
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import LoadingSkelton from '../loading/LoadingSkelton';
 
-const containerStyle = {
-	height: '600px',
-};
-
 const SimpleMap = ({
 	markers,
+	height,
 	center = { latitude: 6.8696358044539165, longitude: 79.88899961877866 },
 }) => {
+	const containerStyle = {
+		height: height || '800px',
+	};
 	const { isLoaded } = useJsApiLoader({
 		id: 'google-map-script',
 		googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY,
