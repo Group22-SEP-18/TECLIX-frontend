@@ -59,7 +59,7 @@ const ServiceOrderDetailsHeader = ({ serviceOrder, showSP, showCustomer }) => {
 					textAlign='start'
 					pl='4'
 				>
-					Date: {datetime.day} {datetime.time}
+					Date: {datetime.day}
 				</Text>
 				<Text
 					id={`serviceorder_order_price-${serviceOrder.id}`}
