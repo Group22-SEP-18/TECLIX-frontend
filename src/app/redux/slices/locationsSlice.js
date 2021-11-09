@@ -74,8 +74,8 @@ export const filteredLocations = (state) => {
 			return (
 				row.salesperson.employee_no ===
 					state.locations.filters.salesperson_id &&
-				sd < time &&
-				time < ed
+				sd <= time &&
+				time <= ed
 			);
 		})
 		.map((loc) => ({

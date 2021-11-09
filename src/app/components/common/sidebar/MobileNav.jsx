@@ -30,6 +30,7 @@ import {
 import { FiMenu, FiChevronDown } from 'react-icons/fi';
 import ThemeSelector from '../themeselector/ThemeSelector';
 import { userLogout } from '../../../../api/userApi';
+import { capitalizeFirstLetter } from '../../../utils';
 
 const MobileNav = ({ onOpen, user, ...rest }) => {
 	const history = useHistory();
@@ -68,36 +69,45 @@ const MobileNav = ({ onOpen, user, ...rest }) => {
 
 			<HStack spacing={{ base: '0', md: '6' }}>
 				<ThemeSelector />
-				<Flex alignItems={'center'}>
+				<Flex alignItems={'center'} id='header-menu-flex'>
 					<Menu>
 						<MenuButton
-							id='header-dropdown'
+							id='header-dropdown-button'
 							py={2}
 							transition='all 0.3s'
 							_focus={{ boxShadow: 'none' }}
 						>
 							<HStack>
-								<Avatar size={'sm'} src={user.profile_picture} />
+								<Avatar
+									size={'sm'}
+									src={user.profile_picture}
+									id='header-propic'
+								/>
 								<VStack
+									id='header-vstack'
 									display={{ base: 'none', md: 'flex' }}
 									alignItems='flex-start'
 									spacing='1px'
 									ml='2'
 								>
-									<Text fontSize='sm'>
-										{user.first_name} {user.last_name}
+									<Text fontSize='sm' id='header-fullname'>
+										{capitalizeFirstLetter(user.first_name)}{' '}
+										{capitalizeFirstLetter(user.last_name)}
 									</Text>
-									<Text fontSize='xs' color='gray.600'>
+									<Text fontSize='xs' color='gray.600' id='header-role'>
 										{user.user_role}
 									</Text>
 								</VStack>
-								<Box display={{ base: 'none', md: 'flex' }}>
-									<FiChevronDown />
+								<Box
+									display={{ base: 'none', md: 'flex' }}
+									id='header-drop-down-box'
+								>
+									<FiChevronDown id='header=dropdown-icon' />
 								</Box>
 							</HStack>
 						</MenuButton>
 						<MenuList>
-							<MenuItem as={ReachLink} to='/myaccount'>
+							<MenuItem as={ReachLink} to='/myaccount' id='myaccount-button'>
 								Profile
 							</MenuItem>
 							<MenuDivider />
