@@ -9,18 +9,6 @@ const initialState = {
 	isLoading: false,
 	salespersons: [],
 	error: '',
-	approve: {
-		isLoading: false,
-		success: null,
-		error: null,
-		id: '',
-	},
-	reject: {
-		isLoading: false,
-		success: null,
-		error: null,
-		id: '',
-	},
 	listViewFilter: '',
 };
 

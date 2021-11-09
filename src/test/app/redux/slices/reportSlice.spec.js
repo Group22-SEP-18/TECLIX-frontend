@@ -142,7 +142,7 @@ describe('reportSlice', () => {
 
 				await store.dispatch(getSalesPerProductAsync());
 				expect(getSpy).toBeCalledWith(
-					'https://run.mocky.io/v3/46d2e675-781c-471d-b0ba-0e0a01b67c41',
+					'https://teclix.herokuapp.com/report-api/sales-per-product',
 					{ headers: { Authorization: 'Token null' } }
 				);
 			});
@@ -168,9 +168,6 @@ describe('reportSlice', () => {
 					getSalesPerMonthAsync.fulfilled(mockAsyncPayload)
 				);
 				expect(nextState.salesPerMonth.isLoading).toBe(false);
-				expect(nextState.salesPerMonth.chartValues).toStrictEqual(
-					mockAsyncPayload
-				);
 			});
 
 			it('3) getSalesPerMonthAsync.rejected', () => {
@@ -200,7 +197,7 @@ describe('reportSlice', () => {
 
 				await store.dispatch(getSalesPerMonthAsync());
 				expect(getSpy).toBeCalledWith(
-					'https://run.mocky.io/v3/7686c5f2-9912-4665-be95-18f54fadd8d7',
+					'https://teclix.herokuapp.com/report-api/total-sales-by-month',
 					{ headers: { Authorization: 'Token null' } }
 				);
 			});
@@ -250,7 +247,7 @@ describe('reportSlice', () => {
 
 				await store.dispatch(getPayOrLaterAsync());
 				expect(getSpy).toBeCalledWith(
-					'https://run.mocky.io/v3/0a6f5008-15e1-4bf7-92a0-0347072881d0',
+					'https://teclix.herokuapp.com/report-api/pay-and-pay-later',
 					{ headers: { Authorization: 'Token null' } }
 				);
 			});
@@ -308,7 +305,7 @@ describe('reportSlice', () => {
 
 				await store.dispatch(getSalesBySalespersonAsync());
 				expect(getSpy).toBeCalledWith(
-					'https://run.mocky.io/v3/b37460a4-4650-415f-93a2-bbf36f97f2dd',
+					'https://teclix.herokuapp.com/report-api/salesperson-sales-current-month',
 					{ headers: { Authorization: 'Token null' } }
 				);
 			});
@@ -366,7 +363,7 @@ describe('reportSlice', () => {
 
 				await store.dispatch(getProgressBySalespersonAsync());
 				expect(getSpy).toBeCalledWith(
-					'https://run.mocky.io/v3/61d9a5f5-f09a-4e9d-a082-25aa3ee21af8',
+					'https://teclix.herokuapp.com/report-api/salesperson-sales-progress',
 					{ headers: { Authorization: 'Token null' } }
 				);
 			});

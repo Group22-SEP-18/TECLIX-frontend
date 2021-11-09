@@ -7,6 +7,12 @@ import reducer, {
 const initialState = {
 	isLoading: false,
 	serviceOrders: [],
+	filters: {
+		from: '',
+		to: '',
+		salesperson: '',
+		shop_name: '',
+	},
 	error: '',
 };
 
