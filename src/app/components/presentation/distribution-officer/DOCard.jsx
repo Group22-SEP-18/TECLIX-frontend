@@ -25,6 +25,7 @@ import {
 } from '@chakra-ui/react';
 import { CheckIcon, CloseIcon } from '@chakra-ui/icons';
 import { approveDOAccount, rejectDOAccount } from '../../../../api/staffApi';
+import { capitalize } from 'lodash';
 
 const DOCard = ({ dOfficer, onRejectSuccess, onApproveSuccess }) => {
 	const toast = useToast();
@@ -127,7 +128,7 @@ const DOCard = ({ dOfficer, onRejectSuccess, onApproveSuccess }) => {
 							textAlign='start'
 							pl='4'
 						>
-							{dOfficer.first_name} {dOfficer.last_name}
+							{capitalize(dOfficer.first_name)} {capitalize(dOfficer.last_name)}
 							<Badge
 								id={`dOfficer_id-${dOfficer.id}`}
 								ml='4'
