@@ -71,6 +71,7 @@ const MobileNav = ({ onOpen, user, ...rest }) => {
 				<Flex alignItems={'center'}>
 					<Menu>
 						<MenuButton
+							id='header-dropdown'
 							py={2}
 							transition='all 0.3s'
 							_focus={{ boxShadow: 'none' }}
@@ -100,7 +101,9 @@ const MobileNav = ({ onOpen, user, ...rest }) => {
 								Profile
 							</MenuItem>
 							<MenuDivider />
-							<MenuItem onClick={logOut}>Sign out</MenuItem>
+							<MenuItem id='log-out-button' onClick={logOut}>
+								Sign out
+							</MenuItem>
 						</MenuList>
 					</Menu>
 				</Flex>
