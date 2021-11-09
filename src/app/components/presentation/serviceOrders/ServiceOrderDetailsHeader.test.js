@@ -20,16 +20,16 @@ afterEach(() => {
 const serviceOrder = {
 	id: 9,
 	customer: {
-		shop_name: 'gimhana stores pvt ltd',
-		owner_first_name: 'gimhana',
-		owner_last_name: 'silva',
+		shop_name: 'Gimhana stores pvt ltd',
+		owner_first_name: 'Gimhana',
+		owner_last_name: 'Silva',
 		profile_picture: 'profile_picture',
 	},
 	salesperson: {
 		employee_no: 'EMP1022',
 		email: 'shez@gmail.com',
-		first_name: 'shehani',
-		last_name: 'perera',
+		first_name: 'Shehani',
+		last_name: 'Perera',
 		profile_picture: 'profile_picture',
 	},
 	order_items: [
@@ -108,7 +108,7 @@ describe('should render correctly', () => {
       "<div class=\\"chakra-stack css-84zodg\\">
         <div class=\\"css-0\\">
           <p class=\\"chakra-text css-1tf103u\\" id=\\"serviceorder_order_id-9\\">Order Id 9</p>
-          <p class=\\"chakra-text css-25wilz\\" id=\\"serviceorder_order_customer-9\\">Customer: gimhana stores pvt ltd</p>
+          <p class=\\"chakra-text css-25wilz\\" id=\\"serviceorder_order_customer-9\\">Customer: Gimhana stores pvt ltd</p>
           <p class=\\"chakra-text css-25wilz\\" id=\\"serviceorder_order_date-9\\">Date: 1/26/2021</p>
           <p class=\\"chakra-text css-25wilz\\" id=\\"serviceorder_order_price-9\\">Price: Rs.1500.00</p>
           <p class=\\"chakra-text css-ffpbe9\\" id=\\"serviceorder_order_discount-9\\">Discount: Rs.0.00</p>

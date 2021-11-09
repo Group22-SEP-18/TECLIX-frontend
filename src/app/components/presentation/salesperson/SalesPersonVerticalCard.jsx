@@ -27,6 +27,7 @@ import {
 import MapWithHeader from '../../common/map/MapWithHeader';
 import { selectLeaderboard } from '../../../redux/slices/leaderboardSlice';
 import { selectAllLocations } from '../../../redux/slices/locationsSlice';
+import { capitalize } from 'lodash';
 
 const SalesPersonVerticalCard = ({ salesperson }) => {
 	const { locations } = useSelector(selectAllLocations);
@@ -81,7 +82,8 @@ const SalesPersonVerticalCard = ({ salesperson }) => {
 					textAlign='center'
 					pl='4'
 				>
-					{salesperson.first_name} {salesperson.last_name}
+					{capitalize(salesperson.first_name)}{' '}
+					{capitalize(salesperson.last_name)}
 				</Heading>
 				<Text
 					id={`salesperson_email-${salesperson.id}`}
