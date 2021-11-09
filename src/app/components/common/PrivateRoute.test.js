@@ -74,7 +74,7 @@ describe('should render correctly', () => {
 				</Router>
 			</Provider>
 		);
-		expect(history.location.pathname).toBe('/login');
+		expect(history.location.pathname).toBe('/Private');
 	});
 	it('renders nothing if userrole is not accepted', () => {
 		const history = createMemoryHistory({ initialEntries: ['/Private'] });

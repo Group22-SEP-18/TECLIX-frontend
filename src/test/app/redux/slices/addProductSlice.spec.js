@@ -6,7 +6,7 @@ import reducer, {
 
 const initialState = {
 	isLoading: false,
-	status: false,
+	status: null,
 };
 
 describe('addProductSlice', () => {
@@ -23,13 +23,13 @@ describe('addProductSlice', () => {
 			const previousState = initialState;
 			const nextState = reducer(previousState, productRegistrationSuccess());
 			expect(nextState.isLoading).toEqual(false);
-			expect(nextState.status).toEqual(true);
+			expect(nextState.status).toEqual('success');
 		});
 		it('4) should set the fail state', () => {
 			const previousState = initialState;
 			const nextState = reducer(previousState, productRegistrationError());
 			expect(nextState.isLoading).toEqual(false);
-			expect(nextState.status).toEqual(false);
+			expect(nextState.status).toEqual('fail');
 		});
 	});
 });

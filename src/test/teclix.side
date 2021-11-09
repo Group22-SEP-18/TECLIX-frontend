@@ -1,0 +1,631 @@
+{
+  "id": "3d0a0e55-1f33-49d3-a51d-e2cec5b7f2ac",
+  "version": "2.0",
+  "name": "teclix",
+  "url": "https://teclix-webapp.netlify.app/",
+  "tests": [{
+    "id": "c6adb053-70da-4e2b-960e-5b6def266a78",
+    "name": "view salesperson",
+    "commands": [{
+      "id": "fb456461-1c0c-454a-b763-e2d38a558654",
+      "comment": "",
+      "command": "open",
+      "target": "https://teclix-webapp.netlify.app/#/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "338eb9fc-07f7-47a2-9ba4-8c7747108725",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1369x1040",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6ac742bb-e168-46c4-9ef3-21825460e6de",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "linkText=Dashboard",
+      "targets": [
+        ["linkText=Dashboard", "linkText"],
+        ["css=.active", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div[2]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '#/')]", "xpath:href"],
+        ["xpath=//a", "xpath:position"],
+        ["xpath=//a[contains(.,'Dashboard')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "173f3a49-3252-488f-a4f8-ab9444d9c3e6",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "linkText=Dashboard",
+      "targets": [
+        ["linkText=Dashboard", "linkText"],
+        ["css=.active", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div[2]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '#/')]", "xpath:href"],
+        ["xpath=//a", "xpath:position"],
+        ["xpath=//a[contains(.,'Dashboard')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "74863d52-954a-4964-ba83-d3586256f8e5",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.active .MuiTypography-root",
+      "targets": [
+        ["css=.active .MuiTypography-root", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div[2]/a/div[2]/span", "xpath:idRelative"],
+        ["xpath=//span", "xpath:position"],
+        ["xpath=//span[contains(.,'Dashboard')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "feed049d-7420-4dc0-9174-493cefe4c92b",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.active .MuiTypography-root",
+      "targets": [
+        ["css=.active .MuiTypography-root", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div[2]/a/div[2]/span", "xpath:idRelative"],
+        ["xpath=//span", "xpath:position"],
+        ["xpath=//span[contains(.,'Dashboard')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b6fe7757-5818-4fa6-9758-fb8d87c01507",
+      "comment": "",
+      "command": "click",
+      "target": "css=div:nth-child(4) > .MuiButtonBase-root:nth-child(3) .MuiTypography-root",
+      "targets": [
+        ["css=div:nth-child(4) > .MuiButtonBase-root:nth-child(3) .MuiTypography-root", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div[4]/a/div[2]/span", "xpath:idRelative"],
+        ["xpath=//div[4]/a/div[2]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'SalesPersons')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "63c9adb8-05e4-4fdd-9eac-179edb7660d9",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=div:nth-child(4) > .active .MuiTypography-root",
+      "targets": [
+        ["css=div:nth-child(4) > .active .MuiTypography-root", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div[4]/a/div[2]/span", "xpath:idRelative"],
+        ["xpath=//div[4]/a/div[2]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'SalesPersons')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "2375c080-ee46-4987-99d3-aa6b8544d5c8",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=div:nth-child(4) > .active .MuiTypography-root",
+      "targets": [
+        ["css=div:nth-child(4) > .active .MuiTypography-root", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div[4]/a/div[2]/span", "xpath:idRelative"],
+        ["xpath=//div[4]/a/div[2]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'SalesPersons')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "318e3e5e-a2ac-4c94-b2e1-8be2b153a5c5",
+      "comment": "",
+      "command": "click",
+      "target": "id=salesperson_contact_no-32",
+      "targets": [
+        ["id=salesperson_contact_no-32", "id"],
+        ["css=#salesperson_contact_no-32", "css:finder"],
+        ["xpath=//p[@id='salesperson_contact_no-32']", "xpath:attributes"],
+        ["xpath=//div[@id='salesperson-card-div-32']/div/div/p[2]", "xpath:idRelative"],
+        ["xpath=//div/div/div/p[2]", "xpath:position"],
+        ["xpath=//p[contains(.,'Mobile: 0712345689')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "8f7ff3d5-bf7c-49e8-828e-ba4533a78861",
+    "name": "view customers",
+    "commands": [{
+      "id": "fb382b9d-8060-47b0-bbbb-3cb1d6e86250",
+      "comment": "",
+      "command": "open",
+      "target": "https://teclix-webapp.netlify.app/#/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "79368b98-3fbb-46e4-85b4-f735086e6ab5",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1369x1040",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "178942bf-4280-4888-bc1e-d8a7f83a699c",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "id=tabs-14--tab-0",
+      "targets": [
+        ["id=tabs-14--tab-0", "id"],
+        ["css=#tabs-14--tab-0", "css:finder"],
+        ["xpath=//button[@id='tabs-14--tab-0']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[3]/div/div/div[2]/div/div/div/div/button", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div/div[2]/div/div/div/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Today')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9e2cadf2-10db-4bf8-ab8f-1b85e87a689f",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "linkText=Sales",
+      "targets": [
+        ["linkText=Sales", "linkText"],
+        ["css=div:nth-child(3) > .MuiButtonBase-root:nth-child(3)", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div[3]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '#/reports/sales')]", "xpath:href"],
+        ["xpath=//div[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Sales')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d3004fdf-c8b4-4dee-8185-e3d4f57447e8",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "linkText=Sales",
+      "targets": [
+        ["linkText=Sales", "linkText"],
+        ["css=div:nth-child(3) > .MuiButtonBase-root:nth-child(3)", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div[3]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '#/reports/sales')]", "xpath:href"],
+        ["xpath=//div[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Sales')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "43be3b62-74b8-4da1-94ec-6913eab7b9e6",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "linkText=Products",
+      "targets": [
+        ["linkText=Products", "linkText"],
+        ["css=div:nth-child(3) > .MuiButtonBase-root:nth-child(5)", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div[3]/a[3]", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '#/reports/products')]", "xpath:href"],
+        ["xpath=//a[3]", "xpath:position"],
+        ["xpath=//a[contains(.,'Products')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "91ffec2a-87cd-4729-b41a-ca0e8a0f1ee5",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=div:nth-child(4) > .MuiButtonBase-root:nth-child(4) .MuiTypography-root",
+      "targets": [
+        ["css=div:nth-child(4) > .MuiButtonBase-root:nth-child(4) .MuiTypography-root", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div[4]/a[2]/div[2]/span", "xpath:idRelative"],
+        ["xpath=//div[4]/a[2]/div[2]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'Distribution Officers')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "694c05dc-7eb6-41d1-9c04-07f1497ad34d",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=div:nth-child(4) > .MuiButtonBase-root:nth-child(4) .MuiTypography-root",
+      "targets": [
+        ["css=div:nth-child(4) > .MuiButtonBase-root:nth-child(4) .MuiTypography-root", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div[4]/a[2]/div[2]/span", "xpath:idRelative"],
+        ["xpath=//div[4]/a[2]/div[2]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'Distribution Officers')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "07d082d1-d2c6-4daf-baa1-ccf8f363ae9f",
+      "comment": "",
+      "command": "click",
+      "target": "css=div:nth-child(4) > .MuiButtonBase-root:nth-child(5) .MuiTypography-root",
+      "targets": [
+        ["css=div:nth-child(4) > .MuiButtonBase-root:nth-child(5) .MuiTypography-root", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div[4]/a[3]/div[2]/span", "xpath:idRelative"],
+        ["xpath=//div[4]/a[3]/div[2]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'Customers')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b7a8bb86-006d-4af3-89f2-359488cccfec",
+      "comment": "",
+      "command": "click",
+      "target": "id=address",
+      "targets": [
+        ["id=address", "id"],
+        ["css=#customer-card-div-9 #address", "css:finder"],
+        ["xpath=//p[@id='address']", "xpath:attributes"],
+        ["xpath=//div[@id='customer-card-div-9']/div/div/p[4]", "xpath:idRelative"],
+        ["xpath=//p[4]", "xpath:position"],
+        ["xpath=//p[contains(.,'Address: 5 Charles Pl, Dehiwala-Mount Lavinia, Colombo')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "aee3a205-9b20-4a93-92d3-efeebeab8f60",
+    "name": "view leaderboard",
+    "commands": [{
+      "id": "539a4417-66b1-4ef8-8c2d-cf5ba4601321",
+      "comment": "",
+      "command": "open",
+      "target": "https://teclix-webapp.netlify.app/#/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7a56bb75-13eb-48b5-8fef-e4975e50ab55",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1369x1040",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2c3d8522-8ef8-4403-8b35-de3cc4a4bbae",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "id=tabs-14--tab-0",
+      "targets": [
+        ["id=tabs-14--tab-0", "id"],
+        ["css=#tabs-14--tab-0", "css:finder"],
+        ["xpath=//button[@id='tabs-14--tab-0']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[3]/div/div/div[2]/div/div/div/div/button", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div/div[2]/div/div/div/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Today')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "af3907df-0292-46c3-b623-fd1ce9f8fd34",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "id=tabs-14--tab-0",
+      "targets": [
+        ["id=tabs-14--tab-0", "id"],
+        ["css=#tabs-14--tab-0", "css:finder"],
+        ["xpath=//button[@id='tabs-14--tab-0']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[3]/div/div/div[2]/div/div/div/div/button", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div/div[2]/div/div/div/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Today')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b009794b-13d5-40d4-89d5-b62956489924",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "id=tabs-14--tab-1",
+      "targets": [
+        ["id=tabs-14--tab-1", "id"],
+        ["css=#tabs-14--tab-1", "css:finder"],
+        ["xpath=//button[@id='tabs-14--tab-1']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[3]/div/div/div[2]/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Month')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ef6e43ca-1280-46b1-8f9b-ee212f542024",
+      "comment": "",
+      "command": "click",
+      "target": "id=tabs-14--tab-1",
+      "targets": [
+        ["id=tabs-14--tab-1", "id"],
+        ["css=#tabs-14--tab-1", "css:finder"],
+        ["xpath=//button[@id='tabs-14--tab-1']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[3]/div/div/div[2]/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div/div/div/button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Month')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "2dd962b2-8e12-4f8d-afb9-c6c71307c624",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "id=tabs-14--tab-1",
+      "targets": [
+        ["id=tabs-14--tab-1", "id"],
+        ["css=#tabs-14--tab-1", "css:finder"],
+        ["xpath=//button[@id='tabs-14--tab-1']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[3]/div/div/div[2]/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div/div/div/button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Month')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "61406194-74f2-4164-aff7-279334f1ea64",
+      "comment": "",
+      "command": "click",
+      "target": "id=tabs-14--tab-2",
+      "targets": [
+        ["id=tabs-14--tab-2", "id"],
+        ["css=#tabs-14--tab-2", "css:finder"],
+        ["xpath=//button[@id='tabs-14--tab-2']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[3]/div/div/div[2]/div/div/div/div/button[3]", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div/div/div/button[3]", "xpath:position"],
+        ["xpath=//button[contains(.,'AllTime')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "18b7ff64-e940-4b17-8b33-dfe41724d6d1",
+      "comment": "",
+      "command": "click",
+      "target": "id=tabs-14--tab-1",
+      "targets": [
+        ["id=tabs-14--tab-1", "id"],
+        ["css=#tabs-14--tab-1", "css:finder"],
+        ["xpath=//button[@id='tabs-14--tab-1']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[3]/div/div/div[2]/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div/div/div/button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Month')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "422a6256-f3ea-490e-a894-0b1c89b3d51b",
+      "comment": "",
+      "command": "click",
+      "target": "id=tabs-14--tab-0",
+      "targets": [
+        ["id=tabs-14--tab-0", "id"],
+        ["css=#tabs-14--tab-0", "css:finder"],
+        ["xpath=//button[@id='tabs-14--tab-0']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[3]/div/div/div[2]/div/div/div/div/button", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div/div[2]/div/div/div/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Today')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "c6de771d-2cef-41ef-a82c-8cab4c2684f6",
+    "name": "view leaderboard schema",
+    "commands": [{
+      "id": "8abbd87a-4a4d-4e6b-b96b-f1205c087855",
+      "comment": "",
+      "command": "open",
+      "target": "https://teclix-webapp.netlify.app/#/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1c1b9a46-b634-4449-ad7b-f32ab69e4182",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1369x1040",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a4b25521-3005-43c7-bcc3-ad7e6c765b88",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "id=tabs-14--tab-1",
+      "targets": [
+        ["id=tabs-14--tab-1", "id"],
+        ["css=#tabs-14--tab-1", "css:finder"],
+        ["xpath=//button[@id='tabs-14--tab-1']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[3]/div/div/div[2]/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Month')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3d170a89-a3f0-4236-9b9b-217a1a7e60f8",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "id=tabs-14--tab-1",
+      "targets": [
+        ["id=tabs-14--tab-1", "id"],
+        ["css=#tabs-14--tab-1", "css:finder"],
+        ["xpath=//button[@id='tabs-14--tab-1']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[3]/div/div/div[2]/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div/div/div/button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Month')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f99f99e8-b71c-417e-8b42-4e051c86b12b",
+      "comment": "",
+      "command": "click",
+      "target": "css=div:nth-child(4) > .MuiButtonBase-root:nth-child(3) .MuiTypography-root",
+      "targets": [
+        ["css=div:nth-child(4) > .MuiButtonBase-root:nth-child(3) .MuiTypography-root", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div[4]/a/div[2]/span", "xpath:idRelative"],
+        ["xpath=//div[4]/a/div[2]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'SalesPersons')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "1e81d7f4-2d68-4232-be72-3b264a17b79f",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=div:nth-child(4) > .active .MuiTypography-root",
+      "targets": [
+        ["css=div:nth-child(4) > .active .MuiTypography-root", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div[4]/a/div[2]/span", "xpath:idRelative"],
+        ["xpath=//div[4]/a/div[2]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'SalesPersons')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "95ada8bc-c425-46b9-8f22-fae0c4ee4e36",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=div:nth-child(4) > .active .MuiTypography-root",
+      "targets": [
+        ["css=div:nth-child(4) > .active .MuiTypography-root", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div[4]/a/div[2]/span", "xpath:idRelative"],
+        ["xpath=//div[4]/a/div[2]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'SalesPersons')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ba650f68-f1b2-4963-be59-3e4806609d02",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-taj3dd",
+      "targets": [
+        ["css=.css-taj3dd", "css:finder"],
+        ["xpath=(//button[@type='button'])[5]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[3]/div/div/div[2]/div/div/button", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div/div[2]/div/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Leaderboard Schema')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "918cf23e-7b62-4b9b-bef0-ee26e28f1f61",
+      "comment": "",
+      "command": "click",
+      "target": "css=.chakra-modal__close-btn",
+      "targets": [
+        ["css=.chakra-modal__close-btn", "css:finder"],
+        ["xpath=(//button[@type='button'])[9]", "xpath:attributes"],
+        ["xpath=//section[@id='chakra-modal-23']/button", "xpath:idRelative"],
+        ["xpath=//section/button", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "15d8f8a9-8850-4a74-b1ee-528295ce0322",
+    "name": "update leaderboard schema",
+    "commands": [{
+      "id": "19e2bd5c-329a-4b90-b91d-f72643ea6ff4",
+      "comment": "",
+      "command": "open",
+      "target": "https://teclix-webapp.netlify.app/#/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "da02eea5-01d9-41d8-a7e6-26bf6c112522",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1369x1040",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "cedd3eef-63d5-4308-b664-cdf107e28dd0",
+      "comment": "",
+      "command": "click",
+      "target": "css=div:nth-child(4) > .MuiButtonBase-root:nth-child(3) .MuiTypography-root",
+      "targets": [
+        ["css=div:nth-child(4) > .MuiButtonBase-root:nth-child(3) .MuiTypography-root", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div[4]/a/div[2]/span", "xpath:idRelative"],
+        ["xpath=//div[4]/a/div[2]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'SalesPersons')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "842e55c5-0caa-46a6-adfc-e1f0315e89cd",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=div:nth-child(4) > .active .MuiTypography-root",
+      "targets": [
+        ["css=div:nth-child(4) > .active .MuiTypography-root", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div[4]/a/div[2]/span", "xpath:idRelative"],
+        ["xpath=//div[4]/a/div[2]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'SalesPersons')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e585c19a-4c35-4534-8021-36e2dea4228e",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=div:nth-child(4) > .active .MuiTypography-root",
+      "targets": [
+        ["css=div:nth-child(4) > .active .MuiTypography-root", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div[4]/a/div[2]/span", "xpath:idRelative"],
+        ["xpath=//div[4]/a/div[2]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'SalesPersons')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "eda8831c-84c9-4db2-b16e-dbe0d548f6b3",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-taj3dd",
+      "targets": [
+        ["css=.css-taj3dd", "css:finder"],
+        ["xpath=(//button[@type='button'])[5]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[3]/div/div/div[2]/div/div/button", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div/div[2]/div/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Leaderboard Schema')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "32f6bec4-c43e-4ef8-a4e9-39f4b4ac93b3",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-17i43nk:nth-child(1) .chakra-button",
+      "targets": [
+        ["css=.css-17i43nk:nth-child(1) .chakra-button", "css:finder"],
+        ["xpath=(//button[@type='button'])[10]", "xpath:attributes"],
+        ["xpath=//div[@id='chakra-modal--body-23']/table/tbody/tr/td[4]/button", "xpath:idRelative"],
+        ["xpath=//td[4]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Edit Criteria')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d72c5461-db41-46c4-a38c-2e2a93c2168f",
+      "comment": "",
+      "command": "click",
+      "target": "id=field-26",
+      "targets": [
+        ["id=field-26", "id"],
+        ["name=bonus_points", "name"],
+        ["css=#field-26", "css:finder"],
+        ["xpath=//input[@id='field-26']", "xpath:attributes"],
+        ["xpath=//div[@id='chakra-modal--body-23']/table/tbody/tr/td[3]/div/div/input", "xpath:idRelative"],
+        ["xpath=//td[3]/div/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "d0d5cc41-345d-4235-9476-8d7a31fca202",
+      "comment": "",
+      "command": "type",
+      "target": "id=field-26",
+      "targets": [
+        ["id=field-26", "id"],
+        ["name=bonus_points", "name"],
+        ["css=#field-26", "css:finder"],
+        ["xpath=//input[@id='field-26']", "xpath:attributes"],
+        ["xpath=//div[@id='chakra-modal--body-23']/table/tbody/tr/td[3]/div/div/input", "xpath:idRelative"],
+        ["xpath=//td[3]/div/div/input", "xpath:position"]
+      ],
+      "value": "230.00"
+    }, {
+      "id": "a6fc6a44-e60d-4dd1-aec4-ada85a58106b",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-1ireiby:nth-child(1)",
+      "targets": [
+        ["css=.css-1ireiby:nth-child(1)", "css:finder"],
+        ["xpath=(//button[@type='button'])[10]", "xpath:attributes"],
+        ["xpath=//div[@id='chakra-modal--body-23']/table/tbody/tr/td[4]/button", "xpath:idRelative"],
+        ["xpath=//td[4]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Apply Changes')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b6d69fca-d163-423d-bb1a-239d52cee53b",
+      "comment": "",
+      "command": "click",
+      "target": "css=.chakra-modal__close-btn",
+      "targets": [
+        ["css=.chakra-modal__close-btn", "css:finder"],
+        ["xpath=(//button[@type='button'])[10]", "xpath:attributes"],
+        ["xpath=//section[@id='chakra-modal-23']/button", "xpath:idRelative"],
+        ["xpath=//section/button", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "88ac7e87-ce88-4c7f-a8fe-c30f8d96297b",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": ["https://teclix-webapp.netlify.app/"],
+  "plugins": []
+}

@@ -112,7 +112,7 @@ const LeaderboardSchema = (props) => {
 										{updateMode.key !== i ? (
 											<>
 												<Td isNumeric>
-													{row.points_type !== 'CUSTOMER_CREATION'
+													{row.points_type !== 'customer creation'
 														? `${row.percentage} %`
 														: ''}
 												</Td>
@@ -184,7 +184,7 @@ const UpdateSchemaView = (row, handleSubmit, cancelUpdate) => {
 			{(props) => (
 				<>
 					<Td>
-						{row.points_type !== 'CUSTOMER_CREATION' ? (
+						{row.points_type !== 'customer creation' ? (
 							<FormControl
 								isInvalid={props.errors.percentage && props.touched.percentage}
 							>

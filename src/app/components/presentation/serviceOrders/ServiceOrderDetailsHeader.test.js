@@ -109,7 +109,7 @@ describe('should render correctly', () => {
         <div class=\\"css-0\\">
           <p class=\\"chakra-text css-1tf103u\\" id=\\"serviceorder_order_id-9\\">Order Id 9</p>
           <p class=\\"chakra-text css-25wilz\\" id=\\"serviceorder_order_customer-9\\">Customer: gimhana stores pvt ltd</p>
-          <p class=\\"chakra-text css-25wilz\\" id=\\"serviceorder_order_date-9\\">Date: 1/26/2021 05:30 AM</p>
+          <p class=\\"chakra-text css-25wilz\\" id=\\"serviceorder_order_date-9\\">Date: 1/26/2021</p>
           <p class=\\"chakra-text css-25wilz\\" id=\\"serviceorder_order_price-9\\">Price: Rs.1500.00</p>
           <p class=\\"chakra-text css-ffpbe9\\" id=\\"serviceorder_order_discount-9\\">Discount: Rs.0.00</p>
         </div>
