@@ -23,6 +23,7 @@ import React from 'react';
 
 import { FiTrash } from 'react-icons/fi';
 import { productDelete } from '../../../redux/actions/productActions';
+import { capitalize } from 'lodash';
 
 const ProductCard = ({ product }) => {
 	const dispatch = useDispatch();
@@ -71,7 +72,7 @@ const ProductCard = ({ product }) => {
 									fontSize='0.8em'
 									colorScheme='whatsapp'
 								>
-									{product.category}
+									{capitalize(product.category)}
 								</Badge>
 								<Badge
 									id='product_id'
@@ -94,7 +95,7 @@ const ProductCard = ({ product }) => {
 								lineHeight='tight'
 								isTruncated
 							>
-								{product.short_name}
+								{capitalize(product.short_name)}
 							</Box>
 						</Flex>
 						<Flex justifyContent='space-between' alignContent='center'>

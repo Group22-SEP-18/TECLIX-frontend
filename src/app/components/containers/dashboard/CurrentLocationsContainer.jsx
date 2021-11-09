@@ -18,6 +18,7 @@ import MapWithHeader from '../../common/map/MapWithHeader';
 import LoadingSkelton from '../../common/loading/LoadingSkelton';
 import ErrorOverlay from '../../common/error-overlays/ErrorOverlay';
 import PopupMarker from '../../common/map/PopupMarker';
+import { capitalizeFirstLetter } from '../../../utils';
 
 const CurrentLocationsContainer = ({ onClick }) => {
 	const dispatch = useDispatch();
@@ -32,16 +33,21 @@ const CurrentLocationsContainer = ({ onClick }) => {
 	const locations = currentLocations.map((l) => ({
 		latitude: parseFloat(l.customer.latitude),
 		longitude: parseFloat(l.customer.longitude),
-		name: `${l.salesperson.first_name} ${l.salesperson.last_name}`,
+		name: `${capitalizeFirstLetter(
+			l.salesperson.first_name
+		)} ${capitalizeFirstLetter(l.salesperson.last_name)}`,
 		profile_picture: l.salesperson.profile_picture,
 		sp_id: l.salesperson.id,
-		address: `${l.customer.street}, ${l.customer.city}`,
+		address: `${capitalizeFirstLetter(
+			l.customer.street
+		)}, ${capitalizeFirstLetter(l.customer.city)}`,
 	}));
 	return (
 		<MapWithHeader
 			header=''
 			locations={locations}
 			Component={PopupMarker}
+			centr={{ latitude: 7.2496879218081824, longitude: 80.37392000462803 }}
 			onClick={onClick}
 		/>
 	);

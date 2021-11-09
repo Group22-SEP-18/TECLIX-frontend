@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Avatar, Box, Text, Flex, HStack, Spacer } from '@chakra-ui/react';
+import { capitalize } from 'lodash';
 
 const HorPositions = ({ row, position, timeConstraint = 'today' }) => {
 	if (!row || !position || position <= 3) {
@@ -34,7 +35,8 @@ const HorPositions = ({ row, position, timeConstraint = 'today' }) => {
 								noOfLines={1}
 								fontWeight='bold'
 							>
-								{salesperson.first_name} {salesperson.last_name}
+								{capitalize(salesperson.first_name)}{' '}
+								{capitalize(salesperson.last_name)}
 							</Text>
 							<Text
 								id={`leaderboard_hor_pos_sp_points_${position}`}

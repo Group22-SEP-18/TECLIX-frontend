@@ -9,6 +9,7 @@ const MapWithHeader = ({
 	locations,
 	height,
 	Component = Marker,
+	centr,
 	onClick = () => {},
 }) => {
 	const center =
@@ -17,7 +18,7 @@ const MapWithHeader = ({
 					latitude: parseFloat(locations[0].latitude),
 					longitude: parseFloat(locations[0].longitude),
 			  }
-			: { latitude: 6.8696358044539165, longitude: 79.88899961877866 };
+			: centr || { latitude: 6.8696358044539165, longitude: 79.88899961877866 };
 	const markers = locations.map((loc, index) => (
 		<Component
 			key={index}

@@ -21,6 +21,7 @@ import {
 	Text,
 	VStack,
 } from '@chakra-ui/react';
+import { capitalizeFirstLetter } from '../../../utils';
 
 const CustomerCard = ({ customer, onClick }) => {
 	if (!customer) {
@@ -57,7 +58,7 @@ const CustomerCard = ({ customer, onClick }) => {
 							textAlign='start'
 							pl='4'
 						>
-							{customer.shop_name}
+							{capitalizeFirstLetter(customer.shop_name)}
 							<Badge
 								id='customer_id'
 								ml='4'
@@ -77,7 +78,8 @@ const CustomerCard = ({ customer, onClick }) => {
 							textAlign='start'
 							pl='4'
 						>
-							Owner: {customer.owner_first_name} {customer.owner_last_name}
+							Owner: {capitalizeFirstLetter(customer.owner_first_name)}{' '}
+							{capitalizeFirstLetter(customer.owner_last_name)}
 						</Text>
 						<Text id='email' fontWeight={500} textAlign='start' pl='4'>
 							Email: {customer.email}
@@ -86,7 +88,9 @@ const CustomerCard = ({ customer, onClick }) => {
 							Mobile: {customer.contact_no}
 						</Text>
 						<Text id='address' fontWeight={500} mb={4} textAlign='start' pl='4'>
-							Address: {customer.street}, {customer.city}, {customer.district}
+							Address: {capitalizeFirstLetter(customer.street)},{' '}
+							{capitalizeFirstLetter(customer.city)},{' '}
+							{capitalizeFirstLetter(customer.district)}
 						</Text>
 					</Box>
 					<Spacer />

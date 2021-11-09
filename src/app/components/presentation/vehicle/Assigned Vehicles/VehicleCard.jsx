@@ -24,6 +24,7 @@ import VehicleProducts from '../VehicleProducts';
 import VehicleSalesperson from '../VehicleSalesperson';
 import VehicleAssignForm from '../Assigned Vehicles/VehicleAssignForm';
 import { vehicleUnassign } from '../../../../redux/actions/vehicleActions';
+import { capitalize } from 'lodash';
 
 function VehicleCard(props) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -70,7 +71,9 @@ function VehicleCard(props) {
 						<StatLabel id='vehicle-model-number'>
 							{props.vehicle_model} {props.vehicle_number}
 						</StatLabel>
-						<StatNumber id='vehicle-type'>{props.vehicle_type}</StatNumber>
+						<StatNumber id='vehicle-type'>
+							{capitalize(props.vehicle_type)}
+						</StatNumber>
 						<StatHelpText id='vehicle-id'>ID: {props.id}</StatHelpText>
 					</Stat>
 				</Box>
@@ -102,20 +105,20 @@ function VehicleCard(props) {
 										)
 									].profile_picture
 								}
-								first_name={
+								first_name={capitalize(
 									props.allsalespersons[
 										props.allsalespersons.findIndex(
 											(x) => x.id === props.salesperson
 										)
 									].first_name
-								}
-								last_name={
+								)}
+								last_name={capitalize(
 									props.allsalespersons[
 										props.allsalespersons.findIndex(
 											(x) => x.id === props.salesperson
 										)
 									].last_name
-								}
+								)}
 							/>
 						</Wrap>
 					</Box>
@@ -156,20 +159,20 @@ function VehicleCard(props) {
 												)
 											].employee_no
 										}
-										assignedsalesprsonFirstName={
+										assignedsalesprsonFirstName={capitalize(
 											props.allsalespersons[
 												props.allsalespersons.findIndex(
 													(x) => x.id === props.salesperson
 												)
 											].first_name
-										}
-										assignedsalesprsonLastName={
+										)}
+										assignedsalesprsonLastName={capitalize(
 											props.allsalespersons[
 												props.allsalespersons.findIndex(
 													(x) => x.id === props.salesperson
 												)
 											].last_name
-										}
+										)}
 										unassignedSalespersons={props.unassignedSalespersons}
 										products={props.products}
 										trigger={onClose}

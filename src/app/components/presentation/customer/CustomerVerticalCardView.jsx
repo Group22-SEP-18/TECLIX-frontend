@@ -26,6 +26,7 @@ import {
 	StatNumber,
 } from '@chakra-ui/react';
 import MapWithHeader from '../../common/map/MapWithHeader';
+import { capitalize } from 'lodash';
 
 const CustomerVerticalCardView = ({ customer }) => {
 	if (!customer) {
@@ -69,7 +70,7 @@ const CustomerVerticalCardView = ({ customer }) => {
 					textAlign='center'
 					pl='4'
 				>
-					{customer.shop_name}
+					{capitalize(customer.shop_name)}
 				</Heading>
 				{/* shop owner name */}
 				<Text
@@ -79,7 +80,8 @@ const CustomerVerticalCardView = ({ customer }) => {
 					textAlign='center'
 					pl='4'
 				>
-					Owner: {customer.owner_first_name} {customer.owner_last_name}
+					Owner: {capitalize(customer.owner_first_name)}{' '}
+					{capitalize(customer.owner_last_name)}
 				</Text>
 				{/* email */}
 				<Text
@@ -109,7 +111,8 @@ const CustomerVerticalCardView = ({ customer }) => {
 					textAlign='center'
 					pl='4'
 				>
-					Address: {customer.street}, {customer.city}, {customer.district}
+					Address: {capitalize(customer.street)}, {capitalize(customer.city)},{' '}
+					{capitalize(customer.district)}
 				</Text>
 				{/* horizontal stack view for customer's outstanding and loyalty */}
 				<Stack align={'center'} justify={'center'} direction={'row'} mt={6}>

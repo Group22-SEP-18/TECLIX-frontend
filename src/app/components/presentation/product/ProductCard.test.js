@@ -36,11 +36,11 @@ afterEach(() => {
 
 const product = {
 	id: 8,
-	short_name: 'short_name',
-	long_name: 'long_name',
+	short_name: 'Short_name',
+	long_name: 'Long_name',
 	barcode: 'barcode',
 	product_image: 'product_image',
-	category: 'chips',
+	category: 'Chips',
 	price: '60.00',
 };
 
@@ -71,10 +71,10 @@ describe('should render correctly', () => {
           <div id=\\"product-card-div-8\\" class=\\"css-1q0qrhy\\"><img alt=\\"Picture of undefined\\" src=\\"product_image\\" class=\\"chakra-image css-cr9n15\\" id=\\"product_image\\">
             <div class=\\"css-1vae7t2\\">
               <div class=\\"css-x1sij0\\">
-                <div class=\\"chakra-stack css-84zodg\\"><span class=\\"chakra-badge css-7mgg44\\" id=\\"category\\">chips</span><span class=\\"chakra-badge css-13pdol3\\" id=\\"product_id\\">8</span></div>
+                <div class=\\"chakra-stack css-84zodg\\"><span class=\\"chakra-badge css-7mgg44\\" id=\\"category\\">Chips</span><span class=\\"chakra-badge css-13pdol3\\" id=\\"product_id\\">8</span></div>
               </div>
               <div class=\\"css-1tq6ef4\\">
-                <h4 id=\\"short_name\\" class=\\"css-yy9s3l\\">short_name</h4>
+                <h4 id=\\"short_name\\" class=\\"css-yy9s3l\\">Short_name</h4>
               </div>
               <div class=\\"css-11ou9c2\\">
                 <div id=\\"price\\" class=\\"css-1n49pl7\\"><span class=\\"css-yzake9\\">Rs.</span>60.00</div>

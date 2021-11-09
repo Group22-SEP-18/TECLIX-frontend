@@ -1,6 +1,7 @@
 import { WrapItem } from '@chakra-ui/react';
 import { Avatar } from '@chakra-ui/react';
 import { Tag, TagLabel } from '@chakra-ui/react';
+import { capitalize } from 'lodash';
 
 function VehicleSalesperson(props) {
 	if (!props.first_name) {
@@ -17,7 +18,7 @@ function VehicleSalesperson(props) {
 					mr={2}
 				/>
 				<TagLabel id='name'>
-					{props.first_name} {props.last_name}
+					{capitalize(props.first_name)} {capitalize(props.last_name)}
 				</TagLabel>
 			</Tag>
 		</WrapItem>

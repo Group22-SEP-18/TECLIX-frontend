@@ -11,6 +11,7 @@
 import React from 'react';
 import { Box, HStack, Text } from '@chakra-ui/react';
 import { getDateTime } from '../../../utils';
+import { capitalize } from 'lodash';
 
 const ServiceOrderDetailsHeader = ({ serviceOrder, showSP, showCustomer }) => {
 	if (!serviceOrder || (showCustomer && showSP) || (!showCustomer && !showSP)) {
@@ -37,8 +38,8 @@ const ServiceOrderDetailsHeader = ({ serviceOrder, showSP, showCustomer }) => {
 						textAlign='start'
 						pl='4'
 					>
-						SalesPerson: {serviceOrder.salesperson.first_name}{' '}
-						{serviceOrder.salesperson.last_name}
+						SalesPerson: {capitalize(serviceOrder.salesperson.first_name)}{' '}
+						{capitalize(serviceOrder.salesperson.last_name)}
 					</Text>
 				)}
 				{showCustomer && (
@@ -49,7 +50,7 @@ const ServiceOrderDetailsHeader = ({ serviceOrder, showSP, showCustomer }) => {
 						textAlign='start'
 						pl='4'
 					>
-						Customer: {serviceOrder.customer.shop_name}
+						Customer: {capitalize(serviceOrder.customer.shop_name)}
 					</Text>
 				)}
 				<Text

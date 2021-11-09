@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Avatar, Box, Text, VStack } from '@chakra-ui/react';
 import { FaCrown } from 'react-icons/fa';
+import { capitalize } from 'lodash';
 
 const First3 = ({ row, position, timeConstraint = 'today' }) => {
 	if (!row || !position) {
@@ -42,7 +43,8 @@ const First3 = ({ row, position, timeConstraint = 'today' }) => {
 					fontWeight='bold'
 					isTruncated='true'
 				>
-					{salesperson.first_name} {salesperson.last_name}
+					{capitalize(salesperson.first_name)}{' '}
+					{capitalize(salesperson.last_name)}
 				</Text>
 				<Text
 					id={`leaderboard_first_3_sp_points_${position}`}

@@ -29,6 +29,7 @@ import {
 	useToast,
 } from '@chakra-ui/react';
 import { CheckIcon, CloseIcon } from '@chakra-ui/icons';
+import { capitalize } from 'lodash';
 
 const SalesPersonCard = ({
 	salesperson,
@@ -148,7 +149,8 @@ const SalesPersonCard = ({
 							textAlign='start'
 							pl='4'
 						>
-							{salesperson.first_name} {salesperson.last_name}
+							{capitalize(salesperson.first_name)}{' '}
+							{capitalize(salesperson.last_name)}
 							<Badge
 								id={`salesperson_id-${salesperson.id}`}
 								ml='4'

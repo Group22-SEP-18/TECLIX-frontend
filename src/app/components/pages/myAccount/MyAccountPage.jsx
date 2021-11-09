@@ -20,6 +20,7 @@ import {
 	Text,
 } from '@chakra-ui/react';
 import SideBar from '../../common/sidebar/SideBar';
+import { capitalizeFirstLetter } from '../../../utils';
 
 const MyAccountPage = (props) => {
 	const user = useSelector((state) => state.user.user);
@@ -77,7 +78,8 @@ const MyAccountPage = (props) => {
 							textAlign='center'
 							pl='4'
 						>
-							Name: {user.first_name} {user.last_name}
+							Name: {capitalizeFirstLetter(user.first_name)}{' '}
+							{capitalizeFirstLetter(user.last_name)}
 						</Heading>
 						<Text
 							fontWeight={600}
