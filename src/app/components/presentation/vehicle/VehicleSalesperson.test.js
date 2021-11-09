@@ -19,8 +19,8 @@ afterEach(() => {
 
 const salesperson_details = {
 	image_url: 'image_url',
-	first_name: 'first_name',
-	last_name: 'last_name',
+	first_name: 'First_name',
+	last_name: 'Last_name',
 };
 
 describe('should render correctly', () => {
@@ -42,7 +42,7 @@ describe('should render correctly', () => {
 			);
 		});
 		expect(pretty(container.innerHTML)).toMatchInlineSnapshot(
-			`"<li class=\\"chakra-wrap__listitem css-1yp4ln\\"><span class=\\"css-1ehzxp\\"><span class=\\"chakra-avatar css-1beiwy6\\"><div role=\\"img\\" aria-label=\\"Segun Adebayo\\" class=\\"chakra-avatar__initials css-0\\">SA</div></span><span id=\\"name\\" class=\\"css-8uhtka\\">first_name last_name</span></span></li>"`
+			`"<li class=\\"chakra-wrap__listitem css-1yp4ln\\"><span class=\\"css-1ehzxp\\"><span class=\\"chakra-avatar css-1beiwy6\\"><div role=\\"img\\" aria-label=\\"Segun Adebayo\\" class=\\"chakra-avatar__initials css-0\\">SA</div></span><span id=\\"name\\" class=\\"css-8uhtka\\">First_name Last_name</span></span></li>"`
 		);
 	});
 });

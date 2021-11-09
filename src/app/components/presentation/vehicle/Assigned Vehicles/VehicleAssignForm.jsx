@@ -6,6 +6,7 @@ import { Avatar } from '@chakra-ui/react';
 import { Tag, TagLabel, TagCloseButton } from '@chakra-ui/react';
 import { assignToVehicle } from '../../../../redux/actions/vehicleActions';
 import { useDispatch, useSelector } from 'react-redux';
+import { capitalize } from 'lodash';
 import {
 	NumberInput,
 	NumberInputField,
@@ -200,8 +201,8 @@ const VehicleAssignForm = ({
 						</option>
 						{unassignedSalespersons.map((salesperson, i) => (
 							<option key={i} value={salesperson.id}>
-								{salesperson.employee_no} | {salesperson.first_name}{' '}
-								{salesperson.last_name}
+								{salesperson.employee_no} | {capitalize(salesperson.first_name)}{' '}
+								{capitalize(salesperson.last_name)}
 							</option>
 						))}
 					</Select>
