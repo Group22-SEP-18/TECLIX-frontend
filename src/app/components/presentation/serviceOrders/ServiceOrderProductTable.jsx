@@ -29,7 +29,7 @@ const ServiceOrderProductTable = ({ order_items = [] }) => {
 						<Td>{p.product.short_name}</Td>
 						<Td isNumeric>{p.quantity}</Td>
 						<Td isNumeric>{p.price_at_the_time}</Td>
-						<Td isNumeric>{p.price_at_the_time * p.quantity}</Td>
+						<Td isNumeric>{p.price_at_the_time * p.quantity}.00</Td>
 					</Tr>
 				))}
 			</Tbody>

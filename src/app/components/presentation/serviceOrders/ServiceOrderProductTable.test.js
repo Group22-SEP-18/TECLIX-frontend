@@ -74,13 +74,13 @@ describe('should render correctly', () => {
             <td role=\\"gridcell\\" class=\\"css-0\\">Milk Cream Biscuit</td>
             <td role=\\"gridcell\\" data-is-numeric=\\"true\\" class=\\"css-0\\">2</td>
             <td role=\\"gridcell\\" data-is-numeric=\\"true\\" class=\\"css-0\\">350.00</td>
-            <td role=\\"gridcell\\" data-is-numeric=\\"true\\" class=\\"css-0\\">700</td>
+            <td role=\\"gridcell\\" data-is-numeric=\\"true\\" class=\\"css-0\\">700.00</td>
           </tr>
           <tr role=\\"row\\" class=\\"css-0\\">
             <td role=\\"gridcell\\" class=\\"css-0\\">Tipi Tip</td>
             <td role=\\"gridcell\\" data-is-numeric=\\"true\\" class=\\"css-0\\">2</td>
             <td role=\\"gridcell\\" data-is-numeric=\\"true\\" class=\\"css-0\\">150.00</td>
-            <td role=\\"gridcell\\" data-is-numeric=\\"true\\" class=\\"css-0\\">300</td>
+            <td role=\\"gridcell\\" data-is-numeric=\\"true\\" class=\\"css-0\\">300.00</td>
           </tr>
         </tbody>
       </table>"
