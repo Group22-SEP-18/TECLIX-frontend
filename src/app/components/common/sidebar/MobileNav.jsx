@@ -30,7 +30,7 @@ import {
 import { FiMenu, FiChevronDown } from 'react-icons/fi';
 import ThemeSelector from '../themeselector/ThemeSelector';
 import { userLogout } from '../../../../api/userApi';
-import { capitalizeFirstLetter } from '../../../utils';
+import { capitalize } from 'lodash';
 
 const MobileNav = ({ onOpen, user, ...rest }) => {
 	const history = useHistory();
@@ -91,8 +91,7 @@ const MobileNav = ({ onOpen, user, ...rest }) => {
 									ml='2'
 								>
 									<Text fontSize='sm' id='header-fullname'>
-										{capitalizeFirstLetter(user.first_name)}{' '}
-										{capitalizeFirstLetter(user.last_name)}
+										{capitalize(user.first_name)} {capitalize(user.last_name)}
 									</Text>
 									<Text fontSize='xs' color='gray.600' id='header-role'>
 										{user.user_role}

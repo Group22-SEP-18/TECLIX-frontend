@@ -40,14 +40,28 @@ const LoginPage = (props) => {
 	}, [history, isAuth, from]);
 	const handlePasswordShow = () => setPasswordShow(!passwordShow);
 	return (
-		<Flex minHeight='100vh' minW='100vw' align='center' justify='center'>
+		<Flex
+			minHeight='100vh'
+			minW='100vw'
+			align='center'
+			justify='center'
+			style={{
+				backgroundImage: `url(./loginbackground.png)`,
+				backgroundPosition: 'center',
+				backgroundSize: 'cover',
+				backgroundRepeat: 'no-repeat',
+				width: '100vw',
+				height: '100vh',
+			}}
+		>
 			<Box
 				px={8}
 				py={4}
 				maxWidth='600px'
 				borderRadius={10}
 				width='full'
-				bg='transparent'
+				bg='whitesmoke'
+				boxShadow='2xl'
 			>
 				<Box textAlign='center'>
 					<Heading>Sign in to Your Account</Heading>
