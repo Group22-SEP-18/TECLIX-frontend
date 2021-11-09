@@ -47,6 +47,7 @@ const CurrentLocationsContainer = ({ onClick }) => {
 			header=''
 			locations={locations}
 			Component={PopupMarker}
+			centr={{ latitude: 7.2496879218081824, longitude: 80.37392000462803 }}
 			onClick={onClick}
 		/>
 	);
