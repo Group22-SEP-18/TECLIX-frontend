@@ -31,7 +31,7 @@ const SimpleMap = ({
 		<GoogleMap
 			mapContainerStyle={containerStyle}
 			center={{ lat: center.latitude, lng: center.longitude }}
-			zoom={12}
+			zoom={8}
 			onLoad={onLoad}
 			onUnmount={onUnmount}
 		>
