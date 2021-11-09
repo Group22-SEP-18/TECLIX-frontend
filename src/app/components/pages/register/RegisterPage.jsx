@@ -67,6 +67,7 @@ const RegisterPage = (props) => {
 			.matches(/^[a-zA-Z]+$/, 'Please enter valid name')
 			.required('Last name cannot be empty'),
 		contact_no: Yup.string()
+			.max(10)
 			.matches(phoneRegExp, 'Please enter valid name phone number')
 			.required('Contact no cannot be empty'),
 		password: Yup.string()
