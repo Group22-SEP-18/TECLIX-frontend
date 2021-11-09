@@ -16,6 +16,7 @@ import {
 	NumberDecrementStepper,
 } from '@chakra-ui/react';
 import { Wrap } from '@chakra-ui/react';
+import { capitalize } from 'lodash';
 
 const UnassignedVehicleAssignForm = ({
 	trigger,
@@ -191,8 +192,8 @@ const UnassignedVehicleAssignForm = ({
 					>
 						{unassignedSalespersons.map((salesperson, i) => (
 							<option key={i} value={salesperson.id}>
-								{salesperson.employee_no} | {salesperson.first_name}{' '}
-								{salesperson.last_name}
+								{salesperson.employee_no} | {capitalize(salesperson.first_name)}{' '}
+								{capitalize(salesperson.last_name)}
 							</option>
 						))}
 					</Select>
