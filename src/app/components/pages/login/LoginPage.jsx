@@ -103,6 +103,7 @@ const LoginPage = (props) => {
 								>
 									<FormLabel>Email Address:</FormLabel>
 									<Input
+										id='email-input'
 										type='email'
 										placeholder='Enter your Email Address'
 										name='email'
@@ -117,6 +118,7 @@ const LoginPage = (props) => {
 									<FormLabel>Password:</FormLabel>
 									<InputGroup>
 										<Input
+											id='password-input'
 											type={passwordShow ? 'text' : 'password'}
 											placeholder='Enter your Password'
 											name='password'
