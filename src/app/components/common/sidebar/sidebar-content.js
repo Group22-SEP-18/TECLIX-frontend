@@ -56,7 +56,7 @@ const sidebarContent = [
 		acceptable_user_roles: ['Distribution Officer', 'Operation Manager'],
 		subHeaders: [
 			{
-				name: 'SalesPersons',
+				name: 'Salesperson',
 				icon: FiUsers,
 				link: '/salespersons',
 				acceptable_user_roles: ['Distribution Officer', 'Operation Manager'],
@@ -72,25 +72,25 @@ const sidebarContent = [
 				// ],
 			},
 			{
-				name: 'Distribution Officers',
+				name: 'Distribution Officer',
 				icon: FiUsers,
 				link: '/distribution-officers',
 				acceptable_user_roles: ['Operation Manager'],
 			},
 			{
-				name: 'Customers',
+				name: 'Customer',
 				icon: FiUserCheck,
 				link: '/customers',
 				acceptable_user_roles: ['Distribution Officer', 'Operation Manager'],
 			},
 			{
-				name: 'Products',
+				name: 'Product',
 				icon: FiShoppingCart,
 				link: '/products',
 				acceptable_user_roles: ['Distribution Officer'],
 			},
 			{
-				name: 'Vehicles',
+				name: 'Vehicle',
 				icon: FaShuttleVan,
 				link: '/vehicles',
 				acceptable_user_roles: ['Distribution Officer'],

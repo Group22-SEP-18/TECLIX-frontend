@@ -40,6 +40,7 @@ const DOListContainer = (props) => {
 	const distributionOfficers = useSelector(selectFilteredDistributionOfficers);
 	useEffect(() => {
 		dispatch(getDistributionOfficersAsync());
+		dispatch(setListViewFilter({ filter: '' }));
 	}, [dispatch]);
 	const onChange = (word) => {
 		dispatch(setListViewFilter({ filter: word }));

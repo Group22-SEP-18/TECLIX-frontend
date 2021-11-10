@@ -43,6 +43,7 @@ const SalesPersonsContainer = ({ onCardClick }) => {
 	const { todayLeaderboard } = useSelector(selectLeaderboard);
 	useEffect(() => {
 		dispatch(getSalespersonsAsync());
+		dispatch(setListViewFilter({ filter: '' }));
 	}, [dispatch]);
 	const onChange = (word) => {
 		dispatch(setListViewFilter({ filter: word }));
