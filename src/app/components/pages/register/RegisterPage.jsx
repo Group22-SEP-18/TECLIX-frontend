@@ -15,6 +15,7 @@ import {
 	InputRightElement,
 	FormErrorMessage,
 	useToast,
+	HStack,
 } from '@chakra-ui/react';
 import {
 	ArrowForwardIcon,
@@ -159,14 +160,13 @@ const RegisterPage = (props) => {
 				backgroundPosition: 'center',
 				backgroundSize: 'cover',
 				backgroundRepeat: 'no-repeat',
-				width: '100vw',
-				height: '100vh',
+				backgroundAttachment: 'fixed',
 			}}
 		>
 			<Box
 				px={8}
 				py={4}
-				maxWidth='600px'
+				maxWidth={{ base: '80vw', lg: '700px' }}
 				borderRadius={10}
 				width='full'
 				bg='whitesmoke'
@@ -240,19 +240,6 @@ const RegisterPage = (props) => {
 									</FormControl>
 								</Box>
 								<FormControl
-									isInvalid={props.errors.email && props.touched.email}
-								>
-									<FormLabel>Email Address:</FormLabel>
-									<Input
-										type='email'
-										placeholder='Enter your Email Address'
-										name='email'
-										value={props.initialValues.email}
-										{...props.getFieldProps('email')}
-									/>
-									<FormErrorMessage>{props.errors.email}</FormErrorMessage>
-								</FormControl>
-								<FormControl
 									isInvalid={
 										props.errors.employee_no && props.touched.employee_no
 									}
@@ -269,94 +256,121 @@ const RegisterPage = (props) => {
 										{props.errors.employee_no}
 									</FormErrorMessage>
 								</FormControl>
-								<FormControl
-									isInvalid={
-										props.errors.first_name && props.touched.first_name
-									}
-								>
-									<FormLabel>First name:</FormLabel>
-									<Input
-										type='text'
-										placeholder='Enter your first name'
-										name='first_name'
-										value={props.initialValues.first_name}
-										{...props.getFieldProps('first_name')}
-									/>
-									<FormErrorMessage>{props.errors.first_name}</FormErrorMessage>
-								</FormControl>
-								<FormControl
-									isInvalid={props.errors.last_name && props.touched.last_name}
-								>
-									<FormLabel>Last name:</FormLabel>
-									<Input
-										type='text'
-										placeholder='Enter your last name'
-										name='last_name'
-										value={props.initialValues.last_name}
-										{...props.getFieldProps('last_name')}
-									/>
-									<FormErrorMessage>{props.errors.last_name}</FormErrorMessage>
-								</FormControl>
-								<FormControl
-									isInvalid={
-										props.errors.contact_no && props.touched.contact_no
-									}
-								>
-									<FormLabel>Mobile Number:</FormLabel>
-									<Input
-										type='text'
-										placeholder='Enter your Contact no'
-										name='contact_no'
-										value={props.initialValues.contact_no}
-										{...props.getFieldProps('contact_no')}
-									/>
-									<FormErrorMessage>{props.errors.contact_no}</FormErrorMessage>
-								</FormControl>
-								<FormControl
-									isInvalid={props.errors.password && props.touched.password}
-								>
-									<FormLabel>Password:</FormLabel>
-									<InputGroup>
+								<HStack spacing='4'>
+									<FormControl
+										isInvalid={
+											props.errors.first_name && props.touched.first_name
+										}
+									>
+										<FormLabel>First name:</FormLabel>
 										<Input
-											type={passwordShow ? 'text' : 'password'}
-											placeholder='Enter your Password'
-											name='password'
-											value={props.initialValues.password}
-											{...props.getFieldProps('password')}
+											type='text'
+											placeholder='Enter your first name'
+											name='first_name'
+											value={props.initialValues.first_name}
+											{...props.getFieldProps('first_name')}
 										/>
-										<InputRightElement width='4.5rem'>
-											<IconButton
-												variant='unstyled'
-												colorScheme='teal'
-												size='md'
-												aria-label={
-													passwordShow ? 'Hide Password' : 'Show Password'
-												}
-												onClick={handlePasswordShow}
-												icon={passwordShow ? <ViewOffIcon /> : <ViewIcon />}
+										<FormErrorMessage>
+											{props.errors.first_name}
+										</FormErrorMessage>
+									</FormControl>
+									<FormControl
+										isInvalid={
+											props.errors.last_name && props.touched.last_name
+										}
+									>
+										<FormLabel>Last name:</FormLabel>
+										<Input
+											type='text'
+											placeholder='Enter your last name'
+											name='last_name'
+											value={props.initialValues.last_name}
+											{...props.getFieldProps('last_name')}
+										/>
+										<FormErrorMessage>
+											{props.errors.last_name}
+										</FormErrorMessage>
+									</FormControl>
+								</HStack>
+								<HStack spacing='4'>
+									<FormControl
+										isInvalid={props.errors.email && props.touched.email}
+									>
+										<FormLabel>Email Address:</FormLabel>
+										<Input
+											type='email'
+											placeholder='Enter your Email Address'
+											name='email'
+											value={props.initialValues.email}
+											{...props.getFieldProps('email')}
+										/>
+										<FormErrorMessage>{props.errors.email}</FormErrorMessage>
+									</FormControl>
+									<FormControl
+										isInvalid={
+											props.errors.contact_no && props.touched.contact_no
+										}
+									>
+										<FormLabel>Mobile Number:</FormLabel>
+										<Input
+											type='text'
+											placeholder='Enter your Contact no'
+											name='contact_no'
+											value={props.initialValues.contact_no}
+											{...props.getFieldProps('contact_no')}
+										/>
+										<FormErrorMessage>
+											{props.errors.contact_no}
+										</FormErrorMessage>
+									</FormControl>
+								</HStack>
+								<HStack spacing='4'>
+									<FormControl
+										isInvalid={props.errors.password && props.touched.password}
+									>
+										<FormLabel>Password:</FormLabel>
+										<InputGroup>
+											<Input
+												type={passwordShow ? 'text' : 'password'}
+												placeholder='Enter your Password'
+												name='password'
+												value={props.initialValues.password}
+												{...props.getFieldProps('password')}
 											/>
-										</InputRightElement>
-									</InputGroup>
-									<FormErrorMessage>{props.errors.password}</FormErrorMessage>
-								</FormControl>
-								<FormControl
-									isInvalid={
-										props.errors.confirm_password &&
-										props.touched.confirm_password
-									}
-								>
-									<FormLabel>Confirm Password:</FormLabel>
-									<Input
-										type='password'
-										placeholder='Enter your Password Again'
-										name='confirm_password'
-										value={props.initialValues.confirm_password}
-										{...props.getFieldProps('confirm_password')}
-									/>
-									<FormErrorMessage>
-										{props.errors.confirm_password}
-									</FormErrorMessage>
-								</FormControl>
+											<InputRightElement width='4.5rem'>
+												<IconButton
+													variant='unstyled'
+													colorScheme='teal'
+													size='md'
+													aria-label={
+														passwordShow ? 'Hide Password' : 'Show Password'
+													}
+													onClick={handlePasswordShow}
+													icon={passwordShow ? <ViewOffIcon /> : <ViewIcon />}
+												/>
+											</InputRightElement>
+										</InputGroup>
+										<FormErrorMessage>{props.errors.password}</FormErrorMessage>
+									</FormControl>
+									<FormControl
+										isInvalid={
+											props.errors.confirm_password &&
+											props.touched.confirm_password
+										}
+									>
+										<FormLabel>Confirm Password:</FormLabel>
+										<Input
+											type='password'
+											placeholder='Enter your Password Again'
+											name='confirm_password'
+											value={props.initialValues.confirm_password}
+											{...props.getFieldProps('confirm_password')}
+										/>
+										<FormErrorMessage>
+											{props.errors.confirm_password}
+										</FormErrorMessage>
+									</FormControl>
+								</HStack>
 								<Button
 									onClick={props.submitForm}
 									colorScheme='green'
