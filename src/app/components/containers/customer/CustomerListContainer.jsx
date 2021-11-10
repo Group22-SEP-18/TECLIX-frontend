@@ -32,6 +32,7 @@ const CustomerListContainer = ({ onCardClick }) => {
 	const customers = useSelector(filteredCustomers);
 	useEffect(() => {
 		dispatch(getCustomersAsync());
+		dispatch(setListViewFilter({ filter: '' }));
 	}, [dispatch]);
 	const onChange = (word) => {
 		dispatch(setListViewFilter({ filter: word }));
