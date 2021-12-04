@@ -23,10 +23,12 @@ import React from 'react';
 
 import { FiTrash } from 'react-icons/fi';
 import { productDelete } from '../../../redux/actions/productActions';
+import { selectUserRole } from '../../../redux/slices/userSlice';
 import { capitalize } from 'lodash';
 
 const ProductCard = ({ product }) => {
 	const dispatch = useDispatch();
+	const user_role = useSelector(selectUserRole);
 	const deleteproduct = useSelector((state) => state.products.deleteproduct);
 
 	const {
@@ -106,52 +108,54 @@ const ProductCard = ({ product }) => {
 								{parseFloat(product.price).toFixed(2)}
 							</Box>
 
-							<Tooltip label='Delete' placement={'bottom'}>
-								<Box>
-									<chakra.a
-										id='delete-product'
-										display={'flex'}
-										onClick={onOpenReportModal}
-									>
-										<Icon
-											as={FiTrash}
-											h={7}
-											w={7}
-											alignSelf={'center'}
-											color='red.300'
-										/>
-									</chakra.a>
-									<Modal
-										onClose={onCloseReportModal}
-										isOpen={isOpenReportModal}
-										motionPreset='scale'
-										isCentered
-									>
-										<ModalOverlay />
-										<ModalContent>
-											<ModalHeader>
-												Do you want to delete this product?
-											</ModalHeader>
-											<ModalCloseButton />
-											<ModalBody pb='5'></ModalBody>
-											<ModalFooter>
-												<Button
-													colorScheme='whatsapp'
-													mr={3}
-													minWidth='200'
-													onClick={deleteProduct}
-													isLoading={deleteproduct.isLoading}
-												>
-													Yes
-												</Button>
-												<Button onClick={onCloseReportModal} minWidth='200'>
-													No
-												</Button>
-											</ModalFooter>
-										</ModalContent>
-									</Modal>
-								</Box>
-							</Tooltip>
+							{user_role === 'Distribution Officer' && (
+								<Tooltip label='Delete' placement={'bottom'}>
+									<Box>
+										<chakra.a
+											id='delete-product'
+											display={'flex'}
+											onClick={onOpenReportModal}
+										>
+											<Icon
+												as={FiTrash}
+												h={7}
+												w={7}
+												alignSelf={'center'}
+												color='red.300'
+											/>
+										</chakra.a>
+										<Modal
+											onClose={onCloseReportModal}
+											isOpen={isOpenReportModal}
+											motionPreset='scale'
+											isCentered
+										>
+											<ModalOverlay />
+											<ModalContent>
+												<ModalHeader>
+													Do you want to delete this product?
+												</ModalHeader>
+												<ModalCloseButton />
+												<ModalBody pb='5'></ModalBody>
+												<ModalFooter>
+													<Button
+														colorScheme='whatsapp'
+														mr={3}
+														minWidth='200'
+														onClick={deleteProduct}
+														isLoading={deleteproduct.isLoading}
+													>
+														Yes
+													</Button>
+													<Button onClick={onCloseReportModal} minWidth='200'>
+														No
+													</Button>
+												</ModalFooter>
+											</ModalContent>
+										</Modal>
+									</Box>
+								</Tooltip>
+							)}
 						</Flex>
 					</Box>
 				</Box>

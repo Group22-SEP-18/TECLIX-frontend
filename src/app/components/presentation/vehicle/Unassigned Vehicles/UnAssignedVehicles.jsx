@@ -15,6 +15,7 @@ import {
 import UnAssignedVehicleCard from '../Unassigned Vehicles/UnAssignedVehicleCard';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { selectUserRole } from '../../../../redux/slices/userSlice';
 import { fetchVehicleAssignData } from '../../../../redux/actions/vehicleActions';
 import { fetchVehicleData } from '../../../../redux/actions/vehicleActions';
 import { getSalespersonsAsync } from '../../../../redux/slices/salespersonSlice';
@@ -24,6 +25,7 @@ import AddNewVehicle from '../../vehicle/AddNewVehicle';
 
 const UnAssignedVehicles = () => {
 	const dispatch = useDispatch();
+	const user_role = useSelector(selectUserRole);
 
 	const {
 		isOpen: isOpenReportModal,
@@ -73,26 +75,28 @@ const UnAssignedVehicles = () => {
 
 	return (
 		<Box h='calc(100vh - 200px)' w='80vw'>
-			<Box pr='12' style={{ display: 'flex', justifyContent: 'flex-end' }}>
-				<Button colorScheme='whatsapp' onClick={onOpenReportModal} size='lg'>
-					Add a vehicle
-				</Button>
-				<Modal
-					onClose={onCloseReportModal}
-					isOpen={isOpenReportModal}
-					motionPreset='scale'
-					isCentered
-				>
-					<ModalOverlay />
-					<ModalContent>
-						<ModalHeader>Register A New Vehicle</ModalHeader>
-						<ModalCloseButton />
-						<ModalBody pb='5'>
-							<AddNewVehicle trigger={onCloseReportModal} />
-						</ModalBody>
-					</ModalContent>
-				</Modal>
-			</Box>
+			{user_role === 'Distribution Officer' && (
+				<Box pr='12' style={{ display: 'flex', justifyContent: 'flex-end' }}>
+					<Button colorScheme='whatsapp' onClick={onOpenReportModal} size='lg'>
+						Add a vehicle
+					</Button>
+					<Modal
+						onClose={onCloseReportModal}
+						isOpen={isOpenReportModal}
+						motionPreset='scale'
+						isCentered
+					>
+						<ModalOverlay />
+						<ModalContent>
+							<ModalHeader>Register A New Vehicle</ModalHeader>
+							<ModalCloseButton />
+							<ModalBody pb='5'>
+								<AddNewVehicle trigger={onCloseReportModal} />
+							</ModalBody>
+						</ModalContent>
+					</Modal>
+				</Box>
+			)}
 			{isLoading && <LoadingCards count={5} />}
 			<Grid
 				templateColumns={{ base: 'repeat(2, 1fr)', xl: 'repeat(4, 1fr)' }}

@@ -23,6 +23,7 @@ import { Stat, StatLabel, StatNumber, StatHelpText } from '@chakra-ui/react';
 import VehicleProducts from '../VehicleProducts';
 import VehicleSalesperson from '../VehicleSalesperson';
 import VehicleAssignForm from '../Assigned Vehicles/VehicleAssignForm';
+import { selectUserRole } from '../../../../redux/slices/userSlice';
 import { vehicleUnassign } from '../../../../redux/actions/vehicleActions';
 import { capitalize } from 'lodash';
 
@@ -35,6 +36,7 @@ function VehicleCard(props) {
 	} = useDisclosure();
 
 	const dispatch = useDispatch();
+	const user_role = useSelector(selectUserRole);
 	const unassign = useSelector((state) => state.vehiclesAssignments.unassign);
 
 	const UnassignVehicle = () => {
@@ -124,104 +126,108 @@ function VehicleCard(props) {
 					</Box>
 				</VStack>
 				<Divider size='30' />
-				<Stack direction='row' spacing={4} p='2'>
-					<Box>
-						<Button
-							leftIcon={<MdBuild />}
-							onClick={onOpen}
-							colorScheme='facebook'
-							variant='solid'
-							minWidth='100'
-							left='1'
-						>
-							Assign
-						</Button>
-						<Modal
-							onClose={onClose}
-							isOpen={isOpen}
-							motionPreset='scale'
-							isCentered
-						>
-							<ModalOverlay />
-							<ModalContent>
-								<ModalHeader>Assign Products To The Vehicle</ModalHeader>
-								<ModalCloseButton />
-								<ModalBody pb='5'>
-									<VehicleAssignForm
-										array={array}
-										rowid={props.rowid}
-										vehicleid={props.id}
-										assignedsalesprson={props.salesperson}
-										assignedsalesprsonEmpNo={
-											props.allsalespersons[
-												props.allsalespersons.findIndex(
-													(x) => x.id === props.salesperson
-												)
-											].employee_no
-										}
-										assignedsalesprsonFirstName={capitalize(
-											props.allsalespersons[
-												props.allsalespersons.findIndex(
-													(x) => x.id === props.salesperson
-												)
-											].first_name
-										)}
-										assignedsalesprsonLastName={capitalize(
-											props.allsalespersons[
-												props.allsalespersons.findIndex(
-													(x) => x.id === props.salesperson
-												)
-											].last_name
-										)}
-										unassignedSalespersons={props.unassignedSalespersons}
-										products={props.products}
-										trigger={onClose}
-									/>
-								</ModalBody>
-							</ModalContent>
-						</Modal>
-					</Box>
-					<Box>
-						<Button
-							leftIcon={<MdBuild />}
-							onClick={onOpenReportModal}
-							colorScheme='red'
-							variant='solid'
-							minWidth='100'
-							left='1'
-						>
-							Unassign
-						</Button>
-						<Modal
-							closeOnOverlayClick={false}
-							onClose={onCloseReportModal}
-							isOpen={isOpenReportModal}
-							motionPreset='scale'
-							isCentered
-						>
-							<ModalOverlay />
-							<ModalContent>
-								<ModalHeader>Do you want to unassign the vehicle?</ModalHeader>
-								<ModalCloseButton />
-								<ModalBody pb='5'></ModalBody>
-								<ModalFooter>
-									<Button
-										colorScheme='whatsapp'
-										mr={3}
-										minWidth='200'
-										onClick={UnassignVehicle}
-										isLoading={unassign.isLoading}
-									>
-										Yes
-									</Button>
-									<Button onClick={onCloseReportModal} minWidth='200'>
-										No
-									</Button>
-								</ModalFooter>
-							</ModalContent>
-						</Modal>
-					</Box>
-				</Stack>
+				{user_role === 'Distribution Officer' && (
+					<Stack direction='row' spacing={4} p='2'>
+						<Box>
+							<Button
+								leftIcon={<MdBuild />}
+								onClick={onOpen}
+								colorScheme='facebook'
+								variant='solid'
+								minWidth='100'
+								left='1'
+							>
+								Assign
+							</Button>
+							<Modal
+								onClose={onClose}
+								isOpen={isOpen}
+								motionPreset='scale'
+								isCentered
+							>
+								<ModalOverlay />
+								<ModalContent>
+									<ModalHeader>Assign Products To The Vehicle</ModalHeader>
+									<ModalCloseButton />
+									<ModalBody pb='5'>
+										<VehicleAssignForm
+											array={array}
+											rowid={props.rowid}
+											vehicleid={props.id}
+											assignedsalesprson={props.salesperson}
+											assignedsalesprsonEmpNo={
+												props.allsalespersons[
+													props.allsalespersons.findIndex(
+														(x) => x.id === props.salesperson
+													)
+												].employee_no
+											}
+											assignedsalesprsonFirstName={capitalize(
+												props.allsalespersons[
+													props.allsalespersons.findIndex(
+														(x) => x.id === props.salesperson
+													)
+												].first_name
+											)}
+											assignedsalesprsonLastName={capitalize(
+												props.allsalespersons[
+													props.allsalespersons.findIndex(
+														(x) => x.id === props.salesperson
+													)
+												].last_name
+											)}
+											unassignedSalespersons={props.unassignedSalespersons}
+											products={props.products}
+											trigger={onClose}
+										/>
+									</ModalBody>
+								</ModalContent>
+							</Modal>
+						</Box>
+						<Box>
+							<Button
+								leftIcon={<MdBuild />}
+								onClick={onOpenReportModal}
+								colorScheme='red'
+								variant='solid'
+								minWidth='100'
+								left='1'
+							>
+								Unassign
+							</Button>
+							<Modal
+								closeOnOverlayClick={false}
+								onClose={onCloseReportModal}
+								isOpen={isOpenReportModal}
+								motionPreset='scale'
+								isCentered
+							>
+								<ModalOverlay />
+								<ModalContent>
+									<ModalHeader>
+										Do you want to unassign the vehicle?
+									</ModalHeader>
+									<ModalCloseButton />
+									<ModalBody pb='5'></ModalBody>
+									<ModalFooter>
+										<Button
+											colorScheme='whatsapp'
+											mr={3}
+											minWidth='200'
+											onClick={UnassignVehicle}
+											isLoading={unassign.isLoading}
+										>
+											Yes
+										</Button>
+										<Button onClick={onCloseReportModal} minWidth='200'>
+											No
+										</Button>
+									</ModalFooter>
+								</ModalContent>
+							</Modal>
+						</Box>
+					</Stack>
+				)}
 			</Box>
 		</Flex>
 	);
