@@ -25,6 +25,11 @@ beforeEach(() => {
 				error: null,
 			},
 		},
+		user: {
+			user: {
+				user_role: 'Distribution Officer',
+			},
+		},
 	});
 });
 afterEach(() => {
